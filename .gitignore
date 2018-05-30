@@ -5,3 +5,9 @@ YoutubeDL/*
 !YoutubeDL/youtube-dl.exe
 Test/*
 Boxy/DropFiles.txt
+
+.vscode/*
+ScriptFag/Res
+ScriptFag/Lib
+Boxy/Res
+Boxy/Lib
