@@ -1,0 +1,7 @@
+Boxy/ScreenShot/*
+YoutubeDL/*
+!YoutubeDL/youtube-dl.exe
+!YoutubeDL/YTDL_HelperGui.ahk
+!YoutubeDL/youtube-dl.exe
+Test/*
+Boxy/DropFiles.txt
