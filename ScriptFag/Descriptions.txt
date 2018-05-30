@@ -14,3 +14,5 @@ DescriptionHide = Hide script windows
 DescriptionEdit = Open this script in Visual Studio Code
 DescriptionTest = Run test: label
 
+
+DescriptionDotaprofile = Undescribed

@@ -22,6 +22,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Descriptions.txt
 
 Load:
+;They keys are assigned to Dota2 hotkeys (items, courier etc)
 CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
@@ -143,7 +144,7 @@ OnExit("SaveIni")
 OnMessage(0x200,"WM_MOUSEMOVE")
 OnMessage(0x2A2,"WM_NCMOUSELEAVE")
 Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
-DebugAppend("Finished Load")
+DebugAffix("Finished Load")
 SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
 Return
@@ -201,7 +202,7 @@ If (A_GuiControl=PrevA_GuiControl)
 PrevA_GuiControl:=A_GuiControl
 If !(A_GuiControl)
 	If (DebugSetting=1 and Tab!="Settings")
-		DebugAppend()
+		DebugAffix()
 GuiControlPrefix := PrefixNum(A_GuiControl)
 If (GuiControlPrefix){
 	If (DebugSetting=1){
@@ -209,7 +210,7 @@ If (GuiControlPrefix){
 			If (HotkeySettingsDescription[GuiControlPrefix])
 				DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeySettingsDescription[GuiControlPrefix])
 			Else 
-				DebugAppend(HotkeyName[GuiControlPrefix] " has no settings description!")
+				DebugAffix(HotkeyName[GuiControlPrefix] " has no settings description!")
 		} Else 
 			DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeyDescription[GuiControlPrefix])
 	}
@@ -218,7 +219,7 @@ If (GuiControlPrefix){
 	If !(%DebugDescription%){
 		%DebugDescription%:="Undescribed"
 		FileAppend,% "`n" DebugDescription " = Undescribed", Descriptions.txt,
-		DebugAppend(A_GuiControl " added to Descriptions.txt")
+		DebugAffix(A_GuiControl " added to Descriptions.txt")
 	}
 	Else If (%DebugDescription%!="Undescribed"){
 		If (DebugSetting=1)
@@ -227,7 +228,7 @@ If (GuiControlPrefix){
 }}
 WM_NCMOUSELEAVE(){
 	If (DebugSetting=1 and Tab!="Settings")
-		DebugAppend()
+		DebugAffix()
 }
 
 GlobalHotkeyCreate:
@@ -283,6 +284,9 @@ If (CreateName!=ScriptCount)
 	send {Tab}  ;Send tab when not in last hotkey
 Goto SpecialHotkey
 
+
+;Some keys need custom controlling because they dont show up in hotkey controls
+;F13-F24 are G1-G12 in accordance to my current mouse
 SpecialHotkey:
 GuiControlGet, %A_GuiControl%, Pos, %A_GuiControl%
 If (%A_GuiControl%W = HotkeySize) {
@@ -322,20 +326,20 @@ SaveIni(){
 
 SaveGlobalHotkeys(){
 	global
-	DebugAppend(A_ThisFunc)
+	DebugAffix(A_ThisFunc)
 	Loop, %ScriptCount% {
 		IniWrite,% %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
 }}
 LoadGlobalHotkeys(){
 	global
-	DebugAppend(A_ThisFunc)
+	DebugAffix(A_ThisFunc)
 	Loop, %ScriptCount% {
 		IniRead, %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
 		If (%A_Index%Global) {
 			Hotkey,% %A_Index%Global, % HotkeySub[A_Index], UseErrorLevel
 			GuiControl, , y%A_Index%Global,% %A_Index%Global
 			HotkeyGlobalPrev[A_Index] := %A_Index%Global
-			DebugAppend(HotkeyGlobalPrev[A_Index])
+			DebugAffix(HotkeyGlobalPrev[A_Index])
 			If (HotkeyShIft[A_Index])
 				Hotkey,% "+"%A_Index%Global,% HotkeySub[A_Index] . "_ShIft", UseErrorLevel
 			If (HotkeyAlt[A_Index])
@@ -363,7 +367,7 @@ LoadGlobalHotkeys(){
 SaveHotkeys(Save="Default"){
 	global
 	If (Tab="Hotkeys"){
-		DebugAppend(A_ThisFunc)
+		DebugAffix(A_ThisFunc)
 		Loop, %ScriptCount% {
 			IniWrite,% %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index]
 			Hotkey,% %A_Index%, Off, UseErrorLevel
@@ -376,16 +380,16 @@ SaveHotkeys(Save="Default"){
 			%A_Index% =
 			GuiControl, , %A_Index%,
 	}}
-	Else DebugAppend(A_ThisFunc " ignored in " Tab " tab")
+	Else DebugAffix(A_ThisFunc " ignored in " Tab " tab")
 }
 RestoreHotkeys(Save="Default"){
 	global
 	Profile := Save
 	If (Tab="Globals"){
-		DebugAppend(A_ThisFunc " ignored in " Tab " tab")
+		DebugAffix(A_ThisFunc " ignored in " Tab " tab")
 		Return
 	}
-	DebugAppend(A_ThisFunc)
+	DebugAffix(A_ThisFunc)
 	GoSub LoadScripts
 	Loop, %ScriptCount% {
 		IniRead, %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index], %A_Space%
@@ -482,11 +486,10 @@ TabControl:
 SaveHotkeys(Profile)
 Gui, Submit, NoHide
 If (Tab="Globals"){
-	DebugAppend("Leave globals tab to re-enable hotkeys")
+	DebugAffix("Leave globals tab to re-enable hotkeys")
 } Else If (Tab="Hotkeys") {
 	RestoreHotkeys(Profile)
 } Else If (Tab="Settings"){
-	MsgBox,% Target(900,100,,1)
 	DebugSet("Note that most of these settings can also be changed with hotkey+shift")
 }
 Return
@@ -551,7 +554,7 @@ If InStr(ActiveTitle, "S BATTLEGROUNDS"){
 		PubgEnabled=1
 		GoSub LayoutFi
 		Gosub SB_Profile
-		DebugAppend("Enabled Pubg")
+		DebugAffix("Enabled Pubg")
 		Return
 	}
 }
@@ -566,7 +569,7 @@ Hotkey, ~+Alt, On
 RestoreHotkeys()
 PubgEnabled=0
 Gosub SB_Profile
-DebugAppend("Disabled Pubg")
+DebugAffix("Disabled Pubg")
 Return
 
 DotaOverride:
@@ -596,7 +599,7 @@ If (!DotaEnabled and ActiveTitle="Dota 2"){
 	RestoreHotkeys("Dota")
 	DotaEnabled=1
 	Gosub SB_Profile
-	DebugAppend("Enabled dota")
+	DebugAffix("Enabled dota")
 	Return
 }
 Else If (!DotaEnabled or ActiveTitle="Search" or ActiveTitle="Dota 2" or !ActiveTitle or ActiveTitle=GuiTitle)
@@ -615,7 +618,7 @@ Hotkey, *%CustomKey8%, Off
 RestoreHotkeys()
 DotaEnabled=0
 Gosub SB_Profile
-DebugAppend("Disabled dota")
+DebugAffix("Disabled dota")
 Return
 
 WitcherOverride:
@@ -631,7 +634,7 @@ If (ActiveTitle = "The Witcher 3") {
 		WitcherEnabled=1
 		GoSub LayoutFi
 		Gosub SB_Profile
-		DebugAppend("Enabled Witcher")
+		DebugAffix("Enabled Witcher")
 		Return
 }}
 If !(WitcherEnabled=1 and ActiveTitle!=GuiTitle and ActiveTitle!="Search" and ActiveTitle)
@@ -645,12 +648,12 @@ Hotkey, ~+Alt, On
 RestoreHotkeys()
 WitcherEnabled=0
 Gosub SB_Profile
-DebugAppend("Disabled Witcher")
+DebugAffix("Disabled Witcher")
 Return
 
 DefaultOverride:
 DisableHotkeyProfiles:
-DebugAppend("Disabling all profiles")
+DebugAffix("Disabling all profiles")
 If DotaEnabled
 	GoSub DisableDota
 If PubgEnabled 
@@ -659,7 +662,9 @@ If WitcherEnabled
 	GoSub DisableWitcher
 Return
 
-;;Static Scripts/Hotkeys;;Static Scripts/Hotkeys;;Static Scripts/Hotkeys;;Static Scripts/Hotkeys;;Static Scripts/Hotkeys
+;#####################################################################################
+;;Automatic scripts. Non-hotkeyable
+;#####################################################################################
 
 DotaZ:
 Send {Blind}{z down}
@@ -708,7 +713,7 @@ WinGetPos WinX, WinY, WinW, WinH, A
 ImageSearch, ImageX, ImageY, WinX+WinW-105, WinY+WinH-235, WinX+WinW-80, WinY+WinH-10, *2 Res\FlickrPopUpX.png
 If errorlevel {
 	If errorlevel = 2 
-		DebugAppend("Problem opening resource file in "A_ThisLabel)
+		DebugAffix("Problem opening resource file in "A_ThisLabel)
 	Return	
 }
 BlockInput, MouseMove
@@ -716,7 +721,7 @@ MousePos("Save")
 Click, %ImageX%, %ImageY%
 MousePos("Restore")
 BlockInput, MouseMoveOff
-DebugAppend("Finished "A_ThisLabel)
+DebugAffix("Finished "A_ThisLabel)
 Return
 
 ;Middle MouseMiddle Mouse Middle
@@ -726,7 +731,7 @@ If GetKeyState("ShIft") and GetKeyState("Ctrl") and GetKeyState("Alt"){
 		MMFake=0
 	Else
 		MMFake:=1
-	DebugAppend("Click point tracing " MMFake " for " A_ThisLabel)
+	DebugAffix("Click point tracing " MMFake " for " A_ThisLabel)
 	WriteIni(,,"MMFake")
 }
 MouseGetPos,,, WinId,
@@ -766,10 +771,14 @@ Gosub SB_Layout
 Soundplay, %A_WinDir%\Media\Windows Default.wav
 Return
 
-;;Dynamic Scripts ;;To disable a script comment the whole thing or hop over it ;;Dynamic Scripts ;;Dynamic Scripts
+;#####################################################################################
+;;Hotkeyable scripts
+;;To disable a script comment the whole thing or hop over it
+;#####################################################################################
+
 LoadScripts:
 ScriptCount=0
-;GoTo SkipToDebug  ;uncomment to skip all scripts except dummies
+;GoTo SkipToDebug  ;uncomment to skip to dummies
 
 ScriptCount++
 HotkeyName[ScriptCount] := "Pin_Unpin_Chrome"
@@ -794,7 +803,7 @@ HotkeyDescription[ScriptCount] := "Hotkey:`nModIfy the url to show sizes in Flic
 GoTo HopFS
 FS:
 If !InStr(ActiveTitle, "| Flickr -"){  ;Not in Flickr
-	DebugAppend("Not in flickr")
+	DebugAffix("Not in flickr")
 	Return
 }
 If InStr(ActiveTitle, "All sizes"){  ;Open image
@@ -814,7 +823,7 @@ Else {  ;Add shit to url
 		ClipFailCount+=1
 		If (ClipFailCount=10){
 			ClipFailCount=0
-			DebugAppend("Failed to copy text at " A_ThisLabel)
+			DebugAffix("Failed to copy text at " A_ThisLabel)
 			Return
 		} Else GoTo %A_ThisLabel%
 	}
@@ -860,7 +869,7 @@ If ErrorLevel {
 	ClipFailCount++
 	If (ClipFailCount=10){
 		ClipFailCount=0
-		DebugAppend("Failed to copy text at " A_ThisLabel)
+		DebugAffix("Failed to copy text at " A_ThisLabel)
 		Return
 	} Else GoTo %A_ThisLabel%
 } ClipFailCount=0
@@ -895,7 +904,7 @@ ScriptCount++
 HotkeyName[ScriptCount] := "Click_Location"
 HotkeySub[ScriptCount] := "CL"
 HotkeySettings[ScriptCount] := "CL_ClickX,CL_ClickY"
-HotkeySettingsDescription[ScriptCount] := "Test text"
+HotkeySettingsDescription[ScriptCount] := "CL_ClickX:`nClick x coordinate`n`nCL_ClickY:`nClick y coordinate"
 HotkeyDescription[ScriptCount] := "Hotkey:`nClick your chosen location`n`nShIft:`nChoose the location"
 HotkeyShIft[ScriptCount] := 1
 ReadIni(Profile,,"CL_ClickX","CL_ClickY")
@@ -1099,7 +1108,7 @@ If !LoadIndex {
 } GoTo HopDS
 DS:
 If (DebugSetting=1 or DebugSetting=-1)
-	DebugAppend()
+	DebugAffix()
 If !DebugSetting
 	Gui, DS:Show,, Debug
 Else DebugSetting:=DebugSetting*-1
@@ -1109,7 +1118,7 @@ DS_ShIft:
 Gui, DS:Show,, Debug
 Return
 DS_Log:
-DebugAppend()
+DebugAffix()
 DebugSetting=1
 WriteIni(,,"DebugSetting")
 Return
@@ -1134,7 +1143,7 @@ HotkeyShIft[ScriptCount] := 1
 HotkeyAlt[ScriptCount] := 1	
 GoTo HopDD
 DD_ShIft:
-DebugAppend("Use alt as this scripts modIfier key!")
+DebugAffix("Use alt as this scripts modIfier key!")
 Return
 DD_Alt:
 DD_AltMove=1
@@ -1149,13 +1158,13 @@ If CompareColor(DD_WinX+DD_WinW/2, DD_WinY+DD_WinH/2, "0E0E0E"){
 	WaitCount+=1
 	If (WaitCount=100){
 		WaitCount=0
-		DebugAppend("Image wait timeout " A_ThisLabel)
+		DebugAffix("Image wait timeout " A_ThisLabel)
 		Return
 	} Else GoTo %A_ThisLabel%
 }
 WinGet, DDProcess, ProcessName, A
 If (DDProcess != "chrome.exe"){
-	DebugAppend("Invalid window (not chrome.exe)")
+	DebugAffix("Invalid window (not chrome.exe)")
 	Return
 }
 BlockInput, MouseMove
@@ -1204,7 +1213,7 @@ If ErrorLevel {
 	ClipFailCount+=1
 	If (ClipFailCount=10){
 		ClipFailCount=0
-		DebugAppend("Failed to copy text at " A_ThisLabel)
+		DebugAffix("Failed to copy text at " A_ThisLabel)
 		Return
 	} Else GoTo %A_ThisLabel%
 }
@@ -1220,7 +1229,7 @@ HotkeyDescription[ScriptCount] := "Hotkey:`nFind selected label or function in t
 GoTo HopVS
 VS:
 IfWinNotActive, ahk_exe code.exe
-{	DebugAppend("Not in vs code")
+{	DebugAffix("Not in vs code")
 	Return
 }
 GoSub SaveClipboard
@@ -1252,7 +1261,7 @@ HotkeyDescription[ScriptCount] := "Hotkey:`nPressing this without ctrl+alt doesn
 HotkeyCtrlAlt[ScriptCount] := 1
 GoTo HopAN
 AN:
-DebugAppend("This hotkey needs ctrl+alt")
+DebugAffix("This hotkey needs ctrl+alt")
 Return
 AN_CtrlAlt:
 GoTo Terminate
@@ -1270,12 +1279,12 @@ Loop, 1 {	;Create similarly stupid dummy scripts
 }
 GoTo HopDummy
 Dummy_Settings:
-DebugAppend("YOU JUST CHANGED NOTHING")
+DebugAffix("YOU JUST CHANGED NOTHING")
 Return
 HopDummy:
 
 LoadIndex++
-DebugAppend("Pass " LoadIndex ". Loaded " ScriptCount " Scripts")
+DebugAffix("Pass " LoadIndex ". Loaded " ScriptCount " Scripts")
 Return
 
 ;Template

@@ -1,7 +1,18 @@
-﻿;Independent scripts (local or static)
-;Revision 5
-;Added Target() TargetCancel()
+﻿;Cross use functions
+;Revision 6
+;Added Target() TargetCancel() | Tidy up. DebugAppend <-> DebugAffix. Added new DebugAppend()
 ;2018-05-30
+
+;#####################################################################################
+;Conversions
+
+HexToDec(HexVal){
+	Old_A_FormatInteger := A_FormatInteger
+	SetFormat IntegerFast, D
+	DecVal := HexVal + 0
+	SetFormat IntegerFast, %Old_A_FormatInteger%
+	Return DecVal
+}
 
 RGBToHex(Red,Green,Blue){
 	oldIntFormat := A_FormatInteger
@@ -13,13 +24,8 @@ RGBToHex(Red,Green,Blue){
 	return RGB
 }
 
-HexToDec(HexVal){
-	Old_A_FormatInteger := A_FormatInteger
-	SetFormat IntegerFast, D
-	DecVal := HexVal + 0
-	SetFormat IntegerFast, %Old_A_FormatInteger%
-	Return DecVal
-}
+;#####################################################################################
+;Returns boolean. Compares if color in x,y is one in the Colors*  
 
 CompareColor(X,Y,Colors*){
 	PixelGetColor, PixelColor, %X%, %Y%
@@ -32,69 +38,89 @@ CompareColor(X,Y,Colors*){
 	}} Return 0
 }
 
+;#####################################################################################
+;Returns the number sequence from haystacks start (Prefix) or end (Suffix)
+
 PrefixNum(haystack){
-Loop, Parse, haystack
-{
-	If A_LoopField is Number
-		Parse .= A_LoopField
-	else Break
+	Loop, Parse, haystack
+	{
+		If A_LoopField is Number
+			Prefix .= A_LoopField
+		else Break
+	}
+	Return Prefix
 }
-Return Parse
-}
+
 SuffixNum(haystack){
-DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&haystack, "CDecl")
-Loop, Parse, haystack
-{
-	If A_LoopField is Number
-		Parse .= A_LoopField
-	else Break
+	DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&haystack, "CDecl")
+	Loop, Parse, haystack
+	{
+		If A_LoopField is Number
+			Suffix .= A_LoopField
+		else Break
+	}
+	Return Suffix
 }
-Return Parse
-}
+
+;#####################################################################################
+;Returns reversed string
 
 StrRev(in) {
 	DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&in, "CDecl")
 	return in
 }
 
+;#####################################################################################
+;Batch form for inis. Keys* will be saved to specified ini with their own name
+
 ReadIni(Section="All",File="Prefs.ini",Keys*){
 	for i, Key in Keys {
 		if %Key%
 			IniRead, %key%, %File%, %Section%,% key, %A_Space%
 }}
+
 WriteIni(Section="All",File="Prefs.ini",Keys*){
 	for i, Key in Keys {
 		if %Key%
 			IniWrite,% %Key%, %File%, %Section%,% key
 }}
 
-Paste(data){	;Paste your string/char/num
+;#####################################################################################
+;Fastest way to send text. Return 1 for success, 0 for timeout
+
+Paste(data){
 	Clipboard= 
 	Clipboard := data
 	Clipwait, 1
 	if ErrorLevel {
-		DebugAppend("Paste failed at " %A_ThisLabel%)
+		DebugAffix("Paste failed at " %A_ThisLabel%)
 		return 0
 	} send ^v
 	return 1
 }
 
-UrlEncode(String){	;Make Text URL friendly space=%20 etc
+;#####################################################################################
+;Returns string in a more url compatible format. " "=%20 etc
+
+UrlEncode(String){
 	OldFormat := A_FormatInteger
 	SetFormat, Integer, H
 	Loop, Parse, String 
 	{
 		if (A_LoopField is alnum) {
-			Out .= A_LoopField
+			Encode .= A_LoopField
 			continue
 		}
 		Hex := SubStr( Asc( A_LoopField ), 3 )
-		Out .= "%" . ( StrLen( Hex ) = 1 ? "0" . Hex : Hex )
+		Encode .= "%" . ( StrLen( Hex ) = 1 ? "0" . Hex : Hex )
 	}
 	SetFormat, Integer, %OldFormat%
 
-	return Out
+	return Encode
 }
+
+;#####################################################################################
+;Store mouse location or set to previous location. Enter "Save" or "Restore"
 
 MousePos(Choice="Save"){
 	static X, Y
@@ -104,25 +130,53 @@ MousePos(Choice="Save"){
 		MouseMove, X, Y
 }
 
-Beep(Pitch,Duration){	;The beep.ahk is used to work around the sleep caused by SoundBeep
+;#####################################################################################
+;The beep.ahk is used to work around the sleep caused by SoundBeep
+
+Beep(Pitch,Duration){
 	Run, "Lib\Beep.ahk" %Pitch% %Duration%,,
 }
 
-DebugAppend(Text=""){	;Append text into a control named Debug
+;#####################################################################################
+;Affix/Append to a string that is set to a control named Debug.
+;Only shows if DebugSetting is 1. However, stored string is still updated
+;Shows string text in debug if no input
+
+DebugAffix(Text="",AddAffix=1){  
 	global DebugSetting
 	Static Count = 0, String
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
 		Return
 	} Count ++
+	If (AddAffix=1)
+		String:= Count ": " Text "`n" String
+	else String:= Text "`n" String
 	if (DebugSetting=1)
-		GuiControl,1:, Debug, %Count%: %Text%`n%String%
-	String:= Count ": " Text "`n" String
+		GuiControl,1:, Debug, %String%
 }
 
+DebugAppend(Text="",AddAffix=1){
+	global DebugSetting
+	Static Count = 0, String
+	if (Text=""){
+		GuiControl,1:, Debug, %String%
+		Return
+	} Count ++
+	If (AddAffix=1)
+		String:= ((Count=1)?(String Count ": " Text):(String "`n" Count ": " Text))
+	else String:= ((Count=1)?(String Count Text):(String "`n" Text)) 
+	if (DebugSetting=1)
+		GuiControl,1:, Debug, %String%
+}
+
+;Sets text in control named Debug
 DebugSet(Text){
 	GuiControl,1:, Debug, %Text%
 }
+
+;#####################################################################################
+;Bad way to do guis. Returns stored value and adds to it
 
 AddToVar(Add=0,Var="Default",Set=""){
 	static
@@ -132,21 +186,16 @@ AddToVar(Add=0,Var="Default",Set=""){
 	Return "x" %Var%
 }
 
-GuiAddX(Shift,Gui=1,Reset=0){
-	static
-	if reset
-		%Gui%RowX=
-	else if !%Gui%RowX 
-		%Gui%RowX=20
-	else %Gui%RowX += Shift
-	Return "x" %Gui%RowX
-}
+;#####################################################################################
+;Returns keyboard layout id
 
 GetLayout(){
 	Return DllCall("GetKeyboardLayout", Int,DllCall("GetWindowThreadProcessId", int,WinActive("A"), Int,0))
 }
 
-;Shows a targetting "device" to gather coordinates. Returns x,y or -1 if cancelled
+;#####################################################################################
+;Shows a targetting "device" to gather coordinates. Returns %x%,%y% or -1 if cancelled
+
 Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 	Static Init, DragID
 	Global TargetTargeting, FuncTargetCancel
@@ -241,6 +290,11 @@ TargetCancel(){
 	Global FuncTargetCancel=1
 }
 
+;#####################################################################################
+;Returns a lot of info about things uder your mouse.
+;Laggy parts are separated and controlled by Subtick value.
+;Laggy things are updated when the function is called %subtick% times 
+;#####################################################################################
 
 GetUnderMouseInfo(SubTick=1){
 	static
@@ -274,3 +328,5 @@ GetUnderMouseInfo(SubTick=1){
 	i++
 	Return WindowInfo
 }
+
+;#####################################################################################
