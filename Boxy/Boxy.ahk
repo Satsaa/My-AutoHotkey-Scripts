@@ -23,15 +23,16 @@ IDC_SIZENS := 32645
 IDC_SIZENWSE := 32642
 IDC_SIZEWE := 32644
 
-Prefs:="Boxy.ini"
 ScreenshotFolder:="Screenshot\"
-MaxImgDim:=750,
-BoxW:=BoxH:=100,
+FileCreateDir, %ScreenshotFolder%
+MaxImgDim:=750,  ;The maximum height or width for the screenshot review
 CornerX:=0, CornerY:=0,
 Hotkey, ~*LButton Up, Off, UseErrorLevel 
 GuiTitle := RegExReplace(A_ScriptName, ".ahk")
-ReadIni("Settings", Prefs,"MatchTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2"
-		,"BoxX","BoxY","BoxW","BoxH","Hotkeys","GuiLoadX","GuiLoadY","Delay")
+ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
+	,"InputX",100,"InputY",100,"InputX2",200,"InputY2",200
+	,"BoxX",100,"BoxY",100,"BoxW",100,"BoxH",100
+	,"Hotkeys",1,"GuiLoadX",250,"GuiLoadY",250,"Delay",0)
 Gui, Color, EEAA99
 Gui, +LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndHwnd +Owner 
 WinSet, TransColor, EEAA99 
@@ -150,14 +151,14 @@ SetTimer, DelayAnim, off
 GoSub SaveClipboard
 ImageCopy=
 ImageDateCurrent := A_YYYY "-" A_MM "-" A_DD 
-ReadIni("FileName", Prefs, "ImageDate", "Increment")
+ReadIni("FileName",, "ImageDate", "Increment")
 If (ImageDate!=ImageDateCurrent){
 	Increment=0
 	ImageDate:=ImageDateCurrent
-	WriteIni("FileName", Prefs,"ImageDate","Increment")
+	WriteIni("FileName",,"ImageDate","Increment")
 } else {
 	Increment++
-	WriteIni("FileName", Prefs,"Increment")
+	WriteIni("FileName",,"Increment")
 } 
 ImageFile:= ScreenshotFolder ImageDate "_" Increment ".png"
 GuiControl,2:, ScreenshotText, Loading Image
@@ -217,13 +218,13 @@ If (Hotkeys) {
 
 2GuiClose:
 GuiClose:
-WriteIni("Settings", Prefs,"MatchTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2",
+WriteIni("Settings",,"MatchTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2",
 		,"BoxX","BoxY","BoxW","BoxH","Hotkeys","Delay")
 GoSub UnloadCursors
 Gui, 2: +LastFound
 WinGetPos,GuiLoadX,GuiLoadY,VirGuiW
 if !(GuiLoadX<150-VirGuiW or GuiLoadY<0){
-	WriteIni("Settings",Prefs,"GuiLoadX","GuiLoadY")
+	WriteIni("Settings",,"GuiLoadX","GuiLoadY")
 }
 exitApp
 Return
@@ -289,17 +290,7 @@ WM_MOUSEMOVE(wParam, lParam) {
 ScreenShotClick:
 If (A_GuiEvent="Doubleclick")
 	GoTo OpenImage
-;else 
-;	Hotkey, ~*LButton Up, On, UseErrorLevel 
-;Return
-;
-;~*LButton Up::
-;Hotkey, ~*LButton Up, Off, UseErrorLevel 
-;MouseGetPos, DropX, DropY, dropID,
-;If (dropID!=MainID and dropID!=BoxID){
-;	dropPath:=A_ScriptDir "\" ImageFile
-;}
-;return
+return
 
 CopyImage:
 If ImageCopy

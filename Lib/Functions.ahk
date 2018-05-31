@@ -71,22 +71,40 @@ StrRev(in) {
 }
 
 ;#####################################################################################
-;Batch form for inis. Keys* will be saved to specified ini with their own name
+;Key(script var) = Key(ini value) will match when using these functions
+;Read/write ini for Keys*. Keys* usage: Key, Key, Key... 
 
 ReadIni(Section="All",File="Prefs.ini",Keys*){
 	for i, Key in Keys {
 		if %Key%
-			IniRead, %key%, %File%, %Section%,% key, %A_Space%
+			IniRead, %key%, %File%, %Section%, %key%, %A_Space%
 }}
 
 WriteIni(Section="All",File="Prefs.ini",Keys*){
 	for i, Key in Keys {
 		if %Key%
-			IniWrite,% %Key%, %File%, %Section%,% key
+			IniWrite,% %Key%, %File%, %Section%, %key%
 }}
 
+;Read ini for Keys* if not defined set it to next in Keys*. Keys* usage: Key, value, Key... 
+ReadIniDefUndef(Section="All",File="Prefs.ini",Keys*){
+	Global
+	Static KeyWrite
+	Local ii
+	for i, Key in Keys {
+		ii++
+		if (ii=1){
+			KeyWrite:=Key
+			IniRead, %key%, %File%, %Section%,%key%, %A_Space%
+		} else {
+			ii=0
+			If (%KeyWrite%=""){
+				%KeyWrite%:=key
+				IniWrite,% %KeyWrite%, %File%, %Section%, %KeyWrite%
+}}}}
+
 ;#####################################################################################
-;Fastest way to send text. Return 1 for success, 0 for timeout
+;Fastest way to send text. Returns 1 for success, 0 for timeout
 
 Paste(data){
 	Clipboard= 
@@ -143,7 +161,7 @@ Beep(Pitch,Duration){
 ;Shows string text in debug if no input
 
 DebugAffix(Text="",AddAffix=1){  
-	global DebugSetting
+	Global DebugSetting
 	Static Count = 0, String
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
@@ -157,7 +175,7 @@ DebugAffix(Text="",AddAffix=1){
 }
 
 DebugAppend(Text="",AddAffix=1){
-	global DebugSetting
+	Global DebugSetting
 	Static Count = 0, String
 	if (Text=""){
 		GuiControl,1:, Debug, %String%

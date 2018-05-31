@@ -21,8 +21,9 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Lib\TrayMenu.ahk
 #Include %A_ScriptDir%\Descriptions.txt
 
+
 Load:
-;They keys are assigned to Dota2 hotkeys (items, courier etc)
+;These keys are assigned to Dota2 hotkeys (items, courier etc)
 CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
@@ -33,13 +34,14 @@ HotkeyPrev := [], HotkeyGlobalPrev := [],
 TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
+SettingSize := 40,  ;Width for settings edit boxes
 Ru := -265092071, Fi := 67830793,	;Input layout codes
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 Layout := GetLayout()
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
-ReadIni(,,"FirstLoad","GuiLoadY","GuiloadX","MMFake")
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
@@ -60,24 +62,24 @@ If (FirstLoad){
 	} WriteIni(,,"FirstLoad")
 }
 GoSub LoadScripts  ;Load scripts and their init values etc
-If Mod(ScriptCount, MaxPerColumn)  ;Calculate nice hotkey button layout
-	MaxPerColumn := Ceil(ScriptCount/((ScriptCount - Mod(ScriptCount, MaxPerColumn))/MaxPerColumn + 1))
+If Mod(SC, MaxPerColumn)  ;Calculate nice hotkey button layout
+	MaxPerColumn := Ceil(SC/((SC - Mod(SC, MaxPerColumn))/MaxPerColumn + 1))
 MaxGuiHeight := (48*MaxPerColumn)
 Menu, Tray, Icon, %A_ScriptDir%\Res\forsenE.ico
 Hotkey, ~!ShIft, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(ScriptCount/(MaxPerColumn))+11, Hotkeys|Globals|Settings
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings
 Tab = Hotkeys
 Gui, Tab, Hotkeys
 AddToVar(,,-HotkeySize+9)
-Loop, %ScriptCount% {  ;HOTKEYS
+Loop, %SC% {  ;HOTKEYS
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of hotkeys
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Else  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
 }
-Loop, %ScriptCount%
+Loop, %SC%
 	Gui, Add, Text,% "vSpecialText" A_Index " x-25 y-25 w22" , 
 Gui, Tab,
 Gui, Add, Text, ym, Debug view
@@ -94,7 +96,7 @@ Gui, Add, Button, wp gPubgOverride, Pubg
 Gui, Add, Button, wp gWitcherOverride, Witcher
 Gui, Tab, Globals
 AddToVar(,"Globals",-HotkeySize+9)
-Loop, %ScriptCount% {  ;GLOBAL hotkeys
+Loop, %SC% {  ;GLOBAL hotkeys
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of hotkeys
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Globals"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Else  ;Continue the row
@@ -103,7 +105,7 @@ Loop, %ScriptCount% {  ;GLOBAL hotkeys
 }
 Gui, Tab, Settings  ;BuildSettingsTab
 AddToVar(,"Settings",-HotkeySize+9)
-Loop, %ScriptCount% {  ;SETTING list
+Loop, %SC% {  ;SETTING list
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of settings
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Settings"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Else  ;Continue the row
@@ -117,20 +119,22 @@ Loop, %ScriptCount% {  ;SETTING list
 			temp.=A_LoopField "|"
 		}
 		temp:=SubStr(temp,1,StrLen(temp)-1)
-		Gui, Add, DropDownList,% "v" A_Index "Settings gSettingUpdate Choose1 w" HotkeySize-40, %temp%
-		Gui, Add, Edit,% "w35 v" A_Index "SettingsEdit gSettingsEdit yp xp",% %FirstSetting%
+		gui, font, s8, Tahoma
+		Gui, Add, DropDownList,% "v" A_Index "Settings gSettingUpdate Choose1 w" HotkeySize-((SettingSize*1)+5), %temp%
+		gui, font,
+		Gui, Add, Edit,% "w" SettingSize " v" A_Index "SettingsEdit gSettingsEdit r1 yp xp",% %FirstSetting%
 	} Else {
 		Gui, Add, DropDownList, Disabled w%HotkeySize%,
 }}
-Loop, %ScriptCount% {  ;Conveniently fix edit box positioning
+Loop, %SC% {  ;Conveniently fix edit box positioning
 	CurrentColumn := (Floor((A_Index-1)/MaxPerColumn))+1
 	GuiControlGet, %A_Index%SettingsEdit, Pos, %A_Index%SettingsEdit
-	GuiControl, Move, %A_Index%SettingsEdit,% "x+" (HotkeySize-28)+((CurrentColumn-1)*(HotkeySize+10))
+	GuiControl, Move, %A_Index%SettingsEdit,% "x+" (HotkeySize-(SettingSize-7))+((CurrentColumn-1)*(HotkeySize+10))
 }
 Gui, Tab, Settings  ;BuildSettingsTab
 Gui, Tab,
 Gui, Add, StatusBar,,
-Loop, %ScriptCount%
+Loop, %SC%
 	Gui, Add, Text,% "vSpecialText" A_Index "Global x-25 y-25 w22" ,
 If !GuiLoadY or !GuiLoadY
 	GuiLoadY := 0, GuiLoadX := 0
@@ -280,7 +284,7 @@ Hotkey,% %A_GuiControl%, On, UseErrorLevel
 %PrevName%[CreateName] := %A_GuiControl%
 Hotkey, +, Off, UseErrorLevel
 Hotkey, ++, Off, UseErrorLevel
-If (CreateName!=ScriptCount)
+If (CreateName!=SC)
 	send {Tab}  ;Send tab when not in last hotkey
 Goto SpecialHotkey
 
@@ -313,7 +317,7 @@ DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
 Return
 
 SaveIni(){
-	global Profile, ScriptCount, Tab
+	global Profile, SC, Tab
 	Gui, 1: +LastFound
 	WinGetPos,GuiX,GuiY,GuiW
 	If !(GuiX<150-GuiW or GuiY<0){
@@ -327,13 +331,13 @@ SaveIni(){
 SaveGlobalHotkeys(){
 	global
 	DebugAffix(A_ThisFunc)
-	Loop, %ScriptCount% {
+	Loop, %SC% {
 		IniWrite,% %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
 }}
 LoadGlobalHotkeys(){
 	global
 	DebugAffix(A_ThisFunc)
-	Loop, %ScriptCount% {
+	Loop, %SC% {
 		IniRead, %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
 		If (%A_Index%Global) {
 			Hotkey,% %A_Index%Global, % HotkeySub[A_Index], UseErrorLevel
@@ -368,7 +372,7 @@ SaveHotkeys(Save="Default"){
 	global
 	If (Tab="Hotkeys"){
 		DebugAffix(A_ThisFunc)
-		Loop, %ScriptCount% {
+		Loop, %SC% {
 			IniWrite,% %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index]
 			Hotkey,% %A_Index%, Off, UseErrorLevel
 			Hotkey,% "+"%A_Index%, Off, UseErrorLevel
@@ -391,7 +395,7 @@ RestoreHotkeys(Save="Default"){
 	}
 	DebugAffix(A_ThisFunc)
 	GoSub LoadScripts
-	Loop, %ScriptCount% {
+	Loop, %SC% {
 		IniRead, %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index], %A_Space%
 		Hotkey,% %A_Index%,% HotkeySub[A_Index], UseErrorLevel
 		Hotkey,% %A_Index%, On, UseErrorLevel
@@ -726,14 +730,6 @@ Return
 
 ;Middle MouseMiddle Mouse Middle
 ~*MButton Up::
-If GetKeyState("ShIft") and GetKeyState("Ctrl") and GetKeyState("Alt"){
-	If MMFake=1
-		MMFake=0
-	Else
-		MMFake:=1
-	DebugAffix("Click point tracing " MMFake " for " A_ThisLabel)
-	WriteIni(,,"MMFake")
-}
 MouseGetPos,,, WinId,
 WinGetPos WinX, WinY, WinW, WinH, ahk_id %WinId%
 If (WinW!=368)
@@ -743,13 +739,9 @@ If (WinControl!="Intermediate D3D Window1")
 	Return
 BlockInput, MouseMove
 MousePos("Save")
-If MMFake
-	MouseMove, WinX+350, WinY+15
-Else {
-	MouseMove, WinX+350, WinY+15
-	Click, WinX+350, WinY+15
-	MousePos("Restore")
-}
+MouseMove, WinX+350, WinY+15
+Click, WinX+350, WinY+15
+MousePos("Restore")
 BlockInput, MouseMoveOff
 Return
 
@@ -777,13 +769,13 @@ Return
 ;#####################################################################################
 
 LoadScripts:
-ScriptCount=0
-;GoTo SkipToDebug  ;uncomment to skip to dummies
+SC=0
+;GoTo SkipToDummy
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Pin_Unpin_Chrome"
-HotkeySub[ScriptCount] := "Pin"
-HotkeyDescription[ScriptCount] := "Hotkey:`nPin or unpin a Chrome tab below the mouse"
+SC++
+HotkeyName[SC] := "Pin_Unpin_Chrome"
+HotkeySub[SC] := "Pin"
+HotkeyDescription[SC] := "Hotkey:`nPin or unpin a Chrome tab below the mouse"
 GoTo HopPin
 Pin:
 MouseGetPos,,, WinId,
@@ -796,10 +788,10 @@ SendInput u
 Return
 HopPin:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Flickr_Sizes"
-HotkeySub[ScriptCount] := "FS"
-HotkeyDescription[ScriptCount] := "Hotkey:`nModIfy the url to show sizes in Flickr. If already in sizes, opens the image AND CLOSES WINDOW"
+SC++
+HotkeyName[SC] := "Flickr_Sizes"
+HotkeySub[SC] := "FS"
+HotkeyDescription[SC] := "Hotkey:`nModIfy the url to show sizes in Flickr. If already in sizes, opens the image AND CLOSES WINDOW"
 GoTo HopFS
 FS:
 If !InStr(ActiveTitle, "| Flickr -"){  ;Not in Flickr
@@ -835,20 +827,20 @@ Else {  ;Add shit to url
 } Return
 HopFS:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Increase_Page"
-HotkeySub[ScriptCount] := "PI"
-HotkeySettings[ScriptCount] := "PI_Velocity"
-HotkeySettingsDescription[ScriptCount] := "PI_Velocity:`nThe amount to add or substract (shared)"
-HotkeyDescription[ScriptCount] := "Hotkey:`nAdd to the url's most right number`n`nShIft:`nChoose the amount to add or substract (shared)"
-HotkeyShIft[ScriptCount] := 1
-ReadIni(Profile,,"PI_Velocity")
+SC++
+HotkeyName[SC] := "Increase_Page"
+HotkeySub[SC] := "PI"
+HotkeySettings[SC] := "PI_Velocity"
+HotkeySettingsDescription[SC] := "PI_Velocity:`nThe amount to add or substract (shared)"
+HotkeyDescription[SC] := "Hotkey:`nAdd to the url's most right number`n`nShIft:`nChoose the amount to add or substract (shared)"
+HotkeyShIft[SC] := 1
+ReadIniDefUndef(Profile,,"PI_Velocity",1)
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Increase_Page_Inverse"
-HotkeySub[ScriptCount] := "PII"
-HotkeyDescription[ScriptCount] := "Hotkey:`nSubstract from the url's most right number`n`nShIft:`nChoose the amount to add or substract (shared)"
-HotkeyShIft[ScriptCount] := 1
+SC++
+HotkeyName[SC] := "Increase_Page_Inverse"
+HotkeySub[SC] := "PII"
+HotkeyDescription[SC] := "Hotkey:`nSubstract from the url's most right number`n`nShIft:`nChoose the amount to add or substract (shared)"
+HotkeyShIft[SC] := 1
 
 GoTo HopPI
 PII:
@@ -886,8 +878,9 @@ GoSub RestoreClipboard
 Return
 PII_ShIft:
 PI_ShIft:
-InputBox, PI_Velocity, , Page increase amount?,,,,,,,,1
-WriteIni(Profile,,"PI_Velocity")
+InputBox, PI_Velocity, , Page increase amount? (number),,,,,,,,1
+If PI_Velocity is number
+	WriteIni(Profile,,"PI_Velocity")
 Return
 
 PI_Settings:
@@ -900,14 +893,14 @@ If %A_GuiControl% is Number
 Return
 HopPI:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Click_Location"
-HotkeySub[ScriptCount] := "CL"
-HotkeySettings[ScriptCount] := "CL_ClickX,CL_ClickY"
-HotkeySettingsDescription[ScriptCount] := "CL_ClickX:`nClick x coordinate`n`nCL_ClickY:`nClick y coordinate"
-HotkeyDescription[ScriptCount] := "Hotkey:`nClick your chosen location`n`nShIft:`nChoose the location"
-HotkeyShIft[ScriptCount] := 1
-ReadIni(Profile,,"CL_ClickX","CL_ClickY")
+SC++
+HotkeyName[SC] := "Click_Location"
+HotkeySub[SC] := "CL"
+HotkeySettings[SC] := "CL_ClickX,CL_ClickY"
+HotkeySettingsDescription[SC] := "CL_ClickX:`nClick x coordinate`n`nCL_ClickY:`nClick y coordinate"
+HotkeyDescription[SC] := "Hotkey:`nClick your chosen location`n`nShIft:`nChoose the location"
+HotkeyShIft[SC] := 1
+ReadIniDefUndef(Profile,,"CL_ClickX",A_ScreenWidth/2,"CL_ClickY",A_Screenheight/2)
 GoTo HopCL
 CL:
 If CL_ClickX=
@@ -948,14 +941,15 @@ DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopCL:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Click_2_Locations"
-HotkeySub[ScriptCount] := "C2L"
-HotkeySettings[ScriptCount] := "C2L_Click1X,C2L_Click1Y,C2L_Click2X,C2L_Click2Y,C2L_CloseWin"
-HotkeySettingsDescription[ScriptCount] := "C2L_Click1X:`nFirst click x coordinate`n`nC2L_Click1Y:`nFirst click y coordinate`n`nC2L_Click2X:`nSecond click x coordinate`n`nC2L_Click2Y:`nSecond click y coordinate`n`nC2L_CloseWin:`n1 or 0; Desides If the tab will be closed`n`n"
-HotkeyDescription[ScriptCount] := "Hotkey:`nClick your chosen locations and optionally close tab (ctrl+w)`n`nShIft:`nChoose the locations and If to close the tab"
-HotkeyShIft[ScriptCount] := 1
-ReadIni(Profile,,"C2L_Click1X","C2L_Click1Y","C2L_Click2X","C2L_Click2Y","C2L_CloseWin")
+SC++
+HotkeyName[SC] := "Click_2_Locations"
+HotkeySub[SC] := "C2L"
+HotkeySettings[SC] := "C2L_Click1X,C2L_Click1Y,C2L_Click2X,C2L_Click2Y,C2L_CloseWin"
+HotkeySettingsDescription[SC] := "C2L_Click1X:`nFirst click x coordinate`n`nC2L_Click1Y:`nFirst click y coordinate`n`nC2L_Click2X:`nSecond click x coordinate`n`nC2L_Click2Y:`nSecond click y coordinate`n`nC2L_CloseWin:`n1 or 0; Desides If the tab will be closed`n`n"
+HotkeyDescription[SC] := "Hotkey:`nClick your chosen locations and optionally close tab (ctrl+w)`n`nShIft:`nChoose the locations and If to close the tab"
+HotkeyShIft[SC] := 1
+ReadIniDefUndef(Profile,,"C2L_Click1X",A_ScreenWidth/2,"C2L_Click1Y",A_ScreenHeight/2
+	,"C2L_Click2X",A_ScreenWidth/2+10,"C2L_Click2Y",A_ScreenHeight/2+10,"C2L_CloseWin",0)
 GoTo HopC2L
 C2L:
 If C2L_Click1X=
@@ -1019,14 +1013,14 @@ DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopC2L:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Spam_Click"
-HotkeySub[ScriptCount] := "SC"
-HotkeySettings[ScriptCount] := "SC_Sleep"
-HotkeySettingsDescription[ScriptCount] := "SC_Sleep:`nSleep duration between clicks (ms)"
-HotkeyDescription[ScriptCount] := "Hotkey:`nWhen held, click and sleep at your will`n`nShIft:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
-HotkeyShIft[ScriptCount] := 1
-ReadIni(Profile,,"SC_Sleep")
+SC++
+HotkeyName[SC] := "Spam_Click"
+HotkeySub[SC] := "SC"
+HotkeySettings[SC] := "SC_Sleep"
+HotkeySettingsDescription[SC] := "SC_Sleep:`nSleep duration between clicks (ms)"
+HotkeyDescription[SC] := "Hotkey:`nWhen held, click and sleep at your will`n`nShIft:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
+HotkeyShIft[SC] := 1
+ReadIniDefUndef(Profile,,"SC_Sleep","skip")
 GoTo HopSC
 SC:
 while GetKeyState(A_ThisHotkey, "D"){
@@ -1054,14 +1048,14 @@ Return
 HopSC:
 
 GoTo HopSM  ;Disables
-ScriptCount++
-HotkeyName[ScriptCount] := "Spam_Ping_Map"
-HotkeySub[ScriptCount] := "SM"
-HotkeySettings[ScriptCount] := "SM_Sleep"
-HotkeySettingsDescription[ScriptCount] := "SM_Sleep:`nSleep duration between pings (ms)"
-HotkeyDescription[ScriptCount] := "Hotkey:`nPing the Dota 2 map and sleep at your will`n`nShIft:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
-HotkeyShIft[ScriptCount] := 1
-ReadIni(Profile,,"SM_Sleep")
+SC++
+HotkeyName[SC] := "Spam_Ping_Map"
+HotkeySub[SC] := "SM"
+HotkeySettings[SC] := "SM_Sleep"
+HotkeySettingsDescription[SC] := "SM_Sleep:`nSleep duration between pings (ms)"
+HotkeyDescription[SC] := "Hotkey:`nPing the Dota 2 map and sleep at your will`n`nShIft:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
+HotkeyShIft[SC] := 1
+ReadIniDefUndef(Profile,,"SM_Sleep","skip")
 GoTo HopSM
 SM:
 MousePos("Save")
@@ -1092,15 +1086,15 @@ DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopSM:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Debug_Settings"
-HotkeySub[ScriptCount] := "DS"
-HotkeySettings[ScriptCount] := "DebugSetting"
-HotkeySettingsDescription[ScriptCount] := "DebugSetting:`n1=Log 2=UnderMouseInfo Negative=disabled"
-HotkeyDescription[ScriptCount] := "Hotkey:`nToggle updating of debug view`n`nShIft:`nSelect mode"
-HotkeyShIft[ScriptCount] := 1
+SC++
+HotkeyName[SC] := "Debug_Settings"
+HotkeySub[SC] := "DS"
+HotkeySettings[SC] := "DebugSetting"
+HotkeySettingsDescription[SC] := "DebugSetting:`n1=Log 2=UnderMouseInfo Negative=disabled"
+HotkeyDescription[SC] := "Hotkey:`nToggle updating of debug view`n`nShIft:`nSelect mode"
+HotkeyShIft[SC] := 1
 If !LoadIndex {
-	ReadIni(,,"DebugSetting")
+	ReadIniDefUndef(,,"DebugSetting",1)
 	Gui, DS:Add, Text,, Debug view settings
 	Gui, DS:Add, Radio, % (DebugSetting=1 or DebugSetting=-1) ? ("Checked gDS_Log") : ("gDS_Log"), Enable Log
 	Gui, DS:Add, Radio, % (DebugSetting=2 or DebugSetting=-2) ? ("Checked gDS_WinInfo") : ("gDS_WinInfo"), Enable Window Info
@@ -1135,12 +1129,12 @@ If (!%A_GuiControl%=0 and (%A_GuiControl%=1 or %A_GuiControl%=2 or %A_GuiControl
 Return
 HopDS:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Drag_and_Drop_Image"
-HotkeySub[ScriptCount] := "DD"
-HotkeyDescription[ScriptCount] := "Hotkey:`nDrag and drop an image from the middle of your browser to above the window`n`nShIft:`nThis doesnt work when shIft is pressed`n`nAlt:`nDrag and drop to right of the window"
-HotkeyShIft[ScriptCount] := 1
-HotkeyAlt[ScriptCount] := 1	
+SC++
+HotkeyName[SC] := "Drag_and_Drop_Image"
+HotkeySub[SC] := "DD"
+HotkeyDescription[SC] := "Hotkey:`nDrag and drop an image from the middle of your browser to above the window`n`nShIft:`nThis doesnt work when shIft is pressed`n`nAlt:`nDrag and drop to right of the window"
+HotkeyShIft[SC] := 1
+HotkeyAlt[SC] := 1	
 GoTo HopDD
 DD_ShIft:
 DebugAffix("Use alt as this scripts modIfier key!")
@@ -1199,10 +1193,10 @@ BlockInput, MouseMoveOff
 Return
 HopDD:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Yandex_Image_Search"
-HotkeySub[ScriptCount] := "YI"
-HotkeyDescription[ScriptCount] := "Hotkey:`nUse when your url points to and image. Yandex will image search it"
+SC++
+HotkeyName[SC] := "Yandex_Image_Search"
+HotkeySub[SC] := "YI"
+HotkeyDescription[SC] := "Hotkey:`nUse when your url points to and image. Yandex will image search it"
 GoTo HopYI
 YI:
 Send ^l
@@ -1222,10 +1216,10 @@ GoSub RestoreClipboard
 Return
 HopYI:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "VS_Code_Find_Label"
-HotkeySub[ScriptCount] := "VS"
-HotkeyDescription[ScriptCount] := "Hotkey:`nFind selected label or function in the current script file (Visual Studio Code)"
+SC++
+HotkeyName[SC] := "VS_Code_Find_Label"
+HotkeySub[SC] := "VS"
+HotkeyDescription[SC] := "Hotkey:`nFind selected label or function in the current script file (Visual Studio Code)"
 GoTo HopVS
 VS:
 IfWinNotActive, ahk_exe code.exe
@@ -1254,11 +1248,11 @@ GoSub RestoreClipboard
 Return
 HopVS:
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Annihilate"
-HotkeySub[ScriptCount] := "AN"
-HotkeyDescription[ScriptCount] := "Hotkey:`nPressing this without ctrl+alt doesnt do much`n`nCtrl+Alt:`nKill the script immediately"
-HotkeyCtrlAlt[ScriptCount] := 1
+SC++
+HotkeyName[SC] := "Annihilate"
+HotkeySub[SC] := "AN"
+HotkeyDescription[SC] := "Hotkey:`nPressing this without ctrl+alt doesnt do much`n`nCtrl+Alt:`nKill the script immediately"
+HotkeyCtrlAlt[SC] := 1
 GoTo HopAN
 AN:
 DebugAffix("This hotkey needs ctrl+alt")
@@ -1268,14 +1262,14 @@ GoTo Terminate
 Return
 HopAN:
 
-SkipToDebug:
+SkipToDummy:
 Loop, 1 {	;Create similarly stupid dummy scripts
-	ScriptCount++
-	HotkeyName[ScriptCount] := "Dummy"
-	HotkeySub[ScriptCount] := "Dummy"
-	HotkeySettings[ScriptCount] := "FakeVariable"
-	HotkeySettingsDescription[ScriptCount] := "FakeVariable:`nPlease note that this variable doesnt exist"
-	HotkeyDescription[ScriptCount] := "Im`na`ndummy`n:)"
+	SC++
+	HotkeyName[SC] := "Dummy"
+	HotkeySub[SC] := "Dummy"
+	HotkeySettings[SC] := "FakeVariable"
+	HotkeySettingsDescription[SC] := "FakeVariable:`nPlease note that this variable doesnt exist"
+	HotkeyDescription[SC] := "Im`na`ndummy`n:)"
 }
 GoTo HopDummy
 Dummy_Settings:
@@ -1284,22 +1278,23 @@ Return
 HopDummy:
 
 LoadIndex++
-DebugAffix("Pass " LoadIndex ". Loaded " ScriptCount " Scripts")
+DebugAffix("Pass " LoadIndex ". Loaded " SC " Scripts")
 Return
 
 ;Template
 
-ScriptCount++
-HotkeyName[ScriptCount] := "Name_of_Script"
-HotkeySub[ScriptCount] := "SHORT"
-HotkeySettings[ScriptCount] := "Variable,Variable2,Var3"  ;Variables that will be shown in Settings tab
-HotkeySettingsDescription[ScriptCount] := "Description when hovering in Settings tab"
-HotkeyDescription[ScriptCount] := "Description when hovering"
-HotkeyShIft[ScriptCount] := 1  ;If enabled shIft+hotkey will go to the				_ShIft label
-HotkeyAlt[ScriptCount] := 1  ;If enabled alt+hotkey will go to the					_Alt label
-HotkeyCtrlAlt[ScriptCount] := 1  ;If enabled ctrl+alt+hotkey will go to the			_CtrlAlt label
-HotkeyCtrlShIft[ScriptCount] := 1  ;If enabled ctrl+shIft+hotkey will go to the		_CtrlShIft label
-ReadIni(Profile,,"Variable","Variable2")  ;Profile specIfic variables. Loaded when profile is changed
+SC++
+HotkeyName[SC] := "Name_of_Script"
+HotkeySub[SC] := "SHORT"
+HotkeySettings[SC] := "Variable,Variable2,Var3"  ;Variables that will be shown in Settings tab
+HotkeySettingsDescription[SC] := "Description when hovering in Settings tab"
+HotkeyDescription[SC] := "Description when hovering"
+HotkeyShIft[SC] := 1  ;If enabled shIft+hotkey will go to the				_ShIft label
+HotkeyAlt[SC] := 1  ;If enabled alt+hotkey will go to the					_Alt label
+HotkeyCtrlAlt[SC] := 1  ;If enabled ctrl+alt+hotkey will go to the			_CtrlAlt label
+HotkeyCtrlShIft[SC] := 1  ;If enabled ctrl+shIft+hotkey will go to the		_CtrlShIft label
+;Profile specific variables, where "default" will be set when it is not in ini. Loaded when profile is changed
+ReadIniDefUndef(Profile,,"Variable","default","Variable2","default")
 If !LoadIndex {
 	;Execute only on the first time
 }
