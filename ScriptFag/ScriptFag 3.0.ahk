@@ -53,7 +53,7 @@ If (FirstLoad){
 	else If GreetFails=3
 		MsgBox, 16, Error, WOW! You are so funnyy xD, 2
 	else If (GreetFails>=4 and GreetFails<69)
-		MsgBox, 16, Error, Treasure awaits!`n`nYou have been resilient %GreetFails% times. Can you reach 69?,
+		MsgBox, 16, Error, Treasure awaits!`n`nYou have been resilient %GreetFails% times. Can you make it to 69?,
 	else If GreetFails=69
 		GoTo SecretLevel
 	GoTo, Greet
@@ -126,7 +126,6 @@ Loop, %SC% {  ;SETTING list
 }}
 Loop, %SC% {  ;Conveniently fix edit box positioning
 	CurrentColumn := (Floor((A_Index-1)/MaxPerColumn))+1
-	GuiControlGet, %A_Index%SettingsEdit, Pos, %A_Index%SettingsEdit
 	GuiControl, Move, %A_Index%SettingsEdit,% "x+" (HotkeySize-(SettingSize-7))+((CurrentColumn-1)*(HotkeySize+10))
 }
 Gui, Tab, Settings  ;BuildSettingsTab
@@ -150,6 +149,15 @@ DebugAffix("Finished Load")
 SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
 Return
+
+SettingsRefresh(){
+	global
+	Loop, %SC% {
+		temp := %A_Index%Settings  ;Advance dynamic variable
+		If (%temp%)
+			GuiControl,, %A_Index%SettingsEdit,% %temp%
+	}
+}
 
 DoTick:
 Tick ++
@@ -431,7 +439,10 @@ RestoreHotkeys(Save="Default"){
 			If (%A_Index%W = HotkeySize-25)
 				GuiControl, Move, %A_Index%,% "w" HotkeySize " x" %A_Index%X-37
 		}
-}}
+	}
+	If (Tab="settings")
+		SettingsRefresh()
+}
 
 IsSpecialHotkey(Hotkey){
 	If (SubStr(Hotkey, 1, 1)=="F")
@@ -495,13 +506,13 @@ If (Tab="Globals"){
 	DebugSet("Note that most of these settings can also be changed with hotkey+shift")
 }
 Return
+
 SettingUpdate:
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
 temp := %temp%  ;Advance dynamic variable
 GuiControl,,% PrefixNum(A_GuiControl) "SettingsEdit" ,% %temp%
 Return
-
 SettingsEdit:
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
@@ -577,7 +588,7 @@ Return
 DotaOverride:
 ActiveTitle := "Dota 2"
 DotaHotkeys:
-If (!DotaEnabled and ActiveTitle="Dota 2"){
+If ((!DotaEnabled and ActiveTitle="Dota 2")){
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys()
 	Hotkey, *%CustomKey1%, DotaZ
