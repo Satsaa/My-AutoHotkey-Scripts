@@ -1,7 +1,7 @@
 ﻿;Cross use functions
-;Revision 6
-;Added Target() TargetCancel() | Tidy up. DebugAppend <-> DebugAffix. Added new DebugAppend()
-;2018-05-30
+;Revision 7
+;Added QPC(). Added DirAscend(). Update beep().
+;2018-05-31
 
 ;#####################################################################################
 ;Conversions
@@ -152,7 +152,7 @@ MousePos(Choice="Save"){
 ;The beep.ahk is used to work around the sleep caused by SoundBeep
 
 Beep(Pitch,Duration){
-	Run, "Lib\Beep.ahk" %Pitch% %Duration%,,
+	Run,% DirAscend(A_ScriptDir) "\Lib\Beep.ahk " Pitch " " Duration,,
 }
 
 ;#####################################################################################
@@ -166,7 +166,7 @@ DebugAffix(Text="",AddAffix=1){
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
 		Return
-	} Count ++
+	} Count++
 	If (AddAffix=1)
 		String:= Count ": " Text "`n" String
 	else String:= Text "`n" String
@@ -180,7 +180,7 @@ DebugAppend(Text="",AddAffix=1){
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
 		Return
-	} Count ++
+	} Count++
 	If (AddAffix=1)
 		String:= ((Count=1)?(String Count ": " Text):(String "`n" Count ": " Text))
 	else String:= ((Count=1)?(String Count Text):(String "`n" Text)) 
@@ -202,6 +202,24 @@ AddToVar(Add=0,Var="Default",Set=""){
 		%Var% := Set
 	else %Var% += Add
 	Return "x" %Var%
+}
+
+;#####################################################################################
+;Returns accurately how many seconds have passed between QPC(1) and QPC(0)
+
+QPC(R := 0)
+{
+    static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
+    return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
+}
+
+;#####################################################################################
+;Returns path one or more folders up. 
+
+DirAscend(Folder,Up=1){
+	Loop, %Up% {
+		SplitPath, Folder,,Folder,,,Drv
+	} Return Folder
 }
 
 ;#####################################################################################
@@ -252,18 +270,18 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 		If !(OnlyX or onlyY){  ;Check if mouse is close
 			If (MouseX<TargetX+20 and MouseY<TargetY+20 and MouseX>TargetX-20 and MouseY>TargetY-20){
 				Gui FuncTargetMover:Show,% "x" TargetX-24 " y" TargetY-20
-			} Else Gui FuncTargetMover:Hide
-		} Else If (OnlyX and !OnlyY){
+			} else Gui FuncTargetMover:Hide
+		} else If (OnlyX and !OnlyY){
 			If (MouseX<TargetX+20 and MouseX>TargetX-20){
 				Gui FuncTargetMover:Show,% "y" MouseY-20
 				TargetY := MouseY  ;Sync
-			} Else Gui FuncTargetMover:Hide
-		} Else If (OnlyY and !OnlyX){
+			} else Gui FuncTargetMover:Hide
+		} else If (OnlyY and !OnlyX){
 			If (MouseY<TargetY+20 and MouseY>TargetY-20){
 				Gui FuncTargetMover:Show,% "x" MouseX-24
 				TargetX := MouseX  ;Sync
-			} Else Gui FuncTargetMover:Hide
-		} Else {  ;Disabled both lines 
+			} else Gui FuncTargetMover:Hide
+		} else {  ;Disabled both lines 
 			MsgBox, Why the fuck did you disable both lines? We aint showing you any target now. %A_ThisFunc%( )
 			FuncTargetCancel=0
 			Return -1
@@ -280,9 +298,9 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 					WinMove, MouseX, 
 					If OnlyX  ;Debug
 						DeBugSet("x" MouseX "`nEnter to select`nEsc to cancel")
-					Else If OnlyY
+					else If OnlyY
 						DeBugSet("y" MouseY "`nEnter to select`nEsc to cancel")
-					Else DeBugSet("x" MouseX ", " "y" MouseY "`nEnter to select`nEsc to cancel")
+					else DeBugSet("x" MouseX ", " "y" MouseY "`nEnter to select`nEsc to cancel")
 				} else 
 					sleep, 1  ;sleep if not moving
 				PrevMouseX:=MouseX, PrevMouseY:=MouseY,
@@ -300,9 +318,9 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 		Return -1
 	} If OnlyX
 		 Return TargetX
-	Else If OnlyY
+	else If OnlyY
 		 Return TargetY
-	Else Return TargetX "," TargetY
+	else Return TargetX "," TargetY
 }
 TargetCancel(){
 	Global FuncTargetCancel=1

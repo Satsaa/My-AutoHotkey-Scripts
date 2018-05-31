@@ -9,10 +9,7 @@ SetMouseDelay, -1
 SendMode Input
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
-#Include %A_ScriptDir%\Lib\Eval.ahk
-#Include %A_ScriptDir%\Lib\Functions.ahk
-#Include %A_ScriptDir%\Lib\Gdip_All.ahk
-#Include %A_ScriptDir%\Lib\TrayMenu.ahk
+#Include %A_ScriptDir%\Include.ahk
 TM_SHOWGUI := [1,2]
 
 IDC_ARROW := 32512
@@ -23,7 +20,8 @@ IDC_SIZENS := 32645
 IDC_SIZENWSE := 32642
 IDC_SIZEWE := 32644
 
-ScreenshotFolder:="Screenshot\"
+ScreenshotFolder:="Screenshot\",
+ResDir := DirAscend(A_ScriptDir) "\Res"
 FileCreateDir, %ScreenshotFolder%
 MaxImgDim:=750,  ;The maximum height or width for the screenshot review
 CornerX:=0, CornerY:=0,
@@ -42,15 +40,15 @@ Gui, Add, Text, vBoxXHint x2 y2 w100,
 Gui, Add, Text, vBoxYHint x2 yp+15 w100,
 Gui, Add, Text, vBoxWHint x2 yp+15 w100,
 Gui, Add, Text, vBoxHHint x2 yp+15 w100,
-Gui, Add, Pic, vArrowResizeUpLeft gGuiResize, Res/ArrowResizeUpLeft.png
-Gui, Add, Pic, vArrowResizeUp gGuiResize, Res/ArrowResizeUp.png
-Gui, Add, Pic, vArrowResizeUpRight gGuiResize, Res/ArrowResizeUpRight.png
-Gui, Add, Pic, vArrowResizeLeft gGuiResize, Res/ArrowResizeLeft.png
-Gui, Add, Pic, vDragPic gGuiDrag, Res/MoveCircleSmallHard.png
-Gui, Add, Pic, vArrowResizeRight gGuiResize, Res/ArrowResizeRight.png
-Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, Res/ArrowResizeDownLeft.png
-Gui, Add, Pic, vArrowResizeDown gGuiResize, Res/ArrowResizeDown.png
-Gui, Add, Pic, vArrowResizeDownRight gGuiResize, Res/ArrowResizeDownRight.png
+Gui, Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\ArrowResizeUpLeft.png
+Gui, Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\ArrowResizeUp.png
+Gui, Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\ArrowResizeUpRight.png
+Gui, Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\ArrowResizeLeft.png
+Gui, Add, Pic, vDragPic gGuiDrag, %ResDir%\MoveCircleSmallHard.png
+Gui, Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\ArrowResizeRight.png
+Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\ArrowResizeDownLeft.png
+Gui, Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\ArrowResizeDown.png
+Gui, Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\ArrowResizeDownRight.png
 Gui, 1: +LastFound
 WinGet, BoxID , Id
 GuiControl, Hide, ArrowResizeUpLeft
@@ -349,6 +347,7 @@ if (Looping := !Looping){
 } else {
 	SetTimer, SetRectangleLoop, Off
 	GuiControl,, LoopHint, Not looping
+	Looping=0
 } Return
 
 InputUpdate:

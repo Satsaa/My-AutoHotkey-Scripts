@@ -16,13 +16,10 @@ SetWinDelay, 0
 SendMode Input
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
-#Include %A_ScriptDir%\Lib\Functions.ahk
-;#Include %A_ScriptDir%\Lib\Gdip_All.ahk
-#Include %A_ScriptDir%\Lib\TrayMenu.ahk
+#Include %A_ScriptDir%\Include.ahk
 #Include %A_ScriptDir%\Descriptions.txt
 
 
-Load:
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
 CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
@@ -38,6 +35,7 @@ SettingSize := 40,  ;Width for settings edit boxes
 Ru := -265092071, Fi := 67830793,	;Input layout codes
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
+ResDir := DirAscend(A_ScriptDir) "\Res",
 Layout := GetLayout()
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
@@ -49,14 +47,14 @@ If (FirstLoad){
 	IfMsgBox, No 
 	{	GreetFails++
 	If GreetFails=1
-		MsgBox, 16, Error, Please be nice :) , 2
-	Else If GreetFails=2
-		MsgBox, 16, Error, Stop being a fokken chunt , 2
-	Else If GreetFails=3
-		MsgBox, 16, Error, WOW! You are so funnyy xD , 2
-	Else If (GreetFails>=4 and GreetFails<69)
-		MsgBox, 16, Error, Okay fuck head`nContinue this and you will NOT BE ABLE TO USE THIS SCRIPT`nYou have been a failure %GreetFails% times. Can you reach 69?,
-	Else If GreetFails=69
+		MsgBox, 16, Error, Please be nice :), 2
+	else If GreetFails=2
+		MsgBox, 16, Error, Stop being a fokken chunt, 2
+	else If GreetFails=3
+		MsgBox, 16, Error, WOW! You are so funnyy xD, 2
+	else If (GreetFails>=4 and GreetFails<69)
+		MsgBox, 16, Error, Treasure awaits!`n`nYou have been resilient %GreetFails% times. Can you reach 69?,
+	else If GreetFails=69
 		GoTo SecretLevel
 	GoTo, Greet
 	} WriteIni(,,"FirstLoad")
@@ -65,7 +63,7 @@ GoSub LoadScripts  ;Load scripts and their init values etc
 If Mod(SC, MaxPerColumn)  ;Calculate nice hotkey button layout
 	MaxPerColumn := Ceil(SC/((SC - Mod(SC, MaxPerColumn))/MaxPerColumn + 1))
 MaxGuiHeight := (48*MaxPerColumn)
-Menu, Tray, Icon, %A_ScriptDir%\Res\forsenE.ico
+Menu, Tray, Icon, %ResDir%\forsenE.ico
 Hotkey, ~!ShIft, LayoutFi
 Hotkey, ~+Alt, LayoutRu
 Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings
@@ -75,7 +73,7 @@ AddToVar(,,-HotkeySize+9)
 Loop, %SC% {  ;HOTKEYS
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of hotkeys
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10),% RegExReplace(HotkeyName[A_Index], "_" , " ")
-	Else  ;Continue the row
+	else  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
 }
@@ -99,7 +97,7 @@ AddToVar(,"Globals",-HotkeySize+9)
 Loop, %SC% {  ;GLOBAL hotkeys
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of hotkeys
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Globals"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
-	Else  ;Continue the row
+	else  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	Gui, Add, Hotkey,% "v" A_Index  "Global gGlobalHotkeyCreate w" HotkeySize 
 }
@@ -108,7 +106,7 @@ AddToVar(,"Settings",-HotkeySize+9)
 Loop, %SC% {  ;SETTING list
 	If !(Mod(A_Index-1, MaxPerColumn))  ;New row of settings
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Settings"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
-	Else  ;Continue the row
+	else  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	If (HotkeySettings[A_Index]){
 		temp=
@@ -123,7 +121,7 @@ Loop, %SC% {  ;SETTING list
 		Gui, Add, DropDownList,% "v" A_Index "Settings gSettingUpdate Choose1 w" HotkeySize-((SettingSize*1)+5), %temp%
 		gui, font,
 		Gui, Add, Edit,% "w" SettingSize " v" A_Index "SettingsEdit gSettingsEdit r1 yp xp",% %FirstSetting%
-	} Else {
+	} else {
 		Gui, Add, DropDownList, Disabled w%HotkeySize%,
 }}
 Loop, %SC% {  ;Conveniently fix edit box positioning
@@ -190,11 +188,11 @@ TickPerSec:
 TickEnd := Tick
 If (TickEnd - TickStart < 1)
 	GuiControl, Hide, TickTime,
-Else {
+else {
 	GuiControl, Show, TickTime,
 	If (TickEnd - TickStart = TPS)
 		GuiControl,, TickTime,% (TickEnd - TickStart) " tps*"
-	Else GuiControl,, TickTime,% (TickEnd - TickStart) " tps"
+	else GuiControl,, TickTime,% (TickEnd - TickStart) " tps"
 }
 TickStart := Tick
 Return
@@ -213,24 +211,25 @@ If (GuiControlPrefix){
 		If (Tab="Settings"){
 			If (HotkeySettingsDescription[GuiControlPrefix])
 				DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeySettingsDescription[GuiControlPrefix])
-			Else 
+			else 
 				DebugAffix(HotkeyName[GuiControlPrefix] " has no settings description!")
-		} Else 
+		} else 
 			DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeyDescription[GuiControlPrefix])
 	}
-}Else{
+}else{
 	DebugDescription := "Description" StrReplace(StrReplace(A_GuiControl, "&"), " ")
 	If !(%DebugDescription%){
 		%DebugDescription%:="Undescribed"
 		FileAppend,% "`n" DebugDescription " = Undescribed", Descriptions.txt,
 		DebugAffix(A_GuiControl " added to Descriptions.txt")
 	}
-	Else If (%DebugDescription%!="Undescribed"){
+	else If (%DebugDescription%!="Undescribed"){
 		If (DebugSetting=1)
 			DebugSet(%DebugDescription%)
-	}  ;Else DebugSet(DebugDescription)  ;Uncomment to show undescribed. For example DescriptionDebug, DescriptionDefaultProfile
+	}  ;else DebugSet(DebugDescription)  ;Uncomment to show undescribed. For example DescriptionDebug, DescriptionDefaultProfile
 }}
 WM_NCMOUSELEAVE(){
+	Global
 	If (DebugSetting=1 and Tab!="Settings")
 		DebugAffix()
 }
@@ -300,7 +299,7 @@ If (%A_GuiControl%W = HotkeySize) {
 		GuiControl, Move, SpecialText%A_GuiControl%,% "x" %A_GuiControl%X-10 " y" %A_GuiControl%Y-25
 		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize-25 " x" %A_GuiControl%X+%A_GuiControl%W-HotkeySize+13
 }}
-Else If (%A_GuiControl%W = HotkeySize-25) {
+else If (%A_GuiControl%W = HotkeySize-25) {
 	If (IsSpecialHotkey(%A_GuiControl%)){
 	 	GuiControl, Show, SpecialText%A_GuiControl%
 		GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
@@ -343,7 +342,6 @@ LoadGlobalHotkeys(){
 			Hotkey,% %A_Index%Global, % HotkeySub[A_Index], UseErrorLevel
 			GuiControl, , y%A_Index%Global,% %A_Index%Global
 			HotkeyGlobalPrev[A_Index] := %A_Index%Global
-			DebugAffix(HotkeyGlobalPrev[A_Index])
 			If (HotkeyShIft[A_Index])
 				Hotkey,% "+"%A_Index%Global,% HotkeySub[A_Index] . "_ShIft", UseErrorLevel
 			If (HotkeyAlt[A_Index])
@@ -358,7 +356,7 @@ LoadGlobalHotkeys(){
 				GuiControl,, SpecialText%A_Index%Global,% TrimSpecialHotkey(%A_Index%Global)
 				GuiControl, Move, SpecialText%A_Index%Global,% "x" %A_Index%GlobalX+%A_Index%GlobalW-HotkeySize-10 " y" %A_Index%GlobalY-25
 				GuiControl, Move, %A_Index%Global,% "w" HotkeySize-25 " x" %A_Index%GlobalX+%A_Index%GlobalW-HotkeySize+13
-			} Else {
+			} else {
 				GuiControl, Hide, SpecialText%A_Index%Global
 				GuiControl,, SpecialText%A_Index%Global, :-/
 			If (%A_Index%GlobalW = HotkeySize-25)
@@ -384,7 +382,7 @@ SaveHotkeys(Save="Default"){
 			%A_Index% =
 			GuiControl, , %A_Index%,
 	}}
-	Else DebugAffix(A_ThisFunc " ignored in " Tab " tab")
+	else DebugAffix(A_ThisFunc " ignored in " Tab " tab")
 }
 RestoreHotkeys(Save="Default"){
 	global
@@ -427,7 +425,7 @@ RestoreHotkeys(Save="Default"){
 			GuiControl,, SpecialText%A_Index%,% TrimSpecialHotkey(%A_Index%)
 			GuiControl, Move, SpecialText%A_Index%,% "x" %A_Index%X+%A_Index%W-HotkeySize-10 " y" %A_Index%Y-25
 			GuiControl, Move, %A_Index%,% "w" HotkeySize-25 " x" %A_Index%X+%A_Index%W-HotkeySize+13
-		} Else {
+		} else {
 			GuiControl, Hide, SpecialText%A_Index%
 			GuiControl,, SpecialText%A_Index%, :-/
 			If (%A_Index%W = HotkeySize-25)
@@ -491,9 +489,9 @@ SaveHotkeys(Profile)
 Gui, Submit, NoHide
 If (Tab="Globals"){
 	DebugAffix("Leave globals tab to re-enable hotkeys")
-} Else If (Tab="Hotkeys") {
+} else If (Tab="Hotkeys") {
 	RestoreHotkeys(Profile)
-} Else If (Tab="Settings"){
+} else If (Tab="Settings"){
 	DebugSet("Note that most of these settings can also be changed with hotkey+shift")
 }
 Return
@@ -606,7 +604,7 @@ If (!DotaEnabled and ActiveTitle="Dota 2"){
 	DebugAffix("Enabled dota")
 	Return
 }
-Else If (!DotaEnabled or ActiveTitle="Search" or ActiveTitle="Dota 2" or !ActiveTitle or ActiveTitle=GuiTitle)
+else If (!DotaEnabled or ActiveTitle="Search" or ActiveTitle="Dota 2" or !ActiveTitle or ActiveTitle=GuiTitle)
 	Return
 DisableDota:
 SaveHotkeys("Dota")
@@ -806,7 +804,7 @@ If InStr(ActiveTitle, "All sizes"){  ;Open image
 	send, {Enter 2} ^w
 	MousePos("Restore")
 }
-Else {  ;Add shit to url
+else {  ;Add shit to url
 	GoSub SaveClipboard
 	Send ^l
 	Send ^x
@@ -817,7 +815,7 @@ Else {  ;Add shit to url
 			ClipFailCount=0
 			DebugAffix("Failed to copy text at " A_ThisLabel)
 			Return
-		} Else GoTo %A_ThisLabel%
+		} else GoTo %A_ThisLabel%
 	}
 	ClipFailCount=0
 	Paste(RegExReplace(Clipboard, "\/in\/.+") FS_UrlStart "/sizes/o")
@@ -863,13 +861,13 @@ If ErrorLevel {
 		ClipFailCount=0
 		DebugAffix("Failed to copy text at " A_ThisLabel)
 		Return
-	} Else GoTo %A_ThisLabel%
+	} else GoTo %A_ThisLabel%
 } ClipFailCount=0
 PI_Url := Clipboard
 RegExMatch(PI_Url, "(-?\d+)(\D*$)", PI_Extract)
 If PI_Invert
 	PI_Extract := PI_Extract1+PI_Velocity*-1 . PI_Extract2
-Else PI_Extract := PI_Extract1+PI_Velocity . PI_Extract2 
+else PI_Extract := PI_Extract1+PI_Velocity . PI_Extract2 
 Send ^l
 Paste(RegExReplace(PI_Url, "\d+\D*$", PI_Extract))
 Send {Enter}
@@ -889,7 +887,7 @@ If %A_GuiControl% is Number
 	%ChangingSetting% := %A_GuiControl%
 	WriteIni(Profile,,ChangingSetting)
 	DebugSet(%A_GuiControl% " accepted and saved")
-} Else DebugSet(ChangingSetting " must be a number")
+} else DebugSet(ChangingSetting " must be a number")
 Return
 HopPI:
 
@@ -927,11 +925,11 @@ CL_Settings:
 If (ChangingSetting="CL_ClickX"){
 	If (%A_GuiControl%>=0 and !%A_GuiControl%>%A_ScreenWidth%)
 		GoTo SM_SettingsSuccess
-	Else DebugSet(ChangingSetting " must be within screen boundaries")
-} Else If (ChangingSetting="CL_ClickY"){
+	else DebugSet(ChangingSetting " must be within screen boundaries")
+} else If (ChangingSetting="CL_ClickY"){
 	If (%A_GuiControl%>=0 and !%A_GuiControl%>%A_ScreenHeight%)
 		GoTo SM_SettingsSuccess
-	Else DebugSet(ChangingSetting " must be within screen boundaries")
+	else DebugSet(ChangingSetting " must be within screen boundaries")
 }
 Return
 CL_SettingsSuccess:
@@ -995,15 +993,15 @@ C2L_Settings:
 If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){
 	If (%A_GuiControl%>=0 and !%A_GuiControl%>%A_ScreenWidth%)
 		GoTo SM_SettingsSuccess
-	Else DebugSet(ChangingSetting " must be within screen boundaries")
-} Else If (ChangingSetting="C2L_Click1Y" or ChangingSetting="C2L_Click2Y"){
+	else DebugSet(ChangingSetting " must be within screen boundaries")
+} else If (ChangingSetting="C2L_Click1Y" or ChangingSetting="C2L_Click2Y"){
 	If (%A_GuiControl%>=0 and !%A_GuiControl%>%A_ScreenHeight%)
 		GoTo SM_SettingsSuccess
-	Else DebugSet(ChangingSetting " must be within screen boundaries")
-} Else If (ChangingSetting="C2L_CloseWin"){
+	else DebugSet(ChangingSetting " must be within screen boundaries")
+} else If (ChangingSetting="C2L_CloseWin"){
 	If (%A_GuiControl%="0" or %A_GuiControl%="1")
 		GoTo SM_SettingsSuccess
-	Else DebugSet(ChangingSetting " must 1 or 0")
+	else DebugSet(ChangingSetting " must 1 or 0")
 }
 Return
 C2L_SettingsSuccess:
@@ -1035,9 +1033,9 @@ Return
 SC_Settings:
 If %A_GuiControl% is digit
 	Goto SC_SettingsSuccess
-Else If (%A_GuiControl%="skip")
+else If (%A_GuiControl%="skip")
 	GoTo SC_SettingsSuccess
-Else
+else
  	DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
 Return
 SC_SettingsSuccess:
@@ -1074,9 +1072,9 @@ Return
 SM_Settings:
 If %A_GuiControl% is digit
 	Goto SM_SettingsSuccess
-Else If (%A_GuiControl%="skip")
+else If (%A_GuiControl%="skip")
 	GoTo SM_SettingsSuccess
-Else
+else
  	DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
 Return
 SM_SettingsSuccess:
@@ -1105,7 +1103,7 @@ If (DebugSetting=1 or DebugSetting=-1)
 	DebugAffix()
 If !DebugSetting
 	Gui, DS:Show,, Debug
-Else DebugSetting:=DebugSetting*-1
+else DebugSetting:=DebugSetting*-1
 WriteIni(,,"DebugSetting")
 Return
 DS_ShIft:
@@ -1125,7 +1123,7 @@ If (!%A_GuiControl%=0 and (%A_GuiControl%=1 or %A_GuiControl%=2 or %A_GuiControl
 	%ChangingSetting% := %A_GuiControl%
 	WriteIni(,,"DebugSetting")
 	DebugSet("Value accepted and saved")
-}Else DebugSet("DebugSetting must be 1, 2, -1 or -2")
+}else DebugSet("DebugSetting must be 1, 2, -1 or -2")
 Return
 HopDS:
 
@@ -1154,7 +1152,7 @@ If CompareColor(DD_WinX+DD_WinW/2, DD_WinY+DD_WinH/2, "0E0E0E"){
 		WaitCount=0
 		DebugAffix("Image wait timeout " A_ThisLabel)
 		Return
-	} Else GoTo %A_ThisLabel%
+	} else GoTo %A_ThisLabel%
 }
 WinGet, DDProcess, ProcessName, A
 If (DDProcess != "chrome.exe"){
@@ -1167,7 +1165,7 @@ MouseMove, DD_WinX+DD_WinW/2, DD_WinY+DD_WinH/2, 100
 Click, down
 If !DD_AltMove
 	MouseMove, DD_WinX+DD_WinW/2, DD_WinY-100, 100  ;Just above the window
-Else 
+else 
 	MouseMove, DD_WinX+DD_WinW+100, DD_WinY+DD_WinH/2, 100  ;Right of the window
 sleep, 88
 MouseMove, 5, 5, 100, R
@@ -1183,7 +1181,7 @@ IfWinExist, Copy File
 	WinActivate, ahk_id %DD_Win%
 	sleep, 1
 	Send, ^{Tab}
-} Else {
+} else {
 	WinActivate, ahk_id %DD_Win%
 	sleep, 1
 	Send, ^{Tab}
@@ -1209,7 +1207,7 @@ If ErrorLevel {
 		ClipFailCount=0
 		DebugAffix("Failed to copy text at " A_ThisLabel)
 		Return
-	} Else GoTo %A_ThisLabel%
+	} else GoTo %A_ThisLabel%
 }
 Run,% "https://yandex.ru/images/search?url=" UrlEncode(Clipboard) "&rpt=imageview"
 GoSub RestoreClipboard

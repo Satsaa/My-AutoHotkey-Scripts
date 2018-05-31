@@ -1,7 +1,6 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance, Force
-#Include %A_ScriptDir%\Lib\Functions.ahk
-#Include %A_ScriptDir%\Lib\TrayMenu.ahk
+#Include Include.ahk
 
 
 IniFile:="YTDL_Prefs.ini"

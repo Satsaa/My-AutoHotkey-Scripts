@@ -1,6 +1,5 @@
 ;This text file will hold descriptions for controls "Undescribed" will not be shown
 
-DescriptionTab = Undescribed
 DescriptionDefaultprofile = Undescribed
 Description = Undescribed
 DescriptionDebug = Undescribed
@@ -13,6 +12,4 @@ DescriptionReload = Reload the script
 DescriptionHide = Hide script windows
 DescriptionEdit = Open this script in Visual Studio Code
 DescriptionTest = Run test: label
-
-
-DescriptionDotaprofile = Undescribed
+DescriptionTab = Hotkeys:`nPer profile hotkeys`n`nGlobals:`nHotkeys that are active in all profiles`n`nSettings:`nAdjust script settings
