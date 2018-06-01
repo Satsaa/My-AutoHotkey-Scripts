@@ -20,6 +20,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Descriptions.txt
 
 
+
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
 CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
@@ -34,6 +35,7 @@ HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
 Ru := -265092071, Fi := 67830793,	;Input layout codes
 Profile := "Default",
+Version := "v4.2",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
 Layout := GetLayout()
