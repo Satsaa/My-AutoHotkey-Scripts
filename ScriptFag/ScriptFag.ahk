@@ -33,6 +33,7 @@ TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
+ButtonSize := 50,
 Ru := -265092071, Fi := 67830793,	;Input layout codes
 Profile := "Default",
 Version := "v4.2",
@@ -68,7 +69,7 @@ If Mod(SC, MaxPerColumn)  ;Calculate nice hotkey button layout
 MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!ShIft, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings|%GuiTitle%
 Tab = Hotkeys
 Gui, Tab, Hotkeys
 AddToVar(,,-HotkeySize+9)
@@ -84,16 +85,16 @@ Loop, %SC%
 Gui, Tab,
 Gui, Add, Text, ym, Debug view
 Gui, Add, Edit,% "Readonly w255 vDebug h"MaxGuiHeight
-Gui, Add, Button, w50 ym gReload, &Reload
-Gui, Add, Button, wp, &Hide
-Gui, Add, Button, wp gEdit, &Edit
-Gui, Add, Button, wp, &Test
+Gui, Add, Button, w%ButtonSize% ym gReload, &Reload
+Gui, Add, Button, w%ButtonSize%, &Hide
+Gui, Add, Button, w%ButtonSize% gEdit, &Edit
+Gui, Add, Button, w%ButtonSize%, &Test
 Gui, Add, Text, cRed vGuiHint wp r1
 Gui, Add, Text, cRed vTickTime wp r1
-Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride wp ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
-Gui, Add, Button, wp gDotaOverride, Dota
-Gui, Add, Button, wp gPubgOverride, Pubg
-Gui, Add, Button, wp gWitcherOverride, Witcher
+Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
+Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
+Gui, Add, Button, w%ButtonSize% gPubgOverride, Pubg
+Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
 Gui, Tab, Globals
 AddToVar(,"Globals",-HotkeySize+9)
 Loop, %SC% {  ;GLOBAL hotkeys
@@ -124,13 +125,15 @@ Loop, %SC% {  ;SETTING list
 		gui, font,
 		Gui, Add, Edit,% "w" SettingSize " v" A_Index "SettingsEdit gSettingsEdit r1 yp xp",% %FirstSetting%
 	} else {
-		Gui, Add, DropDownList, Disabled w%HotkeySize%,
+		Gui, Add, DropDownList, Disabled w%HotkeySize%, 
 }}
 Loop, %SC% {  ;Conveniently fix edit box positioning
 	CurrentColumn := (Floor((A_Index-1)/MaxPerColumn))+1
 	GuiControl, Move, %A_Index%SettingsEdit,% "x+" (HotkeySize-(SettingSize-7))+((CurrentColumn-1)*(HotkeySize+10))
 }
-Gui, Tab, Settings  ;BuildSettingsTab
+Gui, Tab, %GuiTitle%
+Gui, Add, Button, w%HotkeySize% gExportProfile, Export Profile
+Gui, Add, Button, w%HotkeySize% gInportProfile, Inport Profile
 Gui, Tab,
 Gui, Add, StatusBar,,
 Loop, %SC%
@@ -152,6 +155,80 @@ SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
 Return
 
+ExportProfile:
+If (ExportWindowExists){
+	Gui, Export:Show
+	Return
+}ExportIndex=0
+ExportCurrentSection=
+Gui, Export:Add, Text,, Which sections to export
+Loop, read, Prefs.ini
+{
+    Loop, parse, A_LoopReadLine, %A_Tab%
+    {
+		If (SubStr(A_LoopField, "1", "1")="["){
+			ExportIndex++
+			ExportSection:=RegExReplace(A_LoopField, "\[|\]")
+			ExportSection%ExportIndex% := A_LoopField
+			Gui, Export:Add, Checkbox, gExportCheckbox vExportCheckbox%ExportIndex% Checked, %A_LoopField%
+			Export%ExportIndex% := A_LoopField
+		} else {
+			ExportSection%ExportIndex% .= "`n" A_LoopField
+		}
+
+    }
+}
+Gui, Export:Add, Button, gExportExport, Export
+Gui, Export:Add, Text, ym, Output preview
+Gui, Export:Add, Edit, Readonly w400 h500 vExportPreview
+ExportWindowExists=1
+DebugAffix("Export Gui Created")
+Gui, Export:Show
+Gui, Export:Submit, NoHide
+Export=
+Loop {
+	If (ExportCheckbox%A_Index%){
+		Export .= (Export)?( "`n`n" ExportSection%A_Index%):(ExportSection%A_Index%)
+	}
+	else If (A_Index>ExportIndex)
+		Break
+}
+GuiControl,Export:, ExportPreview,% Export
+Return
+
+ExportCheckbox:
+Gui, Export:Submit, NoHide
+ExportCheckboxID := SuffixNum(A_GuiControl)
+Export=
+Loop {
+	If (ExportCheckbox%A_Index%){
+		Export .= (Export)?( "`n`n" ExportSection%A_Index%):(ExportSection%A_Index%)
+	}
+	else If (A_Index>ExportIndex)
+		Break
+}
+GuiControl,Export:, ExportPreview,% Export
+Return
+ExportExport:
+FileSelectFile, ExportFullPath, S 24, RootDir\ScriptFagExport.txt,, *.txt
+If !(ExportFullPath=""){
+	FileDelete, %ExportFullPath%
+	FileAppend, %Export%, %ExportFullPath%
+	If ErrorLevel
+		MsgBox, Error saving file
+	else MsgBox, Saved to %ExportFullPath%
+} Else Return
+;No return
+ExportGuiClose:
+ExportWindowExists=0
+Gui, Export:Destroy
+DebugAffix("Export Gui Destroyed")
+Return
+
+InportProfile:
+Gui, Submit, NoHide
+DebugAffix(A_ThisLabel)
+Return
 
 DoTick:
 Tick ++
@@ -201,6 +278,8 @@ Return
 
 WM_MOUSEMOVE(){  ;Description handling
 global
+If (SubStr(A_GuiControl, "1", "1")="[")  ;Ignore controls with "[" to avoid errors
+	Return
 If (A_GuiControl=PrevA_GuiControl)
 	Return
 PrevA_GuiControl:=A_GuiControl
@@ -497,6 +576,7 @@ If (Tab="Globals"){
 } else If (Tab="Hotkeys") {
 	RestoreHotkeys(Profile)
 } else If (Tab="Settings"){
+	SettingsRefresh()
 	DebugSet("Note that most of these settings can also be changed with hotkey+shift")
 }
 Return
