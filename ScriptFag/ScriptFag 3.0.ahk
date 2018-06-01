@@ -37,6 +37,7 @@ Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
 Layout := GetLayout()
+Menu, Tray, Icon, %ResDir%\forsenE.ico
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
 ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100)
@@ -63,7 +64,6 @@ GoSub LoadScripts  ;Load scripts and their init values etc
 If Mod(SC, MaxPerColumn)  ;Calculate nice hotkey button layout
 	MaxPerColumn := Ceil(SC/((SC - Mod(SC, MaxPerColumn))/MaxPerColumn + 1))
 MaxGuiHeight := (48*MaxPerColumn)
-Menu, Tray, Icon, %ResDir%\forsenE.ico
 Hotkey, ~!ShIft, LayoutFi
 Hotkey, ~+Alt, LayoutRu
 Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings
@@ -150,14 +150,6 @@ SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
 Return
 
-SettingsRefresh(){
-	global
-	Loop, %SC% {
-		temp := %A_Index%Settings  ;Advance dynamic variable
-		If (%temp%)
-			GuiControl,, %A_Index%SettingsEdit,% %temp%
-	}
-}
 
 DoTick:
 Tick ++
@@ -461,19 +453,19 @@ Return "G" . Trim
 }
 
 SecretLevel:
-Gui, Add, Picture, vBilly1_0, Res\Billy\0.png
+Gui, Add, Picture, vBilly1_0, %ResDir%\Billy\0.png
 Loop, 10
-	Gui, Add, Picture,xp yp Hidden vBilly1_%A_Index%, Res\Billy\%A_Index%.png			;Top Left
-Gui, Add, Picture,xm  vBilly2_0, Res\Billy\0.png
+	Gui, Add, Picture,xp yp Hidden vBilly1_%A_Index%, %ResDir%\Billy\%A_Index%.png			;Top Left
+Gui, Add, Picture,xm  vBilly2_0, %ResDir%\Billy\0.png
 Loop, 10
-	Gui, Add, Picture,xp yp Hidden vBilly2_%A_Index%, Res\Billy\%A_Index%.png			;Bottom Left
-Gui, Add, Picture,ym, Res\Billy\secret.jpg												;Middle
-Gui, Add, Picture,ym  vBillyRev1_0, Res\Billy\Rev0.png
+	Gui, Add, Picture,xp yp Hidden vBilly2_%A_Index%, %ResDir%\Billy\%A_Index%.png			;Bottom Left
+Gui, Add, Picture,ym, %ResDir%\Billy\secret.jpg												;Middle
+Gui, Add, Picture,ym  vBillyRev1_0, %ResDir%\Billy\Rev0.png
 Loop, 10
-	Gui, Add, Picture,xp yp Hidden vBillyRev1_%A_Index%, Res\Billy\Rev%A_Index%.png		;Top Right
-Gui, Add, Picture, vBillyRev2_0, Res\Billy\Rev0.png
+	Gui, Add, Picture,xp yp Hidden vBillyRev1_%A_Index%, %ResDir%\Billy\Rev%A_Index%.png		;Top Right
+Gui, Add, Picture, vBillyRev2_0, %ResDir%\Billy\Rev0.png
 Loop, 10
-	Gui, Add, Picture,xp yp Hidden vBillyRev2_%A_Index%, Res\Billy\Rev%A_Index%.png		;Top Left
+	Gui, Add, Picture,xp yp Hidden vBillyRev2_%A_Index%, %ResDir%\Billy\Rev%A_Index%.png		;Top Left
 Gui, Add, Text,xm, Gongratulations! You have reached the secret level!
 gui,Show
 SetTimer, SecretLoop, 50
@@ -520,6 +512,14 @@ ChangingSetting := %temp%
 SettingsSub := HotkeySub[PrefixNum(A_GuiControl)] "_Settings"
 GoTo,% HotkeySub[PrefixNum(A_GuiControl)] "_Settings"  ;Scripts dedicated Settings Handler
 Return
+SettingsRefresh(){
+	global
+	Loop, %SC% {
+		temp := %A_Index%Settings  ;Advance dynamic variable
+		If (%temp%)
+			GuiControl,, %A_Index%SettingsEdit,% %temp%
+	}
+}
 
 SaveClipboard:
 SavedClipboard := ClipboardAll
@@ -723,7 +723,7 @@ If GetKeyState("LButton", "P")
 If GetKeyState("MButton", "P")
 	Return
 WinGetPos WinX, WinY, WinW, WinH, A
-ImageSearch, ImageX, ImageY, WinX+WinW-105, WinY+WinH-235, WinX+WinW-80, WinY+WinH-10, *2 Res\FlickrPopUpX.png
+ImageSearch, ImageX, ImageY, WinX+WinW-105, WinY+WinH-235, WinX+WinW-80, WinY+WinH-10, *2 %ResDir%\X\FlickrPopUpX.png
 If errorlevel {
 	If errorlevel = 2 
 		DebugAffix("Problem opening resource file in "A_ThisLabel)

@@ -33,22 +33,23 @@ ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
 	,"Hotkeys",1,"GuiLoadX",250,"GuiLoadY",250,"Delay",0)
 Gui, Color, EEAA99
 Gui, +LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndHwnd +Owner 
-WinSet, TransColor, EEAA99 
+WinSet, TransColor, EEAA99
+Menu, Tray, Icon, %ResDir%\forsenBoxE.ico
 
 gui, font, q3 c354144
 Gui, Add, Text, vBoxXHint x2 y2 w100,
 Gui, Add, Text, vBoxYHint x2 yp+15 w100,
 Gui, Add, Text, vBoxWHint x2 yp+15 w100,
 Gui, Add, Text, vBoxHHint x2 yp+15 w100,
-Gui, Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\ArrowResizeUpLeft.png
-Gui, Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\ArrowResizeUp.png
-Gui, Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\ArrowResizeUpRight.png
-Gui, Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\ArrowResizeLeft.png
-Gui, Add, Pic, vDragPic gGuiDrag, %ResDir%\MoveCircleSmallHard.png
-Gui, Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\ArrowResizeRight.png
-Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\ArrowResizeDownLeft.png
-Gui, Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\ArrowResizeDown.png
-Gui, Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\ArrowResizeDownRight.png
+Gui, Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\BoxyArrow\UpLeft.png
+Gui, Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\BoxyArrow\Up.png
+Gui, Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\BoxyArrow\UpRight.png
+Gui, Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\BoxyArrow\Left.png
+Gui, Add, Pic, vDragPic gGuiDrag, %ResDir%\Drag\CircleHard.png
+Gui, Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\BoxyArrow\Right.png
+Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\BoxyArrow\DownLeft.png
+Gui, Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\BoxyArrow\Down.png
+Gui, Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\BoxyArrow\DownRight.png
 Gui, 1: +LastFound
 WinGet, BoxID , Id
 GuiControl, Hide, ArrowResizeUpLeft
