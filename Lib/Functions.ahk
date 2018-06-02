@@ -58,7 +58,8 @@ SuffixNum(haystack){
 		If A_LoopField is Number
 			Suffix .= A_LoopField
 		else Break
-	} Return Suffix
+	} DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&Suffix, "CDecl") 
+	Return Suffix
 }
 
 ;#####################################################################################
