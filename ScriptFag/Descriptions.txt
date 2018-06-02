@@ -25,4 +25,4 @@ DescriptionEdit = Open this script in Visual Studio Code
 DescriptionTest = Run test: label
 DescriptionTab = Hotkeys:`nPer profile hotkeys`n`nGlobals:`nHotkeys that are active in all profiles`n`nSettings:`nAdjust script settings
 DescriptionExportProfile = Export all or parts of the current settings in to a separate file
-DescriptionInportProfile = Inport settings from a file
+DescriptionImportProfile = Inport settings from a file

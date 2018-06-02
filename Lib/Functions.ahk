@@ -1,7 +1,8 @@
 ﻿;Cross use functions
-;Revision 7
-;Added QPC(). Added DirAscend(). Update beep().
-;2018-05-31
+;Revision 8
+;Added IsNumber().
+;2018-06-01
+;Format: HARDCORE
 
 ;#####################################################################################
 ;Conversions
@@ -47,8 +48,7 @@ PrefixNum(haystack){
 		If A_LoopField is Number
 			Prefix .= A_LoopField
 		else Break
-	}
-	Return Prefix
+	} Return Prefix
 }
 
 SuffixNum(haystack){
@@ -58,16 +58,24 @@ SuffixNum(haystack){
 		If A_LoopField is Number
 			Suffix .= A_LoopField
 		else Break
-	}
-	Return Suffix
+	} Return Suffix
 }
 
 ;#####################################################################################
 ;Returns reversed string
 
-StrRev(in) {
+StrRev(in){
 	DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&in, "CDecl")
 	return in
+}
+
+;#####################################################################################
+;Returns reversed string
+
+IsNumber(a){
+	If %a% is Number
+		return 1
+	else return 0
 }
 
 ;#####################################################################################
@@ -125,15 +133,12 @@ UrlEncode(String){
 	SetFormat, Integer, H
 	Loop, Parse, String 
 	{
-		if (A_LoopField is alnum) {
+		if (A_LoopField is alnum){
 			Encode .= A_LoopField
 			continue
-		}
-		Hex := SubStr( Asc( A_LoopField ), 3 )
+		} Hex := SubStr( Asc( A_LoopField ), 3 )
 		Encode .= "%" . ( StrLen( Hex ) = 1 ? "0" . Hex : Hex )
-	}
-	SetFormat, Integer, %OldFormat%
-
+	} SetFormat, Integer, %OldFormat%
 	return Encode
 }
 
@@ -298,16 +303,14 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 					WinMove, MouseX, 
 					If OnlyX  ;Debug
 						DeBugSet("x" MouseX "`nEnter to select`nEsc to cancel")
-					else If OnlyY
+					else If (OnlyY)
 						DeBugSet("y" MouseY "`nEnter to select`nEsc to cancel")
 					else DeBugSet("x" MouseX ", " "y" MouseY "`nEnter to select`nEsc to cancel")
-				} else 
-					sleep, 1  ;sleep if not moving
+				} else sleep, 1  ;sleep if not moving
 				PrevMouseX:=MouseX, PrevMouseY:=MouseY,
 			}
 		Gui FuncTargetMover:Show,% "x" MouseX-24 " y" MouseY-20
-		}
-		sleep, 1
+		} sleep, 1
 	}  ;Close guis
 	Gui FuncTargetMover:Cancel
 	Gui FuncTargetHorizontal:Cancel
@@ -316,9 +319,9 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 	If (GetKeyState("Esc") or FuncTargetCancel){  ;Cancelledd
 		FuncTargetCancel=0
 		Return -1
-	} If OnlyX
+	} If (OnlyX)
 		 Return TargetX
-	else If OnlyY
+	else If (OnlyY)
 		 Return TargetY
 	else Return TargetX "," TargetY
 }
