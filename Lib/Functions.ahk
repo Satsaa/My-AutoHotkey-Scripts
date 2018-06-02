@@ -52,16 +52,10 @@ PrefixNum(haystack){
 }
 
 SuffixNum(haystack){
-	DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&haystack, "CDecl")
-	Loop, Parse, haystack
-	{
-		If A_LoopField is Number
-			Suffix .= A_LoopField
-		else Break
-	} DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&Suffix, "CDecl") 
-	Return Suffix
+	global
+	RegExMatch(haystack, "\d*$", match)
+	Return match
 }
-
 ;#####################################################################################
 ;Returns reversed string
 

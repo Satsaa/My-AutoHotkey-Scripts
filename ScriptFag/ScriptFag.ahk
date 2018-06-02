@@ -27,19 +27,19 @@ CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
 CustomKey10 := "F22", CustomKey11 := "F23", CustomKey12 := "F24",
-HotkeyName := [], HotkeySub := [], HotkeyDescription := [], HotkeySettings := [], HotkeySettingsDescription := [],
-HotkeyShift := [], HotkeyAlt := [], HotkeyCtrlAlt := [], HotkeyCtrlShift := [], 
+HotkeyName := [], HotkeySub := [], HotkeyDescription := [], HotkeySettings := [], HotkeySettingsDescription := [], HotkeyPrev := [],
+HotkeyGlobal := [], HotkeyShift := [], HotkeyAlt := [], HotkeyCtrlAlt := [], HotkeyCtrlShift := [], 
 DefaultBanList :="Spam_Ping_Map,Annihilate"
 DotaBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
 WitcherBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
 PubgBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
-HotkeyPrev := [], HotkeyGlobalPrev := [],
 TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,
 Ru := -265092071, Fi := 67830793,	;Input layout codes
+ProfileList := "Default,Dota,Pubg,Witcher"
 Profile := "Default",
 Version := "v4.2",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
@@ -86,7 +86,7 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!Shift, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Globals|Settings|%GuiTitle%
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Settings|%GuiTitle%
 Tab = Hotkeys
 Gui, Tab, Hotkeys
 AddToVar(,,-HotkeySize+9)
@@ -97,13 +97,7 @@ Loop, %SC% {  ;HOTKEYS
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	}
 	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
-}
-Loop, %SC% {
-	Gui, Add, Text,% "vSpecialText" A_Index " x-25 y-25 w22" , 
-}
-Gui, Tab, Globals
-Loop, %SC% {
-	Gui, Add, Text,% "vSpecialTextGlobal" A_Index " x-25 y-25 w22" , 
+	Gui, Add, Text,% "vSpecialText" A_Index " xp yp w22" , 
 }
 Gui, Tab,
 Gui, Add, Text, ym, Debug view
@@ -118,16 +112,6 @@ Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):(
 Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
 Gui, Add, Button, w%ButtonSize% gPubgOverride, Pubg
 Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
-Gui, Tab, Globals
-AddToVar(,"Globals",-HotkeySize+9)
-Loop, %SC% {  ;GLOBAL hotkeys
-	If !(Mod(A_Index-1, MaxPerColumn)){  ;New row of hotkeys
-		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Globals"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
-	} else {  ;Continue the row
-		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
-	}
-	Gui, Add, Hotkey,% "v" A_Index  "Global gGlobalHotkeyCreate w" HotkeySize 
-}
 Gui, Tab, Settings  ;BuildSettingsTab
 AddToVar(,"Settings",-HotkeySize+9)
 Loop, %SC% {  ;SETTING list
@@ -167,7 +151,7 @@ If (!GuiLoadY or !GuiLoadY){
 	GuiLoadY := 0, GuiLoadX := 0
 }
 RestoreHotkeys()
-LoadGlobalHotkeys()
+RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
 Gosub SB_Profile
 Gosub SB_Layout
@@ -179,6 +163,322 @@ Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
 DebugAffix("Finished Load")
 SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
+Return
+
+DoTick:
+Tick ++
+DoubleTick ++
+SubTick ++
+OldActiveTitle = %ActiveTitle%
+WinGetActiveTitle, ActiveTitle
+If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Activates on window change (ignores some changes)
+	and ActiveTitle!=PrevActiveTitle and ActiveTitle!=A_ScriptName){
+	GoSub DotaHotkeys
+	GoSub PubgHotkeys
+	GoSub WitcherHotkeys
+	Gosub SB_Title
+	FH_Enable=0
+	If InStr(ActiveTitle, "| Flickr -"){
+		FH_Enable=1
+	} else {
+		If (ActiveTitle="This is an unregistered copy"){
+			WinClose, This is an unregistered copy
+		}
+	}
+	PrevActiveTitle = %ActiveTitle%
+}
+
+If (DoubleTick=2){
+	If (DebugSetting=2){
+		DebugSet(GetUnderMouseInfo(TPS/4))  ;Full update 2 times a second (TPS)
+	}
+	DoubleTick=0
+}
+If (SubTick=10){
+	If (FH_Enable){
+		GoSub, FlickerHide
+	}
+	SubTick=0
+}
+GuiControl, , GuiHint,% Tick
+Return
+
+TickPerSec:
+TickEnd := Tick
+If (TickEnd - TickStart < 1){
+	GuiControl, Hide, TickTime,
+} else {
+	GuiControl, Show, TickTime,
+	If (TickEnd - TickStart = TPS){
+		GuiControl,, TickTime,% (TickEnd - TickStart) " tps*"
+	} else {
+		GuiControl,, TickTime,% (TickEnd - TickStart) " tps"
+	}
+}
+TickStart := Tick
+Return
+
+HotkeyCreate:
+CreateKey := %A_GuiControl%
+PrevName := "HotkeyPrev"
+;Invalidate hotkeys with modIfiers
+If InStr(%A_GuiControl%, "+"){	;Shift
+	GoTo InvalidHotkey
+}
+If InStr(%A_GuiControl%, "^"){	;Control
+	GoTo InvalidHotkey
+}
+If InStr(%A_GuiControl%, "!"){	;Alt
+	GoTo InvalidHotkey
+}
+If GetKeyState("RWin","P"){		;Windows
+	DebugSet("Windows key")
+	GoTo InvalidHotkey
+}  
+Duplicate=0  ;Check for duplicated, because not all hotkeys have a main function that would block using duplicates
+If !(%A_GuiControl%=""){
+	Loop, %SC% {  ;Check if current hotkey might be a duplicate
+		If (%A_GuiControl%=HotkeyPrev[A_Index]){
+			GuiControl,, %A_GuiControl%,% HotkeyPrev[A_GuiControl]
+			%A_GuiControl% := HotkeyPrev[A_GuiControl]
+			Duplicate=1
+		}
+	}
+}
+;Create new hotkeys and disable old ones
+If (HotkeyShift[A_GuiControl]){
+	Hotkey,% "+"%PrevName%[A_GuiControl], Off, UseErrorLevel
+	If (%A_GuiControl%){
+		Hotkey,% "+"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_Shift"
+		Hotkey,% "+"%A_GuiControl%, On
+	}
+}
+If (HotkeyAlt[A_GuiControl]){
+	Hotkey,% "!"%PrevName%[A_GuiControl], Off, UseErrorLevel
+	If (%A_GuiControl%){
+		Hotkey,% "!"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_Alt"
+		Hotkey,% "!"%A_GuiControl%, On
+	}
+}
+If (HotkeyCtrlAlt[A_GuiControl]){
+	Hotkey,% "^!"%PrevName%[A_GuiControl], Off, UseErrorLevel
+	If (%A_GuiControl%){
+		Hotkey,% "^!"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_CtrlAlt"
+		Hotkey,% "^!"%A_GuiControl%, On
+	}
+}
+If (HotkeyCtrlShift[A_GuiControl]){
+	Hotkey,% "^+"%PrevName%[A_GuiControl], Off, UseErrorLevel
+	If (%A_GuiControl%){
+		Hotkey,% "^+"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_CtrlShift"
+		Hotkey,% "^+"%A_GuiControl%, On
+	}
+}
+If (HotkeyGlobal[A_GuiControl]){  ;Apply to all profiles
+	Loop, Parse, ProfileList, `,
+	{
+		DebugAffix(A_LoopField)
+		IniWrite,% %A_GuiControl%, Prefs.ini, %A_LoopField%,% HotkeyName[A_GuiControl]
+	}
+}
+If !(HotkeyDisableMain[A_GuiControl]){
+	Hotkey,% %PrevName%[A_GuiControl], Off, UseErrorLevel
+	Hotkey,% %A_GuiControl%,% HotkeySub[A_GuiControl], UseErrorLevel
+	Hotkey,% %A_GuiControl%, On, UseErrorLevel
+}
+If !(Duplicate){
+	%PrevName%[A_GuiControl] := %A_GuiControl%
+	If (A_GuiControl!=SC){
+		send {Tab}  ;Go to the next hotkey control if not at last hotkey
+	}
+}
+GoTo SpecialHotkey
+
+;Some keys need custom controlling because they dont show up in hotkey controls
+;F13-F24 are G1-G12 in accordance to my current mouse
+SpecialHotkey:
+GuiControlGet, %A_GuiControl%, Pos, %A_GuiControl%
+If (%A_GuiControl%W = HotkeySize){
+	If (IsSpecialHotkey(%A_GuiControl%)){
+	 	GuiControl, Show, SpecialText%A_GuiControl%
+		GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
+		GuiControl, Move, SpecialText%A_GuiControl%,% "x" %A_GuiControl%X-10 " y" %A_GuiControl%Y-25
+		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize-25 " x" %A_GuiControl%X+%A_GuiControl%W-HotkeySize+13
+	}
+} else {
+	If (%A_GuiControl%W = HotkeySize-25){
+		If (IsSpecialHotkey(%A_GuiControl%)){
+			GuiControl, Show, SpecialText%A_GuiControl%
+			GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
+			Return
+		}
+		GuiControl, Hide, SpecialText%A_GuiControl%
+		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize " x" %A_GuiControl%X-37
+	}
+}
+Return
+InvalidHotkey:
+GuiControl, , %A_GuiControl%,% HotkeyPrev[A_GuiControl]
+DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
+%A_GuiControl% := HotkeyPrev[A_GuiControl]
+Return
+
+SaveIni(){
+	global Profile, SC, Tab
+	Gui, 1: +LastFound
+	WinGetPos,GuiX,GuiY,GuiW
+	If !(GuiX<150-GuiW or GuiY<0){
+		IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
+		IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
+	}
+	SaveHotkeys(Profile)
+}
+
+SaveHotkeys(Save="Default"){
+	global
+	If (Tab="Hotkeys"){
+		DebugAffix(A_ThisFunc)
+		Loop, %SC% {
+			IniWrite,% %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index]
+			Hotkey,% %A_Index%, Off, UseErrorLevel
+			Hotkey,% "+"%A_Index%, Off, UseErrorLevel
+			Hotkey,% "!"%A_Index%, Off, UseErrorLevel
+			Hotkey,% "^"%A_Index%, Off, UseErrorLevel
+			Hotkey,% "+!"%A_Index%, Off, UseErrorLevel
+			Hotkey,% "^!"%A_Index%, Off, UseErrorLevel
+			Hotkey,% "^+"%A_Index%, Off, UseErrorLevel
+			%A_Index% =
+			GuiControl,, %A_Index%,
+		}
+	} else {
+		DebugAffix(A_ThisFunc " ignored in " Tab " tab")
+	}
+}
+RestoreHotkeys(Save="Default"){
+	global
+	Profile := Save
+	DebugAffix(A_ThisFunc)
+	GoSub LoadScripts
+	Loop, %SC% {
+		IniRead, %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index], %A_Space%
+		If (%A_Index%){
+			If (HotkeySub[A_Index]){  ;If no subroute defined for hotkey, skip it
+				Hotkey,% %A_Index%,% HotkeySub[A_Index], UseErrorLevel
+				Hotkey,% %A_Index%, On, UseErrorLevel
+			}
+			GuiControl, , %A_Index%,% %A_Index%  ;Update control contents
+			If (HotkeyShift[A_Index]){
+				Hotkey,% "+"%A_Index%,% HotkeySub[A_Index] . "_Shift", UseErrorLevel
+				Hotkey,% "+"%A_Index%, On, UseErrorLevel
+			} 
+			If (HotkeyAlt[A_Index]){
+				Hotkey,% "!"%A_Index%,% HotkeySub[A_Index] . "_Alt", UseErrorLevel
+				Hotkey,% "!"%A_Index%, On, UseErrorLevel
+			} 
+			If (HotkeyCtrlAlt[A_Index]){
+				Hotkey,% "^!"%A_Index%,% HotkeySub[A_Index] . "_CtrlAlt", UseErrorLevel
+				Hotkey,% "^!"%A_Index%, On, UseErrorLevel
+			}
+			If (HotkeyCtrlShift[A_Index]){
+				Hotkey,% "^+"%A_Index%,% HotkeySub[A_Index] . "_CtrlShift", UseErrorLevel
+				Hotkey,% "^+"%A_Index%, On, UseErrorLevel
+			}
+		}
+		HotkeyPrev[A_Index] := %A_Index%
+		;Handle moving of controls to allow having text show next to them if its a "special" hotkey
+		GuiControlGet, %A_Index%, Pos, %A_Index%
+		If (IsSpecialHotkey(%A_Index%)){
+			GuiControl, Show, SpecialText%A_Index%
+			GuiControl,, SpecialText%A_Index%,% TrimSpecialHotkey(%A_Index%)
+			GuiControl, Move, SpecialText%A_Index%,% "x" %A_Index%X+%A_Index%W-HotkeySize-10 " y" %A_Index%Y-25
+			GuiControl, Move, %A_Index%,% "w" HotkeySize-25 " x" %A_Index%X+%A_Index%W-HotkeySize+13
+		} else {
+			GuiControl, Hide, SpecialText%A_Index%
+			GuiControl,, SpecialText%A_Index%, :(
+			If (%A_Index%W = HotkeySize-25){
+				GuiControl, Move, %A_Index%,% "w" HotkeySize " x" %A_Index%X-37
+			}
+		}
+	}
+	If (Tab="settings"){
+		SettingsRefresh()
+	}
+}
+RemoveDuplicateHotkeys(){
+	Global
+	Local GlobalID
+	Loop, %SC% {
+		If (HotkeyGlobal[A_Index]){
+			GlobalID := A_Index
+			If (%GlobalID%){
+				Loop, %SC% {
+					If (%A_Index%=%GlobalID% and A_Index!=GlobalID){
+						DebugAffix(%A_Index% "/" %GlobalID%)
+						%A_Index% =
+						GuiControl,, %A_Index%,
+					}
+				}
+			}
+		}
+	}
+}
+
+WM_MOUSEMOVE(){  ;Description handling
+	global
+	If (SubStr(A_GuiControl, "1", "1")="["){  ;Ignore controls with "[" to avoid errors
+		Return
+	}
+	If (A_GuiControl=PrevA_GuiControl){
+		Return
+	}
+	PrevA_GuiControl:=A_GuiControl
+	If !(A_GuiControl){
+		If (DebugSetting=1 and Tab!="Settings"){
+			SetTimer, DescriptionTimeout, -2000
+		}
+	}
+	GuiControlPrefix := PrefixNum(A_GuiControl)
+	If (GuiControlPrefix){
+		If (DebugSetting=1){
+			If (Tab="Settings"){
+				If (HotkeySettingsDescription[GuiControlPrefix]){
+					DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeySettingsDescription[GuiControlPrefix])
+					SetTimer, DescriptionTimeout, Off
+				} else {
+					DebugAffix(HotkeyName[GuiControlPrefix] " has no settings description!")
+				}
+			} else {
+				DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeyDescription[GuiControlPrefix])
+				SetTimer, DescriptionTimeout, Off
+			}
+		}
+	} else {
+		DebugDescription := "Description" StrReplace(StrReplace(A_GuiControl, "&"), " ")
+		If !(%DebugDescription%){
+			%DebugDescription%:="Undescribed"
+			FileAppend,% "`n" DebugDescription " = Undescribed", Descriptions.txt,
+			DebugAffix(A_GuiControl " added to Descriptions.txt")
+		} else {
+			If (%DebugDescription%!="Undescribed"){
+				If (DebugSetting=1){
+					DebugSet(%DebugDescription%)
+					SetTimer, DescriptionTimeout, Off
+				}
+			}
+		}
+		;else DebugSet(DebugDescription)  ;Uncomment to show undescribed. For example DescriptionDebug, DescriptionDefaultProfile
+	}
+}
+WM_NCMOUSELEAVE(){
+	Global
+	If (DebugSetting=1 and Tab!="Settings"){
+		SetTimer, DescriptionTimeout, -2000
+	}
+}
+DescriptionTimeout:
+If (DebugSetting=1 and Tab!="Settings"){
+	DebugAffix()
+}
 Return
 
 ExportProfile:
@@ -214,7 +514,7 @@ ExportCheckbox:
 Gui, Export:Submit, NoHide
 ExportCheckboxID := SuffixNum(A_GuiControl)
 GoTo GetExport
-
+		
 ExportExport:
 FileSelectFile, ExportPath, S 24, RootDir\ScriptFagExport.txt,, *.txt
 If !(ExportPath=""){
@@ -286,360 +586,20 @@ If (ImportMerge){
 				{
 					If (A_Index=1){
 						InportKey := A_LoopField
-					} else {
+		} else {
 						IniWrite, %A_LoopField%, Prefs.ini, %ImportSection%, %InportKey%
 					}
 				}	
 			}
 		}
-	} 
+	}
 } else {
 	If !(ImportMerge){
 			FileCopy, %ImportPath%, Prefs.ini, 1  ;1 overwrite
 	}
 }
-MsgBox, Restarting to apply changes
 Reload
 Return
-
-DoTick:
-Tick ++
-DoubleTick ++
-SubTick ++
-OldActiveTitle = %ActiveTitle%
-WinGetActiveTitle, ActiveTitle
-If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Activates on window change (ignores some changes)
-	and ActiveTitle!=PrevActiveTitle and ActiveTitle!=A_ScriptName){
-	GoSub DotaHotkeys
-	GoSub PubgHotkeys
-	GoSub WitcherHotkeys
-	Gosub SB_Title
-	FH_Enable=0
-	If InStr(ActiveTitle, "| Flickr -"){
-		FH_Enable=1
-	} else {
-		If (ActiveTitle="This is an unregistered copy"){
-			WinClose, This is an unregistered copy
-		}
-	}
-	PrevActiveTitle = %ActiveTitle%
-}
-
-If (DoubleTick=2){
-	If (DebugSetting=2){
-		DebugSet(GetUnderMouseInfo(TPS/4))  ;Full update 2 times a second (TPS)
-	}
-	DoubleTick=0
-}
-If (SubTick=10){
-	If (FH_Enable){
-		GoSub, FlickerHide
-	}
-	SubTick=0
-}
-GuiControl, , GuiHint,% Tick
-Return
-
-TickPerSec:
-TickEnd := Tick
-If (TickEnd - TickStart < 1){
-	GuiControl, Hide, TickTime,
-} else {
-	GuiControl, Show, TickTime,
-	If (TickEnd - TickStart = TPS){
-		GuiControl,, TickTime,% (TickEnd - TickStart) " tps*"
-	} else {
-		GuiControl,, TickTime,% (TickEnd - TickStart) " tps"
-	}
-}
-TickStart := Tick
-Return
-
-WM_MOUSEMOVE(){  ;Description handling
-	global
-	If (SubStr(A_GuiControl, "1", "1")="["){  ;Ignore controls with "[" to avoid errors
-		Return
-	}
-	If (A_GuiControl=PrevA_GuiControl){
-		Return
-	}
-	PrevA_GuiControl:=A_GuiControl
-	If !(A_GuiControl){
-		If (DebugSetting=1 and Tab!="Settings"){
-			DebugAffix()
-		}
-	}
-	GuiControlPrefix := PrefixNum(A_GuiControl)
-	If (GuiControlPrefix){
-		If (DebugSetting=1){
-			If (Tab="Settings"){
-				If (HotkeySettingsDescription[GuiControlPrefix]){
-					DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeySettingsDescription[GuiControlPrefix])
-					SetTimer, DescriptionTimeout, -2000
-				} else {
-					DebugAffix(HotkeyName[GuiControlPrefix] " has no settings description!")
-				}
-			} else {
-				DebugSet(StrReplace(HotkeyName[GuiControlPrefix], "_", " ") "`n`n" HotkeyDescription[GuiControlPrefix])
-				SetTimer, DescriptionTimeout, -2000
-			}
-		}
-	} else {
-		DebugDescription := "Description" StrReplace(StrReplace(A_GuiControl, "&"), " ")
-		If !(%DebugDescription%){
-			%DebugDescription%:="Undescribed"
-			FileAppend,% "`n" DebugDescription " = Undescribed", Descriptions.txt,
-			DebugAffix(A_GuiControl " added to Descriptions.txt")
-		} else {
-			If (%DebugDescription%!="Undescribed"){
-				If (DebugSetting=1){
-					DebugSet(%DebugDescription%)
-					SetTimer, DescriptionTimeout, -2000
-				}
-			}
-		}  
-		;else DebugSet(DebugDescription)  ;Uncomment to show undescribed. For example DescriptionDebug, DescriptionDefaultProfile
-	}
-}
-WM_NCMOUSELEAVE(){
-	Global
-	If (DebugSetting=1 and Tab!="Settings"){
-		DebugAffix()
-	}
-}
-DescriptionTimeout:
-
-DebugAffix()
-Return
-
-GlobalHotkeyCreate:
-CreateName := SuffixNum(CreateName)
-PrevName := "HotkeyGlobalPrev"
-GoTo CreateStart
-
-HotkeyCreate:
-CreateName := A_GuiControl
-PrevName := "HotkeyPrev"
-GoTo CreateStart
-
-CreateStart:
-;Invalidate hotkeys with modIfiers
-If InStr(%A_GuiControl%, "+"){	;Shift
-	GoTo InvalidHotkeyCreate
-}
-If InStr(%A_GuiControl%, "^"){	;Control
-	GoTo InvalidHotkeyCreate
-}
-If InStr(%A_GuiControl%, "!"){	;Alt
-	GoTo InvalidHotkeyCreate
-}
-If GetKeyState("RWin","P"){		;Windows
-	DebugSet("Windows key")
-	GoTo InvalidHotkeyCreate
-}  
-;Create new hotkeys and disable old ones
-If (HotkeyShift[CreateName]){
-	Hotkey,% "+"%PrevName%[CreateName], Off, UseErrorLevel
-	Hotkey,% "+"%A_GuiControl%,% HotkeySub[CreateName] . "_Shift"
-	Hotkey,% "+"%A_GuiControl%, On
-}
-If (HotkeyAlt[A_Index]){
-	Hotkey,% "!"%PrevName%[CreateName], Off, UseErrorLevel
-	Hotkey,% "!"%A_GuiControl%,% HotkeySub[CreateName] . "_Alt"
-	Hotkey,% "!"%A_GuiControl%, On
-}
-If (HotkeyCtrlAlt[A_Index]){
-	Hotkey,% "^!"%PrevName%[CreateName], Off, UseErrorLevel
-	Hotkey,% "^!"%A_GuiControl%,% HotkeySub[CreateName] . "_CtrlAlt"
-	Hotkey,% "^!"%A_GuiControl%, On
-}
-If (HotkeyCtrlShift[A_Index]){
-	Hotkey,% "^+"%PrevName%[CreateName], Off, UseErrorLevel
-	Hotkey,% "^+"%A_GuiControl%,% HotkeySub[CreateName] . "_CtrlShift"
-	Hotkey,% "^+"%A_GuiControl%, On
-}
-Hotkey,% %PrevName%[CreateName], Off, UseErrorLevel
-Hotkey,% %A_GuiControl%,% HotkeySub[CreateName], UseErrorLevel
-Hotkey,% %A_GuiControl%, On, UseErrorLevel
-%PrevName%[CreateName] := %A_GuiControl%
-Hotkey, +, Off, UseErrorLevel
-Hotkey, ++, Off, UseErrorLevel
-If (CreateName!=SC){
-	send {Tab}  ;Go to the next hotkey control if not at last hotkey
-}
-Goto SpecialHotkey
-
-
-;Some keys need custom controlling because they dont show up in hotkey controls
-;F13-F24 are G1-G12 in accordance to my current mouse
-SpecialHotkey:
-GuiControlGet, %A_GuiControl%, Pos, %A_GuiControl%
-If (%A_GuiControl%W = HotkeySize){
-	If (IsSpecialHotkey(%A_GuiControl%)){
-	 	GuiControl, Show, SpecialText%A_GuiControl%
-		GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
-		GuiControl, Move, SpecialText%A_GuiControl%,% "x" %A_GuiControl%X-10 " y" %A_GuiControl%Y-25
-		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize-25 " x" %A_GuiControl%X+%A_GuiControl%W-HotkeySize+13
-	}
-} else {
-	If (%A_GuiControl%W = HotkeySize-25){
-		If (IsSpecialHotkey(%A_GuiControl%)){
-			GuiControl, Show, SpecialText%A_GuiControl%
-			GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
-			Return
-		}
-		GuiControl, Hide, SpecialText%A_GuiControl%
-		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize " x" %A_GuiControl%X-37
-	}
-}
-Return
-InvalidHotkeyCreate:
-GuiControl, , %A_GuiControl%,% HotkeyPrev[A_GuiControl]
-DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
-%A_GuiControl% := HotkeyPrev[A_GuiControl]
-Return
-
-SaveIni(){
-	global Profile, SC, Tab
-	Gui, 1: +LastFound
-	WinGetPos,GuiX,GuiY,GuiW
-	If !(GuiX<150-GuiW or GuiY<0){
-		IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
-		IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
-	}
-	SaveHotkeys(Profile)
-	SaveGlobalHotkeys()
-}
-
-SaveHotkeys(Save="Default"){
-	global
-	If (Tab="Hotkeys"){
-		DebugAffix(A_ThisFunc)
-		Loop, %SC% {
-			IniWrite,% %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index]
-			Hotkey,% %A_Index%, Off, UseErrorLevel
-			Hotkey,% "+"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "+!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^+"%A_Index%, Off, UseErrorLevel
-			%A_Index% =
-			GuiControl, , %A_Index%,
-		}
-	} else {
-		DebugAffix(A_ThisFunc " ignored in " Tab " tab")
-	}
-}
-RestoreHotkeys(Save="Default"){
-	global
-	Profile := Save
-	If (Tab="Globals"){
-		DebugAffix(A_ThisFunc " ignored in " Tab " tab")
-		Return
-	}
-	DebugAffix(A_ThisFunc)
-	GoSub LoadScripts
-	Loop, %SC% {
-		IniRead, %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index], %A_Space%
-		If (%A_Index%){
-			If (HotkeySub[A_Index]){  ;If no subroute defined for hotkey, skip it
-				Hotkey,% %A_Index%,% HotkeySub[A_Index], UseErrorLevel
-				Hotkey,% %A_Index%, On, UseErrorLevel
-			}
-			GuiControl, , %A_Index%,% %A_Index%  ;Update control contents
-			If (HotkeyShift[A_Index]){
-				Hotkey,% "+"%A_Index%,% HotkeySub[A_Index] . "_Shift", UseErrorLevel
-				Hotkey,% "+"%A_Index%, On, UseErrorLevel
-			} 
-			If (HotkeyAlt[A_Index]){
-				Hotkey,% "!"%A_Index%,% HotkeySub[A_Index] . "_Alt", UseErrorLevel
-				Hotkey,% "!"%A_Index%, On, UseErrorLevel
-			} 
-			If (HotkeyCtrlAlt[A_Index]){
-				Hotkey,% "^!"%A_Index%,% HotkeySub[A_Index] . "_CtrlAlt", UseErrorLevel
-				Hotkey,% "^!"%A_Index%, On, UseErrorLevel
-			}
-			If (HotkeyCtrlShift[A_Index]){
-				Hotkey,% "^+"%A_Index%,% HotkeySub[A_Index] . "_CtrlShift", UseErrorLevel
-				Hotkey,% "^+"%A_Index%, On, UseErrorLevel
-			}
-			Hotkey, +, Off, UseErrorLevel
-			Hotkey, !, Off, UseErrorLevel
-			Hotkey, ++, Off, UseErrorLevel
-		}
-		HotkeyPrev[A_Index] := %A_Index%
-		;Handle moving of controls to allow having text show next to them if its a "special" hotkey
-		GuiControlGet, %A_Index%, Pos, %A_Index%
-		If (IsSpecialHotkey(%A_Index%)){
-			GuiControl, Show, SpecialText%A_Index%
-			GuiControl,, SpecialText%A_Index%,% TrimSpecialHotkey(%A_Index%)
-			GuiControl, Move, SpecialText%A_Index%,% "x" %A_Index%X+%A_Index%W-HotkeySize-10 " y" %A_Index%Y-25
-			GuiControl, Move, %A_Index%,% "w" HotkeySize-25 " x" %A_Index%X+%A_Index%W-HotkeySize+13
-		} else {
-			GuiControl, Hide, SpecialText%A_Index%
-			GuiControl,, SpecialText%A_Index%, :-/
-			If (%A_Index%W = HotkeySize-25){
-				GuiControl, Move, %A_Index%,% "w" HotkeySize " x" %A_Index%X-37
-			}
-		}
-	}
-	If (Tab="settings"){
-		SettingsRefresh()
-	}
-}
-
-SaveGlobalHotkeys(){
-	global
-	DebugAffix(A_ThisFunc)
-	Loop, %SC% {
-		IniWrite,% %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
-	}
-}
-LoadGlobalHotkeys(){
-	global
-	DebugAffix(A_ThisFunc)
-	Loop, %SC% {
-		IniRead, %A_Index%Global, Prefs.ini, Global,% HotkeyName[A_Index]
-		If (%A_Index%Global){
-			If (HotkeySub[A_Index]){
-				Hotkey,% %A_Index%Global,% HotkeySub[A_Index], UseErrorLevel
-			}
-			GuiControl, , y%A_Index%Global,% %A_Index%Global
-			HotkeyGlobalPrev[A_Index] := %A_Index%Global
-			If (HotkeyShift[A_Index]){
-				Hotkey,% "+"%A_Index%Global,% HotkeySub[A_Index] . "_Shift", UseErrorLevel
-			}
-			If (HotkeyAlt[A_Index]){
-				Hotkey,% "!"%A_Index%Global,% HotkeySub[A_Index] . "_Alt", UseErrorLevel
-			}
-			If (HotkeyCtrlAlt[A_Index]){
-				Hotkey,% "^!"%A_Index%Global,% HotkeySub[A_Index] . "_CtrlAlt", UseErrorLevel
-			}
-			If (HotkeyCtrlShift[A_Index]){
-				Hotkey,% "^+"%A_Index%Global,% HotkeySub[A_Index] . "_CtrlShift", UseErrorLevel
-			}
-		}
-		;Handle moving of controls to allow having text show next to them if its a "special" hotkey
-
-		
-
-		GuiControlGet, %A_Index%Global, Pos, %A_Index%Global
-		If (IsSpecialHotkey(%A_Index%Global)){
-			GuiControl, Show, SpecialTextGlobal%A_Index%
-			GuiControl,, SpecialTextGlobal%A_Index%,% TrimSpecialHotkey(%A_Index%Global)
-			GuiControl, Move, SpecialTextGlobal%A_Index%,% "x" %A_Index%GlobalX+%A_Index%GlobalW-HotkeySize-10 " y" %A_Index%GlobalY-25
-			GuiControl, Move, %A_Index%,% "w" HotkeySize-25 " x" %A_Index%GlobalX+%A_Index%GlobalW-HotkeySize+13
-		} else {
-			GuiControl, Hide, SpecialTextGlobal%A_Index%
-			GuiControl,, SpecialTextGlobal%A_Index%, :-/
-			If (%A_Index%GlobalW = HotkeySize-25){
-				GuiControl, Move, %A_Index%Global,% "w" HotkeySize " x" %A_Index%GlobalX-37
-			}
-		}
-		GuiControl,, %A_Index%Global,% %A_Index%Global
-	}
-}
 
 IsSpecialHotkey(Hotkey){
 	If (SubStr(Hotkey, 1, 1)=="F"){
@@ -703,9 +663,7 @@ Return
 TabControl:
 SaveHotkeys(Profile)
 Gui, Submit, NoHide
-If (Tab="Globals"){
-	DebugAffix("Leave globals tab to re-enable hotkeys")
-} else {
+
 	If (Tab="Hotkeys"){
 		RestoreHotkeys(Profile)
 	} else {
@@ -714,7 +672,6 @@ If (Tab="Globals"){
 			DebugSet("Note that most of these settings can also be changed with hotkey+shift")
 		}
 	}
-}
 Return
 
 SettingUpdate:
@@ -765,6 +722,9 @@ ButtonHide:
 Gui, Show, Hide
 Return
 ButtonTest:
+RemoveDuplicateHotkeys()
+Return
+
 InputBox, TestInput, Variable content, Type a variable and show its content,
 If (TestInput){
 	InputBox, TestInput, %TestInput%, %TestInput% content,,,,,,,,% %TestInput%
@@ -785,15 +745,21 @@ If InStr(ActiveTitle, "S BATTLEGROUNDS"){
 		Hotkey, ~!Shift, Off
 		Hotkey, ~+Alt, Off
 		RestoreHotkeys("Pubg")
+		RemoveDuplicateHotkeys()
 		PubgEnabled=1
 		GoSub LayoutFi
 		Gosub SB_Profile
 		DebugAffix("Enabled Pubg")
-		Return
 	}
-}
-If !(PubgEnabled=1 and ActiveTitle!=GuiTitle and ActiveTitle!="Search" and ActiveTitle){
 	Return
+} else {
+	If (!PubgEnabled or ActiveTitle="Search" or !ActiveTitle or ActiveTitle=GuiTitle){
+		Return
+	} else {
+		If InStr(ActiveTitle, "S BATTLEGROUNDS"){
+			Return
+		}
+	}
 }
 DisablePubg:
 SaveHotkeys("Pubg")
@@ -802,6 +768,7 @@ Hotkey, ~+Alt, LayoutRu
 Hotkey, ~!Shift, On
 Hotkey, ~+Alt, On
 RestoreHotkeys()
+RemoveDuplicateHotkeys()
 PubgEnabled=0
 Gosub SB_Profile
 DebugAffix("Disabled Pubg")
@@ -810,7 +777,7 @@ Return
 DotaOverride:
 ActiveTitle := "Dota 2"
 DotaHotkeys:
-If ((!DotaEnabled and ActiveTitle="Dota 2")){
+If (!DotaEnabled and ActiveTitle="Dota 2"){
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys()
 	Hotkey, *%CustomKey1%, DotaZ
@@ -832,6 +799,7 @@ If ((!DotaEnabled and ActiveTitle="Dota 2")){
 	Hotkey, *%CustomKey8%, On
 
 	RestoreHotkeys("Dota")
+	RemoveDuplicateHotkeys()
 	DotaEnabled=1
 	Gosub SB_Profile
 	DebugAffix("Enabled dota")
@@ -853,6 +821,7 @@ Hotkey, *%CustomKey6%, Off
 Hotkey, *%CustomKey7%, Off
 Hotkey, *%CustomKey8%, Off
 RestoreHotkeys()
+RemoveDuplicateHotkeys()
 DotaEnabled=0
 Gosub SB_Profile
 DebugAffix("Disabled dota")
@@ -861,22 +830,22 @@ Return
 WitcherOverride:
 ActiveTitle := "The Witcher 3"
 WitcherHotkeys:
-If (ActiveTitle = "The Witcher 3"){
-	If !(WitcherEnabled){  ;Enables Witcher Hotkeys
-		GoSub DisableHotkeyProfiles
-		SaveHotkeys()
-		Hotkey, ~!Shift, Off
-		Hotkey, ~+Alt, Off
-		RestoreHotkeys("Witcher")
-		WitcherEnabled=1
-		GoSub LayoutFi
-		Gosub SB_Profile
-		DebugAffix("Enabled Witcher")
+If (ActiveTitle="The Witcher 3" and !WitcherEnabled){
+	GoSub DisableHotkeyProfiles
+	SaveHotkeys()
+	Hotkey, ~!Shift, Off
+	Hotkey, ~+Alt, Off
+	RestoreHotkeys("Witcher")
+	RemoveDuplicateHotkeys()
+	WitcherEnabled=1
+	GoSub LayoutFi
+	Gosub SB_Profile
+	DebugAffix("Enabled Witcher")
+	Return
+} else {
+	If (!WitcherEnabled or ActiveTitle="Search" or ActiveTitle="The Witcher 3" or !ActiveTitle or ActiveTitle=GuiTitle){
 		Return
 	}
-}
-If !(WitcherEnabled=1 and ActiveTitle!=GuiTitle and ActiveTitle!="Search" and ActiveTitle){
-	Return
 }
 DisableWitcher:
 SaveHotkeys("Witcher")
@@ -885,6 +854,7 @@ Hotkey, ~+Alt, LayoutRu
 Hotkey, ~!Shift, On
 Hotkey, ~+Alt, On
 RestoreHotkeys()
+RemoveDuplicateHotkeys()
 WitcherEnabled=0
 Gosub SB_Profile
 DebugAffix("Disabled Witcher")
@@ -1552,7 +1522,10 @@ HopVS:
 
 SC++
 HotkeyName[SC] := "Annihilate"
+HotkeySub[SC] := "AN"
 HotkeyDescription[SC] := "Hotkey:`nPressing this without ctrl+alt doesnt do anything`n`nCtrl+Alt:`nKill the script immediately"
+HotkeyGlobal[SC] := 1
+HotkeyDisableMain[SC] := 1 
 HotkeyCtrlAlt[SC] := 1
 GoTo HopAN
 AN_CtrlAlt:
@@ -1570,6 +1543,9 @@ Loop, 1 {	;Create similarly stupid dummy scripts
 	HotkeyDescription[SC] := "Im`na`ndummy`n:)"
 }
 GoTo HopDummy
+Dummy:
+DebugAffix("Dummy hit")
+Return
 Dummy_Settings:
 DebugAffix("YOU JUST CHANGED NOTHING")
 Return
@@ -1583,10 +1559,12 @@ Return
 
 SC++
 HotkeyName[SC] := "Name_of_Script"
-HotkeySub[SC] := "SHORT"  ;Subroute when hotkey is pressed without modifier. Can be removed to not have a main function
+HotkeySub[SC] := "SHORT"  ;Subroute when hotkey is pressed without modifier
 HotkeySettings[SC] := "Variable,Variable2,Var3"  ;Variables that will be shown in Settings tab
 HotkeySettingsDescription[SC] := "Description when hovering in Settings tab"
 HotkeyDescription[SC] := "Description when hovering"
+HotkeyGlobal[SC] := 1  ;If enabled hotkey will be set for all profiles
+HotkeyDisableMain[SC] := 1  ;If enabled hotkey will not do anything			Label
 HotkeyShift[SC] := 1  ;If enabled shift+hotkey will go to the				_Shift label
 HotkeyAlt[SC] := 1  ;If enabled alt+hotkey will go to the					_Alt label
 HotkeyCtrlAlt[SC] := 1  ;If enabled ctrl+alt+hotkey will go to the			_CtrlAlt label
