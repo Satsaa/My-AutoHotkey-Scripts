@@ -1,0 +1,11 @@
+﻿HotkeyName := [],
+HotkeySub := [],
+HotkeyDescription := [],
+HotkeySettings := [],
+HotkeySettingsDescription := [],
+HotkeyPrev := [],
+HotkeyGlobal := [],
+HotkeyShift := [],
+HotkeyAlt := [],
+HotkeyCtrlAlt := [],
+HotkeyCtrlShift := []

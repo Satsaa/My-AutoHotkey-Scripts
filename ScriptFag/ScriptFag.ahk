@@ -19,6 +19,7 @@ CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Include.ahk
 #Include %A_ScriptDir%\Descriptions.txt
+#Include %A_ScriptDir%\Scripts\_Init.ahk
 
 
 
@@ -27,8 +28,6 @@ CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
 CustomKey10 := "F22", CustomKey11 := "F23", CustomKey12 := "F24",
-HotkeyName := [], HotkeySub := [], HotkeyDescription := [], HotkeySettings := [], HotkeySettingsDescription := [], HotkeyPrev := [],
-HotkeyGlobal := [], HotkeyShift := [], HotkeyAlt := [], HotkeyCtrlAlt := [], HotkeyCtrlShift := [], 
 DefaultBanList :="Spam_Ping_Map,Annihilate"
 DotaBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
 WitcherBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
@@ -507,6 +506,7 @@ Gui, Export:Add, Edit, Readonly w400 h500 vExportPreview
 ExportWindowExists=1
 DebugAffix("Export Gui Created")
 Gui, Export:Show
+Gui, Export: +AlwaysOnTop
 Gui, Export:Submit, NoHide
 GoTo GetExport
 
@@ -1110,9 +1110,8 @@ Return
 
 PI_Settings:
 If IsNumber(%A_GuiControl%){
-	%ChangingSetting% := %A_GuiControl%
-	WriteIni(Profile,,ChangingSetting)
-	DebugSet(%A_GuiControl% " accepted and saved")
+	%A_GuiControl% := Floor(%A_GuiControl%)
+	GoTo SettingsSuccess
 } else {
 	DebugSet(ChangingSetting " must be a number")
 }
@@ -1154,25 +1153,22 @@ If (WinExist(CL_Title)){
 Return
 CL_Settings:
 If (ChangingSetting="CL_ClickX"){
-	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(A_GuiControl)){
-		GoTo SM_SettingsSuccess
+	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(%A_GuiControl%)){
+		%A_GuiControl% := Floor(%A_GuiControl%)
+		GoTo SettingsSuccess
 	} else {
 		DebugSet(ChangingSetting " must be within screen boundaries and be a number")
 	}
 } else {
 	If (ChangingSetting="CL_ClickY"){
-		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(A_GuiControl)){
-			GoTo SM_SettingsSuccess
+		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(%A_GuiControl%)){
+			%A_GuiControl% := Floor(%A_GuiControl%)
+			GoTo SettingsSuccess
 		} else {
 			DebugSet(ChangingSetting " must be within screen boundaries and be a number")
 		}
 	}
 }
-Return
-CL_SettingsSuccess:
-%ChangingSetting% := %A_GuiControl%
-WriteIni(Profile,,ChangingSetting)
-DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopCL:
 
@@ -1231,33 +1227,30 @@ If (WinExist(C2L_Title)){
 } Return
 C2L_Settings:
 If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){
-	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(A_GuiControl)){
-		GoTo SM_SettingsSuccess
+	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(%A_GuiControl%)){
+		%A_GuiControl% := Floor(%A_GuiControl%)
+		GoTo SettingsSuccess
 	} else {
 		DebugSet(ChangingSetting " must be within screen boundaries and a number")
 	}
 } else {
 	If (ChangingSetting="C2L_Click1Y" or ChangingSetting="C2L_Click2Y"){
-		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(A_GuiControl)){
-			GoTo SM_SettingsSuccess
+		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(%A_GuiControl%)){
+			%A_GuiControl% := Floor(%A_GuiControl%)
+			GoTo SettingsSuccess
 		} else {
 			DebugSet(ChangingSetting " must be within screen boundaries and a number")
 		}
 	} else {
 		If (ChangingSetting="C2L_CloseWin"){
 			If (%A_GuiControl%="0" or %A_GuiControl%="1"){
-				GoTo SM_SettingsSuccess
+				GoTo SettingsSuccess
 			} else {
-				DebugSet(ChangingSetting " must 1 or 0")
+				DebugSet(ChangingSetting " must be 1 or 0")
 			}
 		}
 	}
 }
-Return
-C2L_SettingsSuccess:
-%ChangingSetting% := %A_GuiControl%
-WriteIni(Profile,,ChangingSetting)
-DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopC2L:
 
@@ -1283,25 +1276,19 @@ InputBox, SC_Sleep, Sleep, Input how long (ms) to sleep between clicks,
 WriteIni(Profile,,"SC_Sleep")
 Return
 SC_Settings:
-If %A_GuiControl% is digit
-{
-	Goto SC_SettingsSuccess
+If IsNumber(%A_GuiControl%){
+	%A_GuiControl% := Floor(%A_GuiControl%)
+	Goto SettingsSuccess
 } else {
 	If (%A_GuiControl%="skip"){
-		GoTo SC_SettingsSuccess
+		GoTo SettingsSuccess
 	} else {
 		DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
 	}
 }
 Return
-SC_SettingsSuccess:
-%ChangingSetting% := %A_GuiControl%
-WriteIni(Profile,,ChangingSetting)
-DebugSet(%A_GuiControl% " accepted and saved")
-Return
 HopSC:
 
-GoTo HopSM  ;Disables
 SC++
 HotkeyName[SC] := "Spam_Ping_Map"
 HotkeySub[SC] := "SM"
@@ -1328,21 +1315,16 @@ InputBox, SM_Sleep, Sleep, Input how long (ms) to sleep between pings
 WriteIni(Profile,,"SM_Sleep")
 Return
 SM_Settings:
-If %A_GuiControl% is digit
-{
-	Goto SM_SettingsSuccess
+If IsNumber(%A_GuiControl%){
+	%A_GuiControl% := Floor(%A_GuiControl%)
+	Goto SettingsSuccess
 } else {
 	If (%A_GuiControl%="skip"){
-		GoTo SM_SettingsSuccess
+		GoTo SettingsSuccess
 	} else {
  		DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
 	}
 }
-Return
-SM_SettingsSuccess:
-%ChangingSetting% := %A_GuiControl%
-WriteIni(Profile,,ChangingSetting)
-DebugSet(%A_GuiControl% " accepted and saved")
 Return
 HopSM:
 
@@ -1387,7 +1369,7 @@ DS_Settings:
 If (!%A_GuiControl%=0 and (%A_GuiControl%=1 or %A_GuiControl%=2 or %A_GuiControl%=-1 or %A_GuiControl%=-2)){
 	%ChangingSetting% := %A_GuiControl%
 	WriteIni(,,"DebugSetting")
-	DebugSet("Value accepted and saved")
+	DebugSet(%A_GuiControl% " accepted and saved")
 } else {
 	DebugSet("DebugSetting must be 1, 2, -1 or -2")
 }
@@ -1487,7 +1469,7 @@ HopYI:
 SC++
 HotkeyName[SC] := "VS_Code_Find_Label"
 HotkeySub[SC] := "VS"
-HotkeyDescription[SC] := "Hotkey:`nFind selected label or function in the current script file (Visual Studio Code)"
+HotkeyDescription[SC] := "Hotkey:`nFind highlighted label or function in the current script file (Visual Studio Code)"
 GoTo HopVS
 VS:
 IfWinNotActive, ahk_exe code.exe
@@ -1521,9 +1503,126 @@ Return
 HopVS:
 
 SC++
+HotkeyName[SC] := "Gimp_Resize"
+HotkeySub[SC] := "GR"
+HotkeySettings[SC] := "GR_Mode,GR_Width,GR_Height,GR_Interpolation"  ;Variables that will be shown in Settings tab
+HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nShift:`nShow customization window"
+HotkeySettingsDescription[SC] := "GR_Mode:`n1 = Scale image 2 = Scale layer`n`nGR_Width:`nScale width`n`nGR_Height:`nScale height`n`nGR_Interpolation:`n0 to not change. 1 to " GR_MaxInterpolation " for one of these " GR_InterpolationList "`n`n"
+HotkeyShift[SC] := 1  ;If enabled shift+hotkey will go to the				_Shift label
+ReadIniDefUndef(Profile,,"GR_Mode",1,"GR_Width",0,"GR_Height",0,"GR_Interpolation",0)
+If !(LoadIndex){
+	GR_InterpolationList := "None|Linear|Cubic|NoHalo|LoHalo"
+	Loop, Parse, GR_InterpolationList, `|
+	{
+		GR_MaxInterpolation++
+	}
+}
+GoTo HopGR
+GR:
+Send, {AppsKey}
+If (GR_Mode=1){
+	send, i
+} else {
+	send l
+}
+send s
+If (GR_Width!<1){
+	Send %GR_Width%
+}
+Send {Tab}
+send {Enter}
+Send {Tab}
+If (GR_Height!<1){
+	Send %GR_Height%
+}
+Loop,% (GR_Mode=1)?(9):((GR_Mode=2)?(5):(0)) {  ;Set interpolation and move to scale button 9 for image 5 for layer
+	Send {Tab}
+	If ((GR_Mode=1 and A_Index=6 and GR_Interpolation!=0) OR (GR_Mode=2 and A_Index=2 and GR_Interpolation!=0)){
+		send {Enter}
+		send {home}
+		Loop,% GR_Interpolation-1 {
+			Send {Down}
+		}
+		send {Enter}
+	}
+	DebugAffix(A_Index)
+}
+send {Enter}
+Return
+GR_Shift:
+Gui, GR:Add, Text,, Mode
+Gui, GR:Add, Radio,% (GR_Mode=1) ? ("Checked gGR_Mode") : ("gGR_Mode"), Scale Image
+Gui, GR:Add, Radio,% (GR_Mode=2) ? ("Checked gGR_Mode") : ("gGR_Mode"), Scale Layer
+Gui, GR:Add, Edit, ym r1 vGR_Width gGR_Edit w60, %GR_Width%
+Gui, GR:Add, Edit, r1 vGR_Height gGR_Edit w60, %GR_Height%
+Gui, GR:Add, DropDownList,% "ym vGR_InterpolationUnparsed gGR_InterpolationParse Choose"GR_Interpolation+1 " AltSubmit", Don't Change|%GR_InterpolationList%
+Gui, GR: -MinimizeBox +AlwaysOnTop
+Gui, GR:Show
+Return
+GRGuiClose:
+Gui, GR:Destroy
+Return
+GR_Edit:
+Gui, GR:Submit, NoHide
+%A_GuiControl% := %A_GuiControl%
+WriteIni(Profile,,A_GuiControl)
+Return
+GR_InterpolationParse:
+Gui, GR:Submit, NoHide
+DebugAffix(%A_GuiControl%)
+GR_Interpolation:=%A_GuiControl%-1
+WriteIni(Profile,,"GR_Interpolation")
+Return
+GR_Mode:
+Gui, GR:Submit, NoHide
+DebugAffix("we here " A_GuiControl)
+If (A_GuiControl="Scale Image"){
+		GR_Mode:=1
+		DebugAffix("Now in image mode")
+		WriteIni(Profile,,"GR_Mode")
+} else {
+	If (A_GuiControl="Scale Layer"){
+		GR_Mode:=2
+		DebugAffix("Now in layer mode")
+		WriteIni(Profile,,"GR_Mode")
+	}
+}
+Return
+GR_Settings:  ;GR_Mode,GR_Width,GR_Height,GR_Interpolation
+If (ChangingSetting="GR_Mode"){
+	If (%A_GuiControl%=1 or %A_GuiControl%=2){
+		%ChangingSetting% := %A_GuiControl%
+		WriteIni(Profile,,"GR_Mode")
+		DebugSet((%A_GuiControl%=2)?("Layer scale mode set"):("Image scale mode set"))
+	} else {
+		DebugSet("GR_Mode must be 1 or 2")
+	}
+} else {
+	If (ChangingSetting="GR_Width" or ChangingSetting="GR_Height"){
+		If (IsNumber(%A_GuiControl%)){
+			GoTo SettingsSuccess
+		} else {
+			DebugSet("GR_Width and GR_Height must be positive and numbers")
+		}
+	} else {
+		If (ChangingSetting="GR_Interpolation"){
+			If (%A_GuiControl%>=0 and %A_GuiControl%<=GR_MaxInterpolation and IsNumber(%A_GuiControl%)){
+				%A_GuiControl% := Floor(%A_GuiControl%)
+				GoTo SettingsSuccess
+			} else {
+				DebugSet("GR_Interpolation must be more than or equal to 0 and less than or equal to " GR_MaxInterpolation)
+			}
+		}
+	} 
+}
+Return
+HopGR:
+
+
+SC++
 HotkeyName[SC] := "Annihilate"
 HotkeySub[SC] := "AN"
-HotkeyDescription[SC] := "Hotkey:`nPressing this without ctrl+alt doesnt do anything`n`nCtrl+Alt:`nKill the script immediately"
+HotkeyDescription[SC] := "Ctrl+Alt:`nKill the script immediately"
 HotkeyGlobal[SC] := 1
 HotkeyDisableMain[SC] := 1 
 HotkeyCtrlAlt[SC] := 1
@@ -1555,16 +1654,24 @@ LoadIndex++
 DebugAffix("Pass " LoadIndex ". Loaded " SC " Scripts")
 Return
 
+;For all scripts
+
+SettingsSuccess:
+%ChangingSetting% := %A_GuiControl%
+WriteIni(Profile,,ChangingSetting)
+DebugSet(%A_GuiControl% " accepted and saved")
+Return
+
 ;Template
 
 SC++
 HotkeyName[SC] := "Name_of_Script"
 HotkeySub[SC] := "SHORT"  ;Subroute when hotkey is pressed without modifier
 HotkeySettings[SC] := "Variable,Variable2,Var3"  ;Variables that will be shown in Settings tab
-HotkeySettingsDescription[SC] := "Description when hovering in Settings tab"
 HotkeyDescription[SC] := "Description when hovering"
+HotkeySettingsDescription[SC] := "Description when hovering in Settings tab"
 HotkeyGlobal[SC] := 1  ;If enabled hotkey will be set for all profiles
-HotkeyDisableMain[SC] := 1  ;If enabled hotkey will not do anything			Label
+HotkeyDisableMain[SC] := 1  ;If enabled hotkey WILL NOT USE MAIN LABEL		Label 
 HotkeyShift[SC] := 1  ;If enabled shift+hotkey will go to the				_Shift label
 HotkeyAlt[SC] := 1  ;If enabled alt+hotkey will go to the					_Alt label
 HotkeyCtrlAlt[SC] := 1  ;If enabled ctrl+alt+hotkey will go to the			_CtrlAlt label

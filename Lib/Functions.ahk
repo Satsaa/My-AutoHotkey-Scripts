@@ -1,6 +1,6 @@
 ﻿;Cross use functions
-;Revision 8
-;Added IsNumber().
+;Revision 9
+;Added fix IsNumber().
 ;2018-06-01
 ;Format: HARDCORE
 
@@ -68,7 +68,9 @@ StrRev(in){
 ;Returns reversed string
 
 IsNumber(a){
-	If %a% is Number
+	If (a="")
+		return 0
+	If a is Number
 		return 1
 	else return 0
 }
