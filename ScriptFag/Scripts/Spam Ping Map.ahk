@@ -5,7 +5,7 @@ HotkeySettings[SC] := "SM_Sleep"
 HotkeySettingsDescription[SC] := "SM_Sleep:`nSleep duration between pings (ms)"
 HotkeyDescription[SC] := "Hotkey:`nPing the Dota 2 map and sleep at your will`n`nShift:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
 HotkeyShift[SC] := 1
-Return
+GoTo SM_End
 
 SM_Load:
 ReadIniDefUndef(Profile,,"SM_Sleep","skip")
@@ -41,3 +41,5 @@ If IsNumber(%A_GuiControl%){
 	}
 }
 Return
+
+SM_End:

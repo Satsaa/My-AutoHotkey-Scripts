@@ -10,7 +10,7 @@ Gui, DS:Add, Text,, Debug view settings
 Gui, DS:Add, Radio, % (DebugSetting=1 or DebugSetting=-1) ? ("Checked gDS_Log") : ("gDS_Log"), Enable Log
 Gui, DS:Add, Radio, % (DebugSetting=2 or DebugSetting=-2) ? ("Checked gDS_WinInfo") : ("gDS_WinInfo"), Enable Window Info
 Gui, DS:-MinimizeBox +AlwaysOnTop
-Return
+GoTo DS_End
 
 DS_Load:
 Return
@@ -49,3 +49,5 @@ If (!%A_GuiControl%=0 and (%A_GuiControl%=1 or %A_GuiControl%=2 or %A_GuiControl
 	DebugSet("DebugSetting must be 1, 2, -1 or -2")
 }
 Return
+
+DS_End:

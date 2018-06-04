@@ -1,8 +1,8 @@
 ﻿SC++
-HotkeyName[SC] := "Pin_Unpin_Chrome"
+HotkeyName[SC] := "Pin_Unpin_Tab"
 HotkeySub[SC] := "PIN"
 HotkeyDescription[SC] := "Hotkey:`nPin or unpin a Chrome tab below the mouse"
-Return
+GoTo PIN_End
 
 PIN_Load:
 Return
@@ -17,3 +17,5 @@ Click Right
 SendInput p
 SendInput u
 Return
+
+PIN_End:

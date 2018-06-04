@@ -5,7 +5,7 @@ HotkeySettings[SC] := "CL_ClickX,CL_ClickY"
 HotkeySettingsDescription[SC] := "CL_ClickX:`nClick x coordinate`n`nCL_ClickY:`nClick y coordinate"
 HotkeyDescription[SC] := "Hotkey:`nClick your chosen location`n`nShift:`nChoose the location"
 HotkeyShift[SC] := 1
-Return
+GoTo CL_End
 
 CL_Load:
 ReadIniDefUndef(Profile,,"CL_ClickX",A_ScreenWidth/2,"CL_ClickY",A_Screenheight/2)
@@ -57,3 +57,5 @@ If (ChangingSetting="CL_ClickX"){
 	}
 }
 Return
+
+CL_End:

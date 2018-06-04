@@ -4,7 +4,7 @@ HotkeySub[SC] := "DD"
 HotkeyDescription[SC] := "Hotkey:`nDrag and drop an image from the middle of your browser to above the window`n`nShift:`nThis doesnt work when shift is pressed`n`nAlt:`nDrag and drop to right of the window"
 HotkeyShift[SC] := 1
 HotkeyAlt[SC] := 1
-Return
+GoTo DD_End
 
 DD_Load:
 Return
@@ -71,3 +71,5 @@ IfWinExist, Copy File
 MousePos("Restore")
 BlockInput, MouseMoveOff
 Return
+
+DD_End:

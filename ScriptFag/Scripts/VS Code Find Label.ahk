@@ -2,7 +2,7 @@
 HotkeyName[SC] := "VS_Code_Find_Label"
 HotkeySub[SC] := "VS"
 HotkeyDescription[SC] := "Hotkey:`nFind highlighted label or function in the current script file (Visual Studio Code)"
-Return
+GoTo VS_End
 
 VS_Load:
 Return
@@ -36,3 +36,5 @@ send !r
 send {esc}
 GoSub RestoreClipboard
 Return
+
+VS_End:

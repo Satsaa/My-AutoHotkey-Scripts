@@ -5,7 +5,7 @@ HotkeySettings[SC] := "SC_Sleep"
 HotkeySettingsDescription[SC] := "SC_Sleep:`nSleep duration between clicks (ms)"
 HotkeyDescription[SC] := "Hotkey:`nWhen held, click and sleep at your will`n`nShift:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
 HotkeyShift[SC] := 1
-Return
+GoTo SC_End
 
 SC_Load:
 ReadIniDefUndef(Profile,,"SC_Sleep","skip")
@@ -37,3 +37,5 @@ If IsNumber(%A_GuiControl%){
 	}
 }
 Return
+
+SC_End:

@@ -5,7 +5,7 @@ HotkeySettings[SC] := "C2L_Click1X,C2L_Click1Y,C2L_Click2X,C2L_Click2Y,C2L_Close
 HotkeySettingsDescription[SC] := "C2L_Click1X:`nFirst click x coordinate`n`nC2L_Click1Y:`nFirst click y coordinate`n`nC2L_Click2X:`nSecond click x coordinate`n`nC2L_Click2Y:`nSecond click y coordinate`n`nC2L_CloseWin:`n1 or 0; Desides If the tab will be closed`n`n"
 HotkeyDescription[SC] := "Hotkey:`nClick your chosen locations and optionally close tab (ctrl+w)`n`nShift:`nChoose the locations and If to close the tab"
 HotkeyShift[SC] := 1
-Return
+GoTo C2L_End
 
 C2L_Load:
 ReadIniDefUndef(Profile,,"C2L_Click1X",A_ScreenWidth/2,"C2L_Click1Y",A_ScreenHeight/2
@@ -84,3 +84,5 @@ If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){
 	}
 }
 Return
+
+C2L_End:

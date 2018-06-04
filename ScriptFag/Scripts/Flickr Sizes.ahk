@@ -2,7 +2,7 @@
 HotkeyName[SC] := "Flickr_Sizes"
 HotkeySub[SC] := "FS"
 HotkeyDescription[SC] := "Hotkey:`nModIfy the url to show sizes in Flickr. If already in sizes, opens the image AND CLOSES WINDOW"
-Return
+GoTo FS_End
 
 FS_Load:
 Return
@@ -41,3 +41,5 @@ If InStr(ActiveTitle, "All sizes"){  ;Open image
 	GoSub RestoreClipboard
 }
 Return
+
+FS_End:

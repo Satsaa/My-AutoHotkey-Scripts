@@ -10,7 +10,7 @@ Loop, Parse, GR_InterpolationList, `|
 {
 	GR_MaxInterpolation++
 }
-Return
+GoTo GR_End
 
 GR_Load:
 ReadIniDefUndef(Profile,,"GR_Mode",1,"GR_Width",0,"GR_Height",0,"GR_Interpolation",0)
@@ -120,3 +120,5 @@ If (ChangingSetting="GR_Mode"){
 	} 
 }
 Return
+
+GR_End:

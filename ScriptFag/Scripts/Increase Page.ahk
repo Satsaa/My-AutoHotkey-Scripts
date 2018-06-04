@@ -12,7 +12,7 @@ HotkeySub[SC] := "PII"
 HotkeyDescription[SC] := "Hotkey:`nSubstract from the url's most right number`n`nShift:`nChoose the amount to add or substract (shared)"
 HotkeyShift[SC] := 1
 
-Return
+GoTo PI_End
 
 PI_Load:
 ReadIniDefUndef(Profile,,"PI_Velocity",1)
@@ -75,3 +75,5 @@ If IsNumber(%A_GuiControl%){
 	DebugSet(ChangingSetting " must be a number")
 }
 Return
+
+PI_End:
