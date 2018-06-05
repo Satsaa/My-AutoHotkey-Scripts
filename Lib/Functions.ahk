@@ -1,8 +1,7 @@
 ﻿;Cross use functions
-;Revision 9
-;Added fix IsNumber().
-;2018-06-01
-;Format: HARDCORE
+;Revision 10
+;Added IniDelValues() and IniDelKeys().
+;2018-06-06
 
 ;#####################################################################################
 ;Conversions
@@ -109,6 +108,55 @@ ReadIniDefUndef(Section="All",File="Prefs.ini",Keys*){
 }}}}
 
 ;#####################################################################################
+;Deletes values or keys in an ini file in section or everywhere.
+;Add "-" to section to remove keys/vals from other sections only
+
+IniDelValues(Section=" ",File="Prefs.ini", Values*){
+	FirstChar := SubStr(Section, 1, 1)
+	If (FirstChar="-"){
+		Uninclusive=1
+		Section:=SubStr(Section, 2)
+	}
+	Loop, read, %File%
+	{
+		If (A_LoopReadLine){
+			If (SubStr(A_LoopReadLine, 1, 1)="[")
+				ParseSection := StrReplace(StrReplace(A_LoopReadLine, "["),"]") 
+			else If ((!Uninclusive and (Section=" " or ParseSection=Section)) or (Uninclusive and ParseSection!=Section)){
+				Loop, Parse, A_LoopReadLine, "="
+				{
+					If (A_Index=1)
+						ParseKey := A_LoopField
+					else For i, Value in Values
+						{
+							If (A_LoopField=Value){
+								IniDelete, %File%, %ParseSection%, %ParseKey%
+								Break
+}}}}}}}
+
+IniDelKeys(Section=" ",File="Prefs.ini", Keys*){
+	FirstChar := SubStr(Section, 1, 1)
+	If (FirstChar="-"){
+		Uninclusive=1
+		Section:=SubStr(Section, 2)
+	}
+	Loop, read, %File%
+	{
+		If (A_LoopReadLine){
+			If (SubStr(A_LoopReadLine, 1, 1)="[")
+				ParseSection := StrReplace(StrReplace(A_LoopReadLine, "["),"]") 
+			else If ((!Uninclusive and (Section=" " or ParseSection=Section)) or (Uninclusive and ParseSection!=Section)){
+				Loop, Parse, A_LoopReadLine, "="
+				{
+					For i, Key in Keys
+					{
+						If (A_LoopField=Key){
+							IniDelete, %File%, %ParseSection%, %Key%
+						} Break
+}}}}}}
+
+
+;#####################################################################################
 ;Fastest way to send text. Returns 1 for success, 0 for timeout
 
 Paste(data){
@@ -198,7 +246,7 @@ DebugSet(Text){
 ;#####################################################################################
 ;Bad way to do guis. Returns stored value and adds to it
 
-AddToVar(Add=0,Var="Default",Set=""){
+GuiAddX(Add=0,Var="Default",Set=""){
 	static
 	if !(Set="")
 		%Var% := Set
