@@ -2,8 +2,9 @@
 HotkeyName[SC] := "Gimp_Resize"
 HotkeySub[SC] := "GR"
 HotkeySettings[SC] := "GR_Mode,GR_Width,GR_Height,GR_Interpolation"
-HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nShift:`nShow customization window"
+HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nShift:`nShow customization window`n`nControl:`nScale with opposite arguments. (+ -> -,* -> /, and so on.`n)"
 HotkeyShift[SC] := 1
+HotkeyAlt[SC] := 1
 GR_InterpolationList := "None|Linear|Cubic|NoHalo|LoHalo"
 Loop, Parse, GR_InterpolationList, `|
 {
@@ -16,7 +17,14 @@ GR_Load:
 ReadIniDefUndef(Profile,,"GR_Mode",1,"GR_Width",0,"GR_Height",0,"GR_Interpolation",0)
 Return
 
+GR_Alt:
+GR_Invert:=1
+Goto GR_Start
+
 GR:
+GR_Invert:=0
+
+GR_Start:
 If !(InStr(ActiveTitle, " – GIMP")){
 	DebugAffix("Not in GIMP")
 	Return
@@ -34,17 +42,25 @@ Send +{Tab}
 GR_WidthFirstChar := SubStr(GR_Width,1,1)
 GR_HeightFirstChar := SubStr(GR_Height,1,1)
 If (GR_Width!<1){
-	If (GR_WidthFirstChar="-" or GR_WidthFirstChar="+" or GR_WidthFirstChar="*" or GR_WidthFirstChar="/" ){
+	If !(IsNumber(GR_WidthFirstChar)){
 		Send {Right}
 	}
-	Send %GR_Width%
+	If (GR_Invert){
+		Send,% GR_Invert(GR_Width)
+	} else {
+		Send %GR_Width%
+	}
 }
 Send {Tab 2}
 If (GR_Height!<1){
-	If (GR_HeightFirstChar="-" or GR_HeightFirstChar="+" or GR_HeightFirstChar="*" or GR_HeightFirstChar="/"){
+	If !(IsNumber(GR_HeightFirstChar)){
 		Send {Right}
 	}
-	Send %GR_Height%
+	If (GR_Invert){
+		Send,% GR_Invert(GR_Height)
+	} else {
+		Send %GR_Height%
+	}
 }
 Loop,% (GR_Mode=1)?(9):((GR_Mode=2)?(5):(0)) {  ;Set interpolation and move to scale button 9 for image 5 for layer
 	Send {Tab}
@@ -103,6 +119,32 @@ If (A_GuiControl="Scale Image"){
 	}
 }
 Return
+
+GR_Invert(In){
+	Loop, Parse, In
+	{
+		DebugAffix(A_LoopField)
+		If (A_LoopField="*"){
+			Replace := "/"
+		} else {
+			If (A_LoopField="/"){
+				Replace := "*"
+			} else {
+				If (A_LoopField="+"){
+					Replace := "-"
+				} else {
+					If (A_LoopField="-"){
+						Replace := "+"
+					} else {
+						Replace := A_LoopField
+					}
+				}
+			}
+		}
+		Invert .= Replace
+	}
+	Return Invert
+}
 
 GR_Settings:  ;GR_Mode,GR_Width,GR_Height,GR_Interpolation
 If (ChangingSetting="GR_Mode"){
