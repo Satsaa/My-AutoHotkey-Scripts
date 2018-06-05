@@ -18,15 +18,14 @@ send ^f
 send ^x
 ClipWait, 0.2
 send !r
-Paste("(" Clipboard "\(\S*\)\s*\{)|(" Clipboard ":)")
+If (SubStr(Clipboard, 1, 1) == "g"){
+	StringTrimLeft, VS_gLabel, Clipboard, 1
+	Paste("(" VS_gLabel "\(\S*\)\s*\{)|(" VS_gLabel ":)")
+} else {
+	Paste("(" Clipboard "\(\S*\)\s*\{)|(" Clipboard ":)")
+}
 loop 5 {
-	If GetKeyState("LButton", "P"){
-		Break
-	}
-	If GetKeyState("RButton", "P"){
-		Break
-	}
-	If GetKeyState("MButton", "P"){
+	If (GetKeyState("LButton") or GetKeyState("RButton") or GetKeyState("MButton")){
 		Break
 	}
 	send {enter}

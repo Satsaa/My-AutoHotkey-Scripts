@@ -3,13 +3,13 @@ HotkeyName[SC] := "Gimp_Resize"
 HotkeySub[SC] := "GR"
 HotkeySettings[SC] := "GR_Mode,GR_Width,GR_Height,GR_Interpolation"
 HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nShift:`nShow customization window"
-HotkeySettingsDescription[SC] := "GR_Mode:`n1 = Scale image 2 = Scale layer`n`nGR_Width:`nScale width`n`nGR_Height:`nScale height`n`nGR_Interpolation:`n0 to not change. 1 to " GR_MaxInterpolation " for one of these " GR_InterpolationList "`n`n"
 HotkeyShift[SC] := 1
 GR_InterpolationList := "None|Linear|Cubic|NoHalo|LoHalo"
 Loop, Parse, GR_InterpolationList, `|
 {
 	GR_MaxInterpolation++
 }
+HotkeySettingsDescription[SC] := "GR_Mode:`n1 = Scale image 2 = Scale layer`n`nGR_Width:`nScale width`n`nGR_Height:`nScale height`n`nSupports basic math(+, -, *, /)`n`nGR_Interpolation:`n0 to not change. 1 to " GR_MaxInterpolation " for one of these:`n" GR_InterpolationList "`n`n"
 GoTo GR_End
 
 GR_Load:
@@ -17,6 +17,10 @@ ReadIniDefUndef(Profile,,"GR_Mode",1,"GR_Width",0,"GR_Height",0,"GR_Interpolatio
 Return
 
 GR:
+If !(InStr(ActiveTitle, " – GIMP")){
+	DebugAffix("Not in GIMP")
+	Return
+}
 Send, {AppsKey}
 If (GR_Mode=1){
 	send, i
@@ -24,13 +28,22 @@ If (GR_Mode=1){
 	send l
 }
 send s
-If (GR_Width!<1){
-	Send %GR_Width%
-}
 Send {Tab}
 send {Enter}
-Send {Tab}
+Send +{Tab}
+GR_WidthFirstChar := SubStr(GR_Width,1,1)
+GR_HeightFirstChar := SubStr(GR_Height,1,1)
+If (GR_Width!<1){
+	If (GR_WidthFirstChar="-" or GR_WidthFirstChar="+" or GR_WidthFirstChar="*" or GR_WidthFirstChar="/" ){
+		Send {Right}
+	}
+	Send %GR_Width%
+}
+Send {Tab 2}
 If (GR_Height!<1){
+	If (GR_HeightFirstChar="-" or GR_HeightFirstChar="+" or GR_HeightFirstChar="*" or GR_HeightFirstChar="/"){
+		Send {Right}
+	}
 	Send %GR_Height%
 }
 Loop,% (GR_Mode=1)?(9):((GR_Mode=2)?(5):(0)) {  ;Set interpolation and move to scale button 9 for image 5 for layer
@@ -43,7 +56,6 @@ Loop,% (GR_Mode=1)?(9):((GR_Mode=2)?(5):(0)) {  ;Set interpolation and move to s
 		}
 		send {Enter}
 	}
-	DebugAffix(A_Index)
 }
 send {Enter}
 Return
@@ -103,7 +115,12 @@ If (ChangingSetting="GR_Mode"){
 	}
 } else {
 	If (ChangingSetting="GR_Width" or ChangingSetting="GR_Height"){
-		If (IsNumber(%A_GuiControl%)){
+		GR_InterpoLationInput := StrReplace(%A_GuiControl%, "*")
+		GR_InterpoLationInput := StrReplace(GR_InterpoLationInput, "/")
+		GR_InterpoLationInput := StrReplace(GR_InterpoLationInput, "+")
+		GR_InterpoLationInput := StrReplace(GR_InterpoLationInput, "-")
+		DebugAffix(GR_InterpoLationInput)
+		If (IsNumber(GR_InterpoLationInput)){
 			GoTo SettingsSuccess
 		} else {
 			DebugSet("GR_Width and GR_Height must be positive and numbers")
@@ -111,7 +128,6 @@ If (ChangingSetting="GR_Mode"){
 	} else {
 		If (ChangingSetting="GR_Interpolation"){
 			If (%A_GuiControl%>=0 and %A_GuiControl%<=GR_MaxInterpolation and IsNumber(%A_GuiControl%)){
-				%A_GuiControl% := Floor(%A_GuiControl%)
 				GoTo SettingsSuccess
 			} else {
 				DebugSet("GR_Interpolation must be more than or equal to 0 and less than or equal to " GR_MaxInterpolation)

@@ -8,8 +8,8 @@ PIN_Load:
 Return
 
 PIN:
-MouseGetPos,,, WinId,
-WinGet Process, ProcessName, ahk_id %WinId%
+MouseGetPos,,, PIN_WinId,
+WinGet Process, ProcessName, ahk_id %PIN_WinId%
 If (Process!="chrome.exe"){
 	Return
 }

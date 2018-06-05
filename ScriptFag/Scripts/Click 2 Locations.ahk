@@ -32,16 +32,14 @@ BlockInput, MouseMoveOff
 Return
 
 C2L_Shift:
-SetTimer, C2L_Win, -50
+Hotkey, *Enter, C2L_Enter,
 Msgbox, 4096,% C2L_Title := "First Location", Mouse over where to click and press enter.
 MouseGetPos, C2L_Click1X, C2L_Click1Y
 Click
-SetTimer, C2L_Win, -50
 Msgbox, 4096,% C2L_Title := "Second Location", Mouse over where to click and press enter.
+Hotkey, *Enter, C2L_Enter, Off
 MouseGetPos, C2L_Click2X, C2L_Click2Y
-MouseGetPos, X, Y
 Click
-MouseMove, X , Y, 0
 MsgBox, 4100, Close window?, Close existing tab?
 C2L_CloseWin = 0
 IfMsgBox, yes
@@ -50,12 +48,10 @@ IfMsgBox, yes
 }	
 WriteIni(Profile,,"C2L_Click1X","C2L_Click1Y","C2L_Click2X","C2L_Click2Y","C2L_CloseWin")
 Return
-C2L_Win:
-If (WinExist(C2L_Title)){
-	If ( !WinActive(C2L_Title) )
-		WinActivate, %C2L_Title%
-	SetTimer, C2L_Win, -250
-} Return
+
+C2L_Enter:
+WinClose, %C2L_Title%,
+Return
 
 C2L_Settings:
 If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){

@@ -13,9 +13,9 @@ GoSub SaveClipboard
 Send ^x
 ClipWait 0.05
 If ErrorLevel {
-	ClipFailCount+=1
-	If (ClipFailCount=10){
-		ClipFailCount=0
+	YI_ClipFailCount+=1
+	If (YI_ClipFailCount=10){
+		YI_ClipFailCount=0
 		DebugAffix("Failed to copy text at " A_ThisLabel)
 		Return
 	} else GoTo %A_ThisLabel%

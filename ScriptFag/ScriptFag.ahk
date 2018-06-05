@@ -99,16 +99,20 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!Shift, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Settings|%GuiTitle%
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
 Tab = Hotkeys
 Gui, Tab, Hotkeys
 AddToVar(,,-HotkeySize+9)
 Loop, %SC% {  ;HOTKEYS
+	If (HotkeyGlobal[A_Index]){
+		Gui, font, c7a0004
+	}
 	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
 		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	} else {  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	}
+	Gui, font,
 	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
 	Gui, Add, Text,% "vSpecialText" A_Index " xp yp w22" , 
 }
@@ -573,10 +577,7 @@ If (ImportPath=""){  ;Canceled
 	Return
 }
 MsgBox, 36, Reset?, Do you want to reset all other values? No = Merge
-IfMsgBox, Yes
-{
-	ImportMerge=0
-}
+ImportMerge=0
 IfMsgBox, No
 {
 	ImportMerge=1
@@ -741,10 +742,10 @@ ButtonHide:
 Gui, Show, Hide
 Return
 ButtonTest:
-RemoveDuplicateHotkeys()
-Return
-
+Clipboard := PrevActiveTitle
 InputBox, TestInput, Variable content, Type a variable and show its content,
+IfMsgBox, Cancel
+	Return
 If (TestInput){
 	InputBox, TestInput, %TestInput%, %TestInput% content,,,,,,,,% %TestInput%
 }
