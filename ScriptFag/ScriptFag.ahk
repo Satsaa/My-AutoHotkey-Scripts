@@ -100,40 +100,41 @@ MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!Shift, LayoutFi
 Hotkey, ~+Alt, LayoutRu
 Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
+
 Tab = Hotkeys
 Gui, Tab, Hotkeys
-AddToVar(,,-HotkeySize+9)
+GuiAddX(,,-HotkeySize+9)
 Loop, %SC% {  ;HOTKEYS
 	If (HotkeyGlobal[A_Index]){
 		Gui, font, c7a0004
 	}
 	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
-		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10),% RegExReplace(HotkeyName[A_Index], "_" , " ")
+		Gui, Add, Text,% "y34 " GuiAddX(HotkeySize+10),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	} else {  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	}
 	Gui, font,
 	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
-	Gui, Add, Text,% "vSpecialText" A_Index " xp yp w22" , 
+	Gui, Add, Text,% "vSpecialText" A_Index " xp yp w22 Hidden" , 
 }
-Gui, Tab,
-Gui, Add, Text, ym, Debug view
-Gui, Add, Edit,% "Readonly w255 vDebug h"MaxGuiHeight
-Gui, Add, Button, w%ButtonSize% ym gReload, &Reload
-Gui, Add, Button, w%ButtonSize%, &Hide
-Gui, Add, Button, w%ButtonSize% gEdit, &Edit
-Gui, Add, Button, w%ButtonSize%, &Test
-Gui, Add, Text, cRed vGuiHint wp r1
-Gui, Add, Text, cRed vTickTime wp r1
-Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
-Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
-Gui, Add, Button, w%ButtonSize% gPubgOverride, Pubg
-Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
+
+Gui, Tab, Macros
+GuiAddX(,"Macros",-HotkeySize+9)
+Loop, %SC% {  ;MACROS
+	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
+		Gui, Add, Text,% "y34 w" HotkeySize " " GuiAddX(HotkeySize+10,"Macros"), Placeholder text
+	} else {  ;Continue the row
+		Gui, Add, Text,, Placeholder text
+	}
+	Gui, Add, Hotkey,% "v" A_Index  "Macro gMacroCreate w" HotkeySize 
+	Gui, Add, Text,% "vSpecialTextMacro" A_Index " xp yp w22 Hidden" , 
+}
+
 Gui, Tab, Settings  ;BuildSettingsTab
-AddToVar(,"Settings",-HotkeySize+9)
-Loop, %SC% {  ;SETTING list
+GuiAddX(,"Settings",-HotkeySize+9)
+Loop, %SC% {  ;SETTINGS
 	If !(Mod(A_Index-1, MaxPerColumn)){  ;New row of settings
-		Gui, Add, Text,% "y34 " AddToVar(HotkeySize+10,"Settings"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
+		Gui, Add, Text,% "y34 " GuiAddX(HotkeySize+10,"Settings"),% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	} else {  ;Continue the row
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	} 
@@ -159,9 +160,26 @@ Loop, %SC% {  ;Conveniently fix edit box positioning
 	CurrentColumn := (Floor((A_Index-1)/MaxPerColumn))+1
 	GuiControl, Move, %A_Index%SettingsEdit,% "x+" (HotkeySize-(SettingSize-7))+((CurrentColumn-1)*(HotkeySize+10))
 }
+
+Gui, Tab,
+Gui, Add, Text, ym, Debug view
+Gui, Add, Edit,% "Readonly w255 vDebug h"MaxGuiHeight
+Gui, Add, Button, w%ButtonSize% ym gReload, &Reload
+Gui, Add, Button, w%ButtonSize%, &Hide
+Gui, Add, Button, w%ButtonSize% gEdit, &Edit
+Gui, Add, Button, w%ButtonSize%, &Test
+Gui, Add, Text, cRed vGuiHint wp r1
+Gui, Add, Text, cRed vTickTime wp r1
+Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
+Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
+Gui, Add, Button, w%ButtonSize% gPubgOverride, Pubg
+Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
+
 Gui, Tab, %GuiTitle%
-Gui, Add, Button, w%HotkeySize% gExportProfile, Export Profile
-Gui, Add, Button, w%HotkeySize% gImportProfile, Import Profile
+Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
+Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
+Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
+Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
 Gui, Tab,
 Gui, Add, StatusBar,,
 If (!GuiLoadY or !GuiLoadY){
@@ -236,6 +254,10 @@ If (TickEnd - TickStart < 1){
 TickStart := Tick
 Return
 
+MacroCreate:
+DebugAffix("Macro " A_GuiControl)
+Return
+
 HotkeyCreate:
 CreateKey := %A_GuiControl%
 PrevName := "HotkeyPrev"
@@ -296,7 +318,7 @@ If (HotkeyGlobal[A_GuiControl]){  ;Apply to all profiles
 	Loop, Parse, ProfileList, `,
 	{
 		DebugAffix(A_LoopField)
-		IniWrite,% %A_GuiControl%, Prefs.ini, %A_LoopField%,% HotkeyName[A_GuiControl]
+		IniWrite,% %A_GuiControl%, Hotkeys.ini, %A_LoopField%,% HotkeyName[A_GuiControl]
 	}
 }
 If !(HotkeyDisableMain[A_GuiControl]){
@@ -357,7 +379,7 @@ SaveHotkeys(Save="Default"){
 	If (Tab="Hotkeys"){
 		DebugAffix(A_ThisFunc)
 		Loop, %SC% {
-			IniWrite,% %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index]
+			IniWrite,% %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index]
 			Hotkey,% %A_Index%, Off, UseErrorLevel
 			Hotkey,% "+"%A_Index%, Off, UseErrorLevel
 			Hotkey,% "!"%A_Index%, Off, UseErrorLevel
@@ -382,7 +404,7 @@ RestoreHotkeys(Save="Default"){
 	LoadIndex++
 	DebugAffix("Pass " LoadIndex ". " A_ThisLabel)
 	Loop, %SC% {
-		IniRead, %A_Index%, Prefs.ini, %Save%,% HotkeyName[A_Index], %A_Space%
+		IniRead, %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index], %A_Space%
 		If (%A_Index%){
 			If (HotkeySub[A_Index]){  ;If no subroute defined for hotkey, skip it
 				Hotkey,% %A_Index%,% HotkeySub[A_Index], UseErrorLevel
@@ -456,7 +478,7 @@ WM_MOUSEMOVE(){  ;Description handling
 	PrevA_GuiControl:=A_GuiControl
 	If !(A_GuiControl){
 		If (DebugSetting=1 and Tab!="Settings"){
-			SetTimer, DescriptionTimeout, -2000
+			SetTimer, DescriptionTimeout, -1000
 		}
 	}
 	GuiControlPrefix := PrefixNum(A_GuiControl)
@@ -494,7 +516,7 @@ WM_MOUSEMOVE(){  ;Description handling
 WM_NCMOUSELEAVE(){
 	Global
 	If (DebugSetting=1 and Tab!="Settings"){
-		SetTimer, DescriptionTimeout, -2000
+		SetTimer, DescriptionTimeout, -1000
 	}
 }
 DescriptionTimeout:
@@ -502,6 +524,13 @@ If (DebugSetting=1 and Tab!="Settings"){
 	DebugAffix()
 }
 Return
+ExportSettings:
+ExportIni:="Prefs.ini"
+Goto ExportProfile
+
+ExportHotkeys:
+ExportIni:="Hotkeys.ini"
+Goto ExportProfile
 
 ExportProfile:
 If (ExportWindowExists){
@@ -511,7 +540,7 @@ If (ExportWindowExists){
 ExportIndex=0
 ExportCurrentSection=
 Gui, Export:Add, Text,, Which sections to export
-Loop, read, Prefs.ini
+Loop, read, %ExportIni%
 {
 	If (SubStr(A_LoopReadLine, "1", "1")="["){
 		ExportIndex++
@@ -571,7 +600,14 @@ Export := "ScriptFagIni Dont remove this first line`n" Export
 GuiControl,Export:, ExportPreview,% Export
 Return
 
-ImportProfile:
+ImportHotkeys:
+ImportIni := "Hotkeys.ini"
+GoTo Import
+
+ImportSettings:
+ImportIni := "Prefs.ini"
+
+Import:
 FileSelectFile, ImportPath,,,, *.txt
 If (ImportPath=""){  ;Canceled
 	Return
@@ -599,7 +635,7 @@ If (ImportMerge){
 				}	
 			}
 		} else {
-			If (InStr(A_LoopReadLine, "[") ){
+			If (SubStr(A_LoopReadLine, 1, 1)="["){
 				ImportSection := RegExReplace(A_LoopReadLine, "\[|\]")
 			} else {
 				Loop, Parse, A_LoopReadLine, =
@@ -607,7 +643,7 @@ If (ImportMerge){
 					If (A_Index=1){
 						InportKey := A_LoopField
 		} else {
-						IniWrite, %A_LoopField%, Prefs.ini, %ImportSection%, %InportKey%
+						IniWrite, %A_LoopField%, %ImportIni%, %ImportSection%, %InportKey%
 					}
 				}	
 			}
@@ -615,7 +651,7 @@ If (ImportMerge){
 	}
 } else {
 	If !(ImportMerge){
-			FileCopy, %ImportPath%, Prefs.ini, 1  ;1 overwrite
+			FileCopy, %ImportPath%, %ImportIni%, 1  ;1 overwrite
 	}
 }
 Reload
@@ -742,7 +778,6 @@ ButtonHide:
 Gui, Show, Hide
 Return
 ButtonTest:
-Clipboard := PrevActiveTitle
 InputBox, TestInput, Variable content, Type a variable and show its content,
 IfMsgBox, Cancel
 	Return
