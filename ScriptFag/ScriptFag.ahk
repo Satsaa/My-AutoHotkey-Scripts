@@ -431,8 +431,8 @@ RemoveDuplicateHotkeys(){
 	Local GlobalID
 	Loop, %SC% {
 		If (HotkeyGlobal[A_Index]){
+			If (%A_Index%){
 			GlobalID := A_Index
-			If (%GlobalID%){
 				Loop, %SC% {
 					If (%A_Index%=%GlobalID% and A_Index!=GlobalID){
 						DebugAffix(%A_Index% "/" %GlobalID%)
