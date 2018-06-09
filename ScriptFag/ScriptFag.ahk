@@ -55,7 +55,6 @@ ButtonSize := 50,
 Ru := -265092071, Fi := 67830793,	;Input layout codes
 ProfileList := "Default,Dota,Pubg,Witcher"
 Profile := "Default",
-Version := "v4.2",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
 Layout := GetLayout()
