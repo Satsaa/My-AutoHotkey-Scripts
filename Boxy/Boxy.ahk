@@ -815,7 +815,7 @@ GuiControl, 2:, LoopHint,% StartRatio
 While GetKeyState("Lbutton"){
 	MouseGetPos, MouseX, MouseY
 	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
-		if (!CtrlResize and GetKeyState("Shift", "P")){
+		if (!CtrlResize and (ShiftResize)){
 			Gosub, ResizeVerticalShift
 		} else {
 			If (CtrlResize){
@@ -837,6 +837,8 @@ Dragging=0
 Hover=0
 GoSub BoxUpdate
 CtrlResize=0
+AltResize=0
+ShiftResize=0
 Return
 
 ResizeVerticalShift:
@@ -849,7 +851,7 @@ Return
 ResizeVerticalCtrl:
 BoxY:=StartMidY-(MouseY-StartMidY),
 BoxH:=(MouseY-StartMidY)*2
-If GetKeyState("Shift", "P"){
+If (ShiftResize){
 	BoxW:=BoxH*StartRatio
 	BoxY:=StartMidY-(MouseY-StartMidY)
 	BoxX:=StartMidX-BoxW/2
@@ -858,6 +860,7 @@ Return
 
 ResizeVerticalShiftDown:
 Hotkey, Shift, ResizeVerticalShiftDown, Off
+ShiftResize=1
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeVerticalShift
 PrevMouseX:=MouseX, PrevMouseY:=MouseY
@@ -866,6 +869,7 @@ Return
 
 ResizeVerticalShiftUp:
 Hotkey, Shift, ResizeVerticalShiftDown, On
+ShiftResize=0
 Return
 
 ResizeVerticalCtrlDown:
@@ -910,7 +914,7 @@ GuiControl, 2:, LoopHint,% StartRatio
 While GetKeyState("Lbutton"){
 	MouseGetPos, MouseX, MouseY
 	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
-		if (!CtrlResize and GetKeyState("Shift", "P")){
+		if (!CtrlResize and ShiftResize){
 			Gosub, ResizeCornerShift
 		} else {
 			If (CtrlResize){
@@ -938,6 +942,8 @@ Dragging=0
 Hover=0
 GoSub BoxUpdate
 CtrlResize=0
+ShiftResize=0
+AltResize=0
 Return
 
 ResizeCornerShift:
@@ -1008,7 +1014,7 @@ BoxX:=StartMidX-(MouseX-StartMidX),
 BoxY:=StartMidY-(MouseY-StartMidY),
 BoxW:=(MouseX-StartMidX)*2,
 BoxH:=(MouseY-StartMidY)*2
-If GetKeyState("Shift", "P"){
+If (ShiftResize){
 	If (Abs(BoxW/StartRatio)>Abs(BoxH)){  ;Horizontal
 		BoxH:=BoxW/StartRatio
 		BoxW:=BoxH*StartRatio
@@ -1032,6 +1038,7 @@ Return
 ResizeCornerShiftDown:
 Hotkey, Shift, ResizeCornerShiftDown, Off
 Hotkey, Alt, ResizeCornerAltDown, Off
+ShiftResize=1
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeCornerShift
 If (CtrlResize){
@@ -1044,11 +1051,15 @@ Return
 ResizeCornerShiftUp:
 Hotkey, Shift, ResizeCornerShiftDown, On
 Hotkey, Alt, ResizeCornerAltDown, On
+ShiftResize=0
 MouseGetPos, MouseX, MouseY
 BoxW:=MouseX-BoxX
 BoxH:=MouseY-BoxY
 If (CtrlResize){
 	Gosub ResizeCornerCtrl
+}
+If (AltResize){
+	GoSub ResizeCornerAltDown
 }
 If BoxH=0
 	BoxH:=1
@@ -1066,22 +1077,33 @@ Goto BoxUpdate
 
 ResizeCornerCtrlUp:
 Hotkey, *Ctrl, ResizeCornerCtrlDown, On
+CtrlResize=0
 BoxX:=StartBoxX
 BoxY:=StartBoxY
 BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
-CtrlResize=0
+If (AltResize){
+	GoSub ResizeCornerAltDown
+}
 Goto BoxUpdate
 
 ResizeCornerAltDown:
-Hotkey, *Alt, ResizeCornerAltDown, Off
+Hotkey, Alt, ResizeCornerAltDown, Off
 AltResize=1
-Gosub, ResizeCornerAlt
+If (CtrlResize){
+	GoSub, ResizeCornerCtrl
+} else If !(ShiftResize){
+	Gosub, ResizeCornerAlt
+}
 Goto BoxUpdate
 
 ResizeCornerAltUp:
-Hotkey, *Alt, ResizeCornerAltDown, On
-BoxX:=StartBoxX
-BoxY:=StartBoxY
-BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+Hotkey, Alt, ResizeCornerAltDown, On
+If (CtrlResize){
+	GoSub, ResizeCornerCtrl
+} else If !(ShiftResize){
+	BoxX:=StartBoxX
+	BoxY:=StartBoxY
+	BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+}
 AltResize=0
 Goto BoxUpdate
