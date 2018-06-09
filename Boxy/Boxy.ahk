@@ -892,6 +892,10 @@ Hotkey, *Ctrl Up, ResizeCornerCtrlUp,
 Hotkey, *Ctrl, ResizeCornerCtrlDown,
 Hotkey, *Ctrl Up, ResizeCornerCtrlUp, On
 Hotkey, *Ctrl, ResizeCornerCtrlDown, On
+Hotkey, Alt Up, ResizeCornerAltUp,
+Hotkey, Alt, ResizeCornerAltDown,
+Hotkey, Alt Up, ResizeCornerAltUp, On
+Hotkey, Alt, ResizeCornerAltDown, On
 
 StartBoxX:=BoxX
 StartBoxY:=BoxY
@@ -912,7 +916,11 @@ While GetKeyState("Lbutton"){
 			If (CtrlResize){
 				GoSub, ResizeCornerCtrl
 			} else {
-				BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+				If (AltResize){
+					GoSub, ResizeCornerAlt
+				} else {
+					BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+				}
 			}
 		}
 		PrevMouseX:=MouseX, PrevMouseY:=MouseY
@@ -924,6 +932,8 @@ Hotkey, Shift Up, ResizeCornerShiftUp, Off
 Hotkey, Shift, ResizeCornerShiftDown, Off
 Hotkey, *Ctrl Up, ResizeCornerCtrlUp, Off
 Hotkey, *Ctrl, ResizeCornerCtrlDown, Off
+Hotkey, Alt Up, ResizeCornerAltUp, Off
+Hotkey, Alt, ResizeCornerAltDown, Off
 Dragging=0
 Hover=0
 GoSub BoxUpdate
@@ -966,6 +976,9 @@ If BoxW<0
 Return
 
 ResizeCornerAlt:
+If (CtrlResize){
+	Return
+}
 If ((MouseX>=BoxX and MouseY>=BoxY) or (MouseX<=BoxX and MouseY<=BoxY)){  ;UpLeft and DownRight
 	If (Abs(MouseX-boxX)>abs(MouseY-boxY)){
 		BoxH:=MouseX-boxX
@@ -1004,11 +1017,21 @@ If GetKeyState("Shift", "P"){
 	} else If (Abs(BoxW/StartRatio)<Abs(BoxH)){  ;Vertical
 		BoxW:=BoxH*StartRatio
 		BoxX:=BoxX+(MouseX-StartMidX)-BoxW/2
+}} else If GetKeyState("Alt", "P"){
+	If (Abs(BoxW)>Abs(BoxH)){  ;Horizontal
+		BoxH:=BoxW
+		BoxW:=BoxH
+		BoxY:=BoxY+(MouseY-StartMidY)-BoxH/2
+		BoxX:=BoxX+(MouseX-StartMidX)-BoxW/2
+	} else If (Abs(BoxW)<Abs(BoxH)){  ;Vertical
+		BoxW:=BoxH
+		BoxX:=BoxX+(MouseX-StartMidX)-BoxW/2
 }}
 Return
 
 ResizeCornerShiftDown:
 Hotkey, Shift, ResizeCornerShiftDown, Off
+Hotkey, Alt, ResizeCornerAltDown, Off
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeCornerShift
 If (CtrlResize){
@@ -1020,9 +1043,13 @@ Return
 
 ResizeCornerShiftUp:
 Hotkey, Shift, ResizeCornerShiftDown, On
+Hotkey, Alt, ResizeCornerAltDown, On
 MouseGetPos, MouseX, MouseY
 BoxW:=MouseX-BoxX
 BoxH:=MouseY-BoxY
+If (CtrlResize){
+	Gosub ResizeCornerCtrl
+}
 If BoxH=0
 	BoxH:=1
 If BoxY=0
@@ -1043,4 +1070,18 @@ BoxX:=StartBoxX
 BoxY:=StartBoxY
 BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
 CtrlResize=0
+Goto BoxUpdate
+
+ResizeCornerAltDown:
+Hotkey, *Alt, ResizeCornerAltDown, Off
+AltResize=1
+Gosub, ResizeCornerAlt
+Goto BoxUpdate
+
+ResizeCornerAltUp:
+Hotkey, *Alt, ResizeCornerAltDown, On
+BoxX:=StartBoxX
+BoxY:=StartBoxY
+BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+AltResize=0
 Goto BoxUpdate
