@@ -710,6 +710,10 @@ Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp,
 Hotkey, *Ctrl, ResizeHorizontalCtrlDown,
 Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp, On
 Hotkey, *Ctrl, ResizeHorizontalCtrlDown, On
+Hotkey, Alt Up, ResizeHorizontalAltUp,
+Hotkey, Alt, ResizeHorizontalAltDown,
+Hotkey, Alt Up, ResizeHorizontalAltUp, On
+Hotkey, Alt, ResizeHorizontalAltDown, On
 
 StartBoxX:=BoxX
 StartBoxY:=BoxY
@@ -731,6 +735,10 @@ While GetKeyState("Lbutton"){
 				GoSub, ResizeHorizontalCtrl
 			} else {
 				BoxW:=MouseX-BoxX
+				If (AltResize){
+					BoxH:=BoxW
+					BoxY:=StartMidY-BoxH/2
+				}
 			}
 		}
 		PrevMouseX:=MouseX, PrevMouseY:=MouseY
@@ -742,10 +750,14 @@ Hotkey, Shift Up, ResizeHorizontalShiftUp, Off
 Hotkey, Shift, ResizeHorizontalShiftDown, Off
 Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp, Off
 Hotkey, *Ctrl, ResizeHorizontalCtrlDown, Off
+Hotkey, Alt Up, ResizeHorizontalAltUp, Off
+Hotkey, Alt, ResizeHorizontalAltDown, Off
 Dragging=0
 Hover=0
 GoSub BoxUpdate
 CtrlResize=0
+AltResize=0
+ShiftResize=0
 Return
 
 ResizeHorizontalShift:
@@ -762,10 +774,20 @@ If GetKeyState("Shift", "P"){
 	BoxX:=StartMidX-(MouseX-StartMidX)
 	BoxY:=StartMidY-BoxH/2
 }
+If (AltResize){
+	GoSub ResizeHorizontalAlt
+}
+Return
+Return
+
+ResizeHorizontalAlt:
+BoxH:=BoxW
+BoxY:=StartMidY-BoxH/2
 Return
 
 ResizeHorizontalShiftDown:
 Hotkey, Shift, ResizeHorizontalShiftDown, Off
+Hotkey, Alt, ResizeHorizontalAltDown, Off
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeHorizontalShift
 PrevMouseX:=MouseX, PrevMouseY:=MouseY
@@ -774,6 +796,7 @@ Return
 
 ResizeHorizontalShiftUp:
 Hotkey, Shift, ResizeHorizontalShiftDown, On
+Hotkey, Alt, ResizeHorizontalAltDown, On
 Return
 
 ResizeHorizontalCtrlDown:
@@ -789,6 +812,19 @@ BoxW:=MouseX-BoxX
 CtrlResize=0
 Goto BoxUpdate
 
+ResizeHorizontalAltDown:
+Hotkey, Alt, ResizeHorizontalAltDown, Off
+AltResize=1
+Gosub, ResizeHorizontalAlt
+Goto BoxUpdate
+
+ResizeHorizontalAltUp:
+AltResize=0
+If !(ShiftResize){
+	Hotkey, Alt, ResizeHorizontalAltDown, On
+}
+Goto BoxUpdate
+
 ;Vertical
 ;#####################################################################################
 
@@ -801,6 +837,10 @@ Hotkey, *Ctrl Up, ResizeVerticalCtrlUp,
 Hotkey, *Ctrl, ResizeVerticalCtrlDown,
 Hotkey, *Ctrl Up, ResizeVerticalCtrlUp, On
 Hotkey, *Ctrl, ResizeVerticalCtrlDown, On
+Hotkey, Alt Up, ResizeVerticalAltUp,
+Hotkey, Alt, ResizeVerticalAltDown,
+Hotkey, Alt Up, ResizeVerticalAltUp, On
+Hotkey, Alt, ResizeVerticalAltDown, On
 
 StartBoxX:=BoxX
 StartBoxY:=BoxY
@@ -822,6 +862,10 @@ While GetKeyState("Lbutton"){
 				GoSub, ResizeVerticalCtrl
 			} else {
 				BoxH:=MouseY-BoxY
+				If (AltResize){
+					BoxW:=BoxH
+					BoxX:=StartMidX-BoxW/2
+				}
 			}
 		}
 		PrevMouseX:=MouseX, PrevMouseY:=MouseY
@@ -833,6 +877,8 @@ Hotkey, Shift Up, ResizeVerticalShiftUp, Off
 Hotkey, Shift, ResizeVerticalShiftDown, Off
 Hotkey, *Ctrl Up, ResizeVerticalCtrlUp, Off
 Hotkey, *Ctrl, ResizeVerticalCtrlDown, Off
+Hotkey, Alt Up, ResizeVerticalAltUp, Off
+Hotkey, Alt, ResizeVerticalAltDown, Off
 Dragging=0
 Hover=0
 GoSub BoxUpdate
@@ -856,10 +902,19 @@ If (ShiftResize){
 	BoxY:=StartMidY-(MouseY-StartMidY)
 	BoxX:=StartMidX-BoxW/2
 }
+If (AltResize){
+	GoSub ResizeVerticalAlt
+}
+Return
+
+ResizeVerticalAlt:
+BoxW:=BoxH
+BoxX:=StartMidX-BoxW/2
 Return
 
 ResizeVerticalShiftDown:
 Hotkey, Shift, ResizeVerticalShiftDown, Off
+Hotkey, Alt, ResizeVerticalAltDown, Off
 ShiftResize=1
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeVerticalShift
@@ -869,6 +924,7 @@ Return
 
 ResizeVerticalShiftUp:
 Hotkey, Shift, ResizeVerticalShiftDown, On
+Hotkey, Alt, ResizeVerticalAltDown, On
 ShiftResize=0
 Return
 
@@ -883,6 +939,19 @@ Hotkey, *Ctrl, ResizeVerticalCtrlDown, On
 BoxY:=StartBoxY
 BoxH:=MouseY-BoxY
 CtrlResize=0
+Goto BoxUpdate
+
+ResizeVerticalAltDown:
+Hotkey, Alt, ResizeVerticalAltDown, Off
+AltResize=1
+Gosub, ResizeVerticalAlt
+Goto BoxUpdate
+
+ResizeVerticalAltUp:
+AltResize=0
+If !(ShiftResize){
+	Hotkey, Alt, ResizeVerticalAltDown, On
+}
 Goto BoxUpdate
 
 ;Corner
@@ -1098,6 +1167,7 @@ Goto BoxUpdate
 
 ResizeCornerAltUp:
 Hotkey, Alt, ResizeCornerAltDown, On
+MsgBox, 
 If (CtrlResize){
 	GoSub, ResizeCornerCtrl
 } else If !(ShiftResize){
