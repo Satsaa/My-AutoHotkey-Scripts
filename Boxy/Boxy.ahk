@@ -25,6 +25,7 @@ ResDir := DirAscend(A_ScriptDir) "\Res"
 FileCreateDir, %ScreenshotFolder%
 MaxImgDim:=750,  ;The maximum height or width for the screenshot review
 CornerX:=0, CornerY:=0,
+CtrlBoxX:=0, CtrlBoxY:=0, CtrlBoxH:=0, CtrlBoxW:=0, 
 Hotkey, ~*LButton Up, Off, UseErrorLevel 
 GuiTitle := RegExReplace(A_ScriptName, ".ahk")
 ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
@@ -32,7 +33,7 @@ ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
 	,"BoxX",100,"BoxY",100,"BoxW",100,"BoxH",100
 	,"Hotkeys",1,"GuiLoadX",250,"GuiLoadY",250,"Delay",0)
 Gui, Color, EEAA99
-Gui, +LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndHwnd +Owner 
+Gui, +LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndBox +Owner 
 WinSet, TransColor, EEAA99
 Menu, Tray, Icon, %ResDir%\forsenBoxE.ico
 
@@ -51,7 +52,6 @@ Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\BoxyArrow\DownLeft.png
 Gui, Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\BoxyArrow\Down.png
 Gui, Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\BoxyArrow\DownRight.png
 Gui, 1: +LastFound
-WinGet, BoxID , Id
 GuiControl, Hide, ArrowResizeUpLeft
 GuiControl, Hide, ArrowResizeUp
 GuiControl, Hide, ArrowResizeUpRight
@@ -99,6 +99,7 @@ Gui, 2:Add, Button, gScreenshot xm, Screenshot
 Gui, 2:Add, Text, vLoopHint xm w170, Not looping
 Gui, 2: +HwndGui
 Gui, 2:Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+Gui, 1:Show, x-300 y-300
 Gui, 2:Add, Text, ym vScreenshotText , Loading Image %A_space%  %A_space% %A_space% %A_space% %A_space%
 Gui, 2:Add, Pic, vScreenshot gScreenShotClick, %ImageFile%
 Gui, 2: +LastFound
@@ -221,8 +222,8 @@ WriteIni("Settings",,"MatchTitle","RelativeCorner","Looping","InputX","InputY","
 		,"BoxX","BoxY","BoxW","BoxH","Hotkeys","Delay")
 GoSub UnloadCursors
 Gui, 2: +LastFound
-WinGetPos,GuiLoadX,GuiLoadY,VirGuiW
-if !(GuiLoadX<150-VirGuiW or GuiLoadY<0){
+WinGetPos,GuiLoadX,GuiLoadY,VirBoxW
+if !(GuiLoadX<150-VirBoxW or GuiLoadY<0){
 	WriteIni("Settings",,"GuiLoadX","GuiLoadY")
 }
 exitApp
@@ -326,7 +327,7 @@ Return
 2GuiContextMenu:
 If A_GuiControl!=Screenshot
 	Return
-Menu, ScreenshotContextMenu, Show, %A_VirGuiX%, %A_VirGuiY%
+Menu, ScreenshotContextMenu, Show, %A_VirBoxX%, %A_VirBoxY%
 Return
 
 SaveClipboard:
@@ -344,10 +345,10 @@ if (Looping := !Looping){
 	if (BoxX="" or BoxY="" or BoxW="" or BoxH=""){
 			GuiControl,2:, LoopHint, Bad values
 		ErrorValues:=1, Reverted:=1
-	} else GuiControl,, LoopHint, Looping
+	} else GuiControl,2:, LoopHint, Looping
 } else {
 	SetTimer, SetRectangleLoop, Off
-	GuiControl,, LoopHint, Not looping
+	GuiControl,2:, LoopHint, Not looping
 	Looping=0
 } Return
 
@@ -388,29 +389,45 @@ if (BoxX="" or BoxY="" or BoxW="" or BoxH="") {
 	ErrorValues:=1, Reverted:=0
 	Return
 } else ErrorValues:=0
-if (BoxW>0 and BoxH>0){
-		Gui, 1:Show,% "NA x" BoxX " y" BoxY " w" BoxW " h" BoxH
-		VirGuiX:=BoxX, VirGuiY:=BoxY, VirGuiW:=BoxW, VirGuiH:=BoxH 
-	} else if (BoxW<0 and BoxH<0){
-		Gui, 1:Show,% "NA x" BoxX+BoxW " y" BoxY+BoxH " w" BoxW*-1 " h" BoxH*-1
-		VirGuiX:=BoxX+BoxW, VirGuiY:=BoxY+BoxH, VirGuiW:=BoxW*-1, VirGuiH:=BoxH*-1
-	} else if (BoxW>0 and BoxH<0){
-		Gui, 1:Show,% "NA x" BoxX " y" BoxY+BoxH " w" BoxW " h" BoxH*-1
-		VirGuiX:=BoxX, VirGuiY:=BoxY+BoxH, VirGuiW:=BoxW, VirGuiH:=BoxH*-1
-	} else if (BoxW<0 and BoxH>0){
-		Gui, 1:Show,% "NA x" BoxX+BoxW " y" BoxY " w" BoxW*-1 " h" BoxH
-		VirGuiX:=BoxX+BoxW, VirGuiY:=BoxY, VirGuiW:=BoxW*-1, VirGuiH:=BoxH
-} if !Dragging 
-	BoxX:=VirGuiX, BoxY:=VirGuiY, BoxW:=VirGuiW, BoxH:=VirGuiH
-GuiControl,1:, BoxXHint, %BoxX%
-GuiControl,1:, BoxYHint, %BoxY%
-GuiControl,1:, BoxWHint, %BoxW%
-GuiControl,1:, BoxHHint, %BoxH%
+if (BoxW>0 and BoxH>0){  ;DownRight
+	VirBoxX:=BoxX, VirBoxY:=BoxY, VirBoxW:=BoxW, VirBoxH:=BoxH
+	WinMove, ahk_id %Box%,,% VirBoxX,% VirBoxY,% VirBoxW,% VirBoxH,
+} else if (BoxW<0 and BoxH<0){  ;UpLeft
+	VirBoxX:=BoxX+BoxW, VirBoxY:=BoxY+BoxH, VirBoxW:=BoxW*-1, VirBoxH:=BoxH*-1
+	WinMove, ahk_id %Box%,,% VirBoxX,% VirBoxY,% VirBoxW,% VirBoxH,
+} else if (BoxW>0 and BoxH<0){  ;UpRight
+	VirBoxX:=BoxX, VirBoxY:=BoxY+BoxH, VirBoxW:=BoxW, VirBoxH:=BoxH*-1
+	WinMove, ahk_id %Box%,,% VirBoxX,% VirBoxY,% VirBoxW,% VirBoxH,
+} else if (BoxW<0 and BoxH>0){  ;DownLeft
+	VirBoxX:=BoxX+BoxW, VirBoxY:=BoxY, VirBoxW:=BoxW*-1, VirBoxH:=BoxH
+	WinMove, ahk_id %Box%,,% VirBoxX,% VirBoxY,% VirBoxW,% VirBoxH,
+}
+if !(Dragging){
+	If (VirBoxW<0 and VirBoxH<0){  ;UpLeft
+		VirBoxX:=VirBoxX+VirBoxW, VirBoxY:=VirBoxY+VirBoxH, VirBoxW:=VirBoxW*-1, VirBoxH:=VirBoxH*-1,
+	} else If (VirBoxW>0 and VirBoxH<0){  ;UpRight
+		VirBoxY:=VirBoxY+VirBoxH, VirBoxH:=VirBoxH*-1,
+	} else If (VirBoxW<0 and VirBoxH>0){  ;DownLeft
+		VirBoxX:=VirBoxX+VirBoxW, VirBoxW:=VirBoxW*-1,
+	}
+	BoxX:=VirBoxX, BoxY:=VirBoxY, BoxW:=VirBoxW, BoxH:=VirBoxH
+}
+If (VirBoxW<0 and VirBoxH<0){  ;UpLeft
+	VirBoxX:=VirBoxX+VirBoxW, VirBoxY:=VirBoxY+VirBoxH, VirBoxW:=VirBoxW*-1, VirBoxH:=VirBoxH*-1,
+} else If (VirBoxW>0 and VirBoxH<0){  ;UpRight
+	VirBoxY:=VirBoxY+VirBoxH, VirBoxH:=VirBoxH*-1,
+} else If (VirBoxW<0 and VirBoxH>0){  ;DownLeft
+	VirBoxX:=VirBoxX+VirBoxW, VirBoxW:=VirBoxW*-1,
+}
+GuiControl,1:, BoxXHint,% Round(VirBoxX)
+GuiControl,1:, BoxYHint,% Round(VirBoxY)
+GuiControl,1:, BoxWHint,% Round(VirBoxW)
+GuiControl,1:, BoxHHint,% Round(VirBoxH)
 Return
 
 GetHover:
 MouseGetPos, MouseX, MouseY
-If (MouseX>=VirGuiX and MouseY>=VirGuiY and MouseX<=VirGuiX+VirGuiW and MouseY<=VirGuiY+VirGuiH){
+If (MouseX>=VirBoxX and MouseY>=VirBoxY and MouseX<=VirBoxX+VirBoxW and MouseY<=VirBoxY+VirBoxH){
 	If (!Hover){
 		Hover=1
 		GoTo UiUpdate
@@ -483,11 +500,11 @@ SetTimer, GetDrag, 10
 Return
 
 GetDrag:
-WinGetPos, DragX, DragY,,, ahk_id %hwnd%,
-BoxX+=DragX-VirGuiX
-BoxY+=DragY-VirGuiY
-VirGuiX:=BoxX
-VirGuiY:=BoxY
+WinGetPos, DragX, DragY,,, ahk_id %Box%,
+BoxX+=DragX-VirBoxX
+BoxY+=DragY-VirBoxY
+VirBoxX:=BoxX
+VirBoxY:=BoxY
 GoSub UiHide
 GoSub BoxUpdate
 if GetKeyState( "LButton", "P"){
@@ -514,14 +531,14 @@ if hidden {
 	GuiControl, Show, ArrowResizeDownRight
 }
 GuiControl, MoveDraw, ArrowResizeUpLeft, x5 y5
-GuiControl, MoveDraw, ArrowResizeUp,% "x" (VirGuiW-23)/2  " y" 5
-GuiControl, MoveDraw, ArrowResizeUpRight,% "x" VirGuiW-22 " y" 5
-GuiControl, MoveDraw, ArrowResizeLeft,% "x" 5  " y" (VirGuiH-23)/2
-GuiControl, MoveDraw, DragPic,% "x" (VirGuiW-29)/2  " y" (VirGuiH-29)/2
-GuiControl, MoveDraw, ArrowResizeRight,% "x" VirGuiW-21  " y" (VirGuiH-23)/2
-GuiControl, MoveDraw, ArrowResizeDownLeft,% "x" 5 " y" VirGuiH-22
-GuiControl, MoveDraw, ArrowResizeDown,% "x" (VirGuiW-23)/2  " y" VirGuiH-21
-GuiControl, MoveDraw, ArrowResizeDownRight,% "x" VirGuiW-22 " y" VirGuiH-22
+GuiControl, MoveDraw, ArrowResizeUp,% "x" (VirBoxW-23)/2  " y" 5
+GuiControl, MoveDraw, ArrowResizeUpRight,% "x" VirBoxW-22 " y" 5
+GuiControl, MoveDraw, ArrowResizeLeft,% "x" 5  " y" (VirBoxH-23)/2
+GuiControl, MoveDraw, DragPic,% "x" (VirBoxW-29)/2  " y" (VirBoxH-29)/2
+GuiControl, MoveDraw, ArrowResizeRight,% "x" VirBoxW-21  " y" (VirBoxH-23)/2
+GuiControl, MoveDraw, ArrowResizeDownLeft,% "x" 5 " y" VirBoxH-22
+GuiControl, MoveDraw, ArrowResizeDown,% "x" (VirBoxW-23)/2  " y" VirBoxH-21
+GuiControl, MoveDraw, ArrowResizeDownRight,% "x" VirBoxW-22 " y" VirBoxH-22
 Hidden=0
 Return
 Uihide:
@@ -548,7 +565,7 @@ If GetKeyState("Shift","P") {
 } else {
 	BoxX--
 	BoxW++
-} VirGuiX:=BoxX
+} VirBoxX:=BoxX
 Hover:=0
 GoTo BoxUpdate
 ~*Right::
@@ -557,7 +574,7 @@ If Dragging
 If GetKeyState("Shift","P")
 	BoxW--
 else BoxW++
-VirGuiW:=BoxW
+VirBoxW:=BoxW
 Hover:=0
 GoTo BoxUpdate
 ~*Up::
@@ -569,7 +586,7 @@ If GetKeyState("Shift","P"){
 } else {
 	BoxY--
 	BoxH++
-} VirGuiY:=BoxY
+} VirBoxY:=BoxY
 Hover:=0
 GoTo BoxUpdate
 ~*Down::
@@ -578,53 +595,68 @@ If Dragging
 If GetKeyState("Shift","P")
 	BoxH--
 else BoxH++
-VirGuiH:=BoxH
+VirBoxH:=BoxH
 Hover:=0
 GoTo BoxUpdate
 
 GuiResize:
-MouseGetPos, MouseX, MouseY
 Dragging:=1, UpdateRate:=10
+TempX:=BoxX
+TempY:=BoxY
+TempW:=BoxW
+TempH:=BoxH
 if (A_GuiControl="ArrowResizeLeft"){
 	GoSub UiHide
-	ResizeX:=MouseX
-	SetTimer, ResizeLeft, %UpdateRate%
+	MouseMove, BoxX, BoxY+BoxH/2
+	BoxX:=TempX+TempW
+	BoxW:=TempW*-1
+	GoTo, ResizeHorizontal
 } else if (A_GuiControl="ArrowResizeRight"){
 	GoSub UiHide
-	ResizeX:=MouseX
-	SetTimer, ResizeRight, %UpdateRate%
+	MouseMove, BoxX+BoxW, BoxY+BoxH/2
+	GoTo, ResizeHorizontal
 } else if (A_GuiControl="ArrowResizeUp"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	SetTimer, ResizeUp, %UpdateRate%
+	MouseMove, BoxX+BoxW/2, BoxY
+	BoxY:=TempY+TempH
+	BoxH:=TempH*-1
+	GoTo, ResizeVertical
 } else if (A_GuiControl="ArrowResizeDown"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	SetTimer, ResizeDown, %UpdateRate%
+	MouseMove, BoxX+BoxW/2, BoxY+BoxH
+	ResizeY:=BoxY+BoxH
+	GoTo, ResizeVertical
 } else if (A_GuiControl="ArrowResizeUpLeft"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	ResizeX:=MouseX
-	SetTimer, ResizeUp, %UpdateRate%
-	SetTimer, ResizeLeft, %UpdateRate%
+	MouseMove, BoxX, BoxY
+	BoxX:=TempX+TempW
+	BoxY:=TempY+TempH
+	BoxW:=TempW*-1
+	BoxH:=TempH*-1
+	GoSub, BoxUpdate
+	GoTo, ResizeCorner
 } else if (A_GuiControl="ArrowResizeUpRight"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	ResizeX:=MouseX
-	SetTimer, ResizeUp, %UpdateRate%
-	SetTimer, ResizeRight, %UpdateRate%
+	MouseMove, BoxX+BoxW, BoxY
+	BoxX:=TempX
+	BoxY:=TempY+TempH
+	BoxW:=TempW
+	BoxH:=TempH*-1
+	GoSub, BoxUpdate
+	GoTo, ResizeCorner
 } else if (A_GuiControl="ArrowResizeDownLeft"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	ResizeX:=MouseX
-	SetTimer, ResizeDown, %UpdateRate%
-	SetTimer, ResizeLeft, %UpdateRate%
+	MouseMove, BoxX, BoxY+BoxH
+	BoxX:=TempX+TempW
+	BoxY:=TempY
+	BoxW:=TempW*-1
+	BoxH:=TempH
+	GoSub, BoxUpdate
+	GoTo, ResizeCorner
 } else if (A_GuiControl="ArrowResizeDownRight"){
 	GoSub UiHide
-	ResizeY:=MouseY
-	ResizeX:=MouseX
-	SetTimer, ResizeDown, %UpdateRate%
-	SetTimer, ResizeRight, %UpdateRate%
+	MouseMove, BoxX+BoxW, BoxY+BoxH
+	GoTo, ResizeCorner
 } else Dragging=0
 Return
 
@@ -640,6 +672,7 @@ BoxX-=ResizeX-MouseX
 BoxW+=ResizeX-MouseX
 ResizeX:=MouseX
 GoTo BoxUpdate
+
 ResizeRight:
 if not GetKeyState( "LButton", "P"){
 	Dragging=0
@@ -651,6 +684,7 @@ if not GetKeyState( "LButton", "P"){
 Boxw-=ResizeX-MouseX
 ResizeX:=MouseX
 GoTo BoxUpdate
+
 ResizeUp:
 if not GetKeyState( "LButton", "P"){
 	Dragging=0
@@ -663,14 +697,345 @@ BoxY-=ResizeY-MouseY
 BoxH+=ResizeY-MouseY
 ResizeY:=MouseY
 GoTo BoxUpdate
-ResizeDown:
-if not GetKeyState( "LButton", "P"){
-	Dragging=0
-	Hover=0
-	GoSub BoxUpdate
-	SetTimer, ResizeDown, Off
-} If (MouseY=ResizeY)
-	Return
-BoxH-=ResizeY-MouseY
-ResizeY:=MouseY
-GoTo BoxUpdate
+
+;Horizontal
+;#####################################################################################
+
+ResizeHorizontal:
+Hotkey, Shift Up, ResizeHorizontalShiftUp,
+Hotkey, Shift, ResizeHorizontalShiftDown,
+Hotkey, Shift Up, ResizeHorizontalShiftUp, On
+Hotkey, Shift, ResizeHorizontalShiftDown, On
+Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp,
+Hotkey, *Ctrl, ResizeHorizontalCtrlDown,
+Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp, On
+Hotkey, *Ctrl, ResizeHorizontalCtrlDown, On
+
+StartBoxX:=BoxX
+StartBoxY:=BoxY
+StartBoxW:=BoxW
+StartBoxH:=BoxH
+StartMidX:=StartBoxX+StartBoxW/2
+StartMidY:=StartBoxY+StartBoxH/2
+
+StartRatio:=BoxW/BoxH
+GuiControl, 2:, LoopHint,% StartRatio
+
+While GetKeyState("Lbutton"){
+	MouseGetPos, MouseX, MouseY
+	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
+		if (!CtrlResize and GetKeyState("Shift", "P")){
+			Gosub, ResizeHorizontalShift
+		} else {
+			If (CtrlResize){
+				GoSub, ResizeHorizontalCtrl
+			} else {
+				BoxW:=MouseX-BoxX
+			}
+		}
+		PrevMouseX:=MouseX, PrevMouseY:=MouseY
+		GoSub BoxUpdate
+	}
+	sleep, -1
+}
+Hotkey, Shift Up, ResizeHorizontalShiftUp, Off
+Hotkey, Shift, ResizeHorizontalShiftDown, Off
+Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp, Off
+Hotkey, *Ctrl, ResizeHorizontalCtrlDown, Off
+Dragging=0
+Hover=0
+GoSub BoxUpdate
+CtrlResize=0
+Return
+
+ResizeHorizontalShift:
+BoxW:=MouseX-BoxX
+BoxH:=BoxW/StartRatio
+BoxY:=StartBoxY-BoxH/2+StartBoxH/2
+Return
+
+ResizeHorizontalCtrl:
+BoxX:=StartMidX-(MouseX-StartMidX),
+BoxW:=(MouseX-StartMidX)*2
+If GetKeyState("Shift", "P"){
+	BoxH:=BoxW/StartRatio
+	BoxX:=StartMidX-(MouseX-StartMidX)
+	BoxY:=StartMidY-BoxH/2
+}
+Return
+
+ResizeHorizontalShiftDown:
+Hotkey, Shift, ResizeHorizontalShiftDown, Off
+MouseGetPos, MouseX, MouseY
+Gosub, ResizeHorizontalShift
+PrevMouseX:=MouseX, PrevMouseY:=MouseY
+GoSub BoxUpdate
+Return
+
+ResizeHorizontalShiftUp:
+Hotkey, Shift, ResizeHorizontalShiftDown, On
+Return
+
+ResizeHorizontalCtrlDown:
+Hotkey, *Ctrl, ResizeHorizontalCtrlDown, Off
+Gosub, ResizeHorizontalCtrl
+CtrlResize=1
+Goto BoxUpdate
+
+ResizeHorizontalCtrlUp:
+Hotkey, *Ctrl, ResizeHorizontalCtrlDown, On
+BoxX:=StartBoxX
+BoxW:=MouseX-BoxX
+CtrlResize=0
+Goto BoxUpdate
+
+;Vertical
+;#####################################################################################
+
+ResizeVertical:
+Hotkey, Shift Up, ResizeVerticalShiftUp,
+Hotkey, Shift, ResizeVerticalShiftDown,
+Hotkey, Shift Up, ResizeVerticalShiftUp, On
+Hotkey, Shift, ResizeVerticalShiftDown, On
+Hotkey, *Ctrl Up, ResizeVerticalCtrlUp,
+Hotkey, *Ctrl, ResizeVerticalCtrlDown,
+Hotkey, *Ctrl Up, ResizeVerticalCtrlUp, On
+Hotkey, *Ctrl, ResizeVerticalCtrlDown, On
+
+StartBoxX:=BoxX
+StartBoxY:=BoxY
+StartBoxW:=BoxW
+StartBoxH:=BoxH
+StartMidX:=StartBoxX+StartBoxW/2
+StartMidY:=StartBoxY+StartBoxH/2
+
+StartRatio:=BoxW/BoxH
+GuiControl, 2:, LoopHint,% StartRatio
+
+While GetKeyState("Lbutton"){
+	MouseGetPos, MouseX, MouseY
+	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
+		if (!CtrlResize and GetKeyState("Shift", "P")){
+			Gosub, ResizeVerticalShift
+		} else {
+			If (CtrlResize){
+				GoSub, ResizeVerticalCtrl
+			} else {
+				BoxH:=MouseY-BoxY
+			}
+		}
+		PrevMouseX:=MouseX, PrevMouseY:=MouseY
+		GoSub BoxUpdate
+	}
+	sleep, -1
+}
+Hotkey, Shift Up, ResizeVerticalShiftUp, Off
+Hotkey, Shift, ResizeVerticalShiftDown, Off
+Hotkey, *Ctrl Up, ResizeVerticalCtrlUp, Off
+Hotkey, *Ctrl, ResizeVerticalCtrlDown, Off
+Dragging=0
+Hover=0
+GoSub BoxUpdate
+CtrlResize=0
+Return
+
+ResizeVerticalShift:
+	BoxH:=MouseY-BoxY
+	BoxW:=BoxH*StartRatio
+	BoxX:=StartBoxX-BoxW/2+StartBoxW/2
+
+Return
+
+ResizeVerticalCtrl:
+BoxY:=StartMidY-(MouseY-StartMidY),
+BoxH:=(MouseY-StartMidY)*2
+If GetKeyState("Shift", "P"){
+	BoxW:=BoxH*StartRatio
+	BoxY:=StartMidY-(MouseY-StartMidY)
+	BoxX:=StartMidX-BoxW/2
+}
+Return
+
+ResizeVerticalShiftDown:
+Hotkey, Shift, ResizeVerticalShiftDown, Off
+MouseGetPos, MouseX, MouseY
+Gosub, ResizeVerticalShift
+PrevMouseX:=MouseX, PrevMouseY:=MouseY
+GoSub BoxUpdate
+Return
+
+ResizeVerticalShiftUp:
+Hotkey, Shift, ResizeVerticalShiftDown, On
+Return
+
+ResizeVerticalCtrlDown:
+Hotkey, *Ctrl, ResizeVerticalCtrlDown, Off
+Gosub, ResizeVerticalCtrl
+CtrlResize=1
+Goto BoxUpdate
+
+ResizeVerticalCtrlUp:
+Hotkey, *Ctrl, ResizeVerticalCtrlDown, On
+BoxY:=StartBoxY
+BoxH:=MouseY-BoxY
+CtrlResize=0
+Goto BoxUpdate
+
+;Corner
+;#####################################################################################
+ResizeCorner:
+Hotkey, Shift Up, ResizeCornerShiftUp,
+Hotkey, Shift, ResizeCornerShiftDown,
+Hotkey, Shift Up, ResizeCornerShiftUp, On
+Hotkey, Shift, ResizeCornerShiftDown, On
+Hotkey, *Ctrl Up, ResizeCornerCtrlUp,
+Hotkey, *Ctrl, ResizeCornerCtrlDown,
+Hotkey, *Ctrl Up, ResizeCornerCtrlUp, On
+Hotkey, *Ctrl, ResizeCornerCtrlDown, On
+
+StartBoxX:=BoxX
+StartBoxY:=BoxY
+StartBoxW:=BoxW
+StartBoxH:=BoxH
+StartMidX:=StartBoxX+StartBoxW/2
+StartMidY:=StartBoxY+StartBoxH/2
+
+StartRatio:=BoxW/BoxH
+GuiControl, 2:, LoopHint,% StartRatio
+
+While GetKeyState("Lbutton"){
+	MouseGetPos, MouseX, MouseY
+	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
+		if (!CtrlResize and GetKeyState("Shift", "P")){
+			Gosub, ResizeCornerShift
+		} else {
+			If (CtrlResize){
+				GoSub, ResizeCornerCtrl
+			} else {
+				BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+			}
+		}
+		PrevMouseX:=MouseX, PrevMouseY:=MouseY
+		GoSub BoxUpdate
+	}
+	sleep, -1
+}
+Hotkey, Shift Up, ResizeCornerShiftUp, Off
+Hotkey, Shift, ResizeCornerShiftDown, Off
+Hotkey, *Ctrl Up, ResizeCornerCtrlUp, Off
+Hotkey, *Ctrl, ResizeCornerCtrlDown, Off
+Dragging=0
+Hover=0
+GoSub BoxUpdate
+CtrlResize=0
+Return
+
+ResizeCornerShift:
+If ((MouseX>=BoxX and MouseY>=BoxY) or (MouseX<=BoxX and MouseY<=BoxY)){  ;UpLeft and DownRight
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
+		Guicontrol,2:,loophint, 1
+		BoxH:=(MouseX-boxX)/StartRatio
+		BoxW:=BoxH*StartRatio
+	} else {
+		Guicontrol,2:,loophint, 2
+		BoxW:=(MouseY-boxY)*StartRatio
+		BoxH:=BoxW/StartRatio
+}} else If (MouseX<BoxX and MouseY>BoxY){  ;DownLeft
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
+		Guicontrol,2:,loophint, 3
+		BoxH:=Abs(MouseX-boxX)/StartRatio
+		BoxW:=BoxH*-1*StartRatio
+	} else {
+		Guicontrol,2:,loophint, 4
+		BoxW:=(MouseY-boxY)*-1*StartRatio
+		BoxH:=Abs(BoxW)/StartRatio
+}} else If (MouseX>BoxX and MouseY<BoxY){  ;UpRight
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
+		Guicontrol,2:,loophint, 5
+		BoxH:=(MouseX-boxX)*-1/StartRatio
+		BoxW:=Abs(BoxH)*StartRatio
+	} else {
+		Guicontrol,2:,loophint, 6
+		BoxW:=(MouseY-boxY)*-1*StartRatio
+		BoxH:=BoxW*-1/StartRatio
+}}
+BoxH:=Ceil(BoxH)
+BoxW:=Ceil(BoxW)
+Return
+
+ResizeCornerAlt:
+If ((MouseX>=BoxX and MouseY>=BoxY) or (MouseX<=BoxX and MouseY<=BoxY)){  ;UpLeft and DownRight
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)){
+		BoxH:=MouseX-boxX
+		BoxW:=BoxH
+	} else if (Abs(MouseX-boxX)<abs(MouseY-boxY)){
+		BoxW:=MouseY-boxY
+		BoxH:=BoxW
+}} else If (MouseX<BoxX and MouseY>BoxY){  ;DownLeft
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)){
+		BoxH:=Abs(MouseX-boxX)
+		BoxW:=BoxH*-1
+	} else if (Abs(MouseX-boxX)<abs(MouseY-boxY)){
+		BoxW:=(MouseY-boxY)*-1
+		BoxH:=Abs(BoxW)
+}} else If (MouseX>BoxX and MouseY<BoxY){  ;UpRight
+	If (Abs(MouseX-boxX)>abs(MouseY-boxY)){
+		BoxH:=(MouseX-boxX)*-1
+		BoxW:=Abs(BoxH)
+	} else if (Abs(MouseX-boxX)<abs(MouseY-boxY)){
+		BoxW:=(MouseY-boxY)*-1
+		BoxH:=BoxW*-1
+}}
+Return
+
+ResizeCornerCtrl:
+BoxX:=StartMidX-(MouseX-StartMidX),
+BoxY:=StartMidY-(MouseY-StartMidY),
+BoxW:=(MouseX-StartMidX)*2,
+BoxH:=(MouseY-StartMidY)*2
+If GetKeyState("Shift", "P"){
+	If (Abs(BoxW/StartRatio)>Abs(BoxH)){  ;Horizontal
+		BoxH:=BoxW/StartRatio
+		BoxW:=BoxH*StartRatio
+		BoxY:=BoxY+(MouseY-StartMidY)-BoxH/2
+		BoxX:=BoxX+(MouseX-StartMidX)-BoxW/2
+	} else If (Abs(BoxW/StartRatio)<Abs(BoxH)){  ;Vertical
+		BoxW:=BoxH*StartRatio
+		BoxX:=BoxX+(MouseX-StartMidX)-BoxW/2
+}}
+Return
+
+ResizeCornerShiftDown:
+Hotkey, Shift, ResizeCornerShiftDown, Off
+MouseGetPos, MouseX, MouseY
+Gosub, ResizeCornerShift
+PrevMouseX:=MouseX, PrevMouseY:=MouseY
+GoSub BoxUpdate
+Return
+
+ResizeCornerShiftUp:
+Hotkey, Shift, ResizeCornerShiftDown, On
+MouseGetPos, MouseX, MouseY
+BoxW:=MouseX-BoxX
+BoxH:=MouseY-BoxY
+If BoxH=0
+	BoxH:=1
+If BoxY=0
+	BoxY:=1
+PrevMouseX:=MouseX, PrevMouseY:=MouseY
+GoSub BoxUpdate
+Return
+
+ResizeCornerCtrlDown:
+Hotkey, *Ctrl, ResizeCornerCtrlDown, Off
+CtrlResize=1
+Gosub, ResizeCornerCtrl
+Goto BoxUpdate
+
+ResizeCornerCtrlUp:
+Hotkey, *Ctrl, ResizeCornerCtrlDown, On
+BoxX:=StartBoxX
+BoxY:=StartBoxY
+BoxW:=MouseX-BoxX, BoxH:=MouseY-BoxY
+CtrlResize=0
+Goto BoxUpdate
