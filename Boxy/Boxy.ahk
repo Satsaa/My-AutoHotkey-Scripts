@@ -900,7 +900,7 @@ StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
 
-StartRatio:=BoxW/BoxH
+StartRatio:=Abs(BoxW/BoxH)
 GuiControl, 2:, LoopHint,% StartRatio
 
 While GetKeyState("Lbutton"){
@@ -959,8 +959,10 @@ If ((MouseX>=BoxX and MouseY>=BoxY) or (MouseX<=BoxX and MouseY<=BoxY)){  ;UpLef
 		BoxW:=(MouseY-boxY)*-1*StartRatio
 		BoxH:=BoxW*-1/StartRatio
 }}
-BoxH:=Ceil(BoxH)
-BoxW:=Ceil(BoxW)
+If BoxH<0
+	BoxH:=Ceil(BoxH)
+If BoxW<0
+	BoxW:=Ceil(BoxW)
 Return
 
 ResizeCornerAlt:
@@ -1009,6 +1011,9 @@ ResizeCornerShiftDown:
 Hotkey, Shift, ResizeCornerShiftDown, Off
 MouseGetPos, MouseX, MouseY
 Gosub, ResizeCornerShift
+If (CtrlResize){
+	Gosub ResizeCornerCtrl
+}
 PrevMouseX:=MouseX, PrevMouseY:=MouseY
 GoSub BoxUpdate
 Return
