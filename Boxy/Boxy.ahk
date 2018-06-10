@@ -38,29 +38,28 @@ WinSet, TransColor, EEAA99
 Menu, Tray, Icon, %ResDir%\forsenBoxE.ico
 
 gui, font, q3 c354144
-Gui, Add, Text, vBoxXHint x2 y2 w100,
-Gui, Add, Text, vBoxYHint x2 yp+15 w100,
-Gui, Add, Text, vBoxWHint x2 yp+15 w100,
-Gui, Add, Text, vBoxHHint x2 yp+15 w100,
-Gui, Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\BoxyArrow\UpLeft.png
-Gui, Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\BoxyArrow\Up.png
-Gui, Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\BoxyArrow\UpRight.png
-Gui, Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\BoxyArrow\Left.png
-Gui, Add, Pic, vDragPic gGuiDrag, %ResDir%\Drag\CircleHard.png
-Gui, Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\BoxyArrow\Right.png
-Gui, Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\BoxyArrow\DownLeft.png
-Gui, Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\BoxyArrow\Down.png
-Gui, Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\BoxyArrow\DownRight.png
-Gui, 1: +LastFound
-GuiControl, Hide, ArrowResizeUpLeft
-GuiControl, Hide, ArrowResizeUp
-GuiControl, Hide, ArrowResizeUpRight
-GuiControl, Hide, ArrowResizeLeft
-GuiControl, Hide, DragPic
-GuiControl, Hide, ArrowResizeRight
-GuiControl, Hide, ArrowResizeDownLeft
-GuiControl, Hide, ArrowResizeDown
-GuiControl, Hide, ArrowResizeDownRight
+Gui, 1:Add, Text, vBoxXHint x2 y2 w100,
+Gui, 1:Add, Text, vBoxYHint x2 yp+15 w100,
+Gui, 1:Add, Text, vBoxWHint x2 yp+15 w100,
+Gui, 1:Add, Text, vBoxHHint x2 yp+15 w100,
+Gui, 1:Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\BoxyArrow\UpLeft.png
+Gui, 1:Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\BoxyArrow\Up.png
+Gui, 1:Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\BoxyArrow\UpRight.png
+Gui, 1:Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\BoxyArrow\Left.png
+Gui, 1:Add, Pic, vDragPic gGuiDrag, %ResDir%\Drag\CircleHard.png
+Gui, 1:Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\BoxyArrow\Right.png
+Gui, 1:Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\BoxyArrow\DownLeft.png
+Gui, 1:Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\BoxyArrow\Down.png
+Gui, 1:Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\BoxyArrow\DownRight.png
+GuiControl, 1:Hide, ArrowResizeUpLeft
+GuiControl, 1:Hide, ArrowResizeUp
+GuiControl, 1:Hide, ArrowResizeUpRight
+GuiControl, 1:Hide, ArrowResizeLeft
+GuiControl, 1:Hide, DragPic
+GuiControl, 1:Hide, ArrowResizeRight
+GuiControl, 1:Hide, ArrowResizeDownLeft
+GuiControl, 1:Hide, ArrowResizeDown
+GuiControl, 1:Hide, ArrowResizeDownRight
 
 Menu, ScreenshotContextMenu, Add, Open Image, OpenImage
 Menu, ScreenshotContextMenu, Add, Open Folder, OpenFolder
@@ -103,6 +102,10 @@ Gui, 1:Show, x-300 y-300
 Gui, 2:Add, Text, ym vScreenshotText , Loading Image %A_space%  %A_space% %A_space% %A_space% %A_space%
 Gui, 2:Add, Pic, vScreenshot gScreenShotClick, %ImageFile%
 Gui, 2: +LastFound
+;Gui, BoxHor:Show, x100 y100 w100 h1
+;Gui, BoxHor2:Show, x100 y200 w100 h1
+;Gui, BoxVer:Show, x100 y100 w1 h100
+;Gui, BoxVer2:Show, x200 y100 w1 h100
 WinGet, MainID , Id
 OnExit, GuiClose
 if Looping {
@@ -721,9 +724,7 @@ StartBoxW:=BoxW
 StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
-
 StartRatio:=BoxW/BoxH
-GuiControl, 2:, LoopHint,% StartRatio
 
 While GetKeyState("Lbutton"){
 	MouseGetPos, MouseX, MouseY
@@ -848,9 +849,7 @@ StartBoxW:=BoxW
 StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
-
 StartRatio:=BoxW/BoxH
-GuiControl, 2:, LoopHint,% StartRatio
 
 While GetKeyState("Lbutton"){
 	MouseGetPos, MouseX, MouseY
@@ -975,9 +974,7 @@ StartBoxW:=BoxW
 StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
-
 StartRatio:=Abs(BoxW/BoxH)
-GuiControl, 2:, LoopHint,% StartRatio
 
 While GetKeyState("Lbutton"){
 	MouseGetPos, MouseX, MouseY
@@ -1017,29 +1014,23 @@ Return
 ResizeCornerShift:
 If ((MouseX>=BoxX and MouseY>=BoxY) or (MouseX<=BoxX and MouseY<=BoxY)){  ;UpLeft and DownRight
 	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
-		Guicontrol,2:,loophint, 1
 		BoxH:=(MouseX-boxX)/StartRatio
 		BoxW:=BoxH*StartRatio
 	} else {
-		Guicontrol,2:,loophint, 2
 		BoxW:=(MouseY-boxY)*StartRatio
 		BoxH:=BoxW/StartRatio
 }} else If (MouseX<BoxX and MouseY>BoxY){  ;DownLeft
 	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
-		Guicontrol,2:,loophint, 3
 		BoxH:=Abs(MouseX-boxX)/StartRatio
 		BoxW:=BoxH*-1*StartRatio
 	} else {
-		Guicontrol,2:,loophint, 4
 		BoxW:=(MouseY-boxY)*-1*StartRatio
 		BoxH:=Abs(BoxW)/StartRatio
 }} else If (MouseX>BoxX and MouseY<BoxY){  ;UpRight
 	If (Abs(MouseX-boxX)>abs(MouseY-boxY)*StartRatio){
-		Guicontrol,2:,loophint, 5
 		BoxH:=(MouseX-boxX)*-1/StartRatio
 		BoxW:=Abs(BoxH)*StartRatio
 	} else {
-		Guicontrol,2:,loophint, 6
 		BoxW:=(MouseY-boxY)*-1*StartRatio
 		BoxH:=BoxW*-1/StartRatio
 }}
