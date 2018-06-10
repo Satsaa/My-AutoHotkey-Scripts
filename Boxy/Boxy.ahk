@@ -888,10 +888,9 @@ ShiftResize=0
 Return
 
 ResizeVerticalShift:
-	BoxH:=MouseY-BoxY
-	BoxW:=BoxH*StartRatio
-	BoxX:=StartBoxX-BoxW/2+StartBoxW/2
-
+BoxH:=MouseY-BoxY
+BoxW:=BoxH*StartRatio
+BoxX:=StartBoxX-BoxW/2+StartBoxW/2
 Return
 
 ResizeVerticalCtrl:
@@ -1167,7 +1166,6 @@ Goto BoxUpdate
 
 ResizeCornerAltUp:
 Hotkey, Alt, ResizeCornerAltDown, On
-MsgBox, 
 If (CtrlResize){
 	GoSub, ResizeCornerCtrl
 } else If !(ShiftResize){
