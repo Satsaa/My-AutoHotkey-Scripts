@@ -22,44 +22,26 @@ IDC_SIZEWE := 32644
 
 ScreenshotFolder:="Screenshot\",
 ResDir := DirAscend(A_ScriptDir) "\Res"
+CursorHand:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_HAND, "UInt")
 FileCreateDir, %ScreenshotFolder%
 MaxImgDim:=750,  ;The maximum height or width for the screenshot review
 CornerX:=0, CornerY:=0,
 CtrlBoxX:=0, CtrlBoxY:=0, CtrlBoxH:=0, CtrlBoxW:=0, 
-Hotkey, ~*LButton Up, Off, UseErrorLevel 
 GuiTitle := RegExReplace(A_ScriptName, ".ahk")
 ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
 	,"InputX",100,"InputY",100,"InputX2",200,"InputY2",200
 	,"BoxX",100,"BoxY",100,"BoxW",100,"BoxH",100
 	,"Hotkeys",1,"GuiLoadX",250,"GuiLoadY",250,"Delay",0)
-Gui, Color, EEAA99
-Gui, +LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndBox +Owner 
+Gui, 1:Color, EEAA99
+Gui, 1:+LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndBox +Owner 
 WinSet, TransColor, EEAA99
 Menu, Tray, Icon, %ResDir%\forsenBoxE.ico
 
-gui, font, q3 c354144
+Gui, font, q3 c354144
 Gui, 1:Add, Text, vBoxXHint x2 y2 w100,
 Gui, 1:Add, Text, vBoxYHint x2 yp+15 w100,
 Gui, 1:Add, Text, vBoxWHint x2 yp+15 w100,
 Gui, 1:Add, Text, vBoxHHint x2 yp+15 w100,
-Gui, 1:Add, Pic, vArrowResizeUpLeft gGuiResize, %ResDir%\BoxyArrow\UpLeft.png
-Gui, 1:Add, Pic, vArrowResizeUp gGuiResize, %ResDir%\BoxyArrow\Up.png
-Gui, 1:Add, Pic, vArrowResizeUpRight gGuiResize, %ResDir%\BoxyArrow\UpRight.png
-Gui, 1:Add, Pic, vArrowResizeLeft gGuiResize, %ResDir%\BoxyArrow\Left.png
-Gui, 1:Add, Pic, vDragPic gGuiDrag, %ResDir%\Drag\CircleHard.png
-Gui, 1:Add, Pic, vArrowResizeRight gGuiResize, %ResDir%\BoxyArrow\Right.png
-Gui, 1:Add, Pic, vArrowResizeDownLeft gGuiResize, %ResDir%\BoxyArrow\DownLeft.png
-Gui, 1:Add, Pic, vArrowResizeDown gGuiResize, %ResDir%\BoxyArrow\Down.png
-Gui, 1:Add, Pic, vArrowResizeDownRight gGuiResize, %ResDir%\BoxyArrow\DownRight.png
-GuiControl, 1:Hide, ArrowResizeUpLeft
-GuiControl, 1:Hide, ArrowResizeUp
-GuiControl, 1:Hide, ArrowResizeUpRight
-GuiControl, 1:Hide, ArrowResizeLeft
-GuiControl, 1:Hide, DragPic
-GuiControl, 1:Hide, ArrowResizeRight
-GuiControl, 1:Hide, ArrowResizeDownLeft
-GuiControl, 1:Hide, ArrowResizeDown
-GuiControl, 1:Hide, ArrowResizeDownRight
 
 Menu, ScreenshotContextMenu, Add, Open Image, OpenImage
 Menu, ScreenshotContextMenu, Add, Open Folder, OpenFolder
@@ -92,20 +74,27 @@ Gui, 2:Add, Checkbox, gToggleHotkeys vHotkeys Checked%Hotkeys% xm, Adjust with s
 Gui, 2:Add, Slider, gDelayUpdate vDelay Range0-5000 NoTicks AltSubmit wp-17 x2,% Delay
 DelaySec := SubStr(Delay/1000, 1, 3)
 Gui, 2:Add, Text, vDelayHint xm+145 yp+5 w25,% DelaySec " s"
-Gui, 2:Add, Button, gSetRectangle xm yp+22, Set Rectangle
+Gui, 2:Add, Button, gSetBox xm yp+22, Set Rectangle
 Gui, 2:Add, Button, gLoopToggle xm, Toggle Loop
 Gui, 2:Add, Button, gScreenshot xm, Screenshot
 Gui, 2:Add, Text, vLoopHint xm w170, Not looping
 Gui, 2: +HwndGui
 Gui, 2:Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
 Gui, 1:Show, x-300 y-300
-Gui, 2:Add, Text, ym vScreenshotText , Loading Image %A_space%  %A_space% %A_space% %A_space% %A_space%
-Gui, 2:Add, Pic, vScreenshot gScreenShotClick, %ImageFile%
+Gui, 2:Add, Text, ym vScreenshotText, Loading Image %A_space%  %A_space% %A_space% %A_space% %A_space%
+Gui, 2:Add, Pic, vScreenshot gOpenImage, %ImageFile%
 Gui, 2: +LastFound
-;Gui, BoxHor:Show, x100 y100 w100 h1
-;Gui, BoxHor2:Show, x100 y200 w100 h1
-;Gui, BoxVer:Show, x100 y100 w1 h100
-;Gui, BoxVer2:Show, x200 y100 w1 h100
+
+Hotkey, Alt Up, DoNothing
+Hotkey, Alt Up, DoNothing, Off
+Hotkey, *LButton, BoxResize
+Gui, DragBox:Color, EEAA99
+Gui, DragBox:+LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndDragBox +Owner 
+WinSet, TransColor, EEAA99
+Gui, DragBox:Show, x300 y300 w100 h100
+
+pid:=DllCall("GetCurrentProcessId")
+
 WinGet, MainID , Id
 OnExit, GuiClose
 if Looping {
@@ -113,11 +102,9 @@ if Looping {
 	GoSub LoopToggle
 }
 SetTimer, GetHover, 20
-GoSub LoadCursors
 GoSub InputUpdate
 GoSub ToggleHotkeys
 OnMessage(0x200,"WM_MOUSEMOVE")
-OnMessage(0x201,"WM_LBUTTONDOWN")
 GoTo BoxUpdate
 
 DelayUpdate:
@@ -171,7 +158,7 @@ Winset, Transparent, 0
 Gui,2: +LastFound
 Winset, Transparent, 0
 Sleep, 20
-Screenshot := Gdip_BitmapFromScreen(BoxX+1 "|" BoxY+1 "|" BoxW "|" BoxH)
+Screenshot := Gdip_BitmapFromScreen(BoxX+1 "|" BoxY+1 "|" BoxW-2 "|" BoxH-2)
 Winset, Transparent, 255
 Gui,1: +LastFound
 Winset, Transparent, 255
@@ -223,7 +210,7 @@ If (Hotkeys) {
 GuiClose:
 WriteIni("Settings",,"MatchTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2",
 		,"BoxX","BoxY","BoxW","BoxH","Hotkeys","Delay")
-GoSub UnloadCursors
+DllCall("DestroyCursor","Uint", CursorHand)
 Gui, 2: +LastFound
 WinGetPos,GuiLoadX,GuiLoadY,VirBoxW
 if !(GuiLoadX<150-VirBoxW or GuiLoadY<0){
@@ -232,68 +219,14 @@ if !(GuiLoadX<150-VirBoxW or GuiLoadY<0){
 exitApp
 Return
 
-LoadCursors:
-CursorArrow:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_ARROW, "UInt")
-CursorHand:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_HAND, "UInt")
-CursorSizeAll:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_SIZEALL, "UInt")
-CursorSizeNESW:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_SIZENESW, "UInt")
-CursorSizeNS:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_SIZENS, "UInt")
-CursorSizeNWSE:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_SIZENWSE, "UInt")
-CursorSizeWE:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_SIZEWE, "UInt")
-Return
-
-UnloadCursors:
-DllCall("DestroyCursor","Uint", CursorArrow)
-DllCall("DestroyCursor","Uint", CursorHand)
-DllCall("DestroyCursor","Uint", CursorSizeAll)
-DllCall("DestroyCursor","Uint", CursorSizeNESW)
-DllCall("DestroyCursor","Uint", CursorSizeNS)
-DllCall("DestroyCursor","Uint", CursorSizeNWSE)
-DllCall("DestroyCursor","Uint", CursorSizeWE)
-Return
-
-WM_LBUTTONDOWN(wParam, lParam){
-	global ImageFile
+WM_MOUSEMOVE(wParam, lParam) {
+	global CursorHand
 	if (A_Gui=2) {
 		MouseGetPos,,,, ctrl
-			if (ctrl == "Static12") {
-				Run, %ImageFile%
-			}
-}}
-
-WM_MOUSEMOVE(wParam, lParam) {
-	global CursorSizeWE, CursorSizeNWSE, CursorSizeNS, CursorSizeNESW, CursorSizeAll, CursorHand, CursorArrow
-	If (A_Gui=1){
-		MouseGetPos,,,, ctrl
-		if (ctrl == "Static5")
-			DllCall("SetCursor","UInt",CursorSizeNWSE)
-		else if (ctrl == "Static6")
-			DllCall("SetCursor","UInt",CursorSizeNS)
-		else if (ctrl == "Static7")
-			DllCall("SetCursor","UInt",CursorSizeNESW)
-		else if (ctrl == "Static8")
-			DllCall("SetCursor","UInt",CursorSizeWE)
-		else if (ctrl == "Static9")
-			DllCall("SetCursor","UInt",CursorSizeAll)
-		else if (ctrl == "Static10")
-			DllCall("SetCursor","UInt",CursorSizeWE)
-		else if (ctrl == "Static11")
-			DllCall("SetCursor","UInt",CursorSizeNESW)
-		else if (ctrl == "Static12")
-			DllCall("SetCursor","UInt",CursorSizeNS)
-		else if (ctrl == "Static13")
-			DllCall("SetCursor","UInt",CursorSizeNWSE)
-	} else if (A_Gui=2) {
-		MouseGetPos,,,, ctrl
-		if (ctrl == "Static12")
+		if (ctrl == "Static13")
 			DllCall("SetCursor","UInt",CursorHand)
 	}
 }
-
-ScreenShotClick:
-If (A_GuiEvent="Doubleclick")
-	GoTo OpenImage
-return
 
 CopyImage:
 If ImageCopy
@@ -344,13 +277,13 @@ Return
 
 LoopToggle:
 if (Looping := !Looping){
-	SetTimer, SetRectangleLoop, 10
+	SetTimer, SetBoxLoop, 10
 	if (BoxX="" or BoxY="" or BoxW="" or BoxH=""){
 			GuiControl,2:, LoopHint, Bad values
 		ErrorValues:=1, Reverted:=1
 	} else GuiControl,2:, LoopHint, Looping
 } else {
-	SetTimer, SetRectangleLoop, Off
+	SetTimer, SetBoxLoop, Off
 	GuiControl,2:, LoopHint, Not looping
 	Looping=0
 } Return
@@ -370,20 +303,22 @@ EvalW-=EvalX
 EvalH-=EvalY
 Return
 
-SetRectangleloop:
+SetBoxloop:
 if (!ErrorValues){
 	if not Reverted
 		GuiControl,2:, LoopHint, Looping
 	Reverted:=1, ErrorValues:=1
 }
-SetRectangle:
+SetBox:
 WinGetPos, WinX, WinY, WinW, WinH, %RelativeTitle%,
-GoSub GetCorners
+GoSub GetRelativeWinCorner
 BoxX:=EvalX+CornerX
 BoxY:=EvalY+CornerY
 BoxW:=EvalW
 BoxH:=EvalH
-GoTo BoxUpdate
+GoSub BoxUpdate
+PrevMouseY=-1  ;Force an update
+GoTo GetHover
 
 BoxUpdate:
 if (BoxX="" or BoxY="" or BoxW="" or BoxH="") {
@@ -422,22 +357,84 @@ If (VirBoxW<0 and VirBoxH<0){  ;UpLeft
 } else If (VirBoxW<0 and VirBoxH>0){  ;DownLeft
 	VirBoxX:=VirBoxX+VirBoxW, VirBoxW:=VirBoxW*-1,
 }
-GuiControl,1:, BoxXHint,% Round(VirBoxX)
-GuiControl,1:, BoxYHint,% Round(VirBoxY)
-GuiControl,1:, BoxWHint,% Round(VirBoxW)
-GuiControl,1:, BoxHHint,% Round(VirBoxH)
+GuiControl,1:, BoxXHint,% Round(VirBoxX)+1
+GuiControl,1:, BoxYHint,% Round(VirBoxY)+1
+GuiControl,1:, BoxWHint,% Round(VirBoxW)-2
+GuiControl,1:, BoxHHint,% Round(VirBoxH)-2
+Return
+
+~LButton Up::
+EndDrag=1
+Return
+
+DoNothing:
 Return
 
 GetHover:
+If WinActive("ahk_pid " pid){
+	If !Dragging
+		Hotkey, Alt Up, DoNothing, On
+} else {
+	If !Dragging
+		Hotkey, Alt Up, DoNothing, Off
+}
 MouseGetPos, MouseX, MouseY
-If (MouseX>=VirBoxX and MouseY>=VirBoxY and MouseX<=VirBoxX+VirBoxW and MouseY<=VirBoxY+VirBoxH){
-	If (!Hover){
-		Hover=1
-		GoTo UiUpdate
-}} else {
-	if (!Dragging) {
+If ((MouseY!=PrevMouseY or MouseX!=PrevMouseX) and MouseX>=VirBoxX and MouseY>=VirBoxY and MouseX<=VirBoxX+VirBoxW and MouseY<=VirBoxY+VirBoxH){
+	PrevMouseX:=MouseX, PrevMouseY:=MouseY
+	If (!Dragging){
+		Hidden=0
+		If (BoxW<150)
+			DragBoxW:=BoxW/3
+		else DragBoxW=50
+		If (BoxH<150)
+			DragBoxH:=BoxH/3
+		else DragBoxH=50
+		If (MouseY<BoxY+DragBoxH){
+			If (MouseX<BoxX+DragBoxW){  ;Up Right
+				Hover=1
+				WinMove, ahk_id %DragBox%,,% BoxX,% BoxY,% DragBoxW,% DragBoxH,
+			} else If (MouseX>BoxX+BoxW-DragBoxW){  ;Up Left
+				Hover=3
+				WinMove, ahk_id %DragBox%,,% BoxX+BoxW-DragBoxW,% BoxY,% Ceil(DragBoxW),% DragBoxH,
+			} else {  ;Up Middle
+				Hover=2
+				WinMove, ahk_id %DragBox%,,% BoxX+DragBoxW,% BoxY,% BoxW-DragBoxW*2,% DragBoxH,
+			}
+		} else If (MouseY>BoxY+BoxH-DragBoxH){
+			If (MouseX<BoxX+DragBoxW){  ;Down Left
+				Hover=7
+				WinMove, ahk_id %DragBox%,,% BoxX,% BoxY+BoxH-DragBoxH,% DragBoxW,% Ceil(DragBoxH),
+			} else If (MouseX>BoxX+BoxW-DragBoxW){  ;Down Right
+				Hover=9
+				WinMove, ahk_id %DragBox%,,% BoxX+BoxW-DragBoxW,% BoxY+BoxH-DragBoxH,% Ceil(DragBoxW),% Ceil(DragBoxH),
+			} else {  ;Down Midle
+				Hover=8
+				WinMove, ahk_id %DragBox%,,% BoxX+DragBoxW,% BoxY+BoxH-DragBoxH,% BoxW-DragBoxW*2,% Ceil(DragBoxH),
+			}
+		} else If (MouseX>BoxX+BoxW-DragBoxW){  ;Right middle
+			Hover=6
+			WinMove, ahk_id %DragBox%,,% BoxX+BoxW-DragBoxW,% BoxY+DragBoxH,% Ceil(DragBoxW),% BoxH-DragBoxH*2,
+		} else If (MouseX<BoxX+DragBoxW){  ;Left Middle
+			Hover=4
+			WinMove, ahk_id %DragBox%,,% BoxX,% BoxY+DragBoxH,% DragBoxW,% BoxH-DragBoxH*2,
+		} else {  ;Center
+			Hover=0
+			WinMove, ahk_id %DragBox%,,% BoxX+(BoxW-DragBoxW)/2,% BoxY+(BoxH-DragBoxH)/2,% DragBoxW,% DragBoxH,
+			If (MouseX>BoxX+(BoxW-DragBoxW)/2 and mouseY>BoxY+(BoxH-DragBoxH)/2 and MouseX<BoxX+(BoxW-DragBoxW)/2+DragBoxW and mouseY<BoxY+(BoxH-DragBoxH)/2+DragBoxH){
+				Hover=5
+			} else {
+				Hotkey, *LButton, BoxResize, Off
+			}
+		}
+	} If (Hover){
+		Hotkey, *LButton, BoxResize, On
+	}
+} else {
+	if ((MouseY!=PrevMouseY or MouseX!=PrevMouseX) and !Hidden){
+		Hotkey, *LButton, BoxResize, Off
 		Hover=0
-		GoTo UiHide
+		Hidden=1
+		WinMove, ahk_id %DragBox%,,% -BoxW,% -BoxH
 }}
 Return
 
@@ -457,9 +454,9 @@ else if A_GuiControl=Down Right
 If (RelativeCorner) {
 	SetTimer, GetRelativeWin, 20
 } Else SetTimer, GetRelativeWin, Off
-GoTo GetCorners
+GoTo GetRelativeWinCorner
 
-GetCorners:
+GetRelativeWinCorner:
 if RelativeCorner=0
 	CornerX:=0, CornerY:=0
 else if RelativeCorner=1
@@ -495,70 +492,6 @@ If !Looping
 	GoTo BoxUpdate
 Return
 
-GuiDrag:
-PostMessage, 0xA1, 2,,, A 
-	DllCall("SetCursor","UInt",CursorSizeAll)
-Dragging=1
-SetTimer, GetDrag, 10
-Return
-
-GetDrag:
-WinGetPos, DragX, DragY,,, ahk_id %Box%,
-BoxX+=DragX-VirBoxX
-BoxY+=DragY-VirBoxY
-VirBoxX:=BoxX
-VirBoxY:=BoxY
-GoSub UiHide
-GoSub BoxUpdate
-if GetKeyState( "LButton", "P"){
-	Return
-} else { 
-	GoSub UiUpdate
-	Dragging=0
-}
-SetTimer, GetDrag, Off
-Return
-
-UiUpdate:
-if Looping
-	Return
-if hidden {
-	GuiControl, Show, ArrowResizeUpLeft
-	GuiControl, Show, ArrowResizeUp
-	GuiControl, Show, ArrowResizeUpRight
-	GuiControl, Show, ArrowResizeLeft
-	GuiControl, Show, DragPic
-	GuiControl, Show, ArrowResizeRight
-	GuiControl, Show, ArrowResizeDownLeft
-	GuiControl, Show, ArrowResizeDown
-	GuiControl, Show, ArrowResizeDownRight
-}
-GuiControl, MoveDraw, ArrowResizeUpLeft, x5 y5
-GuiControl, MoveDraw, ArrowResizeUp,% "x" (VirBoxW-23)/2  " y" 5
-GuiControl, MoveDraw, ArrowResizeUpRight,% "x" VirBoxW-22 " y" 5
-GuiControl, MoveDraw, ArrowResizeLeft,% "x" 5  " y" (VirBoxH-23)/2
-GuiControl, MoveDraw, DragPic,% "x" (VirBoxW-29)/2  " y" (VirBoxH-29)/2
-GuiControl, MoveDraw, ArrowResizeRight,% "x" VirBoxW-21  " y" (VirBoxH-23)/2
-GuiControl, MoveDraw, ArrowResizeDownLeft,% "x" 5 " y" VirBoxH-22
-GuiControl, MoveDraw, ArrowResizeDown,% "x" (VirBoxW-23)/2  " y" VirBoxH-21
-GuiControl, MoveDraw, ArrowResizeDownRight,% "x" VirBoxW-22 " y" VirBoxH-22
-Hidden=0
-Return
-Uihide:
-if Hidden
-	Return
-GuiControl, Hide, ArrowResizeUpLeft
-GuiControl, Hide, ArrowResizeUp
-GuiControl, Hide, ArrowResizeUpRight
-GuiControl, Hide, ArrowResizeLeft
-GuiControl, Hide, DragPic
-GuiControl, Hide, ArrowResizeRight
-GuiControl, Hide, ArrowResizeDownLeft
-GuiControl, Hide, ArrowResizeDown
-GuiControl, Hide, ArrowResizeDownRight
-Hidden=1
-Return
-
 ~*Left::
 If Dragging
 	Return
@@ -569,7 +502,8 @@ If GetKeyState("Shift","P") {
 	BoxX--
 	BoxW++
 } VirBoxX:=BoxX
-Hover:=0
+PrevMouseX=-1
+Gosub GetHover
 GoTo BoxUpdate
 ~*Right::
 If Dragging
@@ -578,7 +512,8 @@ If GetKeyState("Shift","P")
 	BoxW--
 else BoxW++
 VirBoxW:=BoxW
-Hover:=0
+PrevMouseX=-1
+Gosub GetHover
 GoTo BoxUpdate
 ~*Up::
 If Dragging
@@ -590,7 +525,8 @@ If GetKeyState("Shift","P"){
 	BoxY--
 	BoxH++
 } VirBoxY:=BoxY
-Hover:=0
+PrevMouseX=-1
+Gosub GetHover
 GoTo BoxUpdate
 ~*Down::
 If Dragging
@@ -599,38 +535,38 @@ If GetKeyState("Shift","P")
 	BoxH--
 else BoxH++
 VirBoxH:=BoxH
-Hover:=0
+PrevMouseX=-1
+Gosub GetHover
 GoTo BoxUpdate
 
-GuiResize:
-Dragging:=1, UpdateRate:=10
+BoxResize:
+Dragging=1
 TempX:=BoxX
 TempY:=BoxY
 TempW:=BoxW
 TempH:=BoxH
-if (A_GuiControl="ArrowResizeLeft"){
-	GoSub UiHide
+If (Hover=5){
+	GoTo BoxDrag
+} else {
+	WinMove, ahk_id %DragBox%,,% -BoxW,% -BoxH
+	if (Hover=4){
 	MouseMove, BoxX, BoxY+BoxH/2
 	BoxX:=TempX+TempW
 	BoxW:=TempW*-1
 	GoTo, ResizeHorizontal
-} else if (A_GuiControl="ArrowResizeRight"){
-	GoSub UiHide
+	} else if (Hover=6){
 	MouseMove, BoxX+BoxW, BoxY+BoxH/2
 	GoTo, ResizeHorizontal
-} else if (A_GuiControl="ArrowResizeUp"){
-	GoSub UiHide
+	} else if (Hover=2){
 	MouseMove, BoxX+BoxW/2, BoxY
 	BoxY:=TempY+TempH
 	BoxH:=TempH*-1
 	GoTo, ResizeVertical
-} else if (A_GuiControl="ArrowResizeDown"){
-	GoSub UiHide
+	} else if (Hover=8){
 	MouseMove, BoxX+BoxW/2, BoxY+BoxH
 	ResizeY:=BoxY+BoxH
 	GoTo, ResizeVertical
-} else if (A_GuiControl="ArrowResizeUpLeft"){
-	GoSub UiHide
+	} else if (Hover=1){
 	MouseMove, BoxX, BoxY
 	BoxX:=TempX+TempW
 	BoxY:=TempY+TempH
@@ -638,8 +574,7 @@ if (A_GuiControl="ArrowResizeLeft"){
 	BoxH:=TempH*-1
 	GoSub, BoxUpdate
 	GoTo, ResizeCorner
-} else if (A_GuiControl="ArrowResizeUpRight"){
-	GoSub UiHide
+	} else if (Hover=3){
 	MouseMove, BoxX+BoxW, BoxY
 	BoxX:=TempX
 	BoxY:=TempY+TempH
@@ -647,8 +582,7 @@ if (A_GuiControl="ArrowResizeLeft"){
 	BoxH:=TempH*-1
 	GoSub, BoxUpdate
 	GoTo, ResizeCorner
-} else if (A_GuiControl="ArrowResizeDownLeft"){
-	GoSub UiHide
+	} else if (Hover=7){
 	MouseMove, BoxX, BoxY+BoxH
 	BoxX:=TempX+TempW
 	BoxY:=TempY
@@ -656,17 +590,16 @@ if (A_GuiControl="ArrowResizeLeft"){
 	BoxH:=TempH
 	GoSub, BoxUpdate
 	GoTo, ResizeCorner
-} else if (A_GuiControl="ArrowResizeDownRight"){
-	GoSub UiHide
+	} else if (Hover=9){
 	MouseMove, BoxX+BoxW, BoxY+BoxH
 	GoTo, ResizeCorner
-} else Dragging=0
+}}
+Dragging=0
 Return
 
 ResizeLeft:
 if not GetKeyState( "LButton", "P") {
 	Dragging=0
-	Hover=0
 	GoSub BoxUpdate
 	SetTimer, ResizeLeft, Off
 } If (MouseX=ResizeX)
@@ -679,7 +612,6 @@ GoTo BoxUpdate
 ResizeRight:
 if not GetKeyState( "LButton", "P"){
 	Dragging=0
-	Hover=0
 	GoSub BoxUpdate
 	SetTimer, ResizeRight, Off
 } If (MouseX=ResizeX)
@@ -691,7 +623,6 @@ GoTo BoxUpdate
 ResizeUp:
 if not GetKeyState( "LButton", "P"){
 	Dragging=0
-	Hover=0
 	GoSub BoxUpdate
 	SetTimer, ResizeUp, Off
 } If (MouseY=ResizeY)
@@ -701,10 +632,32 @@ BoxH+=ResizeY-MouseY
 ResizeY:=MouseY
 GoTo BoxUpdate
 
+;Drag
+;#####################################################################################
+
+BoxDrag:
+SystemCursor(0)
+MouseGetPos, DragStartX, DragStartY
+DragStartBoxX:=BoxX
+DragStartBoxY:=BoxY
+While GetKeyState("LButton", "P"){
+	MouseGetPos, MouseX, MouseY
+	If (MouseX!=PrevMouseX or MouseY!=PrevMouseY){
+		BoxX:=MouseX-DragStartX+DragStartBoxX
+		BoxY:=MouseY-DragStartY+DragStartBoxY
+		GoSub BoxUpdate
+		WinMove, ahk_id %DragBox%,,% BoxX+(BoxW-DragBoxW)/2,% BoxY+(BoxH-DragBoxH)/2,% DragBoxW,% DragBoxH
+	} PrevMouseX:=MouseX, PrevMouseY:=MouseY
+}
+SystemCursor(1)
+Dragging=0
+Return
+
 ;Horizontal
 ;#####################################################################################
 
 ResizeHorizontal:
+Hotkey, Alt Up, DoNothing, Off
 Hotkey, Shift Up, ResizeHorizontalShiftUp,
 Hotkey, Shift, ResizeHorizontalShiftDown,
 Hotkey, Shift Up, ResizeHorizontalShiftUp, On
@@ -725,8 +678,9 @@ StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
 StartRatio:=BoxW/BoxH
+EndDrag=0
 
-While GetKeyState("Lbutton"){
+While (EndDrag=0){
 	MouseGetPos, MouseX, MouseY
 	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
 		if (!CtrlResize and GetKeyState("Shift", "P")){
@@ -753,8 +707,9 @@ Hotkey, *Ctrl Up, ResizeHorizontalCtrlUp, Off
 Hotkey, *Ctrl, ResizeHorizontalCtrlDown, Off
 Hotkey, Alt Up, ResizeHorizontalAltUp, Off
 Hotkey, Alt, ResizeHorizontalAltDown, Off
+Hotkey, Alt Up, DoNothing, On
+BoxX:=Round(BoxX), BoxY:=Round(BoxY)
 Dragging=0
-Hover=0
 GoSub BoxUpdate
 CtrlResize=0
 AltResize=0
@@ -830,6 +785,7 @@ Goto BoxUpdate
 ;#####################################################################################
 
 ResizeVertical:
+Hotkey, Alt Up, DoNothing, Off
 Hotkey, Shift Up, ResizeVerticalShiftUp,
 Hotkey, Shift, ResizeVerticalShiftDown,
 Hotkey, Shift Up, ResizeVerticalShiftUp, On
@@ -850,8 +806,9 @@ StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
 StartRatio:=BoxW/BoxH
+EndDrag=0
 
-While GetKeyState("Lbutton"){
+While (EndDrag=0){
 	MouseGetPos, MouseX, MouseY
 	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
 		if (!CtrlResize and (ShiftResize)){
@@ -878,8 +835,9 @@ Hotkey, *Ctrl Up, ResizeVerticalCtrlUp, Off
 Hotkey, *Ctrl, ResizeVerticalCtrlDown, Off
 Hotkey, Alt Up, ResizeVerticalAltUp, Off
 Hotkey, Alt, ResizeVerticalAltDown, Off
+Hotkey, Alt Up, DoNothing, On
+BoxX:=Round(BoxX), BoxY:=Round(BoxY)
 Dragging=0
-Hover=0
 GoSub BoxUpdate
 CtrlResize=0
 AltResize=0
@@ -955,6 +913,7 @@ Goto BoxUpdate
 ;Corner
 ;#####################################################################################
 ResizeCorner:
+Hotkey, Alt Up, DoNothing, Off
 Hotkey, Shift Up, ResizeCornerShiftUp,
 Hotkey, Shift, ResizeCornerShiftDown,
 Hotkey, Shift Up, ResizeCornerShiftUp, On
@@ -975,8 +934,9 @@ StartBoxH:=BoxH
 StartMidX:=StartBoxX+StartBoxW/2
 StartMidY:=StartBoxY+StartBoxH/2
 StartRatio:=Abs(BoxW/BoxH)
+EndDrag=0
 
-While GetKeyState("Lbutton"){
+While (EndDrag=0){
 	MouseGetPos, MouseX, MouseY
 	If !(MouseY=PrevMouseY and MouseX=PrevMouseX){
 		if (!CtrlResize and ShiftResize){
@@ -1003,8 +963,9 @@ Hotkey, *Ctrl Up, ResizeCornerCtrlUp, Off
 Hotkey, *Ctrl, ResizeCornerCtrlDown, Off
 Hotkey, Alt Up, ResizeCornerAltUp, Off
 Hotkey, Alt, ResizeCornerAltDown, Off
+Hotkey, Alt Up, DoNothing, On
+BoxX:=Round(BoxX), BoxY:=Round(BoxY)
 Dragging=0
-Hover=0
 GoSub BoxUpdate
 CtrlResize=0
 ShiftResize=0
