@@ -4,7 +4,7 @@
 
 
 IniFile:="YTDL_Prefs.ini"
-ReadIni(,IniFile,"InputOptions","InputUrl")
+ReadIniDefUndef(,IniFile,"InputOptions","-f bestaudio","InputUrl","")
 Gui, Add, Text,, Options
 Gui, Add, Link, xp+275, <a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Documentation</a>
 Gui, Add, Edit, xm w350 vInputOptions gUpdate, %InputOptions%
