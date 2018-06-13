@@ -1,4 +1,3 @@
-;Format: FAT
 #NoEnv
 #MaxHotkeysPerInterval 99000000
 #SingleInstance force

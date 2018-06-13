@@ -16,7 +16,7 @@ If InStr(ActiveTitle, "All sizes"){  ;Open image
 	MousePos("Save")
 	WinGetPos, FS_WinX, FS_WinY, FS_WinW, FS_WinH, A
 	MouseClick, right, FS_WinX+FS_WinW/2, FS_WinY+FS_WinH/2
-	sleep, 16
+	sleep, 32
 	send, {Enter 2} ^w
 	MousePos("Restore")
 } else {  ;Add shit to url

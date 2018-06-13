@@ -5,6 +5,8 @@
 
 IniFile:="YTDL_Prefs.ini"
 ReadIniDefUndef(,IniFile,"InputOptions","-f bestaudio","InputUrl","")
+ResDir := DirAscend(A_ScriptDir) "\Res"
+Menu, Tray, Icon, %ResDir%\forsenDL.ico
 Gui, Add, Text,, Options
 Gui, Add, Link, xp+275, <a href="https://github.com/rg3/youtube-dl/blob/master/README.md#readme">Documentation</a>
 Gui, Add, Edit, xm w350 vInputOptions gUpdate, %InputOptions%

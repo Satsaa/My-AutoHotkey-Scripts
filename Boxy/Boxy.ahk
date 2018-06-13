@@ -7,18 +7,14 @@ SetControlDelay, 0
 SetDefaultMouseSpeed, 0
 SetMouseDelay, -1
 SendMode Input
+#KeyHistory 0
+ListLines, off
+Process, Priority, , A
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Include.ahk
 TM_SHOWGUI := [1,2]
-
-IDC_ARROW := 32512
 IDC_HAND := 32649
-IDC_SIZEALL := 32646
-IDC_SIZENESW := 32643
-IDC_SIZENS := 32645
-IDC_SIZENWSE := 32642
-IDC_SIZEWE := 32644
 
 ScreenshotFolder:="Screenshot\",
 ResDir := DirAscend(A_ScriptDir) "\Res"

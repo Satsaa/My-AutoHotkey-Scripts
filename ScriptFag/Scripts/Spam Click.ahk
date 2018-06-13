@@ -12,7 +12,7 @@ ReadIniDefUndef(Profile,,"SC_Sleep","skip")
 Return
 
 SC:
-while GetKeyState(A_ThisHotkey, "D"){
+while GetKeyState(A_ThisHotkey, "P"){
 	click
 	If !(SC_Sleep="Skip"){
 		sleep, %SC_Sleep%
