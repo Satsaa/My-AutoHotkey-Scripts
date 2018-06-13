@@ -320,9 +320,9 @@ SystemCursor(OnOff=1)   ; INIT = "I","Init"; OFF = 0,"Off"; TOGGLE = -1,"T","Tog
 ;Shows a targetting "device" to gather coordinates. Returns %x%,%y% or -1 if cancelled
 
 Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
-	Static Init, DragID
-	Global TargetTargeting, FuncTargetCancel
-	TargetTargeting=1
+	Static DragID
+	Global FuncTargetCancel, ResDir
+	Radius=15
 	SysGet, VirtualWidth, 78
 	SysGet, VirtualHeight, 79
 	TargetCoord := []
@@ -332,50 +332,65 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 		TargetY:=A_ScreenHeight/2
 	If !(Init){  ;Create guis
 		Gui, FuncTargetHorizontal:Color, d85d52
-		Gui, FuncTargetHorizontal:+LastFound +AlwaysOnTop -ToolWindow -Caption +Owner -Caption +E0x20
+		Gui, FuncTargetHorizontal:+LastFound +AlwaysOnTop -ToolWindow -Caption +Owner -Caption +E0x20 HwndWinY
 		WinSet, Transparent, 200,
 		
 		Gui, FuncTargetVertical:Color, d85d52
-		Gui, FuncTargetVertical:+LastFound +AlwaysOnTop -ToolWindow -Caption +Owner -Caption +E0x20
+		Gui, FuncTargetVertical:+LastFound +AlwaysOnTop -ToolWindow -Caption +Owner -Caption +E0x20 HwndWinX
 		WinSet, Transparent, 200,
 		
-		Gui, FuncTargetMover:Color, EEAA99
-		Gui, FuncTargetMover:Add, Pic,, Res/MoveCircleSmallHard.png
+		Gui, FuncTargetMover:Add, Pic,, %ResDir%\Drag\CircleHard.png
 		Gui, FuncTargetMover:+LastFound +AlwaysOnTop -ToolWindow -Caption +Owner +HwndDragID
-		WinSet, TransColor, EEAA99 
+		WinSet, Transparent, 1,
 		Gui, FuncTargetMover:-Caption
-		Init=1
 	}  ;Show guis
 	If !OnlyY
 		Gui, FuncTargetVertical:Show, x%TargetX% y0 w1 h%VirtualHeight%
 	If !OnlyX
 		Gui, FuncTargetHorizontal:Show, x0 y%TargetY% h1 w%VirtualWidth%
 	Gui FuncTargetMover:Show,% "x" TargetX-24 " y" TargetY-20
+	While, (GetKeyState("Enter","P") and GetKeyState("Esc","P"){  ;Wait that exit keys are lifted before showing target
+		sleep, 100
+	}
 	;Start loopy loop
-	While, (!GetKeyState("Enter") and !GetKeyState("Esc") and !FuncTargetCancel){  ;End when enter pressed or cancel with esc
+	While, (!GetKeyState("Enter","P") and !GetKeyState("Esc","P") and !FuncTargetCancel){  ;End when enter pressed or cancel with esc
 		MouseGetPos, MouseX, MouseY, Window,
 		If !(OnlyX or onlyY){  ;Check if mouse is close
-			If (MouseX<TargetX+20 and MouseY<TargetY+20 and MouseX>TargetX-20 and MouseY>TargetY-20){
-				Gui FuncTargetMover:Show,% "x" TargetX-24 " y" TargetY-20
-			} else Gui FuncTargetMover:Hide
+			If (MouseX<TargetX+Radius and MouseY<TargetY+Radius and MouseX>TargetX-Radius and MouseY>TargetY-Radius){
+				Gui, FuncTargetVertical:Color, 21a831
+				Gui, FuncTargetHorizontal:Color, 21a831
+				WinMove, ahk_id %DragId%,, TargetX-24, TargetY-20,
+			} else {
+				Gui, FuncTargetVertical:Color, d85d52
+				Gui, FuncTargetHorizontal:Color, d85d52
+				WinMove, ahk_id %DragId%,, -100,-100
+			}
 		} else If (OnlyX and !OnlyY){
-			If (MouseX<TargetX+20 and MouseX>TargetX-20){
-				Gui FuncTargetMover:Show,% "y" MouseY-20
+			If (MouseX<TargetX+Radius and MouseX>TargetX-Radius){
+				Gui, FuncTargetVertical:Color, 21a831
+				WinMove, ahk_id %DragId%,, TargetX-24, MouseY-20,
 				TargetY := MouseY  ;Sync
-			} else Gui FuncTargetMover:Hide
+			} else {
+				Gui, FuncTargetVertical:Color, d85d52
+				WinMove, ahk_id %DragId%,, -100,-100
+			}
 		} else If (OnlyY and !OnlyX){
-			If (MouseY<TargetY+20 and MouseY>TargetY-20){
-				Gui FuncTargetMover:Show,% "x" MouseX-24
+			If (MouseY<TargetY+Radius and MouseY>TargetY-Radius){
+				Gui, FuncTargetHorizontal:Color, 21a831
+				WinMove, ahk_id %DragId%,, MouseX-24, TargetY-20,
 				TargetX := MouseX  ;Sync
-			} else Gui FuncTargetMover:Hide
+			} else {
+				Gui, FuncTargetHorizontal:Color, d85d52
+				WinMove, ahk_id %DragId%,, -100,-100
+			}
 		} else {  ;Disabled both lines 
-			MsgBox, Why the fuck did you disable both lines? We aint showing you any target now. %A_ThisFunc%( )
+			MsgBox, Why the fuck did you disable both lines? We aint showing you any target now. %A_ThisFunc%() `n Both axises were disabled.
 			FuncTargetCancel=0
 			Return -1
-		} If (GetKeyState("LButton") and (Window = DragID)){
+		} If (GetKeyState("LButton","P") and (Window = DragID)){
 			MouseMove, TargetX, TargetY
-			Gui FuncTargetMover:Cancel
-			While, ((GetKeyState("LButton")) and !FuncTargetCancel){  ;Drag
+			WinMove, ahk_id %DragId%,, -100,-100
+			While, ((GetKeyState("LButton","P")) and !FuncTargetCancel){  ;Drag
 				MouseGetPos, MouseX, MouseY,
 				If (MouseX!=PrevMouseX or MouseY!=PrevMouseY){  ;Check if mouse moved
 					TargetX:=MouseX, TargetY:=MouseY
@@ -391,14 +406,14 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 				} else sleep, 1  ;sleep if not moving
 				PrevMouseX:=MouseX, PrevMouseY:=MouseY,
 			}
-		Gui FuncTargetMover:Show,% "x" MouseX-24 " y" MouseY-20
-		} sleep, 1
+			WinMove, ahk_id %DragId%,, MouseX-24, MouseY-20,
+		}
+		sleep, 1
 	}  ;Close guis
 	Gui FuncTargetMover:Cancel
 	Gui FuncTargetHorizontal:Cancel
 	Gui FuncTargetVertical:Cancel
-	TargetTargeting=0
-	If (GetKeyState("Esc") or FuncTargetCancel){  ;Cancelledd
+	If (GetKeyState("Esc") or FuncTargetCancel){  ;Cancelled
 		FuncTargetCancel=0
 		Return -1
 	} If (OnlyX)
