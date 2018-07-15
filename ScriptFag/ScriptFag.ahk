@@ -776,6 +776,10 @@ ButtonHide:
 Gui, Show, Hide
 Return
 ButtonTest:
+MsgBox,% Target(1000,1000)
+MsgBox,% Target(1000,1000,1)
+MsgBox,% Target(1000,1000,,1)
+Return
 InputBox, TestInput, Variable content, Type a variable and show its content,
 IfMsgBox, Cancel
 	Return
@@ -1000,7 +1004,7 @@ If (WinW!=368){
 	Return
 }
 MouseGetPos,,,, WinControl
-If (WinControl!="Intermediate D3D Window1"){
+If (WinControl!=""){
 	Return
 }
 BlockInput, MouseMove
