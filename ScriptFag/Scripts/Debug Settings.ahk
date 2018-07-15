@@ -14,6 +14,7 @@ GoTo DS_End
 
 DS_Load:
 Return
+DS:
 If (DebugSetting=1 or DebugSetting=-1){
 	DebugAffix()
 }
