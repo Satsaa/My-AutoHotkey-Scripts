@@ -1004,7 +1004,7 @@ If (WinW!=368){
 	Return
 }
 MouseGetPos,,,, WinControl
-If (WinControl!=""){
+If (WinControl!="Intermediate D3D Window1"){
 	Return
 }
 BlockInput, MouseMove
