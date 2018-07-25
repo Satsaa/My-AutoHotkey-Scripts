@@ -2,7 +2,7 @@
 HotkeyName[SC] := "Gimp_Resize"
 HotkeySub[SC] := "GR"
 HotkeySettings[SC] := "GR_Mode,GR_Width,GR_Height,GR_Interpolation"
-HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nShift:`nShow customization window`n`nControl:`nScale with opposite arguments. (+ -> -,* -> /, and so on.`n)"
+HotkeyDescription[SC] := "Hotkey:`nResize image or layer to specified dismesions and with selected interpolation`n`nAlt:`nShow customization window`n`nControl:`nScale with opposite arguments. (+ -> -,* -> /, and so on.`n)"
 HotkeyShift[SC] := 1
 HotkeyAlt[SC] := 1
 GR_InterpolationList := "None|Linear|Cubic|NoHalo|LoHalo"
@@ -62,7 +62,7 @@ If (GR_Height!<1){
 		Send %GR_Height%
 	}
 }
-Loop,% (GR_Mode=1)?(9):((GR_Mode=2)?(5):(0)) {  ;Set interpolation and move to scale button 9 for image 5 for layer
+Loop,% (GR_Mode=1)?(8):((GR_Mode=2)?(4):(0)) {  ;Set interpolation and move to scale button 9 for image 5 for layer
 	Send {Tab}
 	If ((GR_Mode=1 and A_Index=6 and GR_Interpolation!=0) OR (GR_Mode=2 and A_Index=2 and GR_Interpolation!=0)){
 		send {Enter}
