@@ -996,7 +996,7 @@ BlockInput, MouseMoveOff
 DebugAffix("Finished "A_ThisLabel)
 Return
 
-;Middle MouseMiddle Mouse Middle M2 Mouse2 Mouse 2
+;Middle MouseMiddle Mouse Middle
 ~*MButton Up::
 MouseGetPos,,, WinId,
 WinGetPos WinX, WinY, WinW, WinH, ahk_id %WinId%

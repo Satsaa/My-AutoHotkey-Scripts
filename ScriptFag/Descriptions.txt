@@ -35,3 +35,6 @@ DescriptionExportHotkeys = Export all or parts of the current hotkeys in to a se
 DescriptionImportHotkeys = Import hotkeys from a file.`n(Script will be restarted)
 DescriptionExportSettings = Export all or parts of the current settings in to a separate file
 DescriptionImportSettings = Import settings from a file.`n(Script will be restarted)
+
+DescriptionEnableWindowInfo = Undescribed
+DescriptionEnableLog = Undescribed
