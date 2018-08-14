@@ -1,4 +1,6 @@
-﻿Loop, 2 {	;Create similarly stupid dummy scripts
+﻿If (!DummyCount and DummyCount!=0)
+	DummyCount=1 
+Loop, %DummyCount% {	;Create similarly stupid dummy scripts
 	SC++
 	HotkeyName[SC] := "Dummy"
 	HotkeySub[SC] := "Dummy"

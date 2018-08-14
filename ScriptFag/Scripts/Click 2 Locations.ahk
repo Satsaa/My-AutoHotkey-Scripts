@@ -55,7 +55,7 @@ Return
 
 C2L_Settings:
 If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){
-	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(%A_GuiControl%)){
+	If (%A_GuiControl%>=0 and %A_GuiControl%<A_ScreenWidth and IsNumber(%A_GuiControl%)){
 		%A_GuiControl% := Floor(%A_GuiControl%)
 		GoTo SettingsSuccess
 	} else {
@@ -63,7 +63,7 @@ If (ChangingSetting="C2L_Click1X" or ChangingSetting="C2L_Click2X"){
 	}
 } else {
 	If (ChangingSetting="C2L_Click1Y" or ChangingSetting="C2L_Click2Y"){
-		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(%A_GuiControl%)){
+		If (%A_GuiControl%>=0 and %A_GuiControl%<A_ScreenHeight and IsNumber(%A_GuiControl%)){
 			%A_GuiControl% := Floor(%A_GuiControl%)
 			GoTo SettingsSuccess
 		} else {

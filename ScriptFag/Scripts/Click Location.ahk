@@ -40,7 +40,7 @@ Return
 
 CL_Settings:
 If (ChangingSetting="CL_ClickX"){
-	If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenWidth% and IsNumber(%A_GuiControl%)){
+	If (%A_GuiControl%>=0 and %A_GuiControl%<A_ScreenWidth and IsNumber(%A_GuiControl%)){
 		%A_GuiControl% := Floor(%A_GuiControl%)
 		GoTo SettingsSuccess
 	} else {
@@ -48,7 +48,7 @@ If (ChangingSetting="CL_ClickX"){
 	}
 } else {
 	If (ChangingSetting="CL_ClickY"){
-		If (%A_GuiControl%>=0 and %A_GuiControl%<%A_ScreenHeight% and IsNumber(%A_GuiControl%)){
+		If (%A_GuiControl%>=0 and %A_GuiControl%<A_ScreenHeight and IsNumber(%A_GuiControl%)){
 			%A_GuiControl% := Floor(%A_GuiControl%)
 			GoTo SettingsSuccess
 		} else {

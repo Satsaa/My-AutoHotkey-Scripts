@@ -33,6 +33,9 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Spam Click.ahk
 #Include %A_ScriptDir%\Scripts\Spam Ping Map.ahk
 #Include %A_ScriptDir%\Scripts\Annihilate.ahk
+#Include %A_ScriptDir%\Scripts\Open Url.ahk
+
+DummyCount:=1
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
 
 
@@ -42,6 +45,7 @@ CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
 CustomKey10 := "F22", CustomKey11 := "F23", CustomKey12 := "F24",
+;Unimpletemented ban system
 DefaultBanList :="Spam_Ping_Map,Annihilate"
 DotaBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
 WitcherBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
@@ -183,6 +187,8 @@ Gui, Add, StatusBar,,
 If (!GuiLoadY or !GuiLoadY){
 	GuiLoadY := 0, GuiLoadX := 0
 }
+If (DebugSetting<1)
+	DebugAffix("Debug view is set to not update.",,1)
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
@@ -1036,14 +1042,13 @@ Soundplay, %A_WinDir%\Media\Windows Default.wav
 Return
 
 ;#####################################################################################
-;;Function/Labels for hotkeyable scripts
-;;To disable a script comment the whole thing or hop over it
+;;This section will be removed if development continues
 ;#####################################################################################
 
 SettingsSuccess:
 %ChangingSetting% := %A_GuiControl%
 WriteIni(Profile,,ChangingSetting)
-DebugSet(%A_GuiControl% " accepted and saved")
+DebugSet(ChangingSetting ":`n" %A_GuiControl% "`n`n Accepted and saved")
 Return
 
 ;Template

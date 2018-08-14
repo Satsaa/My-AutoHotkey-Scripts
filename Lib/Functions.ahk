@@ -210,7 +210,7 @@ Beep(Pitch,Duration){
 ;Only shows if DebugSetting is 1. However, stored string is still updated
 ;Shows string text in debug if no input
 
-DebugAffix(Text="",AddAffix=1){  
+DebugAffix(Text="",AddAffix=1,force=0){  
 	Global DebugSetting
 	Static Count = 0, String
 	if (Text=""){
@@ -220,11 +220,11 @@ DebugAffix(Text="",AddAffix=1){
 	If (AddAffix=1)
 		String:= Count ": " Text "`n" String
 	else String:= Text "`n" String
-	if (DebugSetting=1)
+	if (DebugSetting=1 or force=1)
 		GuiControl,1:, Debug, %String%
 }
 
-DebugAppend(Text="",AddAffix=1){
+DebugAppend(Text="",AddAffix=1,force=0){
 	Global DebugSetting
 	Static Count = 0, String
 	if (Text=""){
@@ -234,7 +234,7 @@ DebugAppend(Text="",AddAffix=1){
 	If (AddAffix=1)
 		String:= ((Count=1)?(String Count ": " Text):(String "`n" Count ": " Text))
 	else String:= ((Count=1)?(String Count Text):(String "`n" Text)) 
-	if (DebugSetting=1)
+	if (DebugSetting=1 or force=1)
 		GuiControl,1:, Debug, %String%
 }
 
@@ -322,6 +322,9 @@ SystemCursor(OnOff=1)   ; INIT = "I","Init"; OFF = 0,"Off"; TOGGLE = -1,"T","Tog
 Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 	Static DragID
 	Global FuncTargetCancel, ResDir
+	While, (GetKeyState("Enter","P") or GetKeyState("Esc","P")){  ;Dont immediately exit when Target() is called when enter/esc is already pressed
+		sleep, 100
+	}
 	Radius=15
 	SysGet, VirtualWidth, 78
 	SysGet, VirtualHeight, 79
@@ -349,7 +352,7 @@ Target(TargetX=-1, TargetY=-1, OnlyX:=0, OnlyY:=0){
 	If !OnlyX
 		Gui, FuncTargetHorizontal:Show, x0 y%TargetY% h1 w%VirtualWidth%
 	Gui FuncTargetMover:Show,% "x" TargetX-24 " y" TargetY-20
-	While, (GetKeyState("Enter","P") and GetKeyState("Esc","P"){  ;Wait that exit keys are lifted before showing target
+	While, (GetKeyState("Enter","P") and GetKeyState("Esc","P")){  ;Wait that exit keys are lifted before showing target
 		sleep, 100
 	}
 	;Start loopy loop
