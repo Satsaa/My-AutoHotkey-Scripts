@@ -5,7 +5,6 @@ YoutubeDL/*
 !YoutubeDL/youtube-dl.exe
 Test/*
 Boxy/DropFiles.txt
-
 .vscode/*
 *.ini
 ScriptFag/Res
@@ -15,3 +14,7 @@ Boxy/Lib
 ScriptFag/Include.ahk
 Boxy/Include.ahk
 ScriptFag/ScriptFagExport.txt
+Diarium/Ideas.txt
+Diarium/Include.ahk
+
+Misc. Scripts/*
