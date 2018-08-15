@@ -101,7 +101,7 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!Shift, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Apps|Macros|Settings|%GuiTitle%
 
 Tab = Hotkeys
 Gui, Tab, Hotkeys

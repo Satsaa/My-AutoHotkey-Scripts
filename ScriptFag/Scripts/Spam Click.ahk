@@ -21,8 +21,18 @@ while GetKeyState(A_ThisHotkey, "P"){
 Return
 
 SC_Shift:
-InputBox, SC_Sleep, Sleep, Input how long (ms) to sleep between clicks,
-WriteIni(Profile,,"SC_Sleep")
+InputBox, Temp, Sleep, Input how long (ms) to sleep between clicks,,,,,,,,%SC_Sleep%
+If (!ErrorLevel){
+	If !IsNumber(Temp){
+		MsgBox, SC_Sleep must be a number, nothing or "skip"
+		Return
+	} else If !(Temp="skip") {
+		MsgBox, SC_Sleep must be a number, nothing or "skip"
+		Return
+	}
+	SC_Sleep:=Temp
+	WriteIni(Profile,,"SC_Sleep")
+}
 Return
 
 SC_Settings:
@@ -33,7 +43,7 @@ If IsNumber(%A_GuiControl%){
 	If (%A_GuiControl%="skip"){
 		GoTo SettingsSuccess
 	} else {
-		DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
+		DebugSet(ChangingSetting " must be a number, nothing or ""skip""")
 	}
 }
 Return

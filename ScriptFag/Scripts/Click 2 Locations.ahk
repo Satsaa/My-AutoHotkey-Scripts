@@ -33,10 +33,10 @@ Return
 
 C2L_Shift:
 Hotkey, *Enter, C2L_Enter,
-Msgbox, 4096,% C2L_Title := "First Location", Mouse over where to click and press enter.
+Msgbox, 4096,% C2L_Title := "First Location", Mouse over where to click and press enter.`nClosing this window acts as if you had pressed enter!
 MouseGetPos, C2L_Click1X, C2L_Click1Y
 Click
-Msgbox, 4096,% C2L_Title := "Second Location", Mouse over where to click and press enter.
+Msgbox, 4096,% C2L_Title := "Second Location", Mouse over where to click and press enter.`nClosing this window acts as if you had pressed enter!
 Hotkey, *Enter, C2L_Enter, Off
 MouseGetPos, C2L_Click2X, C2L_Click2Y
 Click

@@ -61,8 +61,9 @@ Return
 
 PII_Shift:
 PI_Shift:
-InputBox, PI_Velocity, , Page increase amount? (number),,,,,,,,1
-If IsNumber(PI_Velocity){
+InputBox, Temp, , Page increase amount? (number),,,,,,,,%PI_Velocity%
+If (!ErrorLevel){
+	PI_Velocity:=Temp
 	WriteIni(Profile,,"PI_Velocity")
 }
 Return

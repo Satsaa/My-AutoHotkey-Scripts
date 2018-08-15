@@ -24,7 +24,7 @@ Return
 
 CL_Shift:
 SetTimer, CL_Win, -50
-Msgbox, 4096,% CL_Title := "Click Location", Mouse over where to click and press enter.
+Msgbox, 4096,% CL_Title := "Click Location", Mouse over where to click and press enter.`nClosing this window acts as if you had pressed enter!
 MouseGetPos, CL_ClickX, CL_ClickY
 WriteIni(Profile,,"CL_ClickX","CL_ClickY")
 Return

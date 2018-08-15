@@ -1,4 +1,5 @@
-﻿If (!DummyCount and DummyCount!=0)
+﻿
+If (!DummyCount and DummyCount!=0)
 	DummyCount=1 
 Loop, %DummyCount% {	;Create similarly stupid dummy scripts
 	SC++

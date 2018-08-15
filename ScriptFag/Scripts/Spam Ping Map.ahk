@@ -26,8 +26,19 @@ MousePos("Restore")
 Return
 
 SM_shift:
-InputBox, SM_Sleep, Sleep, Input how long (ms) to sleep between pings
-WriteIni(Profile,,"SM_Sleep")
+InputBox, Temp, Sleep, Input how long (ms) to sleep between clicks,,,,,,,,%SM_Sleep%
+If (!ErrorLevel){
+	If !IsNumber(Temp){
+		MsgBox, SM_Sleep must be a number, nothing or "skip"
+		Return
+	} else If !(Temp="skip") {
+		MsgBox, SM_Sleep must be a number, nothing or "skip"
+		Return
+	}
+	SM_Sleep:=Temp
+	WriteIni(Profile,,"SM_Sleep")
+}
+
 Return
 
 SM_Settings:
@@ -38,7 +49,7 @@ If IsNumber(%A_GuiControl%){
 	If (%A_GuiControl%="skip"){
 		GoTo SettingsSuccess
 	} else {
- 		DebugSet(ChangingSetting " must be a number or nothing or ""skip""")
+ 		DebugSet(ChangingSetting " must be a number, nothing or ""skip""")
 	}
 }
 Return
