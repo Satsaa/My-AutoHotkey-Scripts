@@ -3,9 +3,9 @@ HotkeyName[SC] := "Krita_Statistics"
 HotkeySub[SC] := "KS"
 HotkeySettings[SC] := "KS_Enable"
 HotkeySettingsDescription[SC] := "KS_Enable:`nEnable this script?`n`n"
-HotkeyDescription[SC] := "Hotkey:`Print those sweet statisctics`n`nShift:`nToggle surveillance"
+HotkeyDescription[SC] := "Hotkey:`nPrint those sweet statisctics`n`nShift:`nToggle surveillance"
 HotkeyTick[SC] := 1
-KS_KritaTitle:=-1
+KS_TimeOut:=5  ;~Seconds untill counting pauses when mouse is not moved
 ReadIniDefUndef("Krita","Surveillance.ini","KS_OpenTimeSec","0","KS_DrawTimeSec","0")
 GoTo KS_End
 
@@ -48,20 +48,44 @@ If (ActiveTitle!=OldActiveTitle){
 				%KS_FileName%OpenTime:=%KS_FileName%OpenTimeSec*TPS
 				%KS_FileName%DrawTime:=%KS_FileName%DrawTimeSec*TPS
 			} else {
-				KS_KritaActive=0
+				KS_KritaActive:=0
 			}
 	} else {
-		KS_KritaActive=0
+		KS_KritaActive:=0
 	}
 }
 If (KS_KritaActive=1){
-	%KS_FileName%OpenTime++
-	KS_OpenTime++
-	If (GetKeyState("LButton","P")){
-		KS_DrawTime++
-		%KS_FileName%DrawTime++
+	If (KS_AFK=1){
+		MouseGetPos, KS_MouseX2, KS_MouseY2,
+		If (KS_MouseX2=KS_MouseX and KS_MouseY2=KS_MouseY){
+			KS_MouseX:=KS_MouseX2
+			KS_MouseY:=KS_MouseY2
+		} else {
+			KS_AFK=0
+			DebugAffix("Surveillance resumed")
+		}
 	} else {
-		
+		%KS_FileName%OpenTime++
+		KS_OpenTime++
+		If (GetKeyState("LButton","P")){
+			KS_DrawTime++
+			%KS_FileName%DrawTime++
+		}
+	}
+	KS_SubTick++
+	If (KS_SubTick=TPS*KS_TimeOut){
+			KS_SubTick:=0
+			MouseGetPos, KS_MouseX2, KS_MouseY2,
+			If (KS_MouseX2=KS_MouseX and KS_MouseY2=KS_MouseY){
+				KS_AFK:=1
+				DebugAffix("Surveillance paused")
+			} else {
+				KS_AFK:=0
+			}
+	} else {
+		If (KS_SubTick=1){
+			MouseGetPos, KS_MouseX, KS_MouseY,
+		}
 	}
 }
 Return
