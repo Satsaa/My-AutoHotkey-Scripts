@@ -28,7 +28,6 @@ If (OU_Copy and OU_InsertClipboard){
 Return
 
 OU_Shift:
-
 InputBox, Temp,, Url's first half,,,,,,,,%OU_UrlSuffix%
 If (!ErrorLevel){
 	OU_UrlSuffix:=Temp
@@ -47,7 +46,6 @@ IfMsgBox, Yes
 		OU_InsertClipboard:=0
 	}
 }
-
 InputBox, Temp,, Url's second half,,,,,,,,%OU_UrlAffix%
 If (!ErrorLevel){
 	OU_UrlAffix:=Temp
@@ -55,7 +53,6 @@ If (!ErrorLevel){
 } else {
 	Return
 }
-
 MsgBox, 3,, Copy highlighted text?`n(Restores clipboard to original state afterwards)
 IfMsgBox, Yes
 {
@@ -66,7 +63,6 @@ IfMsgBox, Yes
 		OU_Copy:=0
 	}
 }
-
 Return
 
 OU_Settings:
