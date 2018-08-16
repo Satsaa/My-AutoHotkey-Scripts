@@ -79,6 +79,7 @@ IsNumber(a){
 ;Read/write ini for Keys*. Keys* usage: Key, Key, Key... 
 
 ReadIni(Section="All",File="Prefs.ini",Keys*){
+	global
 	for i, Key in Keys {
 		if %Key%
 			IniRead, %key%, %File%, %Section%, %key%, %A_Space%
@@ -99,7 +100,7 @@ ReadIniDefUndef(Section="All",File="Prefs.ini",Keys*){
 		ii++
 		if (ii=1){
 			KeyWrite:=Key
-			IniRead, %key%, %File%, %Section%,%key%, %A_Space%
+			IniRead, %key%, %File%, %Section%, %key%, %A_Space%
 		} else {
 			ii=0
 			If (%KeyWrite%=""){
@@ -207,8 +208,9 @@ Beep(Pitch,Duration){
 
 ;#####################################################################################
 ;Affix/Append to a string that is set to a control named Debug.
-;Only shows if DebugSetting is 1. However, stored string is still updated
-;Shows string text in debug if no input
+;Affix and Append work independently and will replace each others text. 
+;Only updates if DebugSetting is 1. However, stored string is still updated.
+;Calling without defining text will update/show current debug text.
 
 DebugAffix(Text="",AddAffix=1,force=0){  
 	Global DebugSetting
