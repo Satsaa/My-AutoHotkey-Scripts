@@ -34,8 +34,9 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Spam Ping Map.ahk
 #Include %A_ScriptDir%\Scripts\Annihilate.ahk
 #Include %A_ScriptDir%\Scripts\Open Url.ahk
+#Include %A_ScriptDir%\Scripts\Krita Statistics.ahk
 
-DummyCount:=1
+DummyCount:=0
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
 
 
@@ -101,7 +102,7 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 MaxGuiHeight := (48*MaxPerColumn)
 Hotkey, ~!Shift, LayoutFi
 Hotkey, ~+Alt, LayoutRu
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Apps|Macros|Settings|%GuiTitle%
+Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
 
 Tab = Hotkeys
 Gui, Tab, Hotkeys
@@ -122,7 +123,7 @@ Loop, %SC% {  ;HOTKEYS
 
 Gui, Tab, Macros
 GuiAddX(,"Macros",-HotkeySize+9)
-Loop, %SC% {  ;MACROS
+Loop, %SC% {  ;Macros
 	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
 		Gui, Add, Text,% "y34 w" HotkeySize " " GuiAddX(HotkeySize+10,"Macros"), Placeholder text
 	} else {  ;Continue the row
@@ -209,8 +210,11 @@ DoTick:
 Tick ++
 DoubleTick ++
 SubTick ++
-OldActiveTitle = %ActiveTitle%
+OldActiveTitle := ActiveTitle
 WinGetActiveTitle, ActiveTitle
+If (SubStr(ActiveTitle, 1 , 1)=" "){  ;Fixes an odd Krita bug and hopefully more
+	ActiveTitle:=SubStr(ActiveTitle, 2)
+}
 If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Activates on window change (ignores some changes)
 	and ActiveTitle!=PrevActiveTitle and ActiveTitle!=A_ScriptName){
 	GoSub DotaHotkeys
@@ -225,9 +229,13 @@ If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Acti
 			WinClose, This is an unregistered copy
 		}
 	}
-	PrevActiveTitle = %ActiveTitle%
+	PrevActiveTitle := ActiveTitle
 }
-
+Loop, %SC% {  ;Hotkey Tick
+	If (HotkeyTick[A_Index]){
+		GoSub,% HotkeySub[A_Index] "_Tick" 
+	}
+}
 If (DoubleTick=2){
 	If (DebugSetting=2){
 		DebugSet(GetUnderMouseInfo(TPS/4))  ;Full update 2 times a second (TPS)
@@ -482,7 +490,7 @@ WM_MOUSEMOVE(){  ;Description handling
 	PrevA_GuiControl:=A_GuiControl
 	If !(A_GuiControl){
 		If (DebugSetting=1 and Tab!="Settings"){
-			SetTimer, DescriptionTimeout, -1000
+			SetTimer, DescriptionTimeout, -500
 		}
 	}
 	GuiControlPrefix := PrefixNum(A_GuiControl)
@@ -520,7 +528,7 @@ WM_MOUSEMOVE(){  ;Description handling
 WM_NCMOUSELEAVE(){
 	Global
 	If (DebugSetting=1 and Tab!="Settings"){
-		SetTimer, DescriptionTimeout, -1000
+		SetTimer, DescriptionTimeout, -500
 	}
 }
 DescriptionTimeout:
