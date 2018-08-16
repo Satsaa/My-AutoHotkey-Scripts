@@ -207,6 +207,9 @@ DebugAffix("Script initialized. Loaded " SC " Scripts")
 Return
 
 DoTick:
+If (PauseTick=1){
+	Return
+}
 Tick ++
 DoubleTick ++
 SubTick ++
@@ -414,7 +417,7 @@ RestoreHotkeys(Save="Default"){
 		GoSub,% HotkeySub[A_index] "_Load"
 	}
 	LoadIndex++
-	DebugAffix("Pass " LoadIndex ". " A_ThisLabel)
+	DebugAffix("Pass " LoadIndex ". " A_ThisFunc)
 	Loop, %SC% {
 		IniRead, %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index], %A_Space%
 		If (%A_Index%){
@@ -790,16 +793,17 @@ ButtonHide:
 Gui, Show, Hide
 Return
 ButtonTest:
-MsgBox,% Target(1000,1000)
-MsgBox,% Target(1000,1000,1)
-MsgBox,% Target(1000,1000,,1)
-Return
+PauseTick:=1
 InputBox, TestInput, Variable content, Type a variable and show its content,
 IfMsgBox, Cancel
+{
+	PauseTick:=0
 	Return
+}
 If (TestInput){
 	InputBox, TestInput, %TestInput%, %TestInput% content,,,,,,,,% %TestInput%
 }
+PauseTick:=0
 TestInput=
 Return
 

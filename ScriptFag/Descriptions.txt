@@ -23,7 +23,6 @@ DescriptionGR_Height = Undescribed
 DescriptionScaleLayer = Undescribed
 DescriptionScaleImage = Undescribed
 DescriptionGR_InterpolationUnparsed = Undescribed
-
 DescriptionReload = Reload the script
 DescriptionHide = Hide script windows
 DescriptionEdit = Open this script in Visual Studio Code
@@ -38,3 +37,4 @@ DescriptionImportSettings = Import settings from a file.`n(Script will be restar
 
 DescriptionEnableWindowInfo = Undescribed
 DescriptionEnableLog = Undescribed
+DescriptionKS_Enable = Toggle activity of this script
