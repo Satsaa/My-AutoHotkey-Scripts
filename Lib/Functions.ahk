@@ -172,6 +172,22 @@ Paste(data){
 }
 
 ;#####################################################################################
+;Returns time in Y years, D days, MM:HH:SS
+
+FormatSeconds(TimeSec){
+	Years:=Floor(TimeSec/31536000)
+	TimeLeftOver:=Mod(TimeSec,31536000)
+	Days:=Floor(TimeLeftOver/86400)
+	TimeLeftOver:=Mod(TimeSec,86400)
+	Hours:=Floor(TimeLeftOver/3600)
+	TimeLeftOver:=Mod(TimeSec,3600)
+	Mins:=Floor(TimeLeftOver/60)
+	TimeLeftOver:=Mod(TimeSec,60)
+	Secs:=Floor(TimeLeftOver)
+	Return ((Years=0)?(""):(Years " years, ")) ((Days=0)?(""):(Days " days, ")) ((StrLen(Hours)=1)?("0" Hours):(Hours)) ":" ((StrLen(Mins)=1)?("0" Mins):(Mins)) ":" ((StrLen(Secs)=1)?("0" Secs):(Secs))
+}
+
+;#####################################################################################
 ;Returns string in a more url compatible format. " "=%20 etc
 
 UrlEncode(String){
