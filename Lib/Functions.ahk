@@ -64,7 +64,14 @@ StrRev(in){
 }
 
 ;#####################################################################################
-;Returns reversed string
+;Returns string with a number of chars removed from the end
+
+SubStrEnd(str,len=1){
+	return SubStr(str,1,StrLen(var)-len)
+}
+
+;#####################################################################################
+;Returns 1 if "a" is a number otherwise returns 0
 
 IsNumber(a){
 	If (a="")
@@ -73,6 +80,23 @@ IsNumber(a){
 		return 1
 	else return 0
 }
+
+;#####################################################################################
+;Returns number with trailing zeroes removed. 10.00->10  4.380->4.38  120->120
+
+TrimTrailingZeros(number) { 
+	If number is float
+		return regexReplace(number, "\.?0*$")
+	else return number
+}
+
+;#####################################################################################
+;Returns str without leading or trailing whitespace "	sd  `n"->"sd"
+
+TrimWhitespace(str) {
+	Return regexreplace(regexreplace(str, "^\s+"), "\s+$") ;trim beginning and ending whitespace
+}
+
 
 ;#####################################################################################
 ;Key(script var) = Key(ini value) will match when using these functions
