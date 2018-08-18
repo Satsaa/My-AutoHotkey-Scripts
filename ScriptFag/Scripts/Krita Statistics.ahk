@@ -7,7 +7,7 @@ HotkeyDescription[SC] := "Tracks time spent and time drawn on files.`n`nHotkey:`
 HotkeyShift[SC] := 1
 HotkeyTick[SC] := 1
 KS_TimeOut:=10  ;~Seconds untill counting pauses when mouse is not moved
-ReadIniDefUndef("Krita","Surveillance.ini","KS_OpenTimeSec","0","KS_DrawTimeSec","0","KS_Enable","0")
+ReadIniDefUndef("Krita","Surveillance.ini","KS_OpenTimeSec","0","KS_DrawTimeSec","0","KS_Enable","0","KS_AlwaysOnTop","1")
 GoTo KS_End
 
 KS_Load:
@@ -170,6 +170,7 @@ If (Ks_GuiOpen=0){
 	KS_Width:=300
 	Gui, KS:Add, Text, vKS_Header -Wrap w%KS_Width%, Krita Surveillance
 	Gui, KS:Add, Checkbox,% ((KS_Enable=1) ? ("Checked ") : ("")) " vKS_Enable gKS_CheckBox", Enable surveillance
+	Gui, KS:Add, Checkbox,% ((KS_AlwaysOnTop=1) ? ("Checked ") : ("")) " vKS_AlwaysOnTop gKS_CheckBoxAOT", Always on top
 	Gui, KS:Add, Text, vKS_CurrentFile -Wrap w%KS_Width% yp+35,
 	Gui, KS:Add, Text, vKS_CurrentTime -Wrap w%KS_Width% yp+18 xm,
 	Gui, KS:Add, Edit, vKS_CurrentTimeEdit gKS_CurrentTimeInput -Wrap xp+60 yp wp-60 h17 Number hidden,
@@ -207,9 +208,14 @@ If (Ks_GuiOpen=0){
 	}
 	GuiControl,KS:, KS_AllTime,% "All time active: " FormatSeconds(Round(KS_OpenTime/tps))
 	GuiControl,KS:, KS_AllDraw,% "All time drawing: " Round((KS_DrawTime/KS_OpenTime)*100) "%"
-	Gui, KS: -MinimizeBox +AlwaysOnTop
 	ReadIniDefUndef("Krita","Surveillance.ini","KS_GuiLoadX",A_ScreenWidth/2,"KS_GuiLoadY",A_ScreenHeight/2)
-	Gui, KS:Show, NoActivate x%KS_GuiLoadX% y%KS_GuiLoadY%, Krita Surveillance
+	If (KS_AlwaysOnTop=1){
+		Gui, KS: -MinimizeBox +AlwaysOnTop
+		Gui, KS:Show, NoActivate x%KS_GuiLoadX% y%KS_GuiLoadY%, Krita Surveillance
+	} else {
+		Gui, KS: -MinimizeBox -AlwaysOnTop
+		Gui, KS:Show, x%KS_GuiLoadX% y%KS_GuiLoadY%, Krita Surveillance
+	}
 	Ks_GuiOpen:=1
 } else {  ;Close gui if gui was open
 	Gui, KS: +LastFound
@@ -316,6 +322,17 @@ If (KS_Enable=0){
 	GuiControl,KS:, KS_Header,% "Krita Surveillance - Disabled"
 } else {
 	GuiControl,KS:, KS_Header,% "Krita Surveillance - Inactive"
+}
+Return
+
+KS_CheckBoxAOT:
+Gui, KS:Submit, NoHide
+KS_AlwaysOnTop:=%A_GuiControl%
+WriteIni("Krita","Surveillance.ini","KS_AlwaysOnTop")
+If (KS_AlwaysOnTop=1){
+	Gui, KS: +AlwaysOnTop
+} else {
+	Gui, KS: -AlwaysOnTop
 }
 Return
 

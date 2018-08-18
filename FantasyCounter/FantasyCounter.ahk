@@ -22,6 +22,7 @@ RowNames := []
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
 Menu, Tray, Icon, %ResDir%\forsenCard.ico
+ReadIniDefUndef(,,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0")
 
 EditHeight:=18,
 EditGrow:=5,
@@ -32,127 +33,133 @@ EditFormula:= " xp-" EditGrow " yp+" VerticalSpacing " wp+" EditGrow*2 " h" Edit
 EditFormula2:= " xp yp+" VerticalSpacing " wp h" EditHeight " "
 
 Row:=0
+Row++
 RowName:="Name"
-Row++
 RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula " vName"
-Gui, Add, Edit,% EditFormula2 "vTeam"
-Gui, Add, Edit,% EditFormula2 "vPos"
+; Tidy up
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula " vName"
+	Gui, Add, Edit,% EditFormula2 "vTeam"
+	Gui, Add, Edit,% EditFormula2 "vPos"
 
-Gui, Add, Text,% "ym  w" ElementWidth,
-Gui, Add, Text,% "vText1 wp yp+" VerticalSpacing+2, Points
-Gui, Add, Text, vText2 wp yp+%VerticalSpacing%, Percent
-Gui, Add, Text, vText3 wp yp+%VerticalSpacing%, Bonus
+	Gui, Add, Text,% "ym  w" ElementWidth,
+	Gui, Add, Text,% "vText1 wp yp+" VerticalSpacing+2, Points
+	Gui, Add, Text, vText2 wp yp+%VerticalSpacing%, Percent
+	Gui, Add, Text, vText3 wp yp+%VerticalSpacing%, Bonus
 
-RowName:="Kills"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Deaths"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="CS"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="GPM"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Tower"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Roshan"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Team"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Wards"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Camps"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Runes"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Blood"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Stuns"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
-RowName:="Total"
-Row++
-RowNames[Row]:=RowName
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " v" RowName "Point",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Percent",
-Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Kills"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Deaths"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="CS"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="GPM"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Tower"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Roshan"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Team"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Wards"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Camps"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Runes"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Blood"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Stuns"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point gPoint",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent gPercent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
+	Row++
+	RowName:="Total"
+	RowNames[Row]:=RowName
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " v" RowName "Point",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Percent",
+	Gui, Add, Edit,% EditFormula2 " v" RowName "Bonus gBonus",
 
-RowName:="All"
-Gui, Add, Text,% TextFormula, %RowName%
-Gui, Add, Edit,% EditFormula  " gSetPoints v" RowName "Point",
-Gui, Add, Edit,% EditFormula2 " gSetPercent v" RowName "Percent",
+	RowName:="All"
+	Gui, Add, Text,% TextFormula, %RowName%
+	Gui, Add, Edit,% EditFormula  " gSetPoints v" RowName "Point",
+	Gui, Add, Edit,% EditFormula2 " gSetPercent v" RowName "Percent",
 
 Gui, Add, Button,% "h" EditHeight+2 " ym+" -1 " gToClipboard", &Copy
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gFromClipboard", &Paste
 
-Gui, Add, Button,% "h" EditHeight+2 " ym+" -1 " gImport", &Import
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth+5 " gImport", &Import
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gExport", &Export
 
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing*2-2 " gReload", &Reload
 
 OnExit SaveIni
-ReadIniDefUndef(,,"GuiLoadY",100,"GuiloadX",100)
+If (AlwaysOnTop=1){
+	Gui, +AlwaysOnTop
+} else {
+	Gui, -AlwaysOnTop
+}
 Gui, Show, x%GuiLoadX% y%GuiLoadY% , %GuiTitle%
+Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp-" VerticalSpacing-5 " vAlwaysOnTop gCheckBoxAOT", Always on top
 Return
 
 
@@ -226,13 +233,32 @@ GuiControl,,% "Text2", Percent
 GuiControl,,% "Text3", Bonus
 Return
 
+CheckBoxAOT:
+Gui, Submit, NoHide
+AlwaysOnTop:=%A_GuiControl%
+If (AlwaysOnTop=1){
+	Gui, +AlwaysOnTop
+} else {
+	Gui, -AlwaysOnTop
+}
+WriteIni(,,"AlwaysOnTop")
+If (AlwaysOnTop=1){
+	Gui, +AlwaysOnTop
+} else {
+	Gui, -AlwaysOnTop
+}
+Return
+
 Export:
 If (!FileExist(RootDir "\Profiles")){
 	FileCreateDir,% A_ScriptDir "\Profiles"
 }
 FileSelectFile, ExportPath , 16,% A_ScriptDir "\Profiles\"  ((Name)?(Name):(A_YYYY "-" A_MM "-" A_DD)) ".txt", Export Fantasy Profile, *.txt
+If (ErrorLevel){
+	Return
+}
 SplitPath, ExportPath,,, ExportExt,
-If !(ExportExt){
+If (!ExportExt){
 	ExportPath:=ExportPath ".txt"
 }
 OldClipboard:=ClipboardAll
@@ -295,6 +321,11 @@ Loop, Parse, Clipboard, "`n"
 					} else {
 						GuiControl,,% RowNames[A_index+1] "Point", 
 					}
+				}
+				;Clear percentages
+				Loop, %Row%
+				{
+					GuiControl,,% RowNames[A_index+1] "Percent",
 				}
 				If (ClipLines=1){
 					Break
