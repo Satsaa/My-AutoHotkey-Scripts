@@ -13,6 +13,9 @@ FileDelete,% "Boxy\Include.ahk"
 FileDelete,% "ScriptFag\Include.ahk"
 FileDelete,% "YoutubeDL\Include.ahk"
 FileDelete,% "Diarium\Include.ahk"
+FileDelete,% "FantasyCounter\Include.ahk"
+
+
 
 While (FileExist("Diarium\Include.ahk") or  FileExist("ScriptFag\Include.ahk") or  FileExist("YoutubeDL\Include.ahk") or  FileExist("Boxy\Include.ahk")){
     sleep, 100
@@ -52,5 +55,12 @@ DiariumInclude=
 #Include %Root%\Lib\TrayMenu.ahk
 )
 FileAppend, %DiariumInclude%, Diarium\Include.ahk
+
+FantasyCounterInclude=
+(
+#Include %Root%\Lib\Functions.ahk
+#Include %Root%\Lib\TrayMenu.ahk
+)
+FileAppend, %FantasyCounterInclude%, FantasyCounter\Include.ahk
 
 MsgBox, Include paths should have now been updated to %root%\Lib\*.*

@@ -16,5 +16,11 @@ Boxy/Include.ahk
 ScriptFag/ScriptFagExport.txt
 Diarium/Ideas.txt
 Diarium/Include.ahk
-
 Misc. Scripts/*
+FantasyCounter/Include.ahk
+
+
+FantasyCounter/Profiles/
+ScriptFag/Profiles/
+FantasyCounter/Profiles/*
+ScriptFag/Profiles/*
