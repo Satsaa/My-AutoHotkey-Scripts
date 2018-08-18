@@ -514,18 +514,18 @@ WM_MOUSEMOVE(){  ;Description handling
 	} else {
 		DebugDescription := "Description" StrReplace(StrReplace(A_GuiControl, "&"), " ")
 		If !(%DebugDescription%){
-			%DebugDescription%:="Undescribed"
-			FileAppend,% "`n" DebugDescription " = Undescribed", Descriptions.txt,
+			%DebugDescription%:="?"
+			FileAppend,% "`n" DebugDescription " = ?", Descriptions.txt,
 			DebugAffix(A_GuiControl " added to Descriptions.txt")
 		} else {
-			If (%DebugDescription%!="Undescribed"){
+			If (%DebugDescription%!="?"){
 				If (DebugSetting=1){
 					DebugSet(%DebugDescription%)
 					SetTimer, DescriptionTimeout, Off
 				}
 			}
 		}
-		;else DebugSet(DebugDescription)  ;Uncomment to show undescribed. For example DescriptionDebug, DescriptionDefaultProfile
+		;else DebugSet(DebugDescription)  ;Uncomment to show ?. For example DescriptionDebug, DescriptionDefaultProfile
 	}
 }
 WM_NCMOUSELEAVE(){
@@ -590,6 +590,9 @@ If (!FileExist(A_ScriptDir "\Profiles\" ExportFolder)){
 }
 Gui, Export: -AlwaysOnTop
 FileSelectFile, ExportPath, S 24,% A_ScriptDir "\Profiles\" ExportFolder "\"  A_YYYY "-" A_MM "-" A_DD ".txt",, *.txt
+If (ErrorLevel){
+	Return
+}
 Gui, Export: +AlwaysOnTop
 SplitPath, ExportPath,,, ExportExt,
 If !(ExportExt){
