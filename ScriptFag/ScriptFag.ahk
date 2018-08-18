@@ -539,13 +539,15 @@ If (DebugSetting=1 and Tab!="Settings"){
 	DebugAffix()
 }
 Return
+
 ExportSettings:
 ExportIni:="Prefs.ini"
+ExportFolder:="Settings"
 Goto ExportProfile
 
 ExportHotkeys:
 ExportIni:="Hotkeys.ini"
-Goto ExportProfile
+ExportFolder:="Hotkeys"
 
 ExportProfile:
 If (ExportWindowExists){
@@ -583,7 +585,16 @@ ExportCheckboxID := SuffixNum(A_GuiControl)
 GoTo GetExport
 		
 ExportExport:
-FileSelectFile, ExportPath, S 24, RootDir\ScriptFagExport.txt,, *.txt
+If (!FileExist(A_ScriptDir "\Profiles\" ExportFolder)){
+	FileCreateDir,% A_ScriptDir "\Profiles\" ExportFolder
+}
+Gui, Export: -AlwaysOnTop
+FileSelectFile, ExportPath, S 24,% A_ScriptDir "\Profiles\" ExportFolder "\"  A_YYYY "-" A_MM "-" A_DD ".txt",, *.txt
+Gui, Export: +AlwaysOnTop
+SplitPath, ExportPath,,, ExportExt,
+If !(ExportExt){
+	ExportPath:=ExportPath ".txt"
+}
 If !(ExportPath=""){
 	FileRecycle, %ExportPath%
 	FileAppend, %Export%, %ExportPath%
@@ -617,13 +628,18 @@ Return
 
 ImportHotkeys:
 ImportIni := "Hotkeys.ini"
+ExportFolder:="Hotkeys"
 GoTo Import
 
 ImportSettings:
 ImportIni := "Prefs.ini"
+ExportFolder:="Settings"
 
 Import:
-FileSelectFile, ImportPath,,,, *.txt
+If (!FileExist(A_ScriptDir "\Profiles\" ExportFolder)){
+	FileCreateDir,% A_ScriptDir "\Profiles\" ExportFolder
+}
+FileSelectFile, ImportPath,,% A_ScriptDir "\Profiles\" ExportFolder,, *.txt
 If (ImportPath=""){  ;Canceled
 	Return
 }
@@ -656,9 +672,9 @@ If (ImportMerge){
 				Loop, Parse, A_LoopReadLine, =
 				{
 					If (A_Index=1){
-						InportKey := A_LoopField
+						ImportKey := A_LoopField
 		} else {
-						IniWrite, %A_LoopField%, %ImportIni%, %ImportSection%, %InportKey%
+						IniWrite, %A_LoopField%, %ImportIni%, %ImportSection%, %ImportKey%
 					}
 				}	
 			}
