@@ -36,7 +36,7 @@ If (!ErrorLevel){
 	Return
 }
 
-MsgBox, 3,, Insert Clipboard Contents?,3
+MsgBox, 3,, Insert Clipboard Contents?
 IfMsgBox, Yes
 {
 	OU_InsertClipboard:=1

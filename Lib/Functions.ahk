@@ -39,6 +39,27 @@ CompareColor(X,Y,Colors*){
 }
 
 ;#####################################################################################
+;Gives a similarity score for string A and B
+
+
+Compare(StringA, StringB){
+	Score := 0, SearchLength := 0, LengthA := StrLen(StringA), LengthB := StrLen(StringB)
+	Loop % (LengthA < LengthB ? LengthA : LengthB) * 2 {
+		If Mod(A_Index, 2)
+			SearchLength += 1, Needle := "A", Haystack := "B"
+		Else Needle := "B", Haystack := "A"
+		StartAtHaystack := 1, StartAtNeedle := 1
+		While (StartAtNeedle + SearchLength <= Length%Needle% + 1) {
+			SearchText := SubStr(String%Needle%, StartAtNeedle, SearchLength)
+			If (Pos := InStr(String%Haystack%, SearchText, 0, StartAtHaystack)) {
+				StartAtHaystack := Pos + SearchLength, StartAtNeedle += SearchLength, Score += SearchLength**2
+				If (StartAtHaystack + SearchLength > Length%Haystack% + 1)
+					Break
+			} Else StartAtNeedle += 1
+	}} Return Score / (LengthA > LengthB ? LengthA : LengthB)
+}
+
+;#####################################################################################
 ;Returns the number sequence from haystacks start (Prefix) or end (Suffix)
 
 PrefixNum(haystack){
