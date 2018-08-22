@@ -29,7 +29,7 @@ EditGrow:=5,
 VerticalSpacing:=25,
 ElementWidth:=35,
 TextFormula:= " ym" " Center w" ElementWidth,
-RoleList:="Core,Support,Offlane"
+PosArray:=[],PosArray[1]:="Core",PosArray[2]:="Support",PosArray[3]:="Offlane"
 
 Row:=0
 Row++
@@ -100,14 +100,15 @@ If (AlwaysOnTop=1){
 }
 Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp-" VerticalSpacing-5 " vAlwaysOnTop gCheckBoxAlwaysOnTop", Always on top
 Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp-" ElementWidth*2-21 " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*4+5 " gParse", Parse CardData.txt
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPlayer", Get best card
-;Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gParsePoints", Parse PointData.txt
-;Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card by Team
-;Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
-;Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*4+5 " gParseCards", Parse CardData.txt
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Parse PlayerData.txt
+Gui, Add, Text,% "vPercentage wp yp+" VerticalSpacing, 100`%
+Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing-2 " gHelp", ?
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*3 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card by Team
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
 
-Gui, Add, Button,% "w" 20 " hp yp+" VerticalSpacing " gHelp", ?
 Gui, Show, x%GuiLoadX% y%GuiLoadY% , %GuiTitle%
 PrevClipboard:=ClipboardAll
 Clipboard:=StrReplace(Stats, "``n", "`n")
@@ -382,17 +383,17 @@ Clipboard:=Name "`n"
 	. ClipPercent
 Return
 
-Parse:
+ParseCards:  ;Parse your card stats
 CardName := [],
-CardTeamID := [],
-TeamIdName := [],
-CardRole := [],
+CardTeamID := [],  ;Cards teamid
+CardTeam := [],  ;Cards team name
+CardPos := [],
 CardBonus1 := [], CardBonus2 := [], CardBonus3 := [], CardBonus4 := [], CardBonus5 := [],
 CardBonusID1 := [], CardBonusID2 := [], CardBonusID3 := [], CardBonusID4 := [], CardBonusID5 := [],
 
-CardName:=,CardTeamID:=,CardRole:=,CardBonus1:=,CardBonus2:=,CardBonus3:=,CardBonus4:=,CardBonus5:=,
-CardBonusID1:=,CardBonusID2:=,CardBonusID3:=,CardBonusID4:=,CardBonusID5:=, PlayerList:=, 
-Line:=0, CardEnd:=0, Bonuses:=0, BonusLine:=0, Card:=0
+CardName:=,CardTeamID:=,CardTeam:=,TeamIdToName:=,CardPos:=,CardBonus1:=,CardBonus2:=,CardBonus3:=,CardBonus4:=,CardBonus5:=,
+CardBonusID1:=,CardBonusID2:=,CardBonusID3:=,CardBonusID4:=,CardBonusID5:=
+CardPlayerList:="", CardTeamList:="", Line:=0, CardEnd:=0, BonusIndex:=0, BonusLine:=0, Card:=0
 
 FileRead, CardData, CardData.txt
 Loop, Parse, CardData, `n
@@ -404,8 +405,8 @@ Loop, Parse, CardData, `n
 		{
 			If (A_Index=2){
 				CardName[Card]:=SubStr(A_LoopField, 3, StrLen(A_LoopField)-5)
-				If !(InStr(PlayerList, CardName[Card] , 1)){
-					PlayerList.=CardName[Card] ","
+				If !(InStr(CardPlayerList, CardName[Card] , 1)){  ;Put player name in to list if its not already in it
+					CardPlayerList.=CardName[Card] ","
 				}
 			}
 		}
@@ -420,15 +421,17 @@ Loop, Parse, CardData, `n
 		Loop, Parse, A_LoopField, `:  ;Get team id
 		{
 			If (A_Index=2){
-				TeamName:=SubStr(A_LoopField, 3, StrLen(A_LoopField)-5)
-				TeamIdName[CardTeamID[Card]]:=TeamName
+				CardTeam[Card]:=SubStr(A_LoopField, 3, StrLen(A_LoopField)-5)
+				If !(InStr(CardTeamList, CardTeam[Card] , 1)){  ;Put Team name in to list if its not already in it
+					CardTeamList.=CardTeam[Card] ","
+				}
 			}
 		}
 	} else If (Line=7) {
 		Loop, Parse, A_LoopField, `:  ;Get role
 		{
 			If (A_Index=2){
-				CardRole[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-3)
+				CardPos[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-3)
 			}
 		}
 	} else If (Line>=10) {
@@ -442,20 +445,20 @@ Loop, Parse, CardData, `n
 			}
 		}
 		If (CardEnd=1){
-			CardEnd:=0, Bonuses:=0, Line:=0, BonusLine:=0
+			CardEnd:=0, BonusIndex:=0, Line:=0, BonusLine:=0
 		} else If (BonusLine=1){
-			Bonuses++
+			BonusIndex++
 			Loop, Parse, A_LoopField, `:  ;Get bonus ID
 			{
 				If (A_Index=2){
-					CardBonusID%Bonuses%[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-3)+1
+					CardBonusID%BonusIndex%[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-3)+1
 				}
 			}
 		} else If (BonusLine=2){
 			Loop, Parse, A_LoopField, `:  ;Get bonus amount
 			{
 				If (A_Index=2){
-					CardBonus%Bonuses%[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-2)
+					CardBonus%BonusIndex%[Card]:=SubStr(A_LoopField, 2, StrLen(A_LoopField)-2)
 				}
 			}
 		} else If (BonusLine=4){  ;4 lines passed so reset counter
@@ -463,31 +466,49 @@ Loop, Parse, CardData, `n
 		}
 	}
 }
-PlayerList:=SubStrEnd(PlayerList,1)
+GuiControl,,% "Percentage",% "Parsed cards!"
+CardPlayerList:=SubStrEnd(CardPlayerList,1), CardTeamList:=SubStrEnd(CardTeamList,1), CardPlayerCount:=0
+Loop, Parse, CardPlayerList, `,
+	CardPlayerCount++
 Return
 
-ParsePoints:
+ParsePlayers:  ;Parse player specific stats
 PlayerName := [],
-PlayerNameID := [], ;Make this. PlayerNameID[Cr1t-]=1 Name corresponds to the relevant id that works with player*[] arrays
+PlayerNameToID := [], ;PlayerNameToID[{Players name}]={Players index} Name corresponds to the relevant id that works with player*[] arrays
 PlayerTeam := [],
 PlayerPos := [],
 Loop, 12
 	PlayerPoints%A_Index% := [],
 PlayerTotal := [],
 
-Line:=0, Player:=0, PlayerLine:=0
+PlayerName:=,PlayerNameToID:=,PlayerTeam:=,PlayerPos:=,PlayerTotal:=,
+PointPlayerList:="",
+Loop, 12
+	PlayerPoints%A_Index%:=,
+Line:=0, Player:=0, PlayerLine:=0,
 
-FileRead, PointData, PointData.txt
-Loop, Parse, PointData, `n
+PlayerDataLines=0
+Loop, Parse, PlayerData, `n
+	PlayerDataLines++
+FileRead, PlayerData, PlayerData.txt
+Loop, Parse, PlayerData, `n
 {
 	Line++
+	If InStr(A_LoopField, "Showing 1 to ", 1){
+		Break
+	}
 	If (Line>=14){
 		PlayerLine++
 		If (PlayerLine=1){
 			Player++
-			PlayerName[Player]:=A_LoopField
+			PlayerName[Player]:=SubStrEnd(A_LoopField)  ;Alot of outputs from playerdata have newlines at the end so many of these vars are cut from the end
+			PlayerNameToID[PlayerName[Player]]:=Player
+			PointPlayerList.=PlayerName[Player] ","
 		} else If (PlayerLine=2){
-			PlayerTeam[Player]:=A_LoopField
+			PlayerTeam[Player]:=SubStrEnd(A_LoopField)
+			If (PlayerTeam[Player]=""){
+				MsgBox,% PlayerTeam[Player] "," PlayerName[Player] "," PlayerNameToID[PlayerName[Player]] ","
+			}
 		} else If (PlayerLine=3){
 			Loop, Parse, A_LoopField, "	"
 			{
@@ -499,165 +520,230 @@ Loop, Parse, PointData, `n
 				}
 			}
 		} else If (PlayerLine=4){
-			PlayerTotal[Player]:=A_LoopField
+			PlayerTotal[Player]:=SubStrEnd(A_LoopField)
 			PlayerLine=0
 		} 
 	}
 }
+GuiControl,,% "Percentage",% "Parsed players!"
+PointPlayerList:=SubStrEnd(PointPlayerList,1)
 Return
 
-GetHighestByPlayer: ;Get best card by data already entered (name and points)
-If (Name=""){
-	MsgBox, Please fill in the name
-	Return
-}
-loop, parse, PlayerList, `,
-{
-	Loop {
-		If (PlayerName[A_Index]){
-			msgbox,% PlayerName[A_Index] " = " A_LoopField
-			If (PlayerName[A_Index]=A_LoopField){
-				PlayerNameID[A_LoopField]:=A_Index
-				MSgBox,% PlayerNameID[A_LoopField] " = " A_Index
-			}
-		} else break
+GetHighestByPlayer: ;Get best card by already entered name
+If (A_ThisLabel="GetHighestByPlayer"){
+	If !(CardPlayerList){
+		GoSub ParseCards
 	}
-}
-MatchingName=0
-Loop, Parse, PlayerList, `,
-{
-	If (Name=A_LoopField){
-		MatchingName=1
+	If !(PlayerName[1]){
+		GoSub ParsePlayers
 	}
-}
-SimilarName:=, HighestSimilarity:=
-If !(MatchingName){  ;Get closest name
-	Loop, Parse, PlayerList, `,
+	If (Name=""){
+		MsgBox, Please fill in the name
+		Return
+	}
+	MatchingName=0
+	Loop, Parse, CardPlayerList, `,
 	{
-		Similarity:=Compare(Name,A_LoopField)
-		If (Similarity>HighestSimilarity){
-			FifthSimilarName:=FourthSimilarName, FifthSimilarity:=FourthSimilarity, FourthSimilarName:=ThirdSimilarName, FourthSimilarity:=ThirdSimilarity, ThirdSimilarName:=SecondSimilarName, ThirdSimilarity:=SecondSimilarity, SecondSimilarName:=SimilarName, SecondSimilarity:=HighestSimilarity, SimilarName:=A_LoopField, HighestSimilarity:=Similarity
+		If (Name=A_LoopField){
+			MatchingName=1
 		}
 	}
-	Msgbox,3,,% "Current name """ Name """ didn't match any parsed name. Do you want to set name to the closest encounter " SimilarName "?"
-			. "`nOther names: " SecondSimilarName (ThirdSimilarName?(", "ThirdSimilarName):"") (FourthSimilarName?(", " FourthSimilarName):"") (FifthSimilarName?(", "FifthSimilarName):"") "."
-	IfMsgBox, Yes
-	{
-		Name:=SimilarName
-		GuiControl,, Name,% SimilarName
-	} else {
-		IfMsgBox, Cancel
-		{
-			Return
-		}
-	}
-	
-}
-
-HighestCard:=0, HighestBonus:=0
-Loop, %Card% {  ;Get best for this player
-	If (CardName[A_index]=name){
-		FoundAt:=A_Index
-		ThisBonus:=0
-		Loop, 5 {
-			LoopIndex:=A_Index
-			If (CardBonusID%A_Index%[FoundAt]!=""){
-				Loop, Parse, NameList, `,
-				{
-					If (CardBonusID%LoopIndex%[FoundAt]=A_Index){
-						ThisBonus:=ThisBonus+%A_LoopField%Point*(CardBonus%LoopIndex%[FoundAt]/100)
-					}
+	SimilarName5:="",Similarity5:="",SimilarName4:="",Similarity4:="",SimilarName3:="",Similarity3:="",SimilarName2:="",Similarity2:="",SimilarName:="",HighestSimilarity:=""
+	If !(MatchingName){  ;Get closest name
+		If (name="Noone"){
+			SimilarName:="No[o]ne-"
+		} else {
+			Loop, Parse, CardPlayerList, `,
+			{
+				Similarity:=Compare(Name,A_LoopField)
+				If (Similarity>HighestSimilarity){
+					SimilarName5:=SimilarName4, Similarity5:=Similarity4, SimilarName4:=SimilarName3, Similarity4:=Similarity3,
+					SimilarName3:=SimilarName2, Similarity3:=Similarity2, SimilarName2:=SimilarName, Similarity2:=HighestSimilarity,
+					SimilarName:=A_LoopField, HighestSimilarity:=Similarity
 				}
 			}
 		}
-		If (ThisBonus>HighestBonus){
-			HighestCard:=FoundAt
-			HighestBonus:=ThisBonus
-		}
-	}
-}
-If !(HighestCard){  ;None found
-	MsgBox, No card was found for %name%! Make sure the name is found in CardData.txt and you have his card.
-}
-Loop, %Row% {  ;reset percents
-	GuiControl,,% RowNames[A_Index+1] "Percent",% ""
-}
-Loop, 5 {  ;Set percents
-	LoopIndex:=A_Index
-	If (CardBonusID%A_Index%[HighestCard]!=""){
-		Loop, Parse, NameList, `,
+		Msgbox,3,,% "Current name """ Name """ didn't match any parsed name. Do you want to set name to the closest encounter " SimilarName "?"
+				. "`nOther names: " SimilarName2 (SimilarName3?(", "SimilarName3):"") (SimilarName4?(", " SimilarName4):"") (SimilarName5?(", "5SimilarName):"") "."
+		IfMsgBox, Yes
 		{
-			If (CardBonusID%LoopIndex%[HighestCard]=A_Index){
-				GuiControl,,% RowNames[CardBonusID%LoopIndex%[HighestCard]+1] "Percent",% (CardBonus%LoopIndex%[HighestCard])
+			Name:=SimilarName
+			GuiControl,, Name,% SimilarName
+		} else {
+			IfMsgBox, Cancel
+			{
+				Return
 			}
 		}
 	}
 }
-Return
-GetHighestByPos:  ;Get best player and card by position
 GetHighestByTeam:  ;Get best player and card by team
-
-
-
-
-;WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-/*
-PlayerName := [],
-PlayerTeam := [],
-PlayerPos := [],
-Loop, 12
-	PlayerPoints%A_Index% := [],
-PlayerTotal := [],
-
-CardName := [],
-CardTeamID := [],
-TeamIdName := [],
-CardRole := [],
-CardBonus1 := [], CardBonus2 := [], CardBonus3 := [], CardBonus4 := [], CardBonus5 := [],
-CardBonusID1 := [], CardBonusID2 := [], CardBonusID3 := [], CardBonusID4 := [], CardBonusID5 := [],
-
-*/
-
-GetHighest:  ;Get the best card ever
-
-HighestCard:=0, HighestBonus:=0,
-If !(PlayerList){
-	MsgBox, You must parse CardData.text
-	Return
-}
-Loop, Parse, PlayerList, `,  ;Loop thru names
-{
-	Loop, %Card% {  ;Loop thru all cards
-		ThisPoints:=0
-		If (CardName[A_index]=A_LoopField){  ;Found match
-			MsgBox, Card start
-			FoundAt:=A_Index
-			Loop, 12 {
-				Loop, 5 {
-					If (CardBonusID%A_Index%[FoundAt]){
-						ThisPoints:=ThisPoints
-						FoundBonusID:=1+ PlayerPoints[FoundAt]*(CardBonus%LoopIndex%[FoundAt]/100)
-					}
-				}
+If (A_ThisLabel="GetHighestByTeam"){
+	If !(CardTeamList){
+		GoSub ParseCards
+	}
+	If !(PlayerTeam[1]){
+		GoSub ParsePlayers
+	}
+	If (Team=""){
+		MsgBox, Please fill in the Team
+		Return
+	}
+	MatchingTeam=0
+	Loop, Parse, CardTeamList, `,
+	{
+		If (Team=A_LoopField){
+			MatchingTeam=1
+		}
+	}
+	SimilarTeam5:="",Similarity5:="",SimilarTeam4:="",Similarity4:="",SimilarTeam3:="",Similarity3:="",SimilarTeam2:="",Similarity2:="",SimilarTeam:="",HighestSimilarity:=""
+	If !(MatchingTeam){  ;Get closest Team
+		Loop, Parse, CardTeamList, `,
+		{
+			Similarity:=Compare(Team,A_LoopField)
+			If (Similarity>HighestSimilarity){
+				SimilarTeam5:=SimilarTeam4, Similarity5:=Similarity4, SimilarTeam4:=SimilarTeam3, Similarity4:=Similarity3,
+				SimilarTeam3:=SimilarTeam2, Similarity3:=Similarity2, SimilarTeam2:=SimilarTeam, Similarity2:=HighestSimilarity,
+				SimilarTeam:=A_LoopField, HighestSimilarity:=Similarity
+			}
+		}
+		Msgbox,3,,% "Current Team """ Team """ didn't match any parsed Team. Do you want to set Team to the closest encounter " SimilarTeam "?"
+				. "`nOther Teams: " SimilarTeam2 (SimilarTeam3?(", "SimilarTeam3):"") (SimilarTeam4?(", " SimilarTeam4):"") (SimilarTeam5?(", "5SimilarTeam):"") "."
+		IfMsgBox, Yes
+		{
+			Team:=SimilarTeam
+			GuiControl,, Team,% SimilarTeam
+		} else {
+			IfMsgBox, Cancel
+			{
+				Return
 			}
 		}
 	}
 }
-
-MsgBox, HighestName %HighestName%
-If !(HighestCard){
-	MsgBox, No card was found! Make sure you have parsed everything.
+GetHighestByPos:  ;Get best player and card by position
+If (A_ThisLabel="GetHighestByPos"){
+	If !(CardPosArray){
+		GoSub ParseCards
+	}
+	If !(PlayerPos[1]){
+		GoSub ParsePlayers
+	}
+	If (Pos=""){
+		MsgBox, Please fill in the Pos
+		Return
+	}
+	Loop, 3 {
+		If (A_Index=4){
+			MsgBox, Invalid position.`n Valid positions are "Core", "Support" and "Offlane".
+		}
+		If (PosArray[A_Index]:=Pos){
+			Break
+		}
+	}
 }
-
-
+GetHighest:  ;Get the best card ever
+HighestPoints:="",HighestCard:="",HighestName:="",HighestPlayerIndex:=""
+HighestCard:="", HighestBonus:=0,Parsed:=0,Skipped:=0
+If !(CardPlayerList){
+	GoSub ParseCards
+}
+If !(PlayerName[1]){
+	GoSub ParsePlayers
+}
+Loop, Parse, CardPlayerList, `,  ;Loop thru names
+{
+	GuiControl,,% "Percentage",% Round((A_Index/CardPlayerCount)*100) "%"
+	If (A_ThisLabel="GetHighestByPlayer" and  A_LoopField!=Name){
+		Skipped+=Row
+		Continue
+	} else If (A_ThisLabel="GetHighestByPos" and  PlayerPos[A_Index]!=Pos){
+		Skipped+=Row
+		Continue
+	}
+	Loop, %Card% {  ;Loop thru all cards
+		If (CardName[A_index]=A_LoopField){  ;Found match. Matches a card to a player.
+			;MsgBox,% CardName[A_index] "=" A_LoopField  ;Announce matches
+			Parsed++
+			ThisPoints=0
+			CardIndex:=A_Index
+			PlayerIndex:=PlayerNameToID[A_LoopField]
+			If (A_ThisLabel="GetHighestByTeam" and CardTeam[CardIndex]!=Team){
+				Skipped++
+				Continue
+			}
+			If !(PlayerIndex){
+				ParseName:=A_LoopField
+				If (A_LoopField="Ceb")  ;Manual aliases here. Sorry compare() is not perfect and valve cant do consistent naming
+					PlayerIndex:=PlayerNameToID["7Mad"]
+				else If (A_LoopField="MSS-")
+					PlayerIndex:=PlayerNameToID["MSS"]
+				else If (A_LoopField="No[o]ne-")
+					PlayerIndex:=PlayerNameToID["Noone"]
+				else If (A_LoopField="rtz")
+					PlayerIndex:=PlayerNameToID["Arteezy"]
+				else If (A_LoopField="冰冰冰")
+					PlayerIndex:=PlayerNameToID["iceiceice"]
+				else If (ParseName=A_LoopField){
+					SimilarName:="", HighestSimilarity:=""
+					Loop, Parse, PointPlayerList, `,
+					{
+						Similarity:=Compare(ParseName,A_LoopField)
+						If (Similarity>HighestSimilarity and Similarity!=0){
+							SimilarName:=A_LoopField, HighestSimilarity:=Similarity
+						}
+					}
+					PlayerIndex:=PlayerNameToID[SimilarName]
+					If !(PlayerIndex){
+						MsgBox, Error getting PlayerIndex. No similar name found for %A_LoopField%. Probably bugged.
+					}
+					;MsgBox,% "Replaced """ A_LoopField """ with """ SimilarName """. Id is set to """ PlayerIndex """"  ;Announce replaced names
+				}
+			}
+			Loop, 5 {  ;Point indexes
+				If (CardBonusID%A_Index%[CardIndex]){
+					PointIndex:=CardBonusID%A_Index%[CardIndex]
+					ThisPoints:=ThisPoints+PlayerPoints%PointIndex%[PlayerIndex]*((CardBonus%A_Index%[CardIndex]/100))
+				}
+			}
+			Loop, 12 {  ;Points
+				ThisPoints:=ThisPoints+PlayerPoints%A_Index%[PlayerIndex]
+			}
+			If !(ThisPoints){
+				MsgBox,% "Failed to gather total points `nA_LoopField " A_LoopField " `nParseName " ParseName " `nCardIndex " CardIndex " `nPlayerIndex " PlayerIndex " `nSimilarName " SimilarName " `nHighestSimilarity " HighestSimilarity 
+			}
+			If (ThisPoints>HighestPoints){
+				HighestPoints:=TrimTrailingZeros(ThisPoints)
+				HighestCard:=CardIndex
+				HighestName:=PlayerName[PlayerIndex]
+				HighestPlayerIndex:=PlayerIndex
+			}
+		}
+	}
+}
+GuiControl,,% "Percentage",% "Search finished!"
+MsgBox, 1, A_ThisLabel,% "Checked " Parsed " cards." ((Skipped)?(" Skipped " Skipped " cards"):("")) "`n"
+	. "Card " HighestCard " with " HighestPoints " points. " HighestName " from " CardTeam[HighestCard] ". " PosArray[CardPos[HighestCard]] ".`n"
+IfMsgBox, Cancel
+	Return
+If (HighestCard=""){
+	MsgBox, No card was found?
+	Return
+}
 Loop, %Row% {   ;Reset 
 	GuiControl,,% RowNames[A_Index+1] "Percent",% ""
-	;GuiControl,,% RowNames[A_Index+1] "Point",% ""
-	;GuiControl,,% "Name",% ""
-	;GuiControl,,% "Team",% ""
-	;GuiControl,,% "Pos",% ""
+	GuiControl,,% RowNames[A_Index+1] "Point",% ""
+	GuiControl,,% "Name",% ""
+	GuiControl,,% "Team",% ""
+	GuiControl,,% "Pos",% ""
 }
-Loop, 5 {
+GuiControl,,% "Name",% PlayerName[HighestPlayerIndex]
+GuiControl,,% "Team",% PlayerTeam[HighestPlayerIndex]
+GuiControl,,% "Pos",% PlayerPos[HighestPlayerIndex]
+Loop, 12 {  ;Set points
+	GuiControl,,% RowNames[A_Index+1] "Point",% PlayerPoints%A_Index%[HighestPlayerIndex]
+}
+Loop, 5 {  ;Set percentages
 	LoopIndex:=A_Index
 	If (CardBonusID%A_Index%[HighestCard]!=""){
 		Loop, Parse, NameList, `,
@@ -668,4 +754,7 @@ Loop, 5 {
 		}
 	}
 }
+GuiControl,,% "Text1", Points
+GuiControl,,% "Text2", Percent
+GuiControl,,% "Text3", Bonus
 Return
