@@ -219,9 +219,12 @@ Help:
 MsgBox,4, Pasting data, You can copy-paste data from http://fantasy.prizetrac.kr/international2018/average by copying one "player" row. Copying the full row is intended, but might work in other situations. `n`n Press yes if you want to visit the link
 IfMsgBox, Yes
 	Run, http://fantasy.prizetrac.kr/international2018/average
-MsgBox,4, Getting parse data, You need to visit http://www.dota2.com/fantasy and copy the cards array. How to do it on Chrome: Login if you aren't already. Right click and click inspect. Go to Console and store the Object -> cards: array as a global variable. Then type below in the console copy(temp1). Now the array is on your clipboard. Overwrite CardData.txt with that. `n`n Press yes if you want to visit the link
+MsgBox,4, Getting CardData, You need to visit http://www.dota2.com/fantasy and copy the cards array. How to do it on Chrome: Login if you aren't already. Right click and click inspect. Go to Console and store the Object -> cards: array as a global variable. Then type below in the console copy(temp1). Now the array is on your clipboard. Overwrite CardData.txt with that. `n`n Press yes if you want to visit the link
 IfMsgBox, Yes
 	Run, http://www.dota2.com/fantasy
+MsgBox,4, Getting PlayerData, You need to visit http://fantasy.prizetrac.kr/international2018/average and copy the page contents. Ctrl+a to select all. Then copy. Overwrite the contents to PlayerData.txt
+IfMsgBox, Yes
+	Run, http://fantasy.prizetrac.kr/international2018/average
 Return
 
 Export:
