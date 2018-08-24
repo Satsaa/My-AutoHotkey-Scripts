@@ -17,8 +17,8 @@ Support	0.9	1.1	0.2	0.6	0.2	0	1.9	8.3	0.4	0.8	0.9	2
 17.16
 Sumail
 Evil Geniuses
-Core	3.3	1.6	0.9	1.2	1.5	0.5	2	0.1	0.4	2.6	0.4	2.1	
-16.75
+Core	3.3	1.6	0.9	1.3	1.5	0.5	2.1	0.1	0.6	2.7	0.4	2	
+17.05
 pieliedie
 Fnatic
 Support	0.6	0.8	0.2	0.6	0	0	1.5	7.5	0.9	1.3	0.5	2.5	
@@ -39,10 +39,6 @@ Miracle-
 Team Liquid
 Core	3.3	1.5	0.9	1.2	2.4	0.6	1.9	0	0.6	1.6	0.6	1	
 15.61
-Noone
-Virtus.pro
-Core	2.7	2	0.9	1.1	2.3	0.5	1.9	0.1	0.5	2	0	1.5	
-15.53
 Abed
 Fnatic
 Core	2.4	1.9	1	1.1	1.9	0.9	1.8	0.4	0.6	2	0.3	1.1	
@@ -51,6 +47,10 @@ Q
 Invictus Gaming
 Support	0.7	0.8	0.3	0.6	0.2	0	2	6.6	1.2	1.1	0.5	1.2	
 15.14
+Noone
+Virtus.pro
+Core	2.6	2	0.9	1.1	2.2	0.4	1.8	0.1	0.5	1.9	0	1.5	
+15.08
 Puppey
 Team Secret
 Support	0.7	0.9	0.2	0.6	0.3	0	1.9	6.8	0.6	1.2	0.8	1.1	
@@ -75,10 +75,6 @@ xNova
 PSG.LGD
 Support	0.8	1.2	0.2	0.6	0.2	0	1.6	7.4	0.3	0.8	0.4	1.2	
 14.65
-Ramzes666
-Virtus.pro
-Core	2.9	1.8	0.9	1.1	2	0.7	2	0.1	0.2	1.4	0.7	0.6	
-14.6
 DJ
 Fnatic
 Support	1.8	1.5	0.3	0.7	0.3	0.1	2.1	1.6	0.8	1.7	0.8	2.9	
@@ -91,10 +87,22 @@ YapzOr
 Team Secret
 Support	1.4	1.7	0.2	0.6	0.3	0.1	2.1	2.5	0.1	1.4	0.2	3.7	
 14.27
+Ramzes666
+Virtus.pro
+Core	2.9	1.8	0.9	1.1	1.9	0.7	2	0.1	0.2	1.4	0.6	0.6	
+14.19
+Solo
+Virtus.pro
+Support	0.8	0.7	0.2	0.6	0.2	0	2	6.8	0.4	0.9	0.2	1.4	
+14.15
 Tims
 TNC Predator
 Support	0.7	0.9	0.2	0.6	0.1	0.1	1.8	3.3	0.9	1.7	0.2	3.7	
 14.12
+Arteezy
+Evil Geniuses
+Core	2.9	1.7	0.8	1.1	2	0.7	2	0.3	0.6	1	0.4	0.6	
+14
 Moonn
 Mineski
 Core	1.9	1.5	1.1	1.1	1.3	0.2	1.9	0.1	1.3	1.8	0.4	1.3	
@@ -103,18 +111,10 @@ YS
 VGJ.Storm
 Core	2.5	1.9	0.9	1.1	1.6	0.4	1.8	0.2	0.8	1.6	0.2	1	
 13.97
-Solo
-Virtus.pro
-Support	0.8	0.7	0.2	0.6	0.2	0	2	6.6	0.4	0.9	0.2	1.3	
-13.92
 Ori
 Vici Gaming
 Core	2.2	1.8	0.8	1	2.1	0.3	1.8	0.5	0.4	1.2	0.4	1.6	
 13.88
-Arteezy
-Evil Geniuses
-Core	2.9	1.7	0.8	1.1	1.9	0.6	1.9	0.3	0.6	1	0.4	0.6	
-13.86
 w33
 paiN Gaming
 Core	2.3	1.1	0.8	1.1	1	0.3	1.8	0.3	0.9	1.9	0.5	1.8	
@@ -143,6 +143,10 @@ Mushi
 Mineski
 Core	2.3	1.5	1	1	2.2	0.4	2	0.1	0.3	1.2	0.2	1.3	
 13.62
+Fly
+Evil Geniuses
+Support	1	0.7	0.2	0.7	0.3	0	1.9	6.7	0.2	1.2	0.2	0.6	
+13.61
 Kingrd
 paiN Gaming
 Support	0.8	0.2	0.2	0.5	0.1	0	1.9	5.3	0.4	0.9	0.5	2.8	
@@ -151,10 +155,6 @@ ddc
 VGJ.Thunder
 Support	0.9	0	0.2	0.5	0.1	0.1	1.8	7.7	0.4	0.5	0	1.4	
 13.5
-Fly
-Evil Geniuses
-Support	0.9	0.6	0.2	0.7	0.3	0	1.9	6.6	0.2	1.1	0.2	0.7	
-13.43
 Fenrir
 Vici Gaming
 Support	0.9	0.8	0.1	0.5	0.1	0.1	1.6	6.5	0.6	0.7	0.2	1.4	
@@ -213,8 +213,8 @@ Support	1.2	1	0.2	0.6	0.6	0.1	1.9	2	0.5	1.2	0.6	2.8
 12.61
 RodjER
 Virtus.pro
-Support	1.1	1.3	0.2	0.6	0.4	0	1.8	2	0.5	1.6	0.3	2.7	
-12.57
+Support	1.1	1.3	0.2	0.6	0.4	0	1.8	1.9	0.5	1.5	0.5	2.7	
+12.35
 Zyd
 Team Serenity
 Core	1.9	1.7	0.7	1	0.9	0.2	1.8	0.2	0.3	1.6	0.2	1.7	
@@ -233,8 +233,8 @@ Core	2.4	1.4	0.7	1	1.7	0.4	1.7	0.3	0.5	1	0.4	0.8
 12.24
 s4
 Evil Geniuses
-Offlane	2.1	1.5	0.6	0.9	1.7	0.5	1.8	0.3	0.4	1.1	0.4	0.8	
-12.2
+Offlane	2.1	1.5	0.6	0.9	1.8	0.4	1.8	0.3	0.5	1.1	0.6	0.7	
+12.23
 Ana
 OG
 Core	2.3	1.3	0.8	1.1	2.1	0.5	1.9	0	0.2	1.1	0.2	0.7	
@@ -251,14 +251,14 @@ Sneyking
 VGJ.Storm
 Offlane	1.6	1.3	0.8	1	1.5	0.4	2	0	0.2	1.5	0.4	1.6	
 12.03
-9Pasha
-Virtus.pro
-Offlane	2	2	0.6	0.9	1.1	0.1	1.7	0.1	0.1	1.3	0.5	1.5	
-12.01
 MinD_ContRoL
 Team Liquid
 Offlane	2.1	1.8	0.6	0.9	1.7	0.5	1.7	0.1	0.4	1.3	0.2	0.7	
 11.94
+9Pasha
+Virtus.pro
+Offlane	2	2	0.6	0.9	1.1	0.1	1.7	0.1	0.1	1.3	0.5	1.6	
+11.89
 Paparazi
 Vici Gaming
 Core	1.8	2.1	0.8	1	1.7	0.4	1.9	0	0.2	1	0.4	0.6	
@@ -275,10 +275,6 @@ MSS
 VGJ.Storm
 Support	1.1	1.3	0.2	0.6	0.2	0	1.8	0.8	0.6	1.7	0.2	2.9	
 11.58
-Cr1t
-Evil Geniuses
-Support	1.2	1.1	0.2	0.6	0.9	0	2	1.5	0.3	1.1	0.2	2.4	
-11.5
 nongrata
 Winstrike
 Offlane	2.1	1.5	0.5	0.8	0.7	0.2	1.9	0.1	0.3	1.4	1	1.2	
@@ -291,6 +287,10 @@ Raven
 TNC Predator
 Core	2	2.1	1	1.1	1.4	0.4	1.8	0	0.4	1	0	0.3	
 11.38
+Cr1t
+Evil Geniuses
+Support	1.1	1.1	0.2	0.6	1	0	2	1.5	0.4	1	0.2	2.2	
+11.27
 iceiceice
 Mineski
 Offlane	1.3	1.3	0.7	0.9	0.7	0.1	1.9	0.1	0.2	1.2	0.9	2	

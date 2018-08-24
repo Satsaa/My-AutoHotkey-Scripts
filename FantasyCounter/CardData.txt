@@ -68,36 +68,6 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435605216"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
         "bonus_value": 10
       },
       {
@@ -118,6 +88,36 @@
       }
     ],
     "item_id": "14373022308"
+  },
+  {
+    "player_account_id": 94155156,
+    "player_name": "Fly",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435605216"
   },
   {
     "player_account_id": 94155156,
@@ -158,36 +158,6 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373055834"
-  },
-  {
-    "player_account_id": 86745912,
-    "player_name": "rtz",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
         "bonus_value": 10
       },
       {
@@ -208,6 +178,36 @@
       }
     ],
     "item_id": "13725930636"
+  },
+  {
+    "player_account_id": 86745912,
+    "player_name": "rtz",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373055834"
   },
   {
     "player_account_id": 41231571,
@@ -277,6 +277,36 @@
     "role": 1,
     "bonuses": [
       {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14643062394"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
         "bonus_stat": 0,
         "bonus_value": 25
       },
@@ -307,57 +337,27 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
         "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
         "bonus_value": 15
-      }
-    ],
-    "item_id": "14435617500"
-  },
-  {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
       },
       {
         "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
+        "bonus_stat": 9,
         "bonus_value": 10
       }
     ],
-    "item_id": "13726007560"
+    "item_id": "14435606784"
   },
   {
     "player_account_id": 111620041,
@@ -398,26 +398,56 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 15
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 7,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 10
       }
     ],
-    "item_id": "14435606784"
+    "item_id": "13726007560"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435617500"
   },
   {
     "player_account_id": 154715080,
@@ -608,6 +638,36 @@
     "bonuses": [
       {
         "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14597719342"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
         "bonus_value": 5
       },
       {
@@ -628,36 +688,6 @@
       }
     ],
     "item_id": "13725764554"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14568659936"
   },
   {
     "player_account_id": 88271237,
@@ -697,57 +727,27 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
         "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435597666"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
         "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
       },
       {
         "bonus_stat": 7,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 9,
         "bonus_value": 20
       },
       {
         "bonus_stat": 10,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
         "bonus_value": 20
       }
     ],
-    "item_id": "14597719342"
+    "item_id": "14568659936"
   },
   {
     "player_account_id": 88271237,
@@ -778,6 +778,36 @@
       }
     ],
     "item_id": "14373018234"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435597666"
   },
   {
     "player_account_id": 26771994,
@@ -1027,27 +1057,27 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
+        "bonus_stat": 0,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
+        "bonus_stat": 7,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 8,
         "bonus_value": 15
       },
       {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
         "bonus_stat": 11,
-        "bonus_value": 5
+        "bonus_value": 15
       }
     ],
-    "item_id": "14638071558"
+    "item_id": "14435608534"
   },
   {
     "player_account_id": 101695162,
@@ -1087,57 +1117,27 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
+        "bonus_stat": 1,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 20
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 8,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
         "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435608534"
-  },
-  {
-    "player_account_id": 106863163,
-    "player_name": "Somnus丶M",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
         "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 25
       }
     ],
-    "item_id": "14435625846"
+    "item_id": "14638071558"
   },
   {
     "player_account_id": 106863163,
@@ -1170,34 +1170,34 @@
     "item_id": "14373048590"
   },
   {
-    "player_account_id": 94296097,
-    "player_name": "xNova",
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
     "team_id": 15,
     "team_name": "PSG.LGD",
-    "role": 2,
+    "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
         "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 20
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 25
       }
     ],
-    "item_id": "13725275242"
+    "item_id": "14435625846"
   },
   {
     "player_account_id": 94296097,
@@ -1237,6 +1237,36 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 7,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435597208"
+  },
+  {
+    "player_account_id": 94296097,
+    "player_name": "xNova",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 1,
         "bonus_value": 10
       },
@@ -1267,117 +1297,27 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435597208"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
+        "bonus_stat": 0,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 3,
+        "bonus_stat": 7,
         "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14624822002"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14642113754"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
         "bonus_value": 20
       }
     ],
-    "item_id": "14435610718"
+    "item_id": "13725275242"
   },
   {
     "player_account_id": 101356886,
@@ -1418,6 +1358,36 @@
     "bonuses": [
       {
         "bonus_stat": 0,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435610718"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
         "bonus_value": 15
       },
       {
@@ -1438,6 +1408,66 @@
       }
     ],
     "item_id": "14373025574"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14642113754"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14624822002"
   },
   {
     "player_account_id": 82262664,
@@ -1537,36 +1567,6 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435600508"
-  },
-  {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
         "bonus_stat": 3,
         "bonus_value": 10
       },
@@ -1588,6 +1588,36 @@
       }
     ],
     "item_id": "14638073058"
+  },
+  {
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435600508"
   },
   {
     "player_account_id": 105248644,
@@ -1657,6 +1687,96 @@
     "role": 1,
     "bonuses": [
       {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435566618"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14597710084"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435608928"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
         "bonus_stat": 2,
         "bonus_value": 10
       },
@@ -1710,96 +1830,6 @@
     "item_id": "14388580648"
   },
   {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435608928"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14597710084"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435566618"
-  },
-  {
     "player_account_id": 86799300,
     "player_name": "Fata",
     "team_id": 1838315,
@@ -1807,27 +1837,27 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 15
+        "bonus_stat": 1,
+        "bonus_value": 10
       },
       {
         "bonus_stat": 3,
-        "bonus_value": 20
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 4,
-        "bonus_value": 20
+        "bonus_stat": 7,
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 5
+        "bonus_stat": 8,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 11,
         "bonus_value": 10
       }
     ],
-    "item_id": "14642113496"
+    "item_id": "14373009944"
   },
   {
     "player_account_id": 86799300,
@@ -1867,36 +1897,6 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373009944"
-  },
-  {
-    "player_account_id": 86799300,
-    "player_name": "Fata",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 3,
-    "bonuses": [
-      {
         "bonus_stat": 3,
         "bonus_value": 15
       },
@@ -1920,94 +1920,34 @@
     "item_id": "14373033402"
   },
   {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
+    "player_account_id": 86799300,
+    "player_name": "Fata",
     "team_id": 1838315,
     "team_name": "Team Secret",
-    "role": 2,
+    "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435604338"
-  },
-  {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435565248"
-  },
-  {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
+        "bonus_stat": 0,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 10,
+        "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
+        "bonus_stat": 4,
         "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14624824748"
+    "item_id": "14642113496"
   },
   {
     "player_account_id": 87278757,
@@ -2047,6 +1987,66 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435565248"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435604338"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 0,
         "bonus_value": 10
       },
@@ -2070,34 +2070,34 @@
     "item_id": "14435619214"
   },
   {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
     "team_id": 1838315,
     "team_name": "Team Secret",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
+        "bonus_stat": 4,
+        "bonus_value": 25
       },
       {
         "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 5
+        "bonus_stat": 10,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 11,
         "bonus_value": 20
       }
     ],
-    "item_id": "14373052758"
+    "item_id": "14624824748"
   },
   {
     "player_account_id": 89117038,
@@ -2137,6 +2137,36 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 0,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373020648"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 3,
         "bonus_value": 10
       },
@@ -2167,27 +2197,27 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 2,
-        "bonus_value": 20
+        "bonus_stat": 4,
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 5,
+        "bonus_stat": 6,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 5
+        "bonus_stat": 7,
+        "bonus_value": 25
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 20
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435568858"
+    "item_id": "14643061698"
   },
   {
     "player_account_id": 89117038,
@@ -2228,36 +2258,6 @@
     "bonuses": [
       {
         "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435606346"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
         "bonus_value": 10
       },
       {
@@ -2288,18 +2288,18 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 7,
+        "bonus_stat": 2,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
         "bonus_value": 5
       },
       {
@@ -2307,7 +2307,67 @@
         "bonus_value": 20
       }
     ],
-    "item_id": "14373020648"
+    "item_id": "14435568858"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373052758"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435606346"
   },
   {
     "player_account_id": 157475523,
@@ -2400,246 +2460,6 @@
     "item_id": "14435568534"
   },
   {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373012170"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435571224"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435607626"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "13725249606"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14342772990"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14597723766"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14597720866"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435607142"
-  },
-  {
     "player_account_id": 106573901,
     "player_name": "No[o]ne-",
     "team_id": 1883502,
@@ -2678,266 +2498,26 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 10
+        "bonus_value": 20
       },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435620676"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373030856"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
         "bonus_value": 20
-      }
-    ],
-    "item_id": "14388583150"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
+      },
       {
         "bonus_stat": 3,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 5,
         "bonus_value": 5
-      }
-    ],
-    "item_id": "14435598872"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
       },
       {
         "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14342769000"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435569230"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14597716832"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
         "bonus_value": 25
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
       }
     ],
-    "item_id": "14435585936"
-  },
-  {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "13726025552"
+    "item_id": "14435607142"
   },
   {
     "player_account_id": 159020918,
@@ -2970,154 +2550,114 @@
     "item_id": "14388581362"
   },
   {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
+        "bonus_stat": 5,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
         "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 15
+        "bonus_stat": 10,
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435618580"
+    "item_id": "14388580096"
   },
   {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 2,
+        "bonus_stat": 9,
         "bonus_value": 5
       },
       {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14373046550"
+  },
+  {
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 5,
         "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 7,
         "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
       }
     ],
-    "item_id": "14435624410"
+    "item_id": "14435598446"
   },
   {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
       {
         "bonus_stat": 5,
         "bonus_value": 15
       },
       {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
         "bonus_stat": 11,
-        "bonus_value": 10
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435583042"
+    "item_id": "13725487698"
   },
   {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
       {
         "bonus_stat": 3,
-        "bonus_value": 10
+        "bonus_value": 15
       },
       {
         "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
         "bonus_value": 5
-      }
-    ],
-    "item_id": "14435585008"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_value": 15
       }
     ],
-    "item_id": "14642114254"
+    "item_id": "14435599778"
   },
   {
     "player_account_id": 25907144,
@@ -3149,7 +2689,29 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 5,
+        "bonus_stat": 4,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435622310"
+  },
+  {
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
         "bonus_value": 10
       },
       {
@@ -3157,11 +2719,55 @@
         "bonus_value": 20
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 5
+        "bonus_stat": 11,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14388580096"
+    "item_id": "14568659942"
+  },
+  {
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373015184"
+  },
+  {
+    "player_account_id": 25907144,
+    "player_name": "Cr1t-",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373035382"
   },
   {
     "player_account_id": 25907144,
@@ -3194,260 +2800,84 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 5
+        "bonus_value": 15
       },
       {
         "bonus_stat": 2,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 10
+        "bonus_stat": 6,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14373035382"
+    "item_id": "14643073622"
   },
   {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
+    "player_account_id": 94155156,
+    "player_name": "Fly",
     "team_id": 39,
     "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 9,
+        "bonus_stat": 4,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 10
+        "bonus_stat": 7,
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 25
+        "bonus_stat": 10,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14373046550"
+    "item_id": "14388581366"
   },
   {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
+    "player_account_id": 94155156,
+    "player_name": "Fly",
     "team_id": 39,
     "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 5
+        "bonus_value": 15
       },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373015184"
-  },
-  {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
       {
         "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435599778"
-  },
-  {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435598446"
-  },
-  {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 6,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14568659942"
-  },
-  {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
         "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
+        "bonus_value": 10
       }
     ],
-    "item_id": "13725487698"
+    "item_id": "14638073716"
   },
   {
-    "player_account_id": 25907144,
-    "player_name": "Cr1t-",
+    "player_account_id": 94155156,
+    "player_name": "Fly",
     "team_id": 39,
     "team_name": "Evil Geniuses",
     "role": 2,
     "bonuses": [
       {
         "bonus_stat": 4,
-        "bonus_value": 25
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 7,
         "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
       }
     ],
-    "item_id": "14435622310"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "13726173690"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "13726059022"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435620246"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373055842"
+    "item_id": "14435583050"
   },
   {
     "player_account_id": 94155156,
@@ -3480,62 +2910,18 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 20
+        "bonus_value": 5
       },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435608140"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
       {
         "bonus_stat": 4,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
         "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14388581366"
-  },
-  {
-    "player_account_id": 94155156,
-    "player_name": "Fly",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
         "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
       }
     ],
-    "item_id": "14435583050"
+    "item_id": "14373055842"
   },
   {
     "player_account_id": 94155156,
@@ -3567,19 +2953,85 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435608140"
+  },
+  {
+    "player_account_id": 94155156,
+    "player_name": "Fly",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435620246"
+  },
+  {
+    "player_account_id": 94155156,
+    "player_name": "Fly",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 0,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 3,
-        "bonus_value": 10
+        "bonus_stat": 2,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 6,
-        "bonus_value": 10
+        "bonus_value": 5
       }
     ],
-    "item_id": "14638073716"
+    "item_id": "14435602554"
+  },
+  {
+    "player_account_id": 94155156,
+    "player_name": "Fly",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "13726059022"
   },
   {
     "player_account_id": 94155156,
@@ -3633,19 +3085,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
+        "bonus_stat": 4,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 6,
-        "bonus_value": 5
+        "bonus_stat": 10,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14435602554"
+    "item_id": "13726173690"
   },
   {
     "player_account_id": 94155156,
@@ -3699,6 +3151,28 @@
     "role": 1,
     "bonuses": [
       {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14643062396"
+  },
+  {
+    "player_account_id": 86745912,
+    "player_name": "rtz",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
         "bonus_stat": 2,
         "bonus_value": 15
       },
@@ -3712,72 +3186,6 @@
       }
     ],
     "item_id": "14373044646"
-  },
-  {
-    "player_account_id": 86745912,
-    "player_name": "rtz",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435587254"
-  },
-  {
-    "player_account_id": 86745912,
-    "player_name": "rtz",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "13726043022"
-  },
-  {
-    "player_account_id": 86745912,
-    "player_name": "rtz",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435618112"
   },
   {
     "player_account_id": 86745912,
@@ -3809,19 +3217,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
+        "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 15
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14642114520"
+    "item_id": "13726043022"
   },
   {
     "player_account_id": 86745912,
@@ -3831,19 +3239,41 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 6,
         "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
       }
     ],
-    "item_id": "14373016758"
+    "item_id": "14373035384"
+  },
+  {
+    "player_account_id": 86745912,
+    "player_name": "rtz",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435618112"
   },
   {
     "player_account_id": 86745912,
@@ -3875,19 +3305,63 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
         "bonus_stat": 8,
-        "bonus_value": 10
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
+        "bonus_stat": 10,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
         "bonus_value": 5
       }
     ],
-    "item_id": "14373035384"
+    "item_id": "14435587254"
+  },
+  {
+    "player_account_id": 86745912,
+    "player_name": "rtz",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373016758"
+  },
+  {
+    "player_account_id": 86745912,
+    "player_name": "rtz",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14642114520"
   },
   {
     "player_account_id": 41231571,
@@ -3910,50 +3384,6 @@
       }
     ],
     "item_id": "14388580094"
-  },
-  {
-    "player_account_id": 41231571,
-    "player_name": "s4",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435603914"
-  },
-  {
-    "player_account_id": 41231571,
-    "player_name": "s4",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373037926"
   },
   {
     "player_account_id": 41231571,
@@ -4007,19 +3437,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
+        "bonus_stat": 3,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 10
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14373054956"
+    "item_id": "14373037926"
   },
   {
     "player_account_id": 41231571,
@@ -4029,19 +3459,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 25
+        "bonus_stat": 4,
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 8,
+        "bonus_stat": 6,
         "bonus_value": 25
       }
     ],
-    "item_id": "14597720874"
+    "item_id": "14435603914"
   },
   {
     "player_account_id": 41231571,
@@ -4088,70 +3518,136 @@
     "item_id": "14435581418"
   },
   {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
+    "player_account_id": 41231571,
+    "player_name": "s4",
     "team_id": 39,
     "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "13725038728"
-  },
-  {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
+    "role": 3,
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 20
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 1,
-        "bonus_value": 20
+        "bonus_stat": 6,
+        "bonus_value": 25
       },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14643061998"
+  },
+  {
+    "player_account_id": 41231571,
+    "player_name": "s4",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 3,
+    "bonuses": [
       {
         "bonus_stat": 3,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435562618"
-  },
-  {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 1,
         "bonus_value": 20
       },
       {
         "bonus_stat": 7,
-        "bonus_value": 15
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 25
       }
     ],
-    "item_id": "14065912570"
+    "item_id": "14597720874"
+  },
+  {
+    "player_account_id": 41231571,
+    "player_name": "s4",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373054956"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14597754666"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14624824750"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 5,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435583990"
   },
   {
     "player_account_id": 111620041,
@@ -4206,6 +3702,28 @@
     "bonuses": [
       {
         "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435562618"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
         "bonus_value": 25
       },
       {
@@ -4227,63 +3745,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 5
+        "bonus_stat": 0,
+        "bonus_value": 10
       },
       {
         "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14624824750"
-  },
-  {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 25
+        "bonus_value": 10
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 5
+        "bonus_value": 10
       }
     ],
-    "item_id": "14597754666"
-  },
-  {
-    "player_account_id": 111620041,
-    "player_name": "SumaiL",
-    "team_id": 39,
-    "team_name": "Evil Geniuses",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435583990"
+    "item_id": "14435568860"
   },
   {
     "player_account_id": 111620041,
@@ -4294,18 +3768,40 @@
     "bonuses": [
       {
         "bonus_stat": 2,
-        "bonus_value": 5
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "13726141934"
+  },
+  {
+    "player_account_id": 111620041,
+    "player_name": "SumaiL",
+    "team_id": 39,
+    "team_name": "Evil Geniuses",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
       },
       {
         "bonus_stat": 5,
-        "bonus_value": 5
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 20
+        "bonus_stat": 9,
+        "bonus_value": 25
       }
     ],
-    "item_id": "14597718164"
+    "item_id": "13725038728"
   },
   {
     "player_account_id": 111620041,
@@ -4338,18 +3834,18 @@
     "bonuses": [
       {
         "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
       }
     ],
-    "item_id": "13726141934"
+    "item_id": "14597718164"
   },
   {
     "player_account_id": 111620041,
@@ -4360,18 +3856,18 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 10
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 4,
-        "bonus_value": 10
+        "bonus_stat": 1,
+        "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 10
+        "bonus_stat": 7,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435568860"
+    "item_id": "14065912570"
   },
   {
     "player_account_id": 87276347,
@@ -4491,50 +3987,6 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "13725852878"
-  },
-  {
-    "player_account_id": 311360822,
-    "player_name": "ana",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14373058724"
-  },
-  {
-    "player_account_id": 311360822,
-    "player_name": "ana",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
         "bonus_stat": 0,
         "bonus_value": 15
       },
@@ -4548,50 +4000,6 @@
       }
     ],
     "item_id": "14435618108"
-  },
-  {
-    "player_account_id": 311360822,
-    "player_name": "ana",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435600160"
-  },
-  {
-    "player_account_id": 311360822,
-    "player_name": "ana",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435624858"
   },
   {
     "player_account_id": 311360822,
@@ -4623,19 +4031,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435581420"
+    "item_id": "14373049742"
   },
   {
     "player_account_id": 311360822,
@@ -4667,85 +4075,107 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373049742"
-  },
-  {
-    "player_account_id": 19672354,
-    "player_name": "BigDaddyN0tail",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14597724982"
-  },
-  {
-    "player_account_id": 19672354,
-    "player_name": "BigDaddyN0tail",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435614186"
-  },
-  {
-    "player_account_id": 19672354,
-    "player_name": "BigDaddyN0tail",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
         "bonus_stat": 0,
         "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14373058724"
+  },
+  {
+    "player_account_id": 311360822,
+    "player_name": "ana",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 6,
         "bonus_value": 15
       },
       {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435581420"
+  },
+  {
+    "player_account_id": 311360822,
+    "player_name": "ana",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435600160"
+  },
+  {
+    "player_account_id": 311360822,
+    "player_name": "ana",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 25
+      },
+      {
         "bonus_stat": 8,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "13725852878"
+  },
+  {
+    "player_account_id": 311360822,
+    "player_name": "ana",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 10
       }
     ],
-    "item_id": "14435566626"
+    "item_id": "14435624858"
   },
   {
     "player_account_id": 19672354,
@@ -4778,6 +4208,28 @@
     "bonuses": [
       {
         "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14597724982"
+  },
+  {
+    "player_account_id": 19672354,
+    "player_name": "BigDaddyN0tail",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
         "bonus_value": 25
       },
       {
@@ -4799,19 +4251,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 2,
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 6,
+        "bonus_stat": 11,
         "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
       }
     ],
-    "item_id": "14435585012"
+    "item_id": "14597722200"
   },
   {
     "player_account_id": 19672354,
@@ -4843,19 +4295,41 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
         "bonus_stat": 6,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 8,
         "bonus_value": 10
       }
     ],
-    "item_id": "14597722200"
+    "item_id": "14435566626"
+  },
+  {
+    "player_account_id": 19672354,
+    "player_name": "BigDaddyN0tail",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435614186"
   },
   {
     "player_account_id": 19672354,
@@ -4902,202 +4376,26 @@
     "item_id": "14125565080"
   },
   {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
+    "player_account_id": 19672354,
+    "player_name": "BigDaddyN0tail",
     "team_id": 2586976,
     "team_name": "OG",
-    "role": 3,
+    "role": 2,
     "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14642114256"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435582470"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435583764"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435606792"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435600936"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
       {
         "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
         "bonus_value": 5
-      }
-    ],
-    "item_id": "14435610246"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
+      },
       {
         "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14388583810"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
+        "bonus_stat": 8,
         "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
       }
     ],
-    "item_id": "14435587928"
-  },
-  {
-    "player_account_id": 88271237,
-    "player_name": "Ceb",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435614704"
+    "item_id": "14435585012"
   },
   {
     "player_account_id": 88271237,
@@ -5151,6 +4449,116 @@
     "role": 3,
     "bonuses": [
       {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435600936"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435614704"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435582470"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435587928"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14435583764"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
         "bonus_stat": 7,
         "bonus_value": 5
       },
@@ -5166,6 +4574,94 @@
     "item_id": "14342772996"
   },
   {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435606792"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14642114256"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14388583810"
+  },
+  {
+    "player_account_id": 88271237,
+    "player_name": "Ceb",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435610246"
+  },
+  {
     "player_account_id": 26771994,
     "player_name": "JerAx",
     "team_id": 2586976,
@@ -5173,19 +4669,63 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 3,
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 1,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 25
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373056740"
+  },
+  {
+    "player_account_id": 26771994,
+    "player_name": "JerAx",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14388580652"
+  },
+  {
+    "player_account_id": 26771994,
+    "player_name": "JerAx",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
         "bonus_value": 15
       }
     ],
-    "item_id": "14435609336"
+    "item_id": "14373047492"
   },
   {
     "player_account_id": 26771994,
@@ -5218,84 +4758,18 @@
     "bonuses": [
       {
         "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 20
       },
       {
         "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14388580652"
-  },
-  {
-    "player_account_id": 26771994,
-    "player_name": "JerAx",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435617508"
-  },
-  {
-    "player_account_id": 26771994,
-    "player_name": "JerAx",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
         "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
       }
     ],
-    "item_id": "14373047492"
-  },
-  {
-    "player_account_id": 26771994,
-    "player_name": "JerAx",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373056740"
+    "item_id": "14373037924"
   },
   {
     "player_account_id": 26771994,
@@ -5327,6 +4801,50 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 5,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435617508"
+  },
+  {
+    "player_account_id": 26771994,
+    "player_name": "JerAx",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435609336"
+  },
+  {
+    "player_account_id": 26771994,
+    "player_name": "JerAx",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 1,
         "bonus_value": 20
       },
@@ -5340,50 +4858,6 @@
       }
     ],
     "item_id": "14435584324"
-  },
-  {
-    "player_account_id": 26771994,
-    "player_name": "JerAx",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373037924"
-  },
-  {
-    "player_account_id": 94054712,
-    "player_name": "Topson",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373054134"
   },
   {
     "player_account_id": 94054712,
@@ -5415,41 +4889,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
         "bonus_value": 15
       },
       {
         "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
+        "bonus_value": 20
       }
     ],
-    "item_id": "14435624412"
-  },
-  {
-    "player_account_id": 94054712,
-    "player_name": "Topson",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14388584454"
+    "item_id": "14342772998"
   },
   {
     "player_account_id": 94054712,
@@ -5481,63 +4933,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
         "bonus_stat": 7,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14642114042"
-  },
-  {
-    "player_account_id": 94054712,
-    "player_name": "Topson",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14342772998"
-  },
-  {
-    "player_account_id": 94054712,
-    "player_name": "Topson",
-    "team_id": 2586976,
-    "team_name": "OG",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
         "bonus_value": 20
       },
       {
         "bonus_stat": 10,
         "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435623826"
+    "item_id": "14388584454"
   },
   {
     "player_account_id": 94054712,
@@ -5547,19 +4955,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 3,
+        "bonus_stat": 0,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 5,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 6,
+        "bonus_stat": 8,
         "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 25
       }
     ],
-    "item_id": "14597716840"
+    "item_id": "14435624412"
   },
   {
     "player_account_id": 94054712,
@@ -5596,6 +5004,72 @@
       },
       {
         "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373054134"
+  },
+  {
+    "player_account_id": 94054712,
+    "player_name": "Topson",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14642114042"
+  },
+  {
+    "player_account_id": 94054712,
+    "player_name": "Topson",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 25
+      }
+    ],
+    "item_id": "14597716840"
+  },
+  {
+    "player_account_id": 94054712,
+    "player_name": "Topson",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 5
       },
       {
@@ -5604,6 +5078,28 @@
       }
     ],
     "item_id": "14373030864"
+  },
+  {
+    "player_account_id": 94054712,
+    "player_name": "Topson",
+    "team_id": 2586976,
+    "team_name": "OG",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435623826"
   },
   {
     "player_account_id": 84853828,
@@ -5657,19 +5153,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 4,
-        "bonus_value": 5
+        "bonus_stat": 5,
+        "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 5
+        "bonus_stat": 6,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 10
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435603510"
+    "item_id": "14435562616"
   },
   {
     "player_account_id": 125581247,
@@ -5679,19 +5175,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
+        "bonus_stat": 10,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14435626912"
+    "item_id": "14435622312"
   },
   {
     "player_account_id": 125581247,
@@ -5723,19 +5219,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 5,
-        "bonus_value": 20
+        "bonus_stat": 4,
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 6,
-        "bonus_value": 15
+        "bonus_stat": 9,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 15
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435562616"
+    "item_id": "14435603510"
   },
   {
     "player_account_id": 125581247,
@@ -5767,19 +5263,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 7,
-        "bonus_value": 15
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
+        "bonus_value": 20
       }
     ],
-    "item_id": "14388580654"
+    "item_id": "14373018240"
   },
   {
     "player_account_id": 125581247,
@@ -5811,28 +5307,6 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373018240"
-  },
-  {
-    "player_account_id": 125581247,
-    "player_name": "Ame",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
         "bonus_stat": 3,
         "bonus_value": 10
       },
@@ -5855,19 +5329,41 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
         "bonus_stat": 7,
         "bonus_value": 15
       },
       {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
         "bonus_stat": 10,
-        "bonus_value": 20
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435622312"
+    "item_id": "14388580654"
+  },
+  {
+    "player_account_id": 125581247,
+    "player_name": "Ame",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435626912"
   },
   {
     "player_account_id": 94738847,
@@ -5899,19 +5395,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
+        "bonus_stat": 2,
         "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14373016028"
+    "item_id": "14568661420"
   },
   {
     "player_account_id": 94738847,
@@ -5922,40 +5418,18 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435612454"
-  },
-  {
-    "player_account_id": 94738847,
-    "player_name": "Chalice",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
+        "bonus_value": 25
       },
       {
         "bonus_stat": 8,
-        "bonus_value": 20
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_stat": 11,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14342771096"
+    "item_id": "14624823628"
   },
   {
     "player_account_id": 94738847,
@@ -5988,18 +5462,40 @@
     "bonuses": [
       {
         "bonus_stat": 1,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 8,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 11,
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 15
       }
     ],
-    "item_id": "14624823628"
+    "item_id": "14373034390"
+  },
+  {
+    "player_account_id": 94738847,
+    "player_name": "Chalice",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14342771096"
   },
   {
     "player_account_id": 94738847,
@@ -6031,11 +5527,55 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
+        "bonus_stat": 1,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435612454"
+  },
+  {
+    "player_account_id": 94738847,
+    "player_name": "Chalice",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373016028"
+  },
+  {
+    "player_account_id": 94738847,
+    "player_name": "Chalice",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 2,
         "bonus_value": 5
       },
       {
@@ -6043,7 +5583,7 @@
         "bonus_value": 20
       }
     ],
-    "item_id": "14568661420"
+    "item_id": "14643061706"
   },
   {
     "player_account_id": 94738847,
@@ -6068,26 +5608,26 @@
     "item_id": "14642114518"
   },
   {
-    "player_account_id": 94738847,
-    "player_name": "Chalice",
+    "player_account_id": 101695162,
+    "player_name": "fy",
     "team_id": 15,
     "team_name": "PSG.LGD",
-    "role": 3,
+    "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
+        "bonus_stat": 2,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 15
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 25
       }
     ],
-    "item_id": "14373034390"
+    "item_id": "14435582192"
   },
   {
     "player_account_id": 101695162,
@@ -6097,19 +5637,129 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 4,
-        "bonus_value": 10
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435619216"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 6,
         "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
       }
     ],
-    "item_id": "14342767200"
+    "item_id": "14388583152"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "13726075534"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373030124"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14597715502"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373016762"
   },
   {
     "player_account_id": 101695162,
@@ -6132,50 +5782,6 @@
       }
     ],
     "item_id": "14435608540"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14597724978"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435582192"
   },
   {
     "player_account_id": 101695162,
@@ -6229,41 +5835,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
+        "bonus_stat": 0,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
+        "bonus_stat": 2,
         "bonus_value": 15
-      }
-    ],
-    "item_id": "14435619216"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
       },
       {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_stat": 7,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14597715502"
+    "item_id": "14435616834"
   },
   {
     "player_account_id": 101695162,
@@ -6274,18 +5858,40 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 3,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 20
+        "bonus_stat": 2,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
       }
     ],
-    "item_id": "13726075534"
+    "item_id": "14597724978"
+  },
+  {
+    "player_account_id": 101695162,
+    "player_name": "fy",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14342767200"
   },
   {
     "player_account_id": 101695162,
@@ -6310,92 +5916,26 @@
     "item_id": "14435617502"
   },
   {
-    "player_account_id": 101695162,
-    "player_name": "fy",
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
     "team_id": 15,
     "team_name": "PSG.LGD",
-    "role": 2,
+    "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 4,
         "bonus_value": 20
-      }
-    ],
-    "item_id": "14373016762"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14388583152"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
       },
       {
         "bonus_stat": 7,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435616834"
-  },
-  {
-    "player_account_id": 101695162,
-    "player_name": "fy",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
         "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14373030124"
+    "item_id": "14125564614"
   },
   {
     "player_account_id": 106863163,
@@ -6405,41 +5945,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
         "bonus_stat": 2,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435570486"
-  },
-  {
-    "player_account_id": 106863163,
-    "player_name": "Somnus丶M",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
+        "bonus_stat": 6,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 10
+        "bonus_stat": 7,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14388582072"
+    "item_id": "14435564804"
   },
   {
     "player_account_id": 106863163,
@@ -6462,72 +5980,6 @@
       }
     ],
     "item_id": "13725991026"
-  },
-  {
-    "player_account_id": 106863163,
-    "player_name": "Somnus丶M",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435587252"
-  },
-  {
-    "player_account_id": 106863163,
-    "player_name": "Somnus丶M",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435603916"
-  },
-  {
-    "player_account_id": 106863163,
-    "player_name": "Somnus丶M",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373032398"
   },
   {
     "player_account_id": 106863163,
@@ -6582,18 +6034,18 @@
     "bonuses": [
       {
         "bonus_stat": 2,
-        "bonus_value": 5
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 5
+        "bonus_stat": 3,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 20
+        "bonus_stat": 11,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14373011302"
+    "item_id": "14435603916"
   },
   {
     "player_account_id": 106863163,
@@ -6603,19 +6055,63 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 4,
-        "bonus_value": 20
+        "bonus_stat": 0,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 15
+        "bonus_stat": 1,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 20
+        "bonus_value": 10
       }
     ],
-    "item_id": "14125564614"
+    "item_id": "14435585944"
+  },
+  {
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14643073618"
+  },
+  {
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14388582072"
   },
   {
     "player_account_id": 106863163,
@@ -6651,15 +6147,15 @@
         "bonus_value": 10
       },
       {
-        "bonus_stat": 1,
-        "bonus_value": 5
+        "bonus_stat": 2,
+        "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_stat": 10,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435585944"
+    "item_id": "14435570486"
   },
   {
     "player_account_id": 106863163,
@@ -6670,18 +6166,84 @@
     "bonuses": [
       {
         "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 20
+      }
+    ],
+    "item_id": "14373011302"
+  },
+  {
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435587252"
+  },
+  {
+    "player_account_id": 106863163,
+    "player_name": "Somnus丶M",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373032398"
+  },
+  {
+    "player_account_id": 94296097,
+    "player_name": "xNova",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 6,
-        "bonus_value": 20
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 7,
+        "bonus_stat": 9,
         "bonus_value": 15
       }
     ],
-    "item_id": "14435564804"
+    "item_id": "14435583048"
   },
   {
     "player_account_id": 94296097,
@@ -6757,28 +6319,6 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373040816"
-  },
-  {
-    "player_account_id": 94296097,
-    "player_name": "xNova",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
-    "role": 2,
-    "bonuses": [
-      {
         "bonus_stat": 9,
         "bonus_value": 15
       },
@@ -6792,6 +6332,28 @@
       }
     ],
     "item_id": "14597715500"
+  },
+  {
+    "player_account_id": 94296097,
+    "player_name": "xNova",
+    "team_id": 15,
+    "team_name": "PSG.LGD",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373040816"
   },
   {
     "player_account_id": 94296097,
@@ -6816,26 +6378,26 @@
     "item_id": "14597718158"
   },
   {
-    "player_account_id": 94296097,
-    "player_name": "xNova",
-    "team_id": 15,
-    "team_name": "PSG.LGD",
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
+        "bonus_stat": 0,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
         "bonus_value": 15
       }
     ],
-    "item_id": "14435583048"
+    "item_id": "14435622308"
   },
   {
     "player_account_id": 101356886,
@@ -6858,50 +6420,6 @@
       }
     ],
     "item_id": "14373042742"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373052764"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14638070816"
   },
   {
     "player_account_id": 101356886,
@@ -6934,18 +6452,18 @@
     "bonuses": [
       {
         "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 8,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
+        "bonus_stat": 9,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435603508"
+    "item_id": "14435568540"
   },
   {
     "player_account_id": 101356886,
@@ -6977,63 +6495,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435582792"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435615240"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
+        "bonus_stat": 4,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 5
+        "bonus_stat": 5,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435586912"
+    "item_id": "14435626914"
   },
   {
     "player_account_id": 101356886,
@@ -7069,6 +6543,50 @@
         "bonus_value": 10
       },
       {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14597722196"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435586912"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
         "bonus_stat": 5,
         "bonus_value": 15
       },
@@ -7078,50 +6596,6 @@
       }
     ],
     "item_id": "14388583812"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435626914"
-  },
-  {
-    "player_account_id": 101356886,
-    "player_name": "Gh",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373022316"
   },
   {
     "player_account_id": 101356886,
@@ -7176,18 +6650,40 @@
     "bonuses": [
       {
         "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
         "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
       }
     ],
-    "item_id": "14435622308"
+    "item_id": "14435603508"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14638070816"
   },
   {
     "player_account_id": 101356886,
@@ -7220,18 +6716,18 @@
     "bonuses": [
       {
         "bonus_stat": 1,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 10
       },
       {
         "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
         "bonus_value": 10
       }
     ],
-    "item_id": "14597722196"
+    "item_id": "14435615240"
   },
   {
     "player_account_id": 101356886,
@@ -7241,41 +6737,63 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
+        "bonus_stat": 2,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 20
+        "bonus_stat": 3,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435568540"
+    "item_id": "14373052764"
   },
   {
-    "player_account_id": 82262664,
-    "player_name": "KuroKy",
+    "player_account_id": 101356886,
+    "player_name": "Gh",
     "team_id": 2163,
     "team_name": "Team Liquid",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
+        "bonus_stat": 3,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
         "bonus_value": 25
+      }
+    ],
+    "item_id": "14435582792"
+  },
+  {
+    "player_account_id": 101356886,
+    "player_name": "Gh",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
       },
       {
         "bonus_stat": 5,
-        "bonus_value": 20
+        "bonus_value": 25
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 20
+        "bonus_value": 5
       }
     ],
-    "item_id": "13725975134"
+    "item_id": "14373022316"
   },
   {
     "player_account_id": 82262664,
@@ -7388,6 +6906,50 @@
     "item_id": "14435586236"
   },
   {
+    "player_account_id": 82262664,
+    "player_name": "KuroKy",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14643073616"
+  },
+  {
+    "player_account_id": 82262664,
+    "player_name": "KuroKy",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "13725975134"
+  },
+  {
     "player_account_id": 72312627,
     "player_name": "MATUMBAMAN",
     "team_id": 2163,
@@ -7408,6 +6970,28 @@
       }
     ],
     "item_id": "13726190150"
+  },
+  {
+    "player_account_id": 72312627,
+    "player_name": "MATUMBAMAN",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373058156"
   },
   {
     "player_account_id": 72312627,
@@ -7440,62 +7024,18 @@
     "bonuses": [
       {
         "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435568536"
-  },
-  {
-    "player_account_id": 72312627,
-    "player_name": "MATUMBAMAN",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
+        "bonus_stat": 8,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 15
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435586242"
-  },
-  {
-    "player_account_id": 72312627,
-    "player_name": "MATUMBAMAN",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373058156"
+    "item_id": "14435566238"
   },
   {
     "player_account_id": 72312627,
@@ -7527,19 +7067,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 2,
+        "bonus_stat": 4,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 15
+        "bonus_stat": 7,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 5
+        "bonus_stat": 9,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435566238"
+    "item_id": "14435623198"
   },
   {
     "player_account_id": 72312627,
@@ -7593,19 +7133,41 @@
     "role": 1,
     "bonuses": [
       {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
         "bonus_stat": 4,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435568536"
+  },
+  {
+    "player_account_id": 72312627,
+    "player_name": "MATUMBAMAN",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
         "bonus_value": 20
       },
       {
         "bonus_stat": 7,
-        "bonus_value": 10
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_stat": 11,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435623198"
+    "item_id": "14435586242"
   },
   {
     "player_account_id": 72312627,
@@ -7637,72 +7199,6 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373055838"
-  },
-  {
-    "player_account_id": 34505203,
-    "player_name": "MinD_ContRoL",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14499168504"
-  },
-  {
-    "player_account_id": 34505203,
-    "player_name": "MinD_ContRoL",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373018236"
-  },
-  {
-    "player_account_id": 34505203,
-    "player_name": "MinD_ContRoL",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 3,
-    "bonuses": [
-      {
         "bonus_stat": 5,
         "bonus_value": 15
       },
@@ -7725,41 +7221,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
+        "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 5
       }
     ],
-    "item_id": "14435616336"
-  },
-  {
-    "player_account_id": 34505203,
-    "player_name": "MinD_ContRoL",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "14435585368"
+    "item_id": "14373055838"
   },
   {
     "player_account_id": 34505203,
@@ -7791,6 +7265,72 @@
     "role": 3,
     "bonuses": [
       {
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 6,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "13726059020"
+  },
+  {
+    "player_account_id": 34505203,
+    "player_name": "MinD_ContRoL",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14643061994"
+  },
+  {
+    "player_account_id": 34505203,
+    "player_name": "MinD_ContRoL",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14373018236"
+  },
+  {
+    "player_account_id": 34505203,
+    "player_name": "MinD_ContRoL",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 3,
+    "bonuses": [
+      {
         "bonus_stat": 1,
         "bonus_value": 10
       },
@@ -7813,107 +7353,63 @@
     "role": 3,
     "bonuses": [
       {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14435616336"
+  },
+  {
+    "player_account_id": 34505203,
+    "player_name": "MinD_ContRoL",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 3,
+    "bonuses": [
+      {
         "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "13726059020"
-  },
-  {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373044644"
-  },
-  {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
         "bonus_value": 5
       },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14125563894"
-  },
-  {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
       {
         "bonus_stat": 3,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
+        "bonus_stat": 4,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14435610724"
+    "item_id": "14499168504"
   },
   {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
+    "player_account_id": 34505203,
+    "player_name": "MinD_ContRoL",
     "team_id": 2163,
     "team_name": "Team Liquid",
-    "role": 1,
+    "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
+        "bonus_stat": 4,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 5,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 5
+        "bonus_stat": 9,
+        "bonus_value": 25
       }
     ],
-    "item_id": "14388582068"
+    "item_id": "14435585368"
   },
   {
     "player_account_id": 105248644,
@@ -7945,28 +7441,6 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 6,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373037062"
-  },
-  {
-    "player_account_id": 105248644,
-    "player_name": "Miracle-",
-    "team_id": 2163,
-    "team_name": "Team Liquid",
-    "role": 1,
-    "bonuses": [
-      {
         "bonus_stat": 1,
         "bonus_value": 20
       },
@@ -7980,6 +7454,50 @@
       }
     ],
     "item_id": "14642112488"
+  },
+  {
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435610724"
+  },
+  {
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14373044644"
   },
   {
     "player_account_id": 105248644,
@@ -8012,6 +7530,50 @@
     "bonuses": [
       {
         "bonus_stat": 2,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14125563894"
+  },
+  {
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373037062"
+  },
+  {
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
         "bonus_value": 5
       },
       {
@@ -8026,26 +7588,26 @@
     "item_id": "14342764308"
   },
   {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
+    "player_account_id": 105248644,
+    "player_name": "Miracle-",
+    "team_id": 2163,
+    "team_name": "Team Liquid",
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 20
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435571228"
+    "item_id": "14388582068"
   },
   {
     "player_account_id": 97590558,
@@ -8077,85 +7639,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
         "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 9,
         "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435601820"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435582194"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435604706"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
       },
       {
         "bonus_stat": 10,
-        "bonus_value": 25
+        "bonus_value": 5
       }
     ],
-    "item_id": "14373058730"
+    "item_id": "14435617504"
   },
   {
     "player_account_id": 97590558,
@@ -8209,19 +7705,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
+        "bonus_stat": 3,
         "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14342767202"
+    "item_id": "14435571228"
   },
   {
     "player_account_id": 97590558,
@@ -8231,19 +7727,107 @@
     "role": 1,
     "bonuses": [
       {
+        "bonus_stat": 3,
+        "bonus_value": 15
+      },
+      {
         "bonus_stat": 8,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
         "bonus_value": 20
+      }
+    ],
+    "item_id": "14435601820"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435608542"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 9,
         "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
       }
     ],
-    "item_id": "14435617504"
+    "item_id": "14568662650"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435604706"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435582194"
   },
   {
     "player_account_id": 97590558,
@@ -8276,28 +7860,6 @@
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435608542"
-  },
-  {
-    "player_account_id": 97590558,
-    "player_name": "Ace",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
         "bonus_value": 20
       },
       {
@@ -8310,6 +7872,28 @@
       }
     ],
     "item_id": "14373048594"
+  },
+  {
+    "player_account_id": 97590558,
+    "player_name": "Ace",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14342767202"
   },
   {
     "player_account_id": 97590558,
@@ -8341,19 +7925,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
+        "bonus_stat": 5,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 25
       }
     ],
-    "item_id": "14568662650"
+    "item_id": "14373058730"
   },
   {
     "player_account_id": 86799300,
@@ -8363,41 +7947,41 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435618110"
-  },
-  {
-    "player_account_id": 86799300,
-    "player_name": "Fata",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
+        "bonus_stat": 2,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 1,
-        "bonus_value": 5
+        "bonus_stat": 4,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 11,
         "bonus_value": 20
       }
     ],
-    "item_id": "14435616832"
+    "item_id": "14435582798"
+  },
+  {
+    "player_account_id": 86799300,
+    "player_name": "Fata",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 3,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14435584320"
   },
   {
     "player_account_id": 86799300,
@@ -8451,19 +8035,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 2,
-        "bonus_value": 15
+        "bonus_stat": 5,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 4,
-        "bonus_value": 20
+        "bonus_stat": 8,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 11,
-        "bonus_value": 20
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435582798"
+    "item_id": "14435618110"
   },
   {
     "player_account_id": 86799300,
@@ -8517,19 +8101,19 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 1,
+        "bonus_stat": 0,
         "bonus_value": 15
       },
       {
-        "bonus_stat": 8,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 10,
+        "bonus_stat": 11,
         "bonus_value": 20
       }
     ],
-    "item_id": "14435584320"
+    "item_id": "14435616832"
   },
   {
     "player_account_id": 86799300,
@@ -8561,19 +8145,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
+        "bonus_stat": 3,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 4,
         "bonus_value": 15
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 20
       }
     ],
-    "item_id": "14342761618"
+    "item_id": "14624822584"
   },
   {
     "player_account_id": 116585378,
@@ -8587,15 +8171,37 @@
         "bonus_value": 10
       },
       {
-        "bonus_stat": 4,
+        "bonus_stat": 8,
         "bonus_value": 15
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_value": 15
       }
     ],
-    "item_id": "14435564342"
+    "item_id": "14373032396"
+  },
+  {
+    "player_account_id": 116585378,
+    "player_name": "MidOne",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 1,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14342761618"
   },
   {
     "player_account_id": 116585378,
@@ -8649,19 +8255,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 15
+        "bonus_stat": 0,
+        "bonus_value": 20
       },
       {
-        "bonus_stat": 5,
-        "bonus_value": 15
+        "bonus_stat": 6,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 8,
-        "bonus_value": 10
+        "bonus_value": 20
       }
     ],
-    "item_id": "14373039368"
+    "item_id": "13725909078"
   },
   {
     "player_account_id": 116585378,
@@ -8675,15 +8281,15 @@
         "bonus_value": 10
       },
       {
-        "bonus_stat": 8,
+        "bonus_stat": 4,
         "bonus_value": 15
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_value": 10
       }
     ],
-    "item_id": "14373032396"
+    "item_id": "14435564342"
   },
   {
     "player_account_id": 116585378,
@@ -8706,28 +8312,6 @@
       }
     ],
     "item_id": "14435568014"
-  },
-  {
-    "player_account_id": 116585378,
-    "player_name": "MidOne",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14624822584"
   },
   {
     "player_account_id": 116585378,
@@ -8781,19 +8365,19 @@
     "role": 1,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 20
+        "bonus_stat": 3,
+        "bonus_value": 15
       },
       {
-        "bonus_stat": 6,
-        "bonus_value": 5
+        "bonus_stat": 5,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 8,
-        "bonus_value": 20
+        "bonus_value": 10
       }
     ],
-    "item_id": "13725909078"
+    "item_id": "14373039368"
   },
   {
     "player_account_id": 116585378,
@@ -8825,19 +8409,107 @@
     "role": 2,
     "bonuses": [
       {
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14373016026"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
         "bonus_stat": 0,
         "bonus_value": 20
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14373021564"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 6,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373058154"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14499167524"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 4,
+        "bonus_value": 15
       },
       {
         "bonus_stat": 7,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 10,
+        "bonus_stat": 9,
         "bonus_value": 10
       }
     ],
-    "item_id": "14435607144"
+    "item_id": "14435603918"
   },
   {
     "player_account_id": 87278757,
@@ -8869,19 +8541,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
+        "bonus_stat": 0,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 3,
+        "bonus_stat": 7,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 11,
-        "bonus_value": 5
+        "bonus_stat": 9,
+        "bonus_value": 15
       }
     ],
-    "item_id": "14373016026"
+    "item_id": "14435569232"
   },
   {
     "player_account_id": 87278757,
@@ -8904,6 +8576,50 @@
       }
     ],
     "item_id": "14568662070"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
+      }
+    ],
+    "item_id": "14435607144"
+  },
+  {
+    "player_account_id": 87278757,
+    "player_name": "Puppey",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 1,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 4,
+        "bonus_value": 5
+      },
+      {
+        "bonus_stat": 11,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14643061996"
   },
   {
     "player_account_id": 87278757,
@@ -8972,114 +8688,180 @@
     "item_id": "14435625366"
   },
   {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
     "team_id": 1838315,
     "team_name": "Team Secret",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 4,
-        "bonus_value": 15
+        "bonus_stat": 3,
+        "bonus_value": 5
       },
       {
         "bonus_stat": 7,
         "bonus_value": 20
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 10
+        "bonus_stat": 8,
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435603918"
+    "item_id": "14342767196"
   },
   {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373058154"
-  },
-  {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
     "team_id": 1838315,
     "team_name": "Team Secret",
     "role": 2,
     "bonuses": [
       {
         "bonus_stat": 0,
-        "bonus_value": 20
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 7,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_stat": 6,
+        "bonus_value": 5
       }
     ],
-    "item_id": "14435569232"
+    "item_id": "14624824140"
   },
   {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
     "team_id": 1838315,
     "team_name": "Team Secret",
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 1,
-        "bonus_value": 10
+        "bonus_stat": 0,
+        "bonus_value": 5
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 15
+        "bonus_stat": 1,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 3,
+        "bonus_value": 5
+      }
+    ],
+    "item_id": "14373054954"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 5,
+        "bonus_value": 20
       },
       {
         "bonus_stat": 10,
-        "bonus_value": 20
+        "bonus_value": 5
       }
     ],
-    "item_id": "14499167524"
+    "item_id": "14388579424"
   },
   {
-    "player_account_id": 87278757,
-    "player_name": "Puppey",
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
     "team_id": 1838315,
     "team_name": "Team Secret",
     "role": 2,
     "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
       {
         "bonus_stat": 2,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 5,
+        "bonus_stat": 6,
         "bonus_value": 5
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14373021564"
+    "item_id": "13725930642"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 10,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14373039364"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 0,
+        "bonus_value": 25
+      },
+      {
+        "bonus_stat": 2,
+        "bonus_value": 10
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 20
+      }
+    ],
+    "item_id": "14597714274"
+  },
+  {
+    "player_account_id": 89117038,
+    "player_name": "YapzOr",
+    "team_id": 1838315,
+    "team_name": "Team Secret",
+    "role": 2,
+    "bonuses": [
+      {
+        "bonus_stat": 3,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 8,
+        "bonus_value": 15
+      },
+      {
+        "bonus_stat": 9,
+        "bonus_value": 15
+      }
+    ],
+    "item_id": "14435619222"
   },
   {
     "player_account_id": 89117038,
@@ -9155,195 +8937,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373054954"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14624824140"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
         "bonus_stat": 8,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435583988"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14342767196"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 2,
         "bonus_value": 10
       },
       {
         "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14597714274"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373039364"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
         "bonus_value": 5
       },
       {
-        "bonus_stat": 6,
+        "bonus_stat": 11,
         "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
       }
     ],
-    "item_id": "13725930642"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14638072300"
-  },
-  {
-    "player_account_id": 89117038,
-    "player_name": "YapzOr",
-    "team_id": 1838315,
-    "team_name": "Team Secret",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435619222"
+    "item_id": "14435621754"
   },
   {
     "player_account_id": 89117038,
@@ -9375,19 +8981,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 8,
+        "bonus_stat": 2,
+        "bonus_value": 20
+      },
+      {
+        "bonus_stat": 7,
         "bonus_value": 10
       },
       {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
+        "bonus_stat": 8,
         "bonus_value": 5
       }
     ],
-    "item_id": "14435621754"
+    "item_id": "14435583988"
   },
   {
     "player_account_id": 89117038,
@@ -9397,19 +9003,19 @@
     "role": 2,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 20
+        "bonus_stat": 1,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 5,
-        "bonus_value": 20
+        "bonus_stat": 7,
+        "bonus_value": 10
       },
       {
-        "bonus_stat": 10,
-        "bonus_value": 5
+        "bonus_stat": 8,
+        "bonus_value": 10
       }
     ],
-    "item_id": "14388579424"
+    "item_id": "14638072300"
   },
   {
     "player_account_id": 47434686,
@@ -9441,116 +9047,6 @@
     "role": 3,
     "bonuses": [
       {
-        "bonus_stat": 3,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435617506"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435601814"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373038500"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373030858"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14597715498"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
         "bonus_stat": 1,
         "bonus_value": 20
       },
@@ -9564,578 +9060,6 @@
       }
     ],
     "item_id": "14435600940"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435601816"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14342776068"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14499169372"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14638070818"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373040138"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373042744"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435587524"
-  },
-  {
-    "player_account_id": 92423451,
-    "player_name": "9pasha",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 3,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435621748"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14597711182"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14342769002"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "13725975132"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373052760"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14342776066"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435609804"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435620248"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14638071560"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435622812"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435594696"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435597670"
-  },
-  {
-    "player_account_id": 106573901,
-    "player_name": "No[o]ne-",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14642122690"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 25
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14342764306"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14373022312"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14638070822"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373023310"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14597723774"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435598106"
   },
   {
     "player_account_id": 132851371,
@@ -10160,292 +9084,6 @@
     "item_id": "13727082790"
   },
   {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435568008"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14373009950"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 0,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14373034392"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373045202"
-  },
-  {
-    "player_account_id": 132851371,
-    "player_name": "RAMZES666",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 1,
-    "bonuses": [
-      {
-        "bonus_stat": 1,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435607630"
-  },
-  {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 7,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435620678"
-  },
-  {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373036254"
-  },
-  {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 9,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435588696"
-  },
-  {
-    "player_account_id": 159020918,
-    "player_name": "RodjER",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 7,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 8,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14435606786"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 3,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14373010760"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 15
-      }
-    ],
-    "item_id": "14435614188"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 6,
-        "bonus_value": 25
-      }
-    ],
-    "item_id": "13727234572"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 5,
-        "bonus_value": 15
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 5
-      }
-    ],
-    "item_id": "14435618582"
-  },
-  {
     "player_account_id": 134556694,
     "player_name": "Solo",
     "team_id": 1883502,
@@ -10466,71 +9104,5 @@
       }
     ],
     "item_id": "14435612456"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 5,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 20
-      }
-    ],
-    "item_id": "14568662652"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 2,
-        "bonus_value": 5
-      },
-      {
-        "bonus_stat": 9,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 11,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14435582796"
-  },
-  {
-    "player_account_id": 134556694,
-    "player_name": "Solo",
-    "team_id": 1883502,
-    "team_name": "Virtus.pro",
-    "role": 2,
-    "bonuses": [
-      {
-        "bonus_stat": 3,
-        "bonus_value": 10
-      },
-      {
-        "bonus_stat": 4,
-        "bonus_value": 20
-      },
-      {
-        "bonus_stat": 10,
-        "bonus_value": 10
-      }
-    ],
-    "item_id": "14642122692"
   }
 ]
