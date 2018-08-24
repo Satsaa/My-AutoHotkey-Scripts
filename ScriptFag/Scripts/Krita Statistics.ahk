@@ -71,7 +71,7 @@ If (KS_Enable=1){
 			%KS_FileName%DrawTimeSec:=%KS_FileName%DrawTime/TPS
 			WriteIni("Krita","Surveillance.ini", KS_FileName "OpenTimeSec", KS_FileName "DrawTimeSec")
 		}
-		If InStr(ActiveTitle, "Krita", 1){
+		If InStr(ActiveTitle, "- Krita", 1){
 				WinGet, KS_Exe, ProcessName, A
 				If (KS_Exe="krita.exe"){
 					If Instr(ActiveTitle, "["){
