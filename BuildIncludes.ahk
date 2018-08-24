@@ -14,10 +14,11 @@ FileDelete,% "ScriptFag\Include.ahk"
 FileDelete,% "YoutubeDL\Include.ahk"
 FileDelete,% "Diarium\Include.ahk"
 FileDelete,% "FantasyCounter\Include.ahk"
+FileDelete,% "LaunchPad\Include.ahk"
 
 
 
-While (FileExist("Diarium\Include.ahk") or  FileExist("ScriptFag\Include.ahk") or  FileExist("YoutubeDL\Include.ahk") or  FileExist("Boxy\Include.ahk")){
+While (FileExist("Diarium\Include.ahk") or  FileExist("ScriptFag\Include.ahk") or  FileExist("YoutubeDL\Include.ahk") or FileExist("Boxy\Include.ahk") or FileExist("LaunchPad\Include.ahk")){
     sleep, 100
     If (A_Index>50){
         MsgBox, Couldnt delete existing Include.ahk files in time. Maybe you have a script open that has one of them open?
@@ -63,4 +64,11 @@ FantasyCounterInclude=
 )
 FileAppend, %FantasyCounterInclude%, FantasyCounter\Include.ahk
 
-MsgBox, Include paths should have now been updated to %root%\Lib\*.*
+LaunchPadInclude=
+(
+#Include %Root%\Lib\Functions.ahk
+#Include %Root%\Lib\TrayMenu.ahk
+)
+FileAppend, %LaunchPadInclude%, LaunchPad\Include.ahk
+
+MsgBox, Include paths should have been updated to %root%\Lib\*.*
