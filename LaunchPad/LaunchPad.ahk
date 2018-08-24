@@ -20,10 +20,10 @@ GuiHeight := 480
 GuiWidth := 90
 TaskBarHeight := 40
 ResDir := DirAscend(A_ScriptDir) "\Res"
-GuiTitle := RegExReplace(A_ScriptName, ".ahk")
+GuiTitle := " "
 MouseGetPos, MouseX, MouseY
 
-Menu, Tray, Icon, %ResDir%\forsenLaunch.ico
+Menu, Tray, Icon, %ResDir%\forsenLauncher.ico
 
 Gui, Add, Picture, w64 gLaunchScriptFag, %ResDir%\forsenE.ico
 Gui, Add, Text, wp center, ScriptFag
@@ -33,10 +33,19 @@ Gui, Add, Picture, w64 gLaunchFantasyCounter, %ResDir%\forsenCard.ico
 Gui, Add, Text, wp center, Fantasy
 Gui, Add, Picture, w64 gLaunchYoutubeDL, %ResDir%\forsenDL.ico
 Gui, Add, Text, wp center, YoutubeDL
-Gui, Add, Picture, w64 gReload, %ResDir%\forsenLaunch.ico
+Gui, Add, Picture, w64 gReload, %ResDir%\forsenLauncher.ico
 Gui, Add, Text, wp center, This
 
+Gui, -MaximizeBox -MinimizeBox -Caption +ToolWindow +LastFound
+
+WinGet, GuiID, ID
 Gui, Show,% "x" ((MouseX+GuiWidth<VirtualWidth)?((MouseX-(GuiWidth/2)<1)?(0):(MouseX-(GuiWidth/2))):(VirtualWidth-GuiWidth)) " y" ((MouseY+GuiHeight+TaskBarHeight<VirtualHeight)?((MouseY-150<1)?(0):(MouseY-150)):(VirtualHeight-GuiHeight-TaskBarHeight)) , %GuiTitle%
+SetTimer, Tick, 50
+Return
+
+Tick:
+ifWinNotActive ahk_id %GuiID%
+	ExitApp
 Return
 
 GuiClose:
