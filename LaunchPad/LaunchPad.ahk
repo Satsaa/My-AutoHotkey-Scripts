@@ -58,7 +58,7 @@ ExitApp
 Return
 
 LaunchBoxy:
-Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\Boxy\Boxy.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\ScriptFag\
+Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\Boxy\Boxy.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\Boxy\
 ExitApp
 Return
 
