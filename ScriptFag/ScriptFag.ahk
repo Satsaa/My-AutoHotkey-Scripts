@@ -46,11 +46,7 @@ CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
 CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
 CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
 CustomKey10 := "F22", CustomKey11 := "F23", CustomKey12 := "F24",
-;Unimpletemented ban system
-DefaultBanList :="Spam_Ping_Map,Annihilate"
-DotaBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
-WitcherBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
-PubgBanList :="Pin_Unpin_Chrome,Flickr_Sizes,Increase_Page,Increase_Page_Inverse,Spam_Ping_Map,Drag_and_Drop_Image,Yandex_Image_Search,VS_Code_Find_Label,Annihilate"
+LaunchHidden=%1%  ;If first param is present the gui wont show on launch
 TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
@@ -199,7 +195,12 @@ Gosub SB_Title
 OnExit("SaveIni")
 OnMessage(0x200,"WM_MOUSEMOVE")
 OnMessage(0x2A2,"WM_NCMOUSELEAVE")
-Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+If (LaunchHidden){  ;First launch parameter
+	TM_CustomShow:="CustomShow"
+	Gui, Show, Hide
+} else {
+	Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+}
 DebugAffix("Finished Load")
 SetTimer, TickPerSec, 1000
 SetTimer, DoTick,% 1000/TPS
@@ -807,6 +808,10 @@ Return
 
 GuiClose:
 ExitApp
+Return
+CustomShow:
+Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+CustomShow=
 Return
 ButtonHide:
 Gui, Show, Hide
