@@ -217,6 +217,19 @@ Paste(data){
 }
 
 ;#####################################################################################
+;Save or restore clipboard contents
+
+Clipboard(c=1){  ;1 to save. Otherwise restore.
+	static
+	If (c=1){
+		s:=ClipboardAll
+		Clipboard=
+	} else {
+		Clipboard:=s
+	}
+}
+
+;#####################################################################################
 ;Returns time in Y years, D days, MM:HH:SS
 
 FormatSeconds(TimeSec){
