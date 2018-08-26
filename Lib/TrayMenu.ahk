@@ -54,6 +54,9 @@ if !SuspendToggle
 Return
 
 GuiShow:
+If (TM_CustomShow){
+	GoTo %TM_CustomShow%
+}
 for index, element in TM_SHOWGUI 
 	Gui,%element%:Show
 Return
