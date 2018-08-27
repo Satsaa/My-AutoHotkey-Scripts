@@ -68,7 +68,7 @@ Gui, 2:Add, Text, vInputY2Hint xm+145 yp+5 w30,% InputY2
 
 Gui, 2:Add, Checkbox, gToggleHotkeys vHotkeys Checked%Hotkeys% xm, Adjust with shift and arrow keys
 Gui, 2:Add, Slider, gDelayUpdate vDelay Range0-5000 NoTicks AltSubmit wp-17 x2,% Delay
-DelaySec := SubStr(Delay/1000, 1, 3)
+DelaySec := Round(Delay/1000, 1)
 Gui, 2:Add, Text, vDelayHint xm+145 yp+5 w25,% DelaySec " s"
 Gui, 2:Add, Button, gSetBox xm yp+22, Set Rectangle
 Gui, 2:Add, Button, gLoopToggle xm, Toggle Loop
@@ -76,8 +76,9 @@ Gui, 2:Add, Button, gScreenshot xm, Screenshot
 Gui, 2:Add, Text, vLoopHint xm w170, Not looping
 Gui, 2: +HwndGui
 Gui, 2:Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+MoveGuiToBounds(2,1)
 Gui, 1:Show, x-300 y-300
-Gui, 2:Add, Text, ym vScreenshotText, Loading Image %A_space%  %A_space% %A_space% %A_space% %A_space%
+Gui, 2:Add, Text, ym vScreenshotText,% "Loading Image . . . . . . . ."
 Gui, 2:Add, Pic, vScreenshot gOpenImage, %ImageFile%
 Gui, 2: +LastFound
 
@@ -93,7 +94,7 @@ pid:=DllCall("GetCurrentProcessId")
 
 WinGet, MainID , Id
 OnExit, GuiClose
-if Looping {
+if (Looping) {
 	Looping = 0
 	GoSub LoopToggle
 }
@@ -104,7 +105,7 @@ OnMessage(0x200,"WM_MOUSEMOVE")
 GoTo BoxUpdate
 
 DelayUpdate:
-DelaySec := SubStr(Delay/1000, 1, 3)
+DelaySec := Round(Delay/1000,1)
 ToolTip,% "Delay " DelaySec " sec",,,1
 GuiControl,2:, DelayHint,% DelaySec " s"
 if GetKeyState("LButton", "P")
@@ -113,13 +114,13 @@ ToolTip,,,,1
 Return
 
 DelayAnim:
-Delay -= 16
-DelaySec := SubStr(Delay/1000, 1, 3)
+Delay := DelayStart-(A_TickCount-DelayStartTick)
+DelaySec := Round(Delay/1000, 1)
 GuiControl,2:, Delay,% Delay
 GuiControl,2:, DelayHint,% DelaySec " s"
 If (Delay<=0) {
-	Delay := OldDelay
-	DelaySec := SubStr(Delay/1000, 1, 3)
+	Delay := DelayStart
+	DelaySec := Round(Delay/1000, 1)
 	SetTimer, DelayAnim, off
 	GuiControl,2:, Delay,% Delay
 	GuiControl,2:, DelayHint,% DelaySec " s"
@@ -127,13 +128,14 @@ If (Delay<=0) {
 
 PrintScreen::
 Screenshot:
-If (Delay!<=0.01) {
-	OldDelay := Delay
+If (Delay!<=0.01) {  ;Skip this if timer is set to about 0
 	SetTimer, ScreenshotHop,% -Delay
+	DelayStartTick:=A_TickCount
+	DelayStart:=Delay
 	SetTimer, DelayAnim, 15  ;16 ms
 	Return
-} ScreenshotHop:
-SetTimer, DelayAnim, off
+}
+ScreenshotHop:
 GoSub SaveClipboard
 ImageCopy=
 ImageDateCurrent := A_YYYY "-" A_MM "-" A_DD 
@@ -153,12 +155,17 @@ Gui,1: +LastFound
 Winset, Transparent, 0
 Gui,2: +LastFound
 Winset, Transparent, 0
+Gui, DragBox: +LastFound
+Winset, Transparent, 0
 Sleep, 20
 Screenshot := Gdip_BitmapFromScreen(BoxX+1 "|" BoxY+1 "|" BoxW-2 "|" BoxH-2)
 Winset, Transparent, 255
+WinSet, TransColor, EEAA99
 Gui,1: +LastFound
 Winset, Transparent, 255
 WinSet, TransColor, EEAA99
+Gui,2: +LastFound
+Winset, Transparent, 255
 Gdip_SaveBitmapToFile(Screenshot, ImageFile)
 If (ImageHidden) {
 	GuiControl,2:Show, Screenshot,
@@ -430,7 +437,7 @@ If ((MouseY!=PrevMouseY or MouseX!=PrevMouseX) and MouseX>=VirBoxX and MouseY>=V
 		Hotkey, *LButton, BoxResize, Off
 		Hover=0
 		Hidden=1
-		WinMove, ahk_id %DragBox%,,% -BoxW,% -BoxH
+		WinMove, ahk_id %DragBox%,,% -100,% -100
 }}
 Return
 

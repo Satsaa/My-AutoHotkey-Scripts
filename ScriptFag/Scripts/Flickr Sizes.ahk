@@ -20,7 +20,7 @@ If InStr(ActiveTitle, "All sizes"){  ;Open image
 	send, {Enter 2} ^w
 	MousePos("Restore")
 } else {  ;Add shit to url
-	GoSub SaveClipboard
+	Clipboard(1)
 	Send ^l
 	Send ^x
 	ClipWait 0.05
@@ -38,7 +38,7 @@ If InStr(ActiveTitle, "All sizes"){  ;Open image
 	Paste(RegExReplace(Clipboard, "\/in\/.+") FS_UrlStart "/sizes/o")
 	sleep 12
 	Send {enter}
-	GoSub RestoreClipboard
+	Clipboard(0)
 }
 Return
 

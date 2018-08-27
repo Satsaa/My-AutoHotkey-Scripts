@@ -13,7 +13,7 @@ Return
 
 OU:
 If (OU_Copy and OU_InsertClipboard){
-	GoSub SaveClipboard
+	Clipboard(1)
 	send ^c
 	ClipWait, 0.2
 }
@@ -23,7 +23,7 @@ If (OU_InsertClipboard){
 	Run, %OU_UrlSuffix%%OU_UrlAffix%
 }
 If (OU_Copy and OU_InsertClipboard){
-	GoSub RestoreClipboard
+	Clipboard(0)
 }
 Return
 

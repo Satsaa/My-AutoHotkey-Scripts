@@ -30,11 +30,11 @@ If !(PI_Velocity){
 	GoTo PI_Shift
 }
 Send ^l
-GoSub SaveClipboard
+Clipboard(1)
 Send ^x
 ClipWait 0.05
 If (ErrorLevel){
-	GoSub RestoreClipboard
+	Clipboard(0)
 	ClipFailCount++
 	If (ClipFailCount=10){
 		ClipFailCount=0
@@ -56,7 +56,7 @@ Send ^l
 Paste(RegExReplace(PI_Url, "\d+\D*$", PI_Extract))
 Send {Enter}
 sleep 1
-GoSub RestoreClipboard
+Clipboard(0)
 Return
 
 PII_Shift:

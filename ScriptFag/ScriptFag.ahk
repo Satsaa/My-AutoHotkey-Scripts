@@ -181,11 +181,8 @@ Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
 Gui, Tab,
 Gui, Add, StatusBar,,
-If (!GuiLoadY or !GuiLoadY){
-	GuiLoadY := 0, GuiLoadX := 0
-}
 If (DebugSetting<1)
-	DebugAffix("Debug view is set to not update.",,1)
+	DebugAffix("Debug view (this box) is set to not update.",,1)
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
@@ -199,7 +196,8 @@ If (LaunchHidden){  ;First launch parameter
 	TM_CustomShow:="CustomShow"
 	Gui, Show, Hide
 } else {
-	Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+	Gui, Show, x%GuiloadX% y%GuiloadY% , %GuiTitle%
+	MoveGuiToBounds(1)
 }
 DebugAffix("Finished Load")
 SetTimer, TickPerSec, 1000
@@ -383,10 +381,8 @@ SaveIni(){
 	global Profile, SC, Tab
 	Gui, 1: +LastFound
 	WinGetPos,GuiX,GuiY,GuiW
-	If !(GuiX<150-GuiW or GuiY<0){
-		IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
-		IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
-	}
+	IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
+	IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
 	SaveHotkeys(Profile)
 }
 
@@ -788,14 +784,6 @@ SettingsRefresh(){
 	}
 }
 
-SaveClipboard:
-SavedClipboard := ClipboardAll
-Clipboard =
-Return
-RestoreClipboard:
-Clipboard := SavedClipboard
-Return
-
 SB_Profile:  ;Status Bar
 SB_SetText(Profile " profile")
 Return
@@ -811,6 +799,7 @@ ExitApp
 Return
 CustomShow:
 Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+MoveGuiToBounds(1)
 CustomShow=
 Return
 ButtonHide:

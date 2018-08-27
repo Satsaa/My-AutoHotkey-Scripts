@@ -15,6 +15,7 @@ FileDelete,% "YoutubeDL\Include.ahk"
 FileDelete,% "Diarium\Include.ahk"
 FileDelete,% "FantasyCounter\Include.ahk"
 FileDelete,% "LaunchPad\Include.ahk"
+FileDelete,% "Diarie\Include.ahk"
 
 
 
@@ -70,5 +71,14 @@ LaunchPadInclude=
 #Include %Root%\Lib\TrayMenu.ahk
 )
 FileAppend, %LaunchPadInclude%, LaunchPad\Include.ahk
+
+DiarieInclude=
+(
+#Include %Root%\Lib\Eval.ahk
+#Include %Root%\Lib\Functions.ahk
+#Include %Root%\Lib\Gdip_All.ahk
+#Include %Root%\Lib\TrayMenu.ahk
+)
+FileAppend, %DiarieInclude%, Diarie\Include.ahk
 
 MsgBox, Include paths should have been updated to %root%\Lib\*.*

@@ -13,7 +13,7 @@ IfWinNotActive, ahk_exe code.exe
 	DebugAffix("Not in vs code")
 	Return
 }
-GoSub SaveClipboard
+Clipboard(1)
 send ^f
 send ^x
 ClipWait, 0.2
@@ -33,7 +33,7 @@ loop 5 {
 }
 send !r
 send {esc}
-GoSub RestoreClipboard
+Clipboard(0)
 Return
 
 VS_End:

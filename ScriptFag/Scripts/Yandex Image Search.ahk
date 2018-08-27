@@ -9,7 +9,7 @@ Return
 
 YI:
 Send ^l
-GoSub SaveClipboard
+Clipboard(1)
 Send ^x
 ClipWait 0.05
 If ErrorLevel {
@@ -21,7 +21,7 @@ If ErrorLevel {
 	} else GoTo %A_ThisLabel%
 }
 Run,% "https://yandex.ru/images/search?url=" UrlEncode(Clipboard) "&rpt=imageview"
-GoSub RestoreClipboard
+Clipboard(0)
 Return
 
 YI_End:
