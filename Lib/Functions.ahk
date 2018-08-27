@@ -330,6 +330,21 @@ GuiAddX(Add=0,Var="Default",Set=""){
 	Return "x" %Var%
 }
 
+
+;#####################################################################################
+;Move gui inside screen bounds
+
+MoveGuiToBounds(Gui,Aggressive=0){
+	SysGet, VW, 78
+	SysGet, VH, 79
+	Gui, %Gui%: +LastFound
+	WinGetPos, GX, GY, GW, GH,
+	WinGetPos,,,, TBH, ahk_class Shell_TrayWnd
+	If (Aggressive=1)
+		Gui, %Gui%:Show,% ((GX<0)?(" x-2 "):(((GX+GW>VW)?(" x" VW-GW+2):("")))) ((GY<0)?(" y0 "):(((GY+GH>VH-TBH-2)?(" y" VH-GH-TBH+2):(""))))
+	else Gui, %Gui%:Show,% ((GX+GW<0)?(" x-2 "):(((GX>VW)?(" x" VW-GW+2):("")))) ((GY+GH<0)?(" y0 "):(((GY>VH-TBH-2)?(" y" VH-GH-TBH+2):(""))))
+}
+
 ;#####################################################################################
 ;Returns accurately how many seconds have passed between QPC(1) and QPC(0)
 

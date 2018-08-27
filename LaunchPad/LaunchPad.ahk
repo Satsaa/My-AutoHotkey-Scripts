@@ -39,7 +39,8 @@ Gui, Add, Text, wp center, This
 Gui, -MaximizeBox -MinimizeBox -Caption +ToolWindow +LastFound
 
 WinGet, GuiID, ID
-Gui, Show,% "x" ((MouseX+GuiWidth<VirtualWidth)?((MouseX-(GuiWidth/2)<1)?(0):(MouseX-(GuiWidth/2))):(VirtualWidth-GuiWidth)) " y" ((MouseY+GuiHeight+TaskBarHeight<VirtualHeight)?((MouseY-150<1)?(0):(MouseY-150)):(VirtualHeight-GuiHeight-TaskBarHeight)) , %GuiTitle%
+Gui, Show,% "x" MouseX-GuiWidth/2 " y" MouseY-GuiHeight/2
+MoveGuiToBounds(1,1)
 SetTimer, Tick, 50
 Return
 

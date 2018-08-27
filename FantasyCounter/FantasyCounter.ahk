@@ -110,6 +110,7 @@ Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
 
 Gui, Show, x%GuiLoadX% y%GuiLoadY% , %GuiTitle%
+MoveGuiToBounds(1)
 PrevClipboard:=ClipboardAll
 Clipboard:=StrReplace(Stats, "``n", "`n")
 GoSub FromClipboard
