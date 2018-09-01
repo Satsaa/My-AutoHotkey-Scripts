@@ -72,17 +72,33 @@ If (KS_Enable=1){
 			WriteIni("Krita","Surveillance.ini", KS_FileName "OpenTimeSec", KS_FileName "DrawTimeSec")
 		}
 		If InStr(ActiveTitle, "- Krita", 1){
-				WinGet, KS_Exe, ProcessName, A
-				If (KS_Exe="krita.exe"){
-					If Instr(ActiveTitle, "["){
+			WinGet, KS_Exe, ProcessName, A
+			If (KS_Exe="krita.exe"){
+				If Instr(ActiveTitle, "["){
+					KS_KritaActive=1
+					RegExMatch(ActiveTitle, ".*\[" , KS_FileName)
+					If (KS_FileName="["){
+						KS_FileName:="Untitled"
+					} else {
+						KS_FileName:=SubStr(KS_FileName, 1, StrLen(KS_FileName)-2)
+						SplitPath, KS_FileName ,,,, KS_FileName,
+					}  ;Remove most illegal chars for variable names
+					KS_FileName:=RegExReplace(KS_FileName, "\-|\ |\.|\,|\+|\'|\{|\[|\]|\}|\(|\)|\=|\||\<|\>", "_")
+					ReadIniDefUndef("Krita","Surveillance.ini",KS_FileName "OpenTimeSec",0,KS_FileName "DrawTimeSec",0,KS_FileName "FirstSeen",A_YYYY "-" A_MM "-" A_DD)
+					%KS_FileName%OpenTime:=%KS_FileName%OpenTimeSec*TPS
+					%KS_FileName%DrawTime:=%KS_FileName%DrawTimeSec*TPS
+					GuiControl,KS:, KS_Header,% "Krita Surveillance - Active"
+					GuiControl,KS:, KS_CurrentFile,% "Last file: " KS_FileName
+					GuiControl,KS:, KS_CurrentTime,% "Time active: " FormatSeconds(Round(%KS_FileName%OpenTime/tps))
+					GuiControl,KS:, KS_CurrentDraw,% "Time drawing: " Round((%KS_FileName%DrawTime/%KS_FileName%OpenTime)*100) "%"
+					GuiControl,KS:, KS_FirstSeen,% "Created: " %KS_FileName%FirstSeen
+				} else {
+					If InStr(ActiveTitle, ")  - Krita", 1){
 						KS_KritaActive=1
-						RegExMatch(ActiveTitle, ".*\[" , KS_FileName)
-						If (KS_FileName="["){
-							KS_FileName:="Untitled"
-						} else {
-							KS_FileName:=SubStr(KS_FileName, 1, StrLen(KS_FileName)-2)
-							SplitPath, KS_FileName ,,,, KS_FileName,
-						}  ;Remove most illegal chars for variable names
+						RegExMatch(ActiveTitle, ".*\(" , KS_FileName)
+						KS_FileName:=SubStr(KS_FileName, 1, StrLen(KS_FileName)-2)
+						SplitPath, KS_FileName ,,,, KS_FileName,
+						;Remove most illegal chars for variable names
 						KS_FileName:=RegExReplace(KS_FileName, "\-|\ |\.|\,|\+|\'|\{|\[|\]|\}|\(|\)|\=|\||\<|\>", "_")
 						ReadIniDefUndef("Krita","Surveillance.ini",KS_FileName "OpenTimeSec",0,KS_FileName "DrawTimeSec",0,KS_FileName "FirstSeen",A_YYYY "-" A_MM "-" A_DD)
 						%KS_FileName%OpenTime:=%KS_FileName%OpenTimeSec*TPS
@@ -92,28 +108,12 @@ If (KS_Enable=1){
 						GuiControl,KS:, KS_CurrentTime,% "Time active: " FormatSeconds(Round(%KS_FileName%OpenTime/tps))
 						GuiControl,KS:, KS_CurrentDraw,% "Time drawing: " Round((%KS_FileName%DrawTime/%KS_FileName%OpenTime)*100) "%"
 						GuiControl,KS:, KS_FirstSeen,% "Created: " %KS_FileName%FirstSeen
-					} else {
-						If InStr(ActiveTitle, ")  - Krita", 1){
-							KS_KritaActive=1
-							RegExMatch(ActiveTitle, ".*\(" , KS_FileName)
-							KS_FileName:=SubStr(KS_FileName, 1, StrLen(KS_FileName)-2)
-							SplitPath, KS_FileName ,,,, KS_FileName,
-							;Remove most illegal chars for variable names
-							KS_FileName:=RegExReplace(KS_FileName, "\-|\ |\.|\,|\+|\'|\{|\[|\]|\}|\(|\)|\=|\||\<|\>", "_")
-							ReadIniDefUndef("Krita","Surveillance.ini",KS_FileName "OpenTimeSec",0,KS_FileName "DrawTimeSec",0,KS_FileName "FirstSeen",A_YYYY "-" A_MM "-" A_DD)
-							%KS_FileName%OpenTime:=%KS_FileName%OpenTimeSec*TPS
-							%KS_FileName%DrawTime:=%KS_FileName%DrawTimeSec*TPS
-							GuiControl,KS:, KS_Header,% "Krita Surveillance - Active"
-							GuiControl,KS:, KS_CurrentFile,% "Last file: " KS_FileName
-							GuiControl,KS:, KS_CurrentTime,% "Time active: " FormatSeconds(Round(%KS_FileName%OpenTime/tps))
-							GuiControl,KS:, KS_CurrentDraw,% "Time drawing: " Round((%KS_FileName%DrawTime/%KS_FileName%OpenTime)*100) "%"
-							GuiControl,KS:, KS_FirstSeen,% "Created: " %KS_FileName%FirstSeen
-						}
-					} 
-				} else {
-					KS_KritaActive:=0
-					GuiControl,KS:, KS_Header,% "Krita Surveillance - Inactive"
-				}
+					}
+				} 
+			} else {
+				KS_KritaActive:=0
+				GuiControl,KS:, KS_Header,% "Krita Surveillance - Inactive"
+			}
 		} else {
 			GuiControl,KS:, KS_Header,% "Krita Surveillance - Inactive"
 			KS_KritaActive:=0
@@ -210,10 +210,10 @@ If (Ks_GuiOpen=0){
 	GuiControl,KS:, KS_AllDraw,% "All time drawing: " Round((KS_DrawTime/KS_OpenTime)*100) "%"
 	ReadIniDefUndef("Krita","Surveillance.ini","KS_GuiLoadX",A_ScreenWidth/2,"KS_GuiLoadY",A_ScreenHeight/2)
 	If (KS_AlwaysOnTop=1){
-		Gui, KS: -MinimizeBox +AlwaysOnTop
+		Gui, KS: +AlwaysOnTop
 		Gui, KS:Show, NoActivate x%KS_GuiLoadX% y%KS_GuiLoadY%, Krita Surveillance
 	} else {
-		Gui, KS: -MinimizeBox -AlwaysOnTop
+		Gui, KS: -AlwaysOnTop
 		Gui, KS:Show, x%KS_GuiLoadX% y%KS_GuiLoadY%, Krita Surveillance
 	}
 	Ks_GuiOpen:=1

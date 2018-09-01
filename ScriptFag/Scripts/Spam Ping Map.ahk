@@ -14,7 +14,6 @@ Return
 SM:
 MousePos("Save")
 while GetKeyState(A_ThisHotkey, "P"){
-	ToolTip, %A_Index%
 	Random, SM_RanX, 30, 371
 	Random, SM_RanY, 1069, 1395
 	MouseClick,, SM_RanX, SM_RanY

@@ -66,7 +66,7 @@ Gui, 2:Add, Text, xm-3 y+8, Y2
 Gui, 2:Add, Edit, gInputUpdate vInputY2 xm+15 yp-3 w125,% InputY2
 Gui, 2:Add, Text, vInputY2Hint xm+145 yp+5 w30,% InputY2
 
-Gui, 2:Add, Checkbox, gToggleHotkeys vHotkeys Checked%Hotkeys% xm, Adjust with shift and arrow keys
+Gui, 2:Add, Checkbox, gUpdateHotkeys vHotkeys Checked%Hotkeys% xm, Adjust with shift and arrow keys
 Gui, 2:Add, Slider, gDelayUpdate vDelay Range0-5000 NoTicks AltSubmit wp-17 x2,% Delay
 DelaySec := Round(Delay/1000, 1)
 Gui, 2:Add, Text, vDelayHint xm+145 yp+5 w25,% DelaySec " s"
@@ -100,7 +100,7 @@ if (Looping) {
 }
 SetTimer, GetHover, 20
 GoSub InputUpdate
-GoSub ToggleHotkeys
+GoSub UpdateHotkeys
 OnMessage(0x200,"WM_MOUSEMOVE")
 GoTo BoxUpdate
 
@@ -136,7 +136,7 @@ If (Delay!<=0.01) {  ;Skip this if timer is set to about 0
 	Return
 }
 ScreenshotHop:
-GoSub SaveClipboard
+Clipboard(1)
 ImageCopy=
 ImageDateCurrent := A_YYYY "-" A_MM "-" A_DD 
 ReadIni("FileName",, "ImageDate", "Increment")
@@ -192,12 +192,12 @@ Gdip_SetBitmapToClipboard(Screenshot)
 ImageCopy := ClipboardAll
 Gdip_DisposeImage(Screenshot)
 Gdip_ShutDown(pToken)
-GoTo RestoreClipboard
+Clipboard(0)
 Return
 
-ToggleHotkeys:
+UpdateHotkeys:
 Gui, 2:Submit, NoHide
-If (Hotkeys) {
+If (Hotkeys and !Looping) {
 	Hotkey, ~*Right, On
 	Hotkey, ~*Left, On
 	Hotkey, ~*Up, On
@@ -269,23 +269,19 @@ If A_GuiControl!=Screenshot
 Menu, ScreenshotContextMenu, Show, %A_VirBoxX%, %A_VirBoxY%
 Return
 
-SaveClipboard:
-SavedClipboard := ClipboardAll
-Clipboard =
-Return
-RestoreClipboard:
-Clipboard := SavedClipboard
-SavedClipboard=
-Return
-
 LoopToggle:
 if (Looping := !Looping){
 	SetTimer, SetBoxLoop, 10
+	Hotkey, ~*Right, Off
+	Hotkey, ~*Left, Off
+	Hotkey, ~*Up, Off
+	Hotkey, ~*Down, Off
 	if (BoxX="" or BoxY="" or BoxW="" or BoxH=""){
 			GuiControl,2:, LoopHint, Bad values
 		ErrorValues:=1, Reverted:=1
 	} else GuiControl,2:, LoopHint, Looping
 } else {
+	GoSub UpdateHotkeys
 	SetTimer, SetBoxLoop, Off
 	GuiControl,2:, LoopHint, Not looping
 	Looping=0
@@ -382,7 +378,7 @@ If WinActive("ahk_pid " pid){
 		Hotkey, Alt Up, DoNothing, Off
 }
 MouseGetPos, MouseX, MouseY
-If ((MouseY!=PrevMouseY or MouseX!=PrevMouseX) and MouseX>=VirBoxX and MouseY>=VirBoxY and MouseX<=VirBoxX+VirBoxW and MouseY<=VirBoxY+VirBoxH){
+If (((MouseY!=PrevMouseY or MouseX!=PrevMouseX) and MouseX>=VirBoxX and MouseY>=VirBoxY and MouseX<=VirBoxX+VirBoxW and MouseY<=VirBoxY+VirBoxH) and !Looping){
 	PrevMouseX:=MouseX, PrevMouseY:=MouseY
 	If (!Dragging){
 		Hidden=0
@@ -454,9 +450,6 @@ else if A_GuiControl=Up Right
 	RelativeCorner:=3
 else if A_GuiControl=Down Right
 	RelativeCorner:=4
-If (RelativeCorner) {
-	SetTimer, GetRelativeWin, 20
-} Else SetTimer, GetRelativeWin, Off
 GoTo GetRelativeWinCorner
 
 GetRelativeWinCorner:
