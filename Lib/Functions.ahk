@@ -103,6 +103,31 @@ IsNumber(a){
 }
 
 ;#####################################################################################
+;Clamps Val within Min and Max
+
+Clamp(ByRef Val, Min, Max) {
+	If (Val < Min)
+		Val := Min
+	If (Val > Max)
+		Val := Max
+}
+
+;#####################################################################################
+;Returns a random number. For float output, input floats (0.0,1.0). 
+
+Random(min=0, max=100) {
+	Random, r, min, max
+	Return r
+}
+
+;#####################################################################################
+;Returns a random number generated with normal distribution in mind.
+
+RandomNormal(min=0, max=100, skew=1) {
+	Return ((sqrt( -2.0 * log( random(0.0,1.0) ) ) * cos( 2.0 * 3.14159265359 * random(0.0,1.0) ))/10.0 + 0.5)**skew*(max-min)+min
+}
+
+;#####################################################################################
 ;Returns number with trailing zeroes removed. 10.00->10  4.380->4.38  120->120
 
 TrimTrailingZeros(number) { 
@@ -246,7 +271,7 @@ FormatSeconds(TimeSec){
 }
 
 ;#####################################################################################
-;Returns string in a more url compatible format. " "=%20 etc
+;Returns string converted into url compatible format. " "=%20 etc
 
 UrlEncode(String){
 	OldFormat := A_FormatInteger
