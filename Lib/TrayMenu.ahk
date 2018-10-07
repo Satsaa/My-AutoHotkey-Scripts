@@ -53,6 +53,7 @@ if !SuspendToggle
 	Menu, tray, UnCheck, Suspend
 Return
 
+;Define TM_CustomShow as a label to override this with that label
 GuiShow:
 If (TM_CustomShow){
 	GoTo %TM_CustomShow%
