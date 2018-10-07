@@ -36,17 +36,15 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Open Url.ahk
 #Include %A_ScriptDir%\Scripts\Krita Statistics.ahk
 
-DummyCount:=0
+DummyCount:=0  ;Create vegetable scripts for layout testing and more
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
 
 
 
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
-CustomKey1  := "F13", CustomKey2  := "F14", CustomKey3  := "F15",
-CustomKey4  := "F16", CustomKey5  := "F17", CustomKey6  := "F18",
-CustomKey7  := "F19", CustomKey8  := "F20", CustomKey9  := "F21",
-CustomKey10 := "F22", CustomKey11 := "F23", CustomKey12 := "F24",
-LaunchHidden=%1%  ;If first param is present the gui wont show on launch
+DotaItem := ["F13", "F14", "F15", "F16", "F17", "F18"],
+DotaCourier := "F20", DotaQuickBuy := "F19"
+LaunchHidden=%1%  ;If first param equals true the gui wont show on launch
 TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
@@ -61,7 +59,11 @@ Layout := GetLayout()
 Menu, Tray, Icon, %ResDir%\forsenE.ico
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100)
+SpecialHotkey := []  ;Create list of hotkeys with aliases
+SpecialHotkey["Pause"] := " | |"
+Loop, %SC%
+	SpecialHotkey["F" A_index+12] := "G" A_Index
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
@@ -120,6 +122,9 @@ Loop, %SC% {  ;HOTKEYS
 Gui, Tab, Macros
 GuiAddX(,"Macros",-HotkeySize+9)
 Loop, %SC% {  ;Macros
+
+	;for i, a in 
+
 	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
 		Gui, Add, Text,% "y34 w" HotkeySize " " GuiAddX(HotkeySize+10,"Macros"), Placeholder text
 	} else {  ;Continue the row
@@ -167,7 +172,7 @@ Gui, Add, Button, w%ButtonSize% ym gReload, &Reload
 Gui, Add, Button, w%ButtonSize%, &Hide
 Gui, Add, Button, w%ButtonSize% gEdit, &Edit
 Gui, Add, Button, w%ButtonSize%, &Test
-Gui, Add, Text, cRed vGuiHint wp r1
+Gui, Add, Text, cRed vTickCount wp r1
 Gui, Add, Text, cRed vTickTime wp r1
 Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
 Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
@@ -193,9 +198,11 @@ OnExit("SaveIni")
 OnMessage(0x200,"WM_MOUSEMOVE")
 OnMessage(0x2A2,"WM_NCMOUSELEAVE")
 If (LaunchHidden){  ;First launch parameter
-	TM_CustomShow:="CustomShow"
+	TM_CustomShow:="CustomShowInit"
 	Gui, Show, Hide
+	Hidden=1
 } else {
+	TM_CustomShow:="CustomShow"
 	Gui, Show, x%GuiloadX% y%GuiloadY% , %GuiTitle%
 	MoveGuiToBounds(1)
 }
@@ -250,7 +257,7 @@ If (SubTick=10){
 	}
 	SubTick=0
 }
-GuiControl, , GuiHint,% Tick
+GuiControl, , TickCount,% Tick
 Return
 
 TickPerSec:
@@ -349,28 +356,38 @@ If !(Duplicate){
 GoTo SpecialHotkey
 
 ;Some keys need custom controlling because they dont show up in hotkey controls
-;F13-F24 are G1-G12 in accordance to my current mouse
+;F13-F24 are aliased to G1-G12 in accordance to my current mouse
 SpecialHotkey:
-GuiControlGet, %A_GuiControl%, Pos, %A_GuiControl%
-If (%A_GuiControl%W = HotkeySize){
-	If (IsSpecialHotkey(%A_GuiControl%)){
-	 	GuiControl, Show, SpecialText%A_GuiControl%
-		GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
-		GuiControl, Move, SpecialText%A_GuiControl%,% "x" %A_GuiControl%X-10 " y" %A_GuiControl%Y-25
-		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize-25 " x" %A_GuiControl%X+%A_GuiControl%W-HotkeySize+13
-	}
-} else {
-	If (%A_GuiControl%W = HotkeySize-25){
-		If (IsSpecialHotkey(%A_GuiControl%)){
-			GuiControl, Show, SpecialText%A_GuiControl%
-			GuiControl,, SpecialText%A_GuiControl%,% TrimSpecialHotkey(%A_GuiControl%)
-			Return
-		}
-		GuiControl, Hide, SpecialText%A_GuiControl%
-		GuiControl, Move, %A_GuiControl%,% "w" HotkeySize " x" %A_GuiControl%X-37
-	}
+If !(HotkeySpecial(A_GuiControl)){
+	HotkeyUnspecial(A_GuiControl)
 }
 Return
+HotkeySpecial(Control, Text=""){  ;Checks and moves hotkey controls and REVEALS text under them
+	Global HotkeySize, SpecialHotkey
+	GuiControlGet, %Control%, Pos, %Control%
+	If (SpecialHotkey[%Control%]){
+		GuiControl, Show, SpecialText%Control%
+		If (Text){  ;Custom text
+			GuiControl,, SpecialText%Control%,% Text
+		} else {
+			GuiControl,, SpecialText%Control%,% SpecialHotkey[%Control%]
+		}
+		If (%Control%W = HotkeySize){  ;Move controls only when necessary
+			GuiControl, Move, SpecialText%Control%,% "x" %Control%X-10 " y" %Control%Y-25
+			GuiControl, Move, %Control%,% "w" HotkeySize-25 " x" %Control%X+%Control%W-HotkeySize+13
+		}
+		Return 1  ;Return 1 if hotkey is special
+	}
+	Return 0  ;Return 0 if hotkey isn't special
+}
+HotkeyUnspecial(Control){  ;Checks and moves hotkey controls and HIDES text under them
+	Global HotkeySize, SpecialHotkey
+	GuiControlGet, %Control%, Pos, %Control%
+	If (%Control%W = HotkeySize-25 and !SpecialHotkey[%Control%]){
+		GuiControl, Hide, SpecialText%Control%
+		GuiControl, Move, %Control%,% "w" HotkeySize " x" %Control%X-37
+	}
+}
 InvalidHotkey:
 GuiControl, , %A_GuiControl%,% HotkeyPrev[A_GuiControl]
 DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
@@ -443,9 +460,9 @@ RestoreHotkeys(Save="Default"){
 		HotkeyPrev[A_Index] := %A_Index%
 		;Handle moving of controls to allow having text show next to them if its a "special" hotkey
 		GuiControlGet, %A_Index%, Pos, %A_Index%
-		If (IsSpecialHotkey(%A_Index%)){
+		If (SpecialHotkey[%A_Index%]){
 			GuiControl, Show, SpecialText%A_Index%
-			GuiControl,, SpecialText%A_Index%,% TrimSpecialHotkey(%A_Index%)
+			GuiControl,, SpecialText%A_Index%,% SpecialHotkey[%A_Index%]
 			GuiControl, Move, SpecialText%A_Index%,% "x" %A_Index%X+%A_Index%W-HotkeySize-10 " y" %A_Index%Y-25
 			GuiControl, Move, %A_Index%,% "w" HotkeySize-25 " x" %A_Index%X+%A_Index%W-HotkeySize+13
 		} else {
@@ -509,20 +526,18 @@ WM_MOUSEMOVE(){  ;Description handling
 			}
 		}
 	} else {
-		DebugDescription := "Description" StrReplace(StrReplace(A_GuiControl, "&"), " ")
-		If !(%DebugDescription%){
-			%DebugDescription%:="?"
-			FileAppend,% "`n" DebugDescription " = ?", Descriptions.txt,
+		DescriptionName := StrReplace(StrReplace(A_GuiControl, "&"), " ")
+		If !(Description[DescriptionName]){
+			Description[DescriptionName]:="?"
+			FileAppend,% "`nDescription[""" DescriptionName """] := ""?""", Descriptions.txt,
 			DebugAffix(A_GuiControl " added to Descriptions.txt")
 		} else {
-			If (%DebugDescription%!="?"){
-				If (DebugSetting=1){
-					DebugSet(%DebugDescription%)
-					SetTimer, DescriptionTimeout, Off
-				}
+			If (Description[DescriptionName]!="?" and DebugSetting=1){
+				DebugSet(Description[DescriptionName])
+				SetTimer, DescriptionTimeout, Off
 			}
 		}
-		;else DebugSet(DebugDescription)  ;Uncomment to show ?. For example DescriptionDebug, DescriptionDefaultProfile
+		;else DebugSet(DescriptionName)  ;Uncomment to show ?. For example DescriptionDebug, DescriptionDefaultProfile
 	}
 }
 WM_NCMOUSELEAVE(){
@@ -554,16 +569,15 @@ If (ExportWindowExists){
 ExportIndex=0
 ExportCurrentSection=
 Gui, Export:Add, Text,, Which sections to export
+ExportSection := []
 Loop, read, %ExportIni%
 {
 	If (SubStr(A_LoopReadLine, "1", "1")="["){
 		ExportIndex++
-		ExportSection:=RegExReplace(A_LoopReadLine, "\[|\]")
-		ExportSection%ExportIndex% := A_LoopReadLine
+		ExportSection[ExportIndex] := A_LoopReadLine
 		Gui, Export:Add, Checkbox, gExportCheckbox vExportCheckbox%ExportIndex% Checked, %A_LoopReadLine%
-		Export%ExportIndex% := A_LoopReadLine
 	} else {
-		ExportSection%ExportIndex% .= "`n" A_LoopReadLine
+		ExportSection[ExportIndex] .= "`n" A_LoopReadLine
 	}
 }
 Gui, Export:Add, Button, gExportExport, Export
@@ -615,7 +629,7 @@ GetExport:
 Export=
 Loop {
 	If (ExportCheckbox%A_Index%){
-		Export .= (Export)?( "`n`n" ExportSection%A_Index%):(ExportSection%A_Index%)
+		Export .= (Export)?( "`n`n" ExportSection[A_Index]):(ExportSection[A_Index])
 	} else {
 		If (A_Index>ExportIndex){
 			Break
@@ -688,24 +702,6 @@ If (ImportMerge){
 Reload
 Return
 
-IsSpecialHotkey(Hotkey){
-	If (SubStr(Hotkey, 1, 1)=="F"){
-		If (Hotkey = "F13" or Hotkey = "F14" or Hotkey = "F15" or Hotkey = "F16"
-		 or Hotkey = "F17" or Hotkey = "F18" or Hotkey = "F19" or Hotkey = "F20"
-		 or Hotkey = "F21" or Hotkey = "F22" or Hotkey = "F23" or Hotkey = "F24")
-			Return 1
-	}
-	If (Hotkey="Pause"){
-		Return 1
-	}
-	Return 0
-}
-TrimSpecialHotkey(Trim){
-	StringTrimLeft, Trim, Trim, 1
-	Trim -= 12
-	Return "G" . Trim
-}
-
 SecretLevel:
 Gui, Add, Picture, vBilly1_0, %ResDir%\Billy\0.png
 Loop, 10{
@@ -761,18 +757,23 @@ Gui, Submit, NoHide
 	}
 Return
 
-SettingUpdate:
+SettingUpdate:  ;When a setting type is changed
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
 temp := %temp%  ;Advance dynamic variable
 GuiControl,,% PrefixNum(A_GuiControl) "SettingsEdit" ,% %temp%
 Return
-SettingsEdit:
+SettingsEdit:  ;When a setting is changed or loaded
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
 ChangingSetting := %temp%
 SettingsSub := HotkeySub[PrefixNum(A_GuiControl)] "_Settings"
-GoTo,% HotkeySub[PrefixNum(A_GuiControl)] "_Settings"  ;Scripts dedicated Settings Handler
+GoTo,% HotkeySub[PrefixNum(A_GuiControl)] "_Settings"  ;Scripts dedicated Setting checker label
+Return
+SettingsSuccess:  ;Save the setting and tell user
+%ChangingSetting% := %A_GuiControl%
+WriteIni(Profile,,ChangingSetting)
+DebugSet(ChangingSetting ":`n" %A_GuiControl% "`n`n Accepted and saved")
 Return
 SettingsRefresh(){
 	global
@@ -783,6 +784,7 @@ SettingsRefresh(){
 		}
 	}
 }
+
 
 SB_Profile:  ;Status Bar
 SB_SetText(Profile " profile")
@@ -797,27 +799,47 @@ Return
 GuiClose:
 ExitApp
 Return
-CustomShow:
+CustomShow:  ;Default for show
+for index, element in TM_SHOWGUI 
+	Gui,%element%:Show
+Hidden=0
+Return
+CustomShowInit:  ;Show when script was started hidden
 Gui, Show, x%GuiLoadX% y%GuiLoadY%, %GuiTitle%
+Hidden=0
 MoveGuiToBounds(1)
-CustomShow=
+TM_CustomShow=CustomShow
 Return
 ButtonHide:
 Gui, Show, Hide
+Hidden=1
 Return
 ButtonTest:
+;QPC(1)
+;
+;MSgBox,% QPC(0)
+;Return
 PauseTick:=1
-InputBox, TestInput, Variable content, Type a variable and show its content,
+InputBox, TestInput, Variable/array content, Type a variable/array[key] and show its content,
 IfMsgBox, Cancel
 {
 	PauseTick:=0
 	Return
 }
 If (TestInput){
-	InputBox, TestInput, %TestInput%, %TestInput% content,,,,,,,,% %TestInput%
+	If (InStr(TestInput, "[") and InStr(TestInput, "]")){
+		TestArray:=SubStr(TestInput,1, InStr(TestInput, "[")-1)
+		TestKey:=SubStr(TestInput, InStr(TestInput, "[") +1, InStr(TestInput, "]") - InStr(TestInput, "[") -1)
+		InputBox, TestInput, %TestInput%,% TestInput " content:`n""" %TestArray%[TestKey] """",,,,,,,,% %TestArray%[TestKey]
+		If (TestInput){
+			%TestArray%[TestKey]:=TestInput
+		}
+	} else {
+		InputBox, TestInput, %TestInput%,% TestInput " content:`n""" %TestInput% """",,,,,,,,% %TestInput%
+	}
 }
 PauseTick:=0
-TestInput=
+TestInput:=,TestArray:=,TestKey:=
 Return
 
 PubgOverride:
@@ -868,23 +890,23 @@ DotaHotkeys:
 If (!DotaEnabled and ActiveTitle="Dota 2"){
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys()
-	Hotkey, *%CustomKey1%, DotaZ
-	Hotkey, *%CustomKey1%, On
-	Hotkey, *%CustomKey2%, DotaX
-	Hotkey, *%CustomKey2%, On
-	Hotkey, *%CustomKey3%, DotaC
-	Hotkey, *%CustomKey3%, On
-	Hotkey, *%CustomKey4%, DotaV
-	Hotkey, *%CustomKey4%, On
-	Hotkey, *%CustomKey5%, DotaB
-	Hotkey, *%CustomKey5%, On
-	Hotkey, *%CustomKey6%, DotaN
-	Hotkey, *%CustomKey6%, On
+	Hotkey,% "*" DotaItem[1], DotaZ
+	Hotkey,% "*" DotaItem[1], On
+	Hotkey,% "*" DotaItem[2], DotaX
+	Hotkey,% "*" DotaItem[2], On
+	Hotkey,% "*" DotaItem[3], DotaC
+	Hotkey,% "*" DotaItem[3], On
+	Hotkey,% "*" DotaItem[4], DotaV
+	Hotkey,% "*" DotaItem[4], On
+	Hotkey,% "*" DotaItem[5], DotaB
+	Hotkey,% "*" DotaItem[5], On
+	Hotkey,% "*" DotaItem[6], DotaN
+	Hotkey,% "*" DotaItem[6], On
 
-	Hotkey, *%CustomKey7%, DotaQuickBuy
-	Hotkey, *%CustomKey7%, On
-	Hotkey, *%CustomKey8%, DotaCour
-	Hotkey, *%CustomKey8%, On
+	Hotkey,% "*" DotaQuickBuy, DotaQuickBuy
+	Hotkey,% "*" DotaQuickBuy, On
+	Hotkey,% "*" DotaCourier, DotaCourier
+	Hotkey,% "*" DotaCourier, On
 
 	RestoreHotkeys("Dota")
 	RemoveDuplicateHotkeys()
@@ -899,15 +921,15 @@ If (!DotaEnabled and ActiveTitle="Dota 2"){
 }
 DisableDota:
 SaveHotkeys("Dota")
-Hotkey, *%CustomKey1%, Off	
-Hotkey, *%CustomKey2%, Off
-Hotkey, *%CustomKey3%, Off
-Hotkey, *%CustomKey4%, Off
-Hotkey, *%CustomKey5%, Off
-Hotkey, *%CustomKey6%, Off
+Hotkey,% "*" DotaItem[1], Off	
+Hotkey,% "*" DotaItem[2], Off
+Hotkey,% "*" DotaItem[3], Off
+Hotkey,% "*" DotaItem[4], Off
+Hotkey,% "*" DotaItem[5], Off
+Hotkey,% "*" DotaItem[6], Off
 
-Hotkey, *%CustomKey7%, Off
-Hotkey, *%CustomKey8%, Off
+Hotkey,% "*" DotaQuickBuy, Off
+Hotkey,% "*" DotaCourier, Off
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 DotaEnabled=0
@@ -968,36 +990,36 @@ Return
 
 DotaZ:
 Send {Blind}{z down}
-KeyWait, %CustomKey1%
+KeyWait,% DotaItem[1]
 Send {Blind}{z up}
 Return
 DotaX:
 Send {Blind}{x down}
-KeyWait, %CustomKey2%
+KeyWait,% DotaItem[2]
 Send {Blind}{x up}
 Return
 DotaC:
 Send {Blind}{c down}
-KeyWait, %CustomKey3%
+KeyWait,% DotaItem[3]
 Send {Blind}{c up}
 Return
 DotaV:
 Send {Blind}{v down}
-KeyWait, %CustomKey4%
+KeyWait,% DotaItem[4]
 Send {Blind}{v up}
 Return
 DotaB:
 Send {Blind}{b down}
-KeyWait, %CustomKey5%
+KeyWait,% DotaItem[5]
 Send {Blind}{b up}
 Return
 DotaN:
 Send {Blind}{n down}
-KeyWait, %CustomKey6%
+KeyWait,% DotaItem[6]
 Send {Blind}{n up}
 Return
 
-DotaCour:
+DotaCourier:
 Send {f2}
 Return
 DotaQuickBuy:
@@ -1065,53 +1087,3 @@ Layout := RU
 Gosub SB_Layout
 Soundplay, %A_WinDir%\Media\Windows Default.wav
 Return
-
-;#####################################################################################
-;;This section will be removed if development continues
-;#####################################################################################
-
-SettingsSuccess:
-%ChangingSetting% := %A_GuiControl%
-WriteIni(Profile,,ChangingSetting)
-DebugSet(ChangingSetting ":`n" %A_GuiControl% "`n`n Accepted and saved")
-Return
-
-;Template
-
-SC++
-HotkeyName[SC] := "Name_of_Script"
-HotkeySub[SC] := "SHORT"  ;Subroute when hotkey is pressed without modifier
-HotkeySettings[SC] := "Variable,Variable2,Var3"  ;Variables that will be shown in Settings tab
-HotkeyDescription[SC] := "Description when hovering"
-HotkeySettingsDescription[SC] := "Description when hovering in Settings tab"
-HotkeyGlobal[SC] := 1  ;If enabled hotkey will be set for all profiles
-HotkeyDisableMain[SC] := 1  ;If enabled hotkey WILL NOT USE MAIN LABEL		Label 
-HotkeyShift[SC] := 1  ;If enabled shift+hotkey will go to the				_Shift label
-HotkeyAlt[SC] := 1  ;If enabled alt+hotkey will go to the					_Alt label
-HotkeyCtrlAlt[SC] := 1  ;If enabled ctrl+alt+hotkey will go to the			_CtrlAlt label
-HotkeyCtrlShift[SC] := 1  ;If enabled ctrl+shift+hotkey will go to the		_CtrlShift label
-;Profile specific variables, where "default" will be set when it is not in ini. Loaded when profile is changed
-ReadIniDefUndef(Profile,,"Variable","default","Variable2","default")
-If !(LoadIndex){
-	;Execute only on the first time
-}
-GoTo HopSHORT
-SHORT:
-;code when main hotkey is pressed
-Return
-SHORT_Shift:
-;code when shift is also pressed
-Return
-SHORT_Alt:
-;code when Alt is also pressed
-Return
-SHORT_CtrlAlt:
-;code when CtrlAlt is also pressed
-Return
-SHORT_CtrlShift:
-;code when CtrlShift is also pressed
-Return
-SHORT_Settings:
-;code when settings changed in settings tab. Only required for those that are enabled in settings tab
-Return
-HopSHORT:
