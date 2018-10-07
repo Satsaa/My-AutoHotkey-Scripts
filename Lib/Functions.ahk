@@ -72,7 +72,6 @@ PrefixNum(haystack){
 }
 
 SuffixNum(haystack){
-	global
 	RegExMatch(haystack, "\d*$", match)
 	Return match
 }
@@ -150,6 +149,8 @@ TrimWhitespace(str) {
 
 ReadIni(Section="All",File="Prefs.ini",Keys*){
 	global
+	local key
+	static i
 	for i, Key in Keys {
 		if %Key%
 			IniRead, %key%, %File%, %Section%, %key%, %A_Space%
@@ -165,7 +166,7 @@ WriteIni(Section="All",File="Prefs.ini",Keys*){
 ReadIniDefUndef(Section="All",File="Prefs.ini",Keys*){
 	Global
 	Static KeyWrite
-	Local ii
+	Local ii,i,key
 	for i, Key in Keys {
 		ii++
 		if (ii=1){
@@ -357,7 +358,8 @@ GuiAddX(Add=0,Var="Default",Set=""){
 
 
 ;#####################################################################################
-;Move gui inside screen bounds
+;Move gui inside screen bounds partially or completely.
+;Takes traywnd in to account but doesnt care how its positioned!
 
 MoveGuiToBounds(Gui,Aggressive=0){
 	SysGet, VW, 78
