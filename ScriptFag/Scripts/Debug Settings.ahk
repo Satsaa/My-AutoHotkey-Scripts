@@ -42,7 +42,7 @@ WriteIni(,,"DebugSetting")
 Return
 
 DS_Settings:
-If (!%A_GuiControl%=0 and (%A_GuiControl%=1 or %A_GuiControl%=2 or %A_GuiControl%=-1 or %A_GuiControl%=-2)){
+If (Abs(%A_GuiControl%)=1 or Abs(%A_GuiControl%)=2){
 	%ChangingSetting% := %A_GuiControl%
 	WriteIni(,,"DebugSetting")
 	DebugSet(%A_GuiControl% " accepted and saved")
