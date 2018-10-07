@@ -27,6 +27,7 @@ OnMessage(0x2A2,"WM_NCMOUSELEAVE")
 OnExit("SaveIni")
 SaveIni(){
 	global Profile, SC, Tab
+	FileDelete, response.html
 	Gui, 1: +LastFound
 	WinGetPos,GuiX,GuiY,GuiW
 	If !(GuiX<150-GuiW or GuiY<0){
