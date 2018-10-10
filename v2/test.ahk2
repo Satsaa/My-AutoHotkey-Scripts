@@ -1,4 +1,4 @@
-﻿#Include Lib\TrayMenu.ahk
+﻿#Include Lib\TrayMenu.ahk2
 Return
 
 2::

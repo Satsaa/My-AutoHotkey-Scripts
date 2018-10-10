@@ -1,8 +1,8 @@
 ﻿;Cross use functions
+;2018-10-10
 
 ;#####################################################################################
 ;Conversions
-MsgBox(SimilarityScore("Banana", "Banana"))
 
 HexToDec(hexVal){  ;Base 16 to base 10
 	Return hexVal
@@ -49,3 +49,61 @@ SimilarityScore(stringA, stringB){
 			} Else startAtNeedle += 1
 	}} Return score / (lengthA > lengthB ? lengthA : lengthB)
 }
+
+;#####################################################################################
+;Returns the number sequence from haystacks start (Prefix) or end (Suffix)
+
+PrefixNum(haystack){
+	prefix:=""
+	Loop Parse haystack {
+		If A_LoopField is "number"
+			prefix .= A_LoopField
+		else Break
+	} Return prefix
+}
+
+SuffixNum(haystack){
+	Return SubStr(haystack, RegExMatch(haystack, "\d*$", match))
+}
+
+;#####################################################################################
+;Returns reversed string
+
+StrRev(str){
+	DllCall("msvcrt\_" (A_IsUnicode ? "wcs":"str") "rev", "UInt",&str, "CDecl")
+	return str
+}
+
+;#####################################################################################
+;Returns string with a number of chars removed from the end
+
+SubStrEnd(str,len:=1){
+	return SubStr(str,1,StrLen(var)-len)
+}
+
+;#####################################################################################
+;Returns 1 if "a" is a number otherwise returns 0
+
+IsNumber(a){
+	If a=""
+		return 0
+	If a is "number"
+		return 1
+	else return 0
+}
+
+;#####################################################################################
+;Clamps val within min and max
+
+Clamp(val, min, max) {
+	If val < min
+		val := min
+	Else If val > max
+		val := max
+	Return val
+}
+
+
+a := 100
+
+MsgBox(Clamp(a,10,20))

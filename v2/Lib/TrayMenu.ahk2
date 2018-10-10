@@ -1,6 +1,6 @@
 ﻿#SingleInstance force
 
-#Include Functions.ahk
+#Include Functions.ahk2
 
 A_TrayMenu.Delete()
 A_TrayMenu.Add("Exit","ExitApp")
