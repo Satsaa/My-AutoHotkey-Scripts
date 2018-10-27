@@ -54,22 +54,22 @@ ExitApp
 Return
 
 LaunchScriptFag:
-Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\ScriptFag\ScriptFag.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\ScriptFag\
+Run,% """" DirAscend(A_ScriptDir) "\ScriptFag\ScriptFag.ahk""",% DirAscend(A_ScriptDir) "\ScriptFag\"
 ExitApp
 Return
 
 LaunchBoxy:
-Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\Boxy\Boxy.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\Boxy\
+Run,% """" DirAscend(A_ScriptDir) "\Boxy\Boxy.ahk""",% DirAscend(A_ScriptDir) "\Boxy\"
 ExitApp
 Return
 
 LaunchFantasyCounter:
-Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\FantasyCounter\FantasyCounter.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\FantasyCounter\
+Run,% """" DirAscend(A_ScriptDir) "\FantasyCounter\FantasyCounter.ahk""",% DirAscend(A_ScriptDir) "\FantasyCounter\"
 ExitApp
 Return
 
 LaunchYoutubeDL:
-Run, "C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\YoutubeDL\YTDL_HelperGui.ahk", C:\Users\sampp\Desktop\HNN - BU\AutoHotkey\YoutubeDL\
+Run,% """" DirAscend(A_ScriptDir) "\YoutubeDL\YTDL_HelperGui.ahk""",% DirAscend(A_ScriptDir) "\YoutubeDL\"
 ExitApp
 Return
 

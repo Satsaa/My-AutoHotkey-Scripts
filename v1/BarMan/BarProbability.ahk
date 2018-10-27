@@ -20,7 +20,7 @@ CoordMode, Mouse, Screen
 
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
-;Menu, Tray, Icon, %ResDir%\forsenE.ico
+Menu, Tray, Icon, %ResDir%\forsenBar.ico
 ReadIniDefUndef(,,"GuiLoadY",100,"GuiloadX",100)
 OnMessage(0x200,"WM_MOUSEMOVE")
 OnMessage(0x2A2,"WM_NCMOUSELEAVE")
