@@ -39,8 +39,8 @@ SaveIni(){
 
 MaxIter=100000000  ;How many times to iterate
 ;HighestCount:=MaxIter  ;Uncomment for real proportions
-StartValue:=-10, StartValue--  ;Value for first segment.
-Segments=180  ;Number of segments
+StartValue:=-60, StartValue--  ;Value for first segment.
+Segments=200  ;Number of segments
 Segment=2  ;How large of a range of values a single segment presents.
 SegmentHeight=6  ;Segment has an outline so at 3 pixels there will be 1 pixel for the visible portion!
 SegmentMargin=1  ;Space between segments. Min 1
@@ -74,7 +74,7 @@ Loop, %MaxIter% {
 	;Math:=sqrt( -2.0 * log( random(0.0,1.0) ) ) * cos( 2.0 * 3.14159265359 * random(0.0,1.0) )
 	;Math:=((sqrt(-2.0*log(random(0.0,1.0)))*cos(2.0*3.14159265359*random(0.0,1.0)))/10.0+0.5)**2.80)*(700-(-25))+(-25)
 	
-	Math:=RandomNormal(-5,1005,3.6)
+	Math:=RandomNormal(-50,1005,3)
 	
 	;poststring := "http://api.mathjs.org/v4/?expr=round(pow((sqrt(-2.0*log(random(0,1)))*cos(2.0*3.14159265359*random(0,1)))/10.0%2B0.5,3.6)*1005-5)"
 	;URLDownloadToFile,%poststring%, response.html
