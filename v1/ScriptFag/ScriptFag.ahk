@@ -40,6 +40,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Krita Statistics.ahk
 #Include %A_ScriptDir%\Scripts\Dota Arrow.ahk
 #Include %A_ScriptDir%\Scripts\Dota Trash.ahk
+#Include %A_ScriptDir%\Scripts\Scroll.ahk
 
 DummyCount:=0  ;Create vegetable scripts for layout testing and more
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
@@ -49,7 +50,7 @@ DummyCount:=0  ;Create vegetable scripts for layout testing and more
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
 DotaItem := ["F13", "F14", "F15", "F16", "F17", "F18"],
 DotaCourier := "F20", DotaQuickBuy := "F19"
-LaunchHidden=%1%  ;If first param equals true the gui wont show on launch
+LaunchHidden=%1%  ;If first param equals true the gui is hidden on launch
 TPS := 64,  ;Not precise, refreshes per second max 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
