@@ -63,11 +63,11 @@ for index, element in TM_SHOWGUI
 Return
 
 Edit:
-Run, "C:\Program Files\Microsoft VS Code\Code.exe" """"DirAscend(A_ScriptDir)""""
+Run,% """C:\Program Files\Microsoft VS Code\Code.exe"" " """"DirAscend(A_ScriptDir)""""
 Return
 
 OpenScriptFolder:
-Run % "explorer.exe /select, """ A_ScriptDir "\" A_ScriptName """"
+Run,% "explorer.exe /select, """ A_ScriptDir "\" A_ScriptName """"
 Return
 
 WindowSpy:
