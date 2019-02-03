@@ -14,8 +14,8 @@ If (Process!="chrome.exe"){
 	Return
 }
 Click Right
-SendInput p
-SendInput u
+Send p
+Send u
 Return
 
 PIN_End:

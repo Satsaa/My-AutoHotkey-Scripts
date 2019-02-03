@@ -1,9 +1,7 @@
 ﻿SC++
 HotkeyName[SC] := "Dota_Trash"
 HotkeySub[SC] := "DT"
-HotkeySettings[SC] := "DT_Sleep"
-HotkeySettingsDescription[SC] := "DT_Sleep:`nSleep duration between clicks (ms)"
-HotkeyDescription[SC] := "Hotkey:`nWhen held, click and sleep at your will`n`nShift:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
+HotkeyDescription[SC] := "Hotkey:`nDraws a trash can on the Dota map starting from the point where you pressed this and ending where you unpressed this hotkey"
 HotkeyAllowModifiers[SC] := 1
 ;Trace
 DT_X1 := [ 0.1, 0.25, 0.44, 0.6 ]

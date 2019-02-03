@@ -1,9 +1,7 @@
 ﻿SC++
 HotkeyName[SC] := "Dota_Arrow"
 HotkeySub[SC] := "DA"
-HotkeySettings[SC] := "DA_Sleep"
-HotkeySettingsDescription[SC] := "DA_Sleep:`nSleep duration between clicks (ms)"
-HotkeyDescription[SC] := "Hotkey:`nWhen held, click and sleep at your will`n`nShift:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
+HotkeyDescription[SC] := "Hotkey:`Draws an arrow on the Dota map starting from the point where you pressed this and ending where you unpressed this hotkey"
 HotkeyAllowModifiers[SC] := 1
 DA_X := [1.0, 0.7, 0.7, 0.0,0.0,0.7,0.7,1.0]
 DA_Y := [0.0,-0.3,-0.1,-0.1,0.1,0.1,0.3,0.0]

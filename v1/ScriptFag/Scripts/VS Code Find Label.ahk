@@ -1,7 +1,7 @@
 ﻿SC++
 HotkeyName[SC] := "VS_Code_Find_Label"
 HotkeySub[SC] := "VS"
-HotkeyDescription[SC] := "Hotkey:`nFind highlighted label or function in the current script file (Visual Studio Code)"
+HotkeyDescription[SC] := "Hotkey:`nFind highlighted label or function in the current script file (Visual Studio Code)`nMade for ahk scripts"
 GoTo VS_End
 
 VS_Load:

@@ -36,7 +36,6 @@ Return
 
 ACB_Checkbox:
 ACB_Enable := !ACB_Enable
-debugPrepend(ACB_Enable)
 IniWrite, %ACB_Enable%, Prefs.ini, All, ACB_Enable
 Return
 

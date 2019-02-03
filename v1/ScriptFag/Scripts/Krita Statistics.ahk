@@ -349,10 +349,11 @@ Return
 
 KS_Settings:
 If (ChangingSetting="KS_Enable"){
-	If (%A_GuiControl%="0" or %A_GuiControl%="1")
-		GoTo SettingsSuccess
-} else {
-	DebugSet(ChangingSetting " must be 1 or 0")
+	If (%A_GuiControl%=0 or %A_GuiControl%=1){
+    GoTo SettingsSuccess
+  } else {
+    DebugSet(ChangingSetting " must be 1 or 0")
+  }
 }
 Return
 
