@@ -1,11 +1,17 @@
 ﻿
 ; This should block combining of ´ ` ¨ ^ ~ characters. Eg ¨ + a = ä
-; With this those keys output immediately without waiting for a second character
+; With this those keys output immediately without waiting for space
 
-goto hop
+ReadIniDefUndef(,,"ACB_Enable", 1)
+
+debugPrepend(ACB_Enable)
+goto ACB_Hop
 
 ~+´::	; `
 ~´::	; ´
+if (!ACB_Enable){
+  return
+}
 if GetKeyState("space", "P"){
 	send {space Up}
 	send {space down}
@@ -17,6 +23,9 @@ Return
 ~+¨::	; ^
 ~^!¨::	; ~
 ~¨::	; ¨
+if (!ACB_Enable){
+  return
+}
 if GetKeyState("space", "P"){
 	send {space Up}
 	send {space down}
@@ -25,4 +34,10 @@ if GetKeyState("space", "P"){
 }
 Return
 
-hop:
+ACB_Checkbox:
+ACB_Enable := !ACB_Enable
+debugPrepend(ACB_Enable)
+IniWrite, %ACB_Enable%, Prefs.ini, All, ACB_Enable
+Return
+
+ACB_Hop:

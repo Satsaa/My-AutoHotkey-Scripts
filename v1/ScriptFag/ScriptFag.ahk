@@ -189,10 +189,14 @@ Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
 Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
 Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
+if !(ACB_Enable=""){
+  Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accent combination
+}
 Gui, Tab,
 Gui, Add, StatusBar,,
-If (DebugSetting<1)
+If (DebugSetting<1){
 	DebugSet("Debug view (this box) is set to not update.")
+}
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
