@@ -42,7 +42,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Dota Trash.ahk
 #Include %A_ScriptDir%\Scripts\Scroll.ahk
 
-DummyCount:=0  ;Create vegetable scripts for layout testing and more
+DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
 
 
@@ -56,7 +56,15 @@ MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,
-Ru := -265092071, Fi := 67830793,	;Input layout codes
+WinGet, WinID,, A
+MainLayout := DllCall("GetKeyboardLayout", "UInt", DllCall("GetWindowThreadProcessId", "UInt", WinID, "UInt", 0), "UInt")
+Ru := -265092071  ;Input layout codes
+ReadIniDefUndef(,,"FailLayout", 67830793)  ;Default is En Fi
+if (MainLayout != Ru and MainLayout != 4029875225){  ;Save a unique layout for failsafe
+  IniWrite, %FailLayout%, Prefs.ini, All, FailLayout
+} else {  ;If layout is ru, use failsafe
+  MainLayout := FailLayout
+}
 ProfileList := "Default,Dota,Pubg,Witcher"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
@@ -69,7 +77,7 @@ SpecialHotkey := []  ;Create list of hotkeys with aliases
 SpecialHotkey["Pause"] := " | |"
 Loop, %SC%
 	SpecialHotkey["F" A_index+12] := "G" A_Index
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1)
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
@@ -104,8 +112,7 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 	MaxPerColumn := Ceil(SC/((SC - Mod(SC, MaxPerColumn))/MaxPerColumn + 1))
 }
 MaxGuiHeight := (48*MaxPerColumn)
-Hotkey, ~!Shift, LayoutFi
-Hotkey, ~+Alt, LayoutRu
+gosub LayoutHotkeysOn
 Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
 
 Tab = Hotkeys
@@ -190,6 +197,7 @@ Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
 Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
 Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
+Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Enable layout hotkeys (ctrl+alt, alt+ctrl)
 if !(ACB_Enable=""){
   Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accent combination
 }
@@ -204,7 +212,7 @@ SB_SetParts(71, 63)
 Gosub SB_Profile
 Gosub SB_Layout
 Gosub SB_Title
-OnExit("SaveIni")
+OnExit("SaveScript")
 OnMessage(0x200,"WM_MOUSEMOVE")
 OnMessage(0x2A2,"WM_NCMOUSELEAVE")
 If (LaunchHidden){  ;First launch parameter
@@ -406,13 +414,13 @@ DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
 %A_GuiControl% := HotkeyPrev[A_GuiControl]
 Return
 
-SaveIni(){
-	global Profile, SC, Tab
-	Gui, 1: +LastFound
-	WinGetPos,GuiX,GuiY,GuiW
-	IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
-	IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
-	SaveHotkeys(Profile)
+SaveScript(){
+  global Profile, SC, Tab
+  Gui, 1: +LastFound
+  WinGetPos,GuiX,GuiY,GuiW
+  IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
+  IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
+  SaveHotkeys(Profile)
 }
 
 SaveHotkeys(Save="Default"){
@@ -803,7 +811,7 @@ SB_Profile:  ;Status Bar
 SB_SetText(Profile " profile")
 Return
 SB_Layout:
-SB_SetText((Layout=Ru) ? ("Rus layout") : (Layout=Fi) ? ("En Fi layout") : ("Unknown layout"),2)
+SB_SetText((Layout=Ru) ? ("Rus layout") : (Layout=MainLayout) ? ("Main layout") : ("Unknown layout"),2)
 Return
 SB_Title:
 SB_SetText((ActiveTitle) ? (ActiveTitle) : ("No active window"),3)
@@ -831,16 +839,6 @@ Class TestClass{
 	name:="Click location"
 }
 ButtonTest:
-testtest:= new TestClass
-QPC(1)
-Loop, 100000
-	a:=HotkeyName[10]
-1asdf:=QPC(0)
-QPC(1)
-Loop, 100000
-	a:=testtest.name
-MSgBox,% 1asdf "|" QPC(0) "," a
-
 PauseTick:=1
 InputBox, TestInput, Variable/array content, Type a variable/array[key] and show its content,
 IfMsgBox, Cancel
@@ -874,12 +872,10 @@ If InStr(ActiveTitle, "S BATTLEGROUNDS"){
 	If !(PubgEnabled){
 		GoSub DisableHotkeyProfiles
 		SaveHotkeys()
-		Hotkey, ~!Shift, Off
-		Hotkey, ~+Alt, Off
+    Gosub, LayoutHotkeysOff
 		RestoreHotkeys("Pubg")
 		RemoveDuplicateHotkeys()
 		PubgEnabled=1
-		GoSub LayoutFi
 		Gosub SB_Profile
 		DebugPrepend("Enabled Pubg")
 	}
@@ -895,10 +891,7 @@ If InStr(ActiveTitle, "S BATTLEGROUNDS"){
 }
 DisablePubg:
 SaveHotkeys("Pubg")
-Hotkey, ~!Shift, LayoutFi
-Hotkey, ~+Alt, LayoutRu
-Hotkey, ~!Shift, On
-Hotkey, ~+Alt, On
+Gosub, LayoutHotkeysOn
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 PubgEnabled=0
@@ -965,12 +958,10 @@ WitcherHotkeys:
 If (ActiveTitle="The Witcher 3" and !WitcherEnabled){
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys()
-	Hotkey, ~!Shift, Off
-	Hotkey, ~+Alt, Off
+	Gosub, LayoutHotkeysOff
 	RestoreHotkeys("Witcher")
 	RemoveDuplicateHotkeys()
 	WitcherEnabled=1
-	GoSub LayoutFi
 	Gosub SB_Profile
 	DebugPrepend("Enabled Witcher")
 	Return
@@ -981,10 +972,7 @@ If (ActiveTitle="The Witcher 3" and !WitcherEnabled){
 }
 DisableWitcher:
 SaveHotkeys("Witcher")
-Hotkey, ~!Shift, LayoutFi
-Hotkey, ~+Alt, LayoutRu
-Hotkey, ~!Shift, On
-Hotkey, ~+Alt, On
+Gosub, LayoutHotkeysOn
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
 WitcherEnabled=0
@@ -1090,14 +1078,37 @@ MousePos("Restore")
 BlockInput, MouseMoveOff
 Return
 
-LayoutFi:
-If (Layout=Fi){
+
+CheckboxLayout:
+EnableLayoutHotkeys := !EnableLayoutHotkeys
+if (EnableLayoutHotkeys){
+  Gosub LayoutHotkeysOn
+}
+IniWrite, %EnableLayoutHotkeys%, Prefs.ini, All, EnableLayoutHotkeys
+Return
+
+LayoutHotkeysOn:
+if (EnableLayoutHotkeys){
+  Hotkey, ~!Shift, LayoutMain
+  Hotkey, ~+Alt, LayoutRu
+  Hotkey, ~!Shift, On
+  Hotkey, ~+Alt, On
+}
+Return
+LayoutHotkeysOff:
+Hotkey, ~!Shift, LayoutMain, Off
+Hotkey, ~+Alt, LayoutRu, Off
+Return
+
+LayoutMain:
+LayoutMainSilent:
+If (Layout=MainLayout){
 	Return
 }
-PostMessage 0x50, 0, Fi,, A
-Layout = %Fi%
+PostMessage 0x50, 0, MainLayout,, A
+Layout := MainLayout
 Gosub SB_Layout
-If !(PubgEnabled)
+If (!PubgEnabled and A_ThisLabel != "LayoutMainSilent")
 	Soundplay, %A_WinDir%\Media\Speech Misrecognition.wav
 Return
 LayoutRu:

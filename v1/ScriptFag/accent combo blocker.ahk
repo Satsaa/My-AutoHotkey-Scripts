@@ -4,25 +4,32 @@
 
 ReadIniDefUndef(,,"ACB_Enable", 1)
 
-debugPrepend(ACB_Enable)
+SetTimer, ACB_Init, -1000
+
 goto ACB_Hop
 
-~+´::	; `
-~´::	; ´
-if (!ACB_Enable){
-  return
-}
-if GetKeyState("space", "P"){
-	send {space Up}
-	send {space down}
-} else {
-	send {space}
-}
+ACB_Init:
+Hotkey, ~+´ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
+Hotkey, ~´ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
+Hotkey, ~+¨ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
+Hotkey, ~^!¨ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
+Hotkey, ~¨ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
+Return
+ACB_Error:
+SetTimer, ACB_Init, -5000
 Return
 
-~+¨::	; ^
-~^!¨::	; ~
-~¨::	; ¨
+ACB_Block:
 if (!ACB_Enable){
   return
 }
