@@ -3,7 +3,7 @@ HotkeyName[SC] := "Scroll_Up"
 HotkeySub[SC] := "SL_U"
 HotkeySettings[SC] := "SL_Speed"
 HotkeySettingsDescription[SC] := "SL_Speed:`nScroll amount (shared)"
-HotkeyDescription[SC] := "Hotkey:`nScroll up`n`nShift:`nSingle scroll`n`nScroll speeds depend on your os' mouse settings"
+HotkeyDescription[SC] := "Hotkey:`nScroll up`n`nShift:`nSingle scroll`n`nScroll speeds depend on your system's mouse settings"
 HotkeyShift[SC] := 1
 GoTo SL_U_End
 
@@ -14,11 +14,13 @@ Return
 SL_U:
 Loop, %SL_Speed% {
   Send {WheelUp}
+  sleep, 1
 }
 Return
 
 SL_U_Shift:
   Send {WheelUp}
+  sleep, 1
 Return
 
 SL_U_Settings:
@@ -47,11 +49,13 @@ Return
 SL_D:
 Loop, %SL_Speed% {
   Send {WheelDown}
+  sleep, 1
 }
 Return
 
 SL_D_Shift:
   Send {WheelDown}
+  sleep, 1
 Return
 
 Return
