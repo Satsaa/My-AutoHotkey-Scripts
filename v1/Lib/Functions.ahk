@@ -366,8 +366,9 @@ Beep(Pitch,Duration){
 ;Calling without defining text will update/show current debug text.
 
 DebugPrepend(Text="",AddPrefix=1,force=0){  
-	Global DebugSetting
+	Global DebugSetting, Debug_PrevText
 	Static Count = 0, String
+  Debug_PrevText := ""
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
 		Return
@@ -380,8 +381,9 @@ DebugPrepend(Text="",AddPrefix=1,force=0){
 }
 
 DebugAppend(Text="",AddPrefix=1,force=0){
-	Global DebugSetting
+	Global DebugSetting, Debug_PrevText
 	Static Count = 0, String
+  Debug_PrevText := ""
 	if (Text=""){
 		GuiControl,1:, Debug, %String%
 		Return
@@ -395,7 +397,11 @@ DebugAppend(Text="",AddPrefix=1,force=0){
 
 ;Sets text in control named Debug
 DebugSet(Text){
-	GuiControl,1:, Debug, %Text%
+  Global Debug_PrevText
+  if (Debug_PrevText != Text){
+  	GuiControl,1:, Debug, %Text%
+  }
+  Debug_PrevText := Text
 }
 
 ;#####################################################################################
@@ -603,7 +609,7 @@ TargetCancel(){
 ;#####################################################################################
 ;Returns a lot of info about things uder your mouse.
 ;Laggy parts are separated and controlled by Subtick value.
-;Laggy things are updated when the function is called %subtick% times 
+;Laggy things are updated when the function is called %subtick% times.
 ;#####################################################################################
 
 GetUnderMouseInfo(SubTick=1){
@@ -631,7 +637,7 @@ GetUnderMouseInfo(SubTick=1){
 		. "↗ Relative to corner (" WindowX+Width-MouseX ", " MouseY-WindowY ")`n"
 		. "↘ Relative to corner (" MouseX-WindowX ", " WindowY+Height-MouseY ")`n"
 		. "↙ Relative to corner (" WindowX+Width-MouseX ", " WindowY+Height-MouseY ")`n"
-		. "Mouse's screen pos (" MouseX ", " MouseY ")`n"
+		. "Mouse screen pos (" MouseX ", " MouseY ")`n"
 		. "BGR color: " BGR_Color " (" HexToDec("0x" SubStr(BGR_Color, 3, 2)) ", "
 		. HexToDec("0x" SubStr(BGR_Color, 5, 2)) ", "
 		. HexToDec("0x" SubStr(BGR_Color, 7, 2)) ")`n"

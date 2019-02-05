@@ -65,7 +65,7 @@ if (MainLayout != Ru and MainLayout != 4029875225){  ;Save a unique layout for f
 } else {  ;If layout is ru, use failsafe
   MainLayout := FailLayout
 }
-ProfileList := "Default,Dota,Pubg,Witcher"
+ProfileList := "Default,Dota,Minecraft,Witcher"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
@@ -77,7 +77,7 @@ SpecialHotkey := []  ;Create list of hotkeys with aliases
 SpecialHotkey["Pause"] := " | |"
 Loop, %SC%
 	SpecialHotkey["F" A_index+12] := "G" A_Index
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0)
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
@@ -189,7 +189,7 @@ Gui, Add, Text, cRed vTickCount wp r1
 Gui, Add, Text, cRed vTickTime wp r1
 Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
 Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
-Gui, Add, Button, w%ButtonSize% gPubgOverride, Pubg
+Gui, Add, Button, w%ButtonSize% gMinecraftOverride, Minecraft
 Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
 
 Gui, Tab, %GuiTitle%
@@ -197,7 +197,8 @@ Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
 Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
 Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
-Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Enable layout hotkeys (ctrl+alt, alt+ctrl)
+Gui, Add, Checkbox, w%HotkeySize% vMainAOT gCheckboxMainAOT Checked%MainAOT%, Always on top
+Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Enable layout hotkeys (shift+alt, alt+shift)
 if !(ACB_Enable=""){
   Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accent combination
 }
@@ -222,7 +223,10 @@ If (LaunchHidden){  ;First launch parameter
 } else {
 	TM_CustomShow:="CustomShow"
 	Gui, Show, x%GuiloadX% y%GuiloadY% , %GuiTitle%
-	MoveGuiToBounds(1)
+  MoveGuiToBounds(1)
+}
+if (MainAOT){ 
+  Gui, 1: +AlwaysOnTop
 }
 DebugPrepend("Finished Load")
 SetTimer, TickPerSec, 1000
@@ -236,8 +240,8 @@ If (PauseTick=1){
 	Return
 }
 Tick ++
-DoubleTick ++
-SubTick ++
+TwoTick ++
+TenTick ++
 OldActiveTitle := ActiveTitle
 WinGetActiveTitle, ActiveTitle
 If (SubStr(ActiveTitle, 1 , 1)=" "){  ;Fixes an odd Krita bug and hopefully more
@@ -246,7 +250,7 @@ If (SubStr(ActiveTitle, 1 , 1)=" "){  ;Fixes an odd Krita bug and hopefully more
 If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Activates on window change (ignores some changes)
 	and ActiveTitle!=PrevActiveTitle and ActiveTitle!=A_ScriptName){
 	GoSub DotaHotkeys
-	GoSub PubgHotkeys
+	GoSub MinecraftHotkeys
 	GoSub WitcherHotkeys
 	Gosub SB_Title
 	FH_Enable=0
@@ -264,17 +268,17 @@ Loop, %SC% {  ;Do hotkey Ticks
 		GoSub,% HotkeySub[A_Index] "_Tick" 
 	}
 }
-If (DoubleTick=2){
+If (TwoTick=2){
 	If (DebugSetting=2){
 		DebugSet(GetUnderMouseInfo(TPS/4))  ;Full update 2 times a second (TPS)
 	}
-	DoubleTick=0
+	TwoTick=0
 }
-If (SubTick=10){
+If (TenTick=10){
 	If (FH_Enable){
 		GoSub, FlickerHide
 	}
-	SubTick=0
+	TenTick=0
 }
 GuiControl, , TickCount,% Tick
 Return
@@ -862,41 +866,51 @@ PauseTick:=0
 TestInput:=,TestArray:=,TestKey:=
 Return
 
-PubgOverride:
-ActiveTitle := "S BATTLEGROUNDS"
-PubgHotkeys:
-If InStr(ActiveTitle, "S BATTLEGROUNDS"){
+CheckboxMainAOT:
+MainAOT := !MainAOT
+if (MainAOT){
+  Gui, 1: +AlwaysOnTop
+} else {
+  Gui, 1: -AlwaysOnTop
+}
+IniWrite, %MainAOT%, Prefs.ini, All, MainAOT
+Return
+
+MinecraftOverride:
+ActiveTitle := "Minecraft"
+MinecraftHotkeys:
+If InStr(ActiveTitle, "Minecraft"){
 	If InStr(ActiveTitle, "Google"){
 		Return
 	}
-	If !(PubgEnabled){
+	If !(MinecraftEnabled){
 		GoSub DisableHotkeyProfiles
 		SaveHotkeys()
     Gosub, LayoutHotkeysOff
-		RestoreHotkeys("Pubg")
+		RestoreHotkeys("Minecraft")
 		RemoveDuplicateHotkeys()
-		PubgEnabled=1
+		MinecraftEnabled=1
 		Gosub SB_Profile
-		DebugPrepend("Enabled Pubg")
+		DebugPrepend("Enabled Minecraft")
 	}
 	Return
 } else {
-	If (!PubgEnabled or ActiveTitle="Search" or !ActiveTitle or ActiveTitle=GuiTitle){
+	If (!MinecraftEnabled or ActiveTitle="Search" or !ActiveTitle or ActiveTitle=GuiTitle){
 		Return
 	} else {
-		If InStr(ActiveTitle, "S BATTLEGROUNDS"){
+		If InStr(ActiveTitle, "Minecraft"){
 			Return
 		}
 	}
 }
-DisablePubg:
-SaveHotkeys("Pubg")
+DisableMinecraft:
+SaveHotkeys("Minecraft")
 Gosub, LayoutHotkeysOn
 RestoreHotkeys()
 RemoveDuplicateHotkeys()
-PubgEnabled=0
+MinecraftEnabled=0
 Gosub SB_Profile
-DebugPrepend("Disabled Pubg")
+DebugPrepend("Disabled Minecraft")
 Return
 
 DotaOverride:
@@ -986,8 +1000,8 @@ DebugPrepend("Disabling all profiles")
 If (DotaEnabled){
 	GoSub DisableDota
 }
-If (PubgEnabled){
-	GoSub DisablePubg
+If (MinecraftEnabled){
+	GoSub DisableMinecraft
 }
 If (WitcherEnabled){
 	GoSub DisableWitcher
@@ -1108,7 +1122,7 @@ If (Layout=MainLayout){
 PostMessage 0x50, 0, MainLayout,, A
 Layout := MainLayout
 Gosub SB_Layout
-If (!PubgEnabled and A_ThisLabel != "LayoutMainSilent")
+If (!MinecraftEnabled and A_ThisLabel != "LayoutMainSilent")
 	Soundplay, %A_WinDir%\Media\Speech Misrecognition.wav
 Return
 LayoutRu:
