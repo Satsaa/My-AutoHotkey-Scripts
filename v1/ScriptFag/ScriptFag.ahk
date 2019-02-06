@@ -73,6 +73,7 @@ Layout := GetLayout()
 Menu, Tray, Icon, %ResDir%\forsenE.ico
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0,"CustomAliases",0)
 SpecialHotkey := []  ;List of hotkeys with aliases
 SpecialHotkey["Pause"] := " | |"
 if (CustomAliases){
@@ -82,7 +83,6 @@ if (CustomAliases){
   Loop, 12  ;Fill list from F13-F24
     SpecialHotkey["F" A_index+12] := "F" A_index+12
 }
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0,"CustomAliases",0)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
