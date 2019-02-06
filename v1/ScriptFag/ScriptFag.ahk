@@ -56,6 +56,7 @@ MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,  ;Width for sidebar buttons
+MinTabHeight := 220, ;Minimum height for tab control
 WinGet, WinID,, A
 MainLayout := DllCall("GetKeyboardLayout", "UInt", DllCall("GetWindowThreadProcessId", "UInt", WinID, "UInt", 0), "UInt")
 Ru := -265092071  ;Input layout codes
@@ -118,9 +119,11 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 }
 MaxGuiHeight := (48*MaxPerColumn)
 gosub LayoutHotkeysOn
-Gui, Add, Tab3,% " gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
+Gui, Add, Tab3,% (MaxGuiHeight <= 200 ? "h" MinTabHeight : "")" gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
+Tab := "Hotkeys"  ;Tab isnt set automatically at start?
+if (MaxGuiHeight < 200) 
+  MaxGuiHeight = 200
 
-Tab = Hotkeys
 Gui, Tab, Hotkeys
 GuiAddX(,,-HotkeySize+9)
 Loop, %SC% {  ;HOTKEYS
@@ -210,7 +213,7 @@ Gui, Add, StatusBar,,
 If (DebugSetting<1){
 	DebugSet("Debug view (this box) is set to not update.")
 }
-RestoreHotkeys()
+RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
 Gosub SB_Profile
@@ -461,8 +464,15 @@ SaveScript(){
   SaveHotkeys(Profile)
 }
 
-SaveHotkeys(Save="Default"){
+RefreshHotkeys(Save){
+  global
+  SaveHotkeys(Save)
+  RestoreHotkeys(Save)
+}
+SaveHotkeys(Save){
 	global
+  if (Save="")
+    Throw No params given for %A_ThisFunc%
   DebugPrepend(A_ThisFunc)
   Loop, %SC% {
     IniWrite,% %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index]
@@ -479,10 +489,13 @@ SaveHotkeys(Save="Default"){
     GuiControl,, %A_Index%,
   }
 }
-RestoreHotkeys(Save="Default"){
+RestoreHotkeys(Save){
 	global
+  if (Save="")
+    Throw No params given for %A_ThisFunc%
 	Profile := Save
-	DebugPrepend(A_ThisFunc)
+	LoadIndex++
+	DebugPrepend(A_ThisFunc ". Pass " LoadIndex)
 	Loop, %SC% {
 		IniRead, %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index], %A_Space%
 		If (%A_Index%){
@@ -537,8 +550,6 @@ RestoreHotkeys(Save="Default"){
 	If (Tab="settings"){
 		Gosub, SettingsRefresh
 	}
-	LoadIndex++
-	DebugPrepend("Pass " LoadIndex ". " A_ThisFunc)
 }
 RemoveDuplicateHotkeys(){
 	Global
@@ -681,6 +692,7 @@ If (!FileExist(A_ScriptDir "\Profiles")){
 Gui, Export: -AlwaysOnTop
 FileSelectFile, ExportPath, S 24,% A_ScriptDir "\Profiles\" ExportType "_" A_YYYY "-" A_MM "-" A_DD ".txt",, *.txt
 If (ErrorLevel){
+  Gui, Export: +AlwaysOnTop
 	Return
 }
 Gui, Export: +AlwaysOnTop
@@ -726,6 +738,7 @@ GoTo Import
 ImportSettings:
 ImportIni := "Prefs.ini"
 ExportType:="Settings"
+GoTo Import
 
 Import:
 If (!FileExist(A_ScriptDir "\Profiles")){
@@ -777,7 +790,10 @@ If (ImportMerge){
 			FileCopy, %ImportPath%, %ImportIni%, 1  ;1 overwrite
 	}
 }
-Reload
+if (ExportType:="Settings"){
+  Reload  ;Have to reload or program all settings to refresh
+}
+RestoreHotkeys(Profile)
 Return
 
 SecretLevel:
@@ -964,7 +980,7 @@ If InStr(ActiveTitle, "Minecraft"){
 	}
 	If !(MinecraftEnabled){
 		GoSub DisableHotkeyProfiles
-		SaveHotkeys()
+		SaveHotkeys("default")
     Gosub, LayoutHotkeysOff
 		RestoreHotkeys("Minecraft")
 		RemoveDuplicateHotkeys()
@@ -985,7 +1001,7 @@ If InStr(ActiveTitle, "Minecraft"){
 DisableMinecraft:
 SaveHotkeys("Minecraft")
 Gosub, LayoutHotkeysOn
-RestoreHotkeys()
+RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 MinecraftEnabled=0
 Gosub SB_Profile
@@ -997,7 +1013,7 @@ ActiveTitle := "Dota 2"
 DotaHotkeys:
 If (!DotaEnabled and ActiveTitle="Dota 2"){
 	GoSub DisableHotkeyProfiles
-	SaveHotkeys()
+	SaveHotkeys("default")
 	Hotkey,% "*" DotaItem[1], DotaZ
 	Hotkey,% "*" DotaItem[1], On
 	Hotkey,% "*" DotaItem[2], DotaX
@@ -1038,7 +1054,7 @@ Hotkey,% "*" DotaItem[6], Off
 
 Hotkey,% "*" DotaQuickBuy, Off
 Hotkey,% "*" DotaCourier, Off
-RestoreHotkeys()
+RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 DotaEnabled=0
 Gosub SB_Profile
@@ -1050,7 +1066,7 @@ ActiveTitle := "The Witcher 3"
 WitcherHotkeys:
 If (ActiveTitle="The Witcher 3" and !WitcherEnabled){
 	GoSub DisableHotkeyProfiles
-	SaveHotkeys()
+	SaveHotkeys("default")
 	Gosub, LayoutHotkeysOff
 	RestoreHotkeys("Witcher")
 	RemoveDuplicateHotkeys()
@@ -1066,7 +1082,7 @@ If (ActiveTitle="The Witcher 3" and !WitcherEnabled){
 DisableWitcher:
 SaveHotkeys("Witcher")
 Gosub, LayoutHotkeysOn
-RestoreHotkeys()
+RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 WitcherEnabled=0
 Gosub SB_Profile
