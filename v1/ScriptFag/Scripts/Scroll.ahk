@@ -13,9 +13,10 @@ Return
 
 SL_U_Any:
 if (SL_EnableShift && GetKeyState("Shift", "P")){
+  send {Shift Up}
   Send {WheelUp}
+  send {Shift Down}
   sleep, 1
-  debugPrepend(A_ThisLabel)
   Return
 } else {
   Loop, %SL_Speed% {
@@ -60,7 +61,6 @@ SL_D_Any:
 if (SL_EnableShift && GetKeyState("Shift", "P")){
   Send {WheelDown}
   sleep, 1
-  debugPrepend(A_ThisLabel)
   Return
 } else {
   Loop, %SL_Speed% {
