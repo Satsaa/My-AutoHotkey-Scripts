@@ -80,9 +80,12 @@ GR_Shift:
 Gui, GR:Add, Text,, Mode
 Gui, GR:Add, Radio,% (GR_Mode=1) ? ("Checked gGR_Mode") : ("gGR_Mode"), Scale Image
 Gui, GR:Add, Radio,% (GR_Mode=2) ? ("Checked gGR_Mode") : ("gGR_Mode"), Scale Layer
-Gui, GR:Add, Edit, ym r1 vGR_Width gGR_Edit w60, %GR_Width%
+Gui, GR:Add, Text, ym+4 xp+85, W
+Gui, GR:Add, Text, yp+27 xp+2, H
+Gui, GR:Add, Edit, ym xp+10 r1 vGR_Width gGR_Edit w60, %GR_Width%
 Gui, GR:Add, Edit, r1 vGR_Height gGR_Edit w60, %GR_Height%
-Gui, GR:Add, DropDownList,% "ym vGR_InterpolationUnparsed gGR_InterpolationParse Choose"GR_Interpolation+1 " AltSubmit", Don't Change|%GR_InterpolationList%
+Gui, GR:Add, Text, ym€, Interpolation
+Gui, GR:Add, DropDownList,% "vGR_InterpolationUnparsed gGR_InterpolationParse Choose"GR_Interpolation+1 " AltSubmit", Don't Change|%GR_InterpolationList%
 Gui, GR: -MinimizeBox +AlwaysOnTop
 Gui, GR:Show
 Return
