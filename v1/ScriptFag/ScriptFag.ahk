@@ -199,11 +199,11 @@ Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
 Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
 Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
-Gui, Add, Checkbox, w%HotkeySize% vMainAOT gCheckboxMainAOT Checked%MainAOT%, Always on top
-Gui, Add, Checkbox, w%HotkeySize% vCustomAliases gCheckboxMainAOT Checked%CustomAliases%, Custom key aliases
-Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Layout hotkeys
+Gui, Add, Checkbox, w%HotkeySize% vMainAOT gCheckboxMainAOT Checked%MainAOT% -Wrap, Always on top
+Gui, Add, Checkbox, w%HotkeySize% vCustomAliases gCheckboxCustomAliases Checked%CustomAliases% -Wrap, Custom key aliases
+Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys% -Wrap, Layout hotkeys
 if !(ACB_Enable=""){
-  Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accenting
+  Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable% -Wrap, Block accenting
 }
 Gui, Tab,
 Gui, Add, StatusBar,,

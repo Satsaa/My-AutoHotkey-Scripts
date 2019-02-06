@@ -51,4 +51,4 @@ Description["EnableLayoutHotkeys"] := "Shift+alt (shift first) sets the keyboard
 Description["Minecraft"] := "?"
 Description["Minecraftprofile"] := "?"
 Description["MainAOT"] := "Have this window always overlap other windows"
-Description["CustomAliases"] := "Replace F13 - F24 key names with G1 - G12"
+Description["CustomAliases"] := "Replace F13 - F24 key names with G1 - G12 (restart for changes)"
