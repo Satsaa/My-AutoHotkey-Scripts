@@ -943,6 +943,15 @@ Return
 
 CheckboxCustomAliases:
 CustomAliases := !CustomAliases
+if (CustomAliases){
+  Loop, 12  ;Fill list from F13-F24 to G1-G12
+    SpecialHotkey["F" A_index+12] := "G" A_Index
+} else {
+  Loop, 12  ;Fill list from F13-F24
+    SpecialHotkey["F" A_index+12] := "F" A_index+12
+}
+SaveHotkeys(Profile)
+RestoreHotkeys(Profile)
 IniWrite, %CustomAliases%, Prefs.ini, All, CustomAliases
 Return
 
