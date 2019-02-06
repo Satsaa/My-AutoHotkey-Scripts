@@ -49,13 +49,13 @@ DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
 DotaItem := ["F13", "F14", "F15", "F16", "F17", "F18"],
-DotaCourier := "F20", DotaQuickBuy := "F19"
-LaunchHidden=%1%  ;If first param equals true the gui is hidden on launch
-TPS := 64,  ;Not precise, refreshes per second max 64
+DotaCourier := "F20", DotaQuickBuy := "F19",
+LaunchHidden := %1%,  ;If first launch param equals true the gui is hidden on launch
+TPS := 64,  ;Not precise. Refreshes per second max at 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
 HotkeySize := 120,  ;Width for hotkey controls
 SettingSize := 40,  ;Width for settings edit boxes
-ButtonSize := 50,
+ButtonSize := 50,  ;Width for sidebar buttons
 WinGet, WinID,, A
 MainLayout := DllCall("GetKeyboardLayout", "UInt", DllCall("GetWindowThreadProcessId", "UInt", WinID, "UInt", 0), "UInt")
 Ru := -265092071  ;Input layout codes
@@ -73,11 +73,16 @@ Layout := GetLayout()
 Menu, Tray, Icon, %ResDir%\forsenE.ico
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
-SpecialHotkey := []  ;Create list of hotkeys with aliases
+SpecialHotkey := []  ;List of hotkeys with aliases
 SpecialHotkey["Pause"] := " | |"
-Loop, %SC%
-	SpecialHotkey["F" A_index+12] := "G" A_Index
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0)
+if (CustomAliases){
+  Loop, 12  ;Fill list from F13-F24 to G1-G12
+    SpecialHotkey["F" A_index+12] := "G" A_Index
+} else {
+  Loop, 12  ;Fill list from F13-F24
+    SpecialHotkey["F" A_index+12] := "F" A_index+12
+}
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0,"CustomAliases",0)
 If (FirstLoad){
 	FirstLoad=0
 	Greet:
@@ -195,9 +200,10 @@ Gui, Add, Button, w%HotkeySize% gImportHotkeys, Import Hotkeys
 Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
 Gui, Add, Checkbox, w%HotkeySize% vMainAOT gCheckboxMainAOT Checked%MainAOT%, Always on top
-Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Enable layout hotkeys (shift+alt, alt+shift)
+Gui, Add, Checkbox, w%HotkeySize% vCustomAliases gCheckboxMainAOT Checked%CustomAliases%, Custom key aliases
+Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys%, Layout hotkeys
 if !(ACB_Enable=""){
-  Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accent combination
+  Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable%, Block accenting
 }
 Gui, Tab,
 Gui, Add, StatusBar,,
@@ -933,6 +939,11 @@ if (MainAOT){
   Gui, 1: -AlwaysOnTop
 }
 IniWrite, %MainAOT%, Prefs.ini, All, MainAOT
+Return
+
+CheckboxCustomAliases:
+CustomAliases := !CustomAliases
+IniWrite, %CustomAliases%, Prefs.ini, All, CustomAliases
 Return
 
 MinecraftOverride:
