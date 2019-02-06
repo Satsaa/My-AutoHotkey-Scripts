@@ -128,16 +128,13 @@ Loop, %SC% {  ;HOTKEYS
 		Gui, Add, Text,,% RegExReplace(HotkeyName[A_Index], "_" , " ")
 	}
 	Gui, font,
-	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize 
+	Gui, Add, Hotkey,% "v" A_Index  " gHotkeyCreate w" HotkeySize (!HotkeySub[A_index] ? " Disabled" : "")
 	Gui, Add, Text,% "vSpecialText" A_Index " xp yp w22 Hidden" , 
 }
 
 Gui, Tab, Macros
 GuiAddX(,"Macros",-HotkeySize+9)
 Loop, %SC% {  ;Macros
-
-	;for i, a in 
-
 	If !(Mod(A_Index-1, MaxPerColumn)){ ;New row of hotkeys
 		Gui, Add, Text,% "y34 w" HotkeySize " " GuiAddX(HotkeySize+10,"Macros"), Placeholder text
 	} else {  ;Continue the row
@@ -166,7 +163,7 @@ Loop, %SC% {  ;SETTINGS
 		}
 		temp:=SubStr(temp,1,StrLen(temp)-1)
 		gui, font, s8, Tahoma
-		Gui, Add, DropDownList,% "v" A_Index "Settings gSettingUpdate Choose1 w" HotkeySize-((SettingSize*1)+5), %temp%
+		Gui, Add, DropDownList,% "v" A_Index "Settings gSettingsUpdate Choose1 w" HotkeySize-((SettingSize*1)+5), %temp%
 		gui, font,
 		Gui, Add, Edit,% "w" SettingSize " v" A_Index "SettingsEdit gSettingsEdit r1 yp xp",% %FirstSetting%
 	} else {
@@ -332,35 +329,64 @@ If !(%A_GuiControl%=""){
 	}
 }
 ;Create new hotkeys and disable old ones
-If (HotkeyShift[A_GuiControl]){
-	Hotkey,% "+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
-	If (%A_GuiControl%){
-		Hotkey,% "+"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_Shift"
-		Hotkey,% "+"%A_GuiControl%, On
-	}
+If (HotkeyAny[A_GuiControl]){
+  Hotkey,% "*"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+  If (%A_GuiControl%){
+    Hotkey,% "*"%A_GuiControl%,% HotkeySub[A_GuiControl] "_Any"
+    Hotkey,% "*"%A_GuiControl%, On
+  }
+} else {
+  If (HotkeyCtrl[A_GuiControl]){
+    Hotkey,% "^"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "^"%A_GuiControl%,% HotkeySub[A_GuiControl] "_Ctrl"
+      Hotkey,% "^"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyAlt[A_GuiControl]){
+    Hotkey,% "!"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "!"%A_GuiControl%,% HotkeySub[A_GuiControl] "_Alt"
+      Hotkey,% "!"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyShift[A_GuiControl]){
+    Hotkey,% "+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "+"%A_GuiControl%,% HotkeySub[A_GuiControl] "_Shift"
+      Hotkey,% "+"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyCtrlAlt[A_GuiControl]){
+    Hotkey,% "^!"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "^!"%A_GuiControl%,% HotkeySub[A_GuiControl] "_CtrlAlt"
+      Hotkey,% "^!"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyCtrlShift[A_GuiControl]){
+    Hotkey,% "^+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "^+"%A_GuiControl%,% HotkeySub[A_GuiControl] "_CtrlShift"
+      Hotkey,% "^+"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyAltShift[A_GuiControl]){
+    Hotkey,% "!+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "!+"%A_GuiControl%,% HotkeySub[A_GuiControl] "_AltShift"
+      Hotkey,% "!+"%A_GuiControl%, On
+    }
+  }
+  If (HotkeyCtrlAltShift[A_GuiControl]){
+    Hotkey,% "^!+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
+    If (%A_GuiControl%){
+      Hotkey,% "^!+"%A_GuiControl%,% HotkeySub[A_GuiControl] "_CtrlAltShift"
+      Hotkey,% "^!+"%A_GuiControl%, On
+    }
+  }
 }
-If (HotkeyAlt[A_GuiControl]){
-	Hotkey,% "!"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
-	If (%A_GuiControl%){
-		Hotkey,% "!"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_Alt"
-		Hotkey,% "!"%A_GuiControl%, On
-	}
-}
-If (HotkeyCtrlAlt[A_GuiControl]){
-	Hotkey,% "^!"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
-	If (%A_GuiControl%){
-		Hotkey,% "^!"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_CtrlAlt"
-		Hotkey,% "^!"%A_GuiControl%, On
-	}
-}
-If (HotkeyCtrlShift[A_GuiControl]){
-	Hotkey,% "^+"HotkeyPrev[A_GuiControl], Off, UseErrorLevel
-	If (%A_GuiControl%){
-		Hotkey,% "^+"%A_GuiControl%,% HotkeySub[A_GuiControl] . "_CtrlShift"
-		Hotkey,% "^+"%A_GuiControl%, On
-	}
-}
-If (HotkeyGlobal[A_GuiControl]){  ;Apply to all profiles
+If (HotkeyGlobal[A_GuiControl]){  ;Apply globals to all profiles
 	Loop, Parse, ProfileList, `,
 	{
 		IniWrite,% %A_GuiControl%, Hotkeys.ini, %A_LoopField%,% HotkeyName[A_GuiControl]
@@ -368,10 +394,12 @@ If (HotkeyGlobal[A_GuiControl]){  ;Apply to all profiles
 }
 If !(HotkeyDisableMain[A_GuiControl]){
 	Hotkey,% HotkeyPrev[A_GuiControl], Off, UseErrorLevel
-	Hotkey,% %A_GuiControl%,% HotkeySub[A_GuiControl], UseErrorLevel
-	Hotkey,% %A_GuiControl%, On, UseErrorLevel
+  if (!HotkeyAny[A_GuiControl]){  ; *x hotkey would create duplicates
+    Hotkey,% %A_GuiControl%,% HotkeySub[A_GuiControl], UseErrorLevel
+    Hotkey,% %A_GuiControl%, On, UseErrorLevel
+  }
 }
-If !(Duplicate){
+If (!Duplicate){
 	HotkeyPrev[A_GuiControl] := %A_GuiControl%
 	If (A_GuiControl!=SC and !HotkeyAllowModifiers[A_GuiControl]){  ;Go to the next hotkey control if not at last hotkey
 		send {Tab}
@@ -419,7 +447,7 @@ DebugSet("ModIfiers are not allowed: " %A_GuiControl%)
 Return
 
 SaveScript(){
-  global Profile, SC, Tab
+  global Profile
   Gui, 1: +LastFound
   WinGetPos,GuiX,GuiY,GuiW
   IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
@@ -429,56 +457,69 @@ SaveScript(){
 
 SaveHotkeys(Save="Default"){
 	global
-	If (Tab="Hotkeys"){
-		DebugPrepend(A_ThisFunc)
-		Loop, %SC% {
-			IniWrite,% %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index]
-			Hotkey,% %A_Index%, Off, UseErrorLevel
-			Hotkey,% "+"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "+!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^!"%A_Index%, Off, UseErrorLevel
-			Hotkey,% "^+"%A_Index%, Off, UseErrorLevel
-			%A_Index% =
-			GuiControl,, %A_Index%,
-		}
-	} else {
-		DebugPrepend(A_ThisFunc " ignored in " Tab " tab")
-	}
+  DebugPrepend(A_ThisFunc)
+  Loop, %SC% {
+    IniWrite,% %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index]
+    Hotkey,% %A_Index%, Off, UseErrorLevel
+    Hotkey,% "*"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "^"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "!"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "+"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "^!"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "^+"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "!+"%A_Index%, Off, UseErrorLevel
+    Hotkey,% "^!+"%A_Index%, Off, UseErrorLevel
+    %A_Index% =
+    GuiControl,, %A_Index%,
+  }
 }
 RestoreHotkeys(Save="Default"){
 	global
 	Profile := Save
 	DebugPrepend(A_ThisFunc)
 	Loop, %SC% {
-		GoSub,% HotkeySub[A_index] "_Load"
-	}
-	LoadIndex++
-	DebugPrepend("Pass " LoadIndex ". " A_ThisFunc)
-	Loop, %SC% {
 		IniRead, %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index], %A_Space%
 		If (%A_Index%){
-			If (HotkeySub[A_Index]){  ;If no subroute defined for hotkey, skip it
-				Hotkey,% %A_Index%,% HotkeySub[A_Index], UseErrorLevel
-				Hotkey,% %A_Index%, On, UseErrorLevel
-			}
-			GuiControl, , %A_Index%,% %A_Index%  ;Update control contents
-			If (HotkeyShift[A_Index]){
-				Hotkey,% "+"%A_Index%,% HotkeySub[A_Index] . "_Shift", UseErrorLevel
-				Hotkey,% "+"%A_Index%, On, UseErrorLevel
-			} 
-			If (HotkeyAlt[A_Index]){
-				Hotkey,% "!"%A_Index%,% HotkeySub[A_Index] . "_Alt", UseErrorLevel
-				Hotkey,% "!"%A_Index%, On, UseErrorLevel
-			} 
-			If (HotkeyCtrlAlt[A_Index]){
-				Hotkey,% "^!"%A_Index%,% HotkeySub[A_Index] . "_CtrlAlt", UseErrorLevel
-				Hotkey,% "^!"%A_Index%, On, UseErrorLevel
-			}
-			If (HotkeyCtrlShift[A_Index]){
-				Hotkey,% "^+"%A_Index%,% HotkeySub[A_Index] . "_CtrlShift", UseErrorLevel
-				Hotkey,% "^+"%A_Index%, On, UseErrorLevel
+			If (!HotkeySub[A_Index]){  ;If no subroute is defined for hotkey, skip it and complain
+        DebugPrepend("No hotkey subroute defined for " HotkeyName[A_Index] "!")
+      } else {
+        GoSub,% HotkeySub[A_index] "_Load"
+        If (HotkeyAny[A_Index]){
+          Hotkey,% "*"%A_Index%,% HotkeySub[A_Index] "_Any"
+          Hotkey,% "*"%A_Index%, On
+        } else {
+          Hotkey,% %A_Index%,% HotkeySub[A_Index]
+          Hotkey,% %A_Index%, On
+          If (HotkeyCtrl[A_Index]){
+            Hotkey,% "^"%A_Index%,% HotkeySub[A_Index] "_Ctrl"
+            Hotkey,% "^"%A_Index%, On
+          } 
+          If (HotkeyAlt[A_Index]){
+            Hotkey,% "!"%A_Index%,% HotkeySub[A_Index] "_Alt"
+            Hotkey,% "!"%A_Index%, On
+          } 
+          If (HotkeyShift[A_Index]){
+            Hotkey,% "+"%A_Index%,% HotkeySub[A_Index] "_Shift"
+            Hotkey,% "+"%A_Index%, On
+          } 
+          If (HotkeyCtrlAlt[A_Index]){
+            Hotkey,% "^!"%A_Index%,% HotkeySub[A_Index] "_CtrlAlt"
+            Hotkey,% "^!"%A_Index%, On
+          }
+          If (HotkeyCtrlShift[A_Index]){
+            Hotkey,% "^+"%A_Index%,% HotkeySub[A_Index] "_CtrlShift"
+            Hotkey,% "^+"%A_Index%, On
+          }
+          If (HotkeyAltShift[A_Index]){
+            Hotkey,% "^+"%A_Index%,% HotkeySub[A_Index] "_AltShift"
+            Hotkey,% "^+"%A_Index%, On
+          }
+          If (HotkeyCtrlAltShift[A_Index]){
+            Hotkey,% "^!+"%A_Index%,% HotkeySub[A_Index] "_CtrlAltShift"
+            Hotkey,% "^!+"%A_Index%, On
+          }
+        }
+        GuiControl, , %A_Index%,% %A_Index%  ;Update control contents
 			}
 		}
 		HotkeyPrev[A_Index] := %A_Index%
@@ -488,40 +529,43 @@ RestoreHotkeys(Save="Default"){
 		}
 	}
 	If (Tab="settings"){
-		SettingsRefresh()
+		Gosub, SettingsRefresh
 	}
+	LoadIndex++
+	DebugPrepend("Pass " LoadIndex ". " A_ThisFunc)
 }
 RemoveDuplicateHotkeys(){
 	Global
 	Local GlobalID, DupeFound=0
 	Loop, %SC% {
-		If (HotkeyGlobal[A_Index]){
+		If (HotkeyGlobal[A_Index]){  ;Only check duplicates per global
 			If (%A_Index%){
 			GlobalID := A_Index
 				Loop, %SC% {
 					If (RemoveModifiers(%A_Index%)=RemoveModifiers(%GlobalID%) and A_Index!=GlobalID){
+            DebugPrepend("Removed duplicate hotkey: " %A_Index% " / " RegExReplace(HotkeyName[A_Index], "_" , " "))
 						DeleteHotkey(A_Index)
-						DupeFound=1
+            RestoreHotkeys(Profile)
+            Return
 					}
 				}
 			}
 		}
-	}
-	If (DupeFound=1){
-		DebugPrepend(A_ThisFunc " removed duplicate")
-		RestoreHotkeys(Profile)
 	}
 }
 DeleteHotkey(Control){  ;Destroy one of those fuckers
 	Global
 	IniWrite,% "", Hotkeys.ini, %Profile%,% HotkeyName[Control]
 	Hotkey,% %Control%, Off, UseErrorLevel
-	Hotkey,% "+"%Control%, Off, UseErrorLevel
-	Hotkey,% "!"%Control%, Off, UseErrorLevel
-	Hotkey,% "^"%Control%, Off, UseErrorLevel
-	Hotkey,% "+!"%Control%, Off, UseErrorLevel
-	Hotkey,% "^!"%Control%, Off, UseErrorLevel
-	Hotkey,% "^+"%Control%, Off, UseErrorLevel
+  Hotkey,% "*"%Control%, Off, UseErrorLevel
+  Hotkey,% "^"%Control%, Off, UseErrorLevel
+  Hotkey,% "!"%Control%, Off, UseErrorLevel
+  Hotkey,% "+"%Control%, Off, UseErrorLevel
+  Hotkey,% "^!"%Control%, Off, UseErrorLevel
+  Hotkey,% "^+"%Control%, Off, UseErrorLevel
+  Hotkey,% "!+"%Control%, Off, UseErrorLevel
+  Hotkey,% "^!+"%Control%, Off, UseErrorLevel
+
 	%Control% =
 	GuiControl,, %Control%,
 }
@@ -584,12 +628,12 @@ Return
 
 ExportSettings:
 ExportIni:="Prefs.ini"
-ExportFolder:="Settings"
+ExportType:="Settings"
 Goto ExportProfile
 
 ExportHotkeys:
 ExportIni:="Hotkeys.ini"
-ExportFolder:="Hotkeys"
+ExportType:="Hotkeys"
 
 ExportProfile:
 If (ExportWindowExists){
@@ -614,7 +658,6 @@ Gui, Export:Add, Button, gExportExport, Export
 Gui, Export:Add, Text, ym, Output preview
 Gui, Export:Add, Edit, Readonly w400 h500 vExportPreview
 ExportWindowExists=1
-DebugPrepend("Export Gui Created")
 Gui, Export:Show
 Gui, Export: +AlwaysOnTop
 Gui, Export:Submit, NoHide
@@ -626,11 +669,11 @@ ExportCheckboxID := SuffixNum(A_GuiControl)
 GoTo GetExport
 		
 ExportExport:
-If (!FileExist(A_ScriptDir "\Profiles\" ExportFolder)){
-	FileCreateDir,% A_ScriptDir "\Profiles\" ExportFolder
+If (!FileExist(A_ScriptDir "\Profiles")){
+	FileCreateDir,% A_ScriptDir "\Profiles"
 }
 Gui, Export: -AlwaysOnTop
-FileSelectFile, ExportPath, S 24,% A_ScriptDir "\Profiles\" ExportFolder "\"  A_YYYY "-" A_MM "-" A_DD ".txt",, *.txt
+FileSelectFile, ExportPath, S 24,% A_ScriptDir "\Profiles\" ExportType "_" A_YYYY "-" A_MM "-" A_DD ".txt",, *.txt
 If (ErrorLevel){
 	Return
 }
@@ -653,7 +696,6 @@ If !(ExportPath=""){
 ExportGuiClose:
 ExportWindowExists=0
 Gui, Export:Destroy
-DebugPrepend("Export Gui Destroyed")
 Return
 GetExport:
 Export=
@@ -672,18 +714,18 @@ Return
 
 ImportHotkeys:
 ImportIni := "Hotkeys.ini"
-ExportFolder:="Hotkeys"
+ExportType:="Hotkeys"
 GoTo Import
 
 ImportSettings:
 ImportIni := "Prefs.ini"
-ExportFolder:="Settings"
+ExportType:="Settings"
 
 Import:
-If (!FileExist(A_ScriptDir "\Profiles\" ExportFolder)){
-	FileCreateDir,% A_ScriptDir "\Profiles\" ExportFolder
+If (!FileExist(A_ScriptDir "\Profiles")){
+	FileCreateDir,% A_ScriptDir "\Profiles"
 }
-FileSelectFile, ImportPath,,% A_ScriptDir "\Profiles\" ExportFolder,, *.txt
+FileSelectFile, ImportPath,,% A_ScriptDir "\Profiles",, *.txt
 If (ImportPath=""){  ;Canceled
 	Return
 }
@@ -769,26 +811,24 @@ If (Secret=11){
 Return
 
 TabControl:
-SaveHotkeys(Profile)
 Gui, Submit, NoHide
+  If (Tab="Settings"){
+    Gosub, SettingsRefresh
+    DebugSet("Note that some of these settings can also be changed with hotkey+shift")
+  }
 
-	If (Tab="Hotkeys"){
-		RestoreHotkeys(Profile)
-	} else {
-		If (Tab="Settings"){
-			SettingsRefresh()
-			DebugSet("Note that most of these settings can also be changed with hotkey+shift")
-		}
-	}
 Return
 
-SettingUpdate:  ;When a setting type is changed
+SettingsUpdate:  ;When a setting type is changed
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
 temp := %temp%  ;Advance dynamic variable
 GuiControl,,% PrefixNum(A_GuiControl) "SettingsEdit" ,% %temp%
 Return
-SettingsEdit:  ;When a setting is changed or loaded
+SettingsEdit:  ;When a setting is changed
+if (BlockSettingInspect){
+  Return
+}
 Gui, Submit, NoHide
 temp := PrefixNum(A_GuiControl) "Settings"
 ChangingSetting := %temp%
@@ -800,15 +840,17 @@ SettingsSuccess:  ;Save the setting and tell user
 WriteIni(Profile,,ChangingSetting)
 DebugSet(ChangingSetting ":`n" %A_GuiControl% "`n`n Accepted and saved")
 Return
-SettingsRefresh(){
-	global
-	Loop, %SC% {
-		temp := %A_Index%Settings  ;Advance dynamic variable
-		If (%temp%){
-			GuiControl,, %A_Index%SettingsEdit,% %temp%
-		}
-	}
+SettingsRefresh:  ;Refreshes settings
+BlockSettingInspect = 1
+Loop, %SC% {
+  temp := %A_Index%Settings  ;Advance dynamic variable
+  If (%temp%){
+    GuiControl,, %A_Index%SettingsEdit,% %temp%
+  }
 }
+sleep, 1  ;Lets edit boxes run their gLabels
+BlockSettingInspect = 0
+Return
 
 
 SB_Profile:  ;Status Bar
@@ -843,6 +885,23 @@ Class TestClass{
 	name:="Click location"
 }
 ButtonTest:
+QPC(1)
+testtt = asdasdasdasdqweqwr4523456dfbndcfgste
+testttt = asdasdasdasdqweqwr4523456dfbndcfgste
+loop, 10000000 {
+  if (testtt){
+    
+  }
+}
+DebugPrepend(QPC())
+QPC(1)
+loop, 10000000 {
+  if (testttt){
+    
+  }
+}
+DebugPrepend(QPC())
+Return
 PauseTick:=1
 InputBox, TestInput, Variable/array content, Type a variable/array[key] and show its content,
 IfMsgBox, Cancel
