@@ -24,6 +24,9 @@ if (ErrorLevel)
 Hotkey, ~¨ , ACB_Block, UseErrorLevel
 if (ErrorLevel)
   GoTo, ACB_Error
+Hotkey, ~!¨ , ACB_Block, UseErrorLevel
+if (ErrorLevel)
+  GoTo, ACB_Error
 Return
 ACB_Error:
 SetTimer, ACB_Init, -5000
