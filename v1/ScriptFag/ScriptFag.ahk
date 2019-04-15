@@ -58,14 +58,14 @@ SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,  ;Width for sidebar buttons
 MinTabHeight := 220, ;Minimum height for tab control
 WinGet, WinID,, A
-MainLayout := DllCall("GetKeyboardLayout", "UInt", DllCall("GetWindowThreadProcessId", "UInt", WinID, "UInt", 0), "UInt")
-Ru := -265092071  ;Input layout codes
-ReadIniDefUndef(,,"FailLayout", 67830793)  ;Default is En Fi
-if (MainLayout != Ru and MainLayout != 4029875225){  ;Save a unique layout for failsafe
-  IniWrite, %FailLayout%, Prefs.ini, All, FailLayout
-} else {  ;If layout is ru, use failsafe
-  MainLayout := FailLayout
+StartLayout := DllCall("user32.dll\GetKeyboardLayout", "UInt", DllCall("user32.dll\GetWindowThreadProcessId", "Ptr", WinActive("A"), "UInt", 0, "UInt"), "UInt") & 0xFFFF
+DebugPrepend(StartLayout)
+Ru := 1049  ;Input layout code for mnemo ruski
+ReadIniDefUndef(,,"MainLayout", MainLayout)
+if (StartLayout != Ru and StartLayout != 1033){  ;Save a unique layout for failsafe
+  IniWrite, %StartLayout%, Prefs.ini, All, MainLayout
 }
+if (MainLayout = Ru) MainLayout = 1033
 ProfileList := "Default,Dota,Minecraft,Witcher"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
@@ -1229,3 +1229,5 @@ Layout := RU
 Gosub SB_Layout
 Soundplay, %A_WinDir%\Media\Windows Default.wav
 Return
+
+:*:cosnt::const
