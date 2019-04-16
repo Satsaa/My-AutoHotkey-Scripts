@@ -284,15 +284,59 @@ IniDelKeys(Section=" ",File="Prefs.ini", Keys*){
 ;#####################################################################################
 ;Fastest way to send text. Returns 1 for success, 0 for timeout
 
-Paste(data){
+Paste(data, select = false){
+  _handleKeyStates()
 	Clipboard= 
 	Clipboard := data
 	Clipwait, 1
 	if ErrorLevel {
 		DebugPrepend("Paste failed at " %A_ThisLabel%)
+    _handleKeyStates(true)
 		return 0
-	} send ^v
+	}
+  lefts := strLen(data) - 2
+  send ^v
+  sleep, 16
+  if (select) {
+    send {Left}{Shift down}{Left %lefts%}{Shift up}
+  }
+  _handleKeyStates(true)
 	return 1
+}
+
+_handleKeyStates(reset = false){
+  static _Shift, _Ctrl, _Alt
+  sleep 1
+  if (reset) {
+    if (!_Ctrl) {
+      send {Ctrl down}
+    }
+    if (!_Alt) {
+      send {Alt down}
+    }
+    if (!_Shift) {
+      send {Shift down}
+    }
+  } else {
+    If GetKeyState("Control","P") {
+      _Ctrl = true
+    } else {
+      _Ctrl = false
+    }
+    If GetKeyState("Alt","P") {
+      _Alt = true
+    } else {
+      _Alt = false
+    }
+    If GetKeyState("Shift","P") {
+      _Shift = true
+    } else {
+      _Shift = false
+    }
+    send {Ctrl up}
+    send {Alt up}
+    send {Shift up}
+  }
 }
 
 ;#####################################################################################
