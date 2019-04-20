@@ -1,6 +1,0 @@
-﻿#Include Lib\TrayMenu.ahk2
-Return
-
-2::
-MSgBox("jgk")
-Return
