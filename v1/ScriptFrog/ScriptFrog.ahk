@@ -59,14 +59,13 @@ SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,  ;Width for sidebar buttons
 MinTabHeight := 220, ;Minimum height for tab control
 WinGet, WinID,, A
-StartLayout := DllCall("user32.dll\GetKeyboardLayout", "UInt", DllCall("user32.dll\GetWindowThreadProcessId", "Ptr", WinActive("A"), "UInt", 0, "UInt"), "UInt") & 0xFFFF
+StartLayout := DllCall("user32.dll\GetKeyboardLayout", "UInt", DllCall("user32.dll\GetWindowThreadProcessId", "Ptr", WinID, "UInt", 0, "UInt"), "UInt")
 DebugPrepend(StartLayout)
-Ru := 1049  ;Input layout code for mnemo ruski
-ReadIniDefUndef(,,"MainLayout", MainLayout)
-if (StartLayout != Ru and StartLayout != 1033){  ;Save a unique layout for failsafe
+Ru := 4029875225  ;Input layout code for mnemo ruski
+if (StartLayout != Ru){  ;Save any non ruski layout
   IniWrite, %StartLayout%, Prefs.ini, All, MainLayout
 }
-if (MainLayout = Ru) MainLayout = 1033
+if (MainLayout = Ru) MainLayout = 4039115785
 ProfileList := "Default,Dota,Minecraft,Witcher"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
@@ -727,7 +726,7 @@ Loop {
 		}
 	}
 }
-Export := "ScriptFagIni Dont remove this first line`n" Export
+Export := "ScriptFrogIni Dont remove this first line`n" Export
 GuiControl,Export:, ExportPreview,% Export
 Return
 
@@ -764,7 +763,7 @@ If (ImportMerge){
 	Loop, read, %ImportPath%
 	{
 		If (A_Index=1){
-			If !(A_LoopReadLine="ScriptFagIni Dont remove this first line"){
+			If !(A_LoopReadLine="ScriptFrogIni Dont remove this first line"){
 				MsgBox, 52, Warning, This file is not tagged as an export file.`nDo you want to continue?
 				IfMsgBox, No
 				{
@@ -1215,7 +1214,7 @@ LayoutMainSilent:
 If (Layout=MainLayout){
 	Return
 }
-PostMessage 0x50, 0, MainLayout,, A
+PostMessage 0x50, 0, %MainLayout%,, A
 Layout := MainLayout
 Gosub SB_Layout
 If (!MinecraftEnabled and A_ThisLabel != "LayoutMainSilent")
@@ -1225,7 +1224,7 @@ LayoutRu:
 If (Layout=Ru){
 	Return
 }
-PostMessage 0x50, 0, Ru,, A
+PostMessage 0x50, 0, %Ru%,, A
 Layout := RU
 Gosub SB_Layout
 Soundplay, %A_WinDir%\Media\Windows Default.wav

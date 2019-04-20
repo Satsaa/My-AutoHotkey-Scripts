@@ -10,7 +10,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 Root := A_ScriptDir
 
 FileDelete,% "Boxy\Include.ahk"
-FileDelete,% "ScriptFag\Include.ahk"
+FileDelete,% "ScriptFrog\Include.ahk"
 FileDelete,% "YoutubeDL\Include.ahk"
 FileDelete,% "FantasyCounter\Include.ahk"
 FileDelete,% "LaunchPad\Include.ahk"
@@ -19,7 +19,7 @@ FileDelete,% "BarMan\Include.ahk"
 
 
 
-While (FileExist("ScriptFag\Include.ahk") or  FileExist("YoutubeDL\Include.ahk") or FileExist("Boxy\Include.ahk") or FileExist("LaunchPad\Include.ahk") or FileExist("BarMan\Include.ahk")){
+While (FileExist("ScriptFrog\Include.ahk") or  FileExist("YoutubeDL\Include.ahk") or FileExist("Boxy\Include.ahk") or FileExist("LaunchPad\Include.ahk") or FileExist("BarMan\Include.ahk")){
     sleep, 100
     If (A_Index>20){
         MsgBox, Couldnt delete existing Include.ahk files in time. Maybe you have a script open that has one of them open?
@@ -36,12 +36,12 @@ BoxyInclude=
 )
 FileAppend, %BoxyInclude%, Boxy\Include.ahk
 
-ScriptFagInclude=
+ScriptFrogInclude=
 (
 #Include %Root%\Lib\Functions.ahk
 #Include %Root%\Lib\TrayMenu.ahk
 )
-FileAppend, %ScriptFagInclude%, ScriptFag\Include.ahk
+FileAppend, %ScriptFrogInclude%, ScriptFrog\Include.ahk
 
 YoutubeDLInclude=
 (

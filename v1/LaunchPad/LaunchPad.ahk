@@ -25,8 +25,8 @@ MouseGetPos, MouseX, MouseY
 
 Menu, Tray, Icon, %ResDir%\forsenLauncher.ico
 
-Gui, Add, Picture, w64 gLaunchScriptFag, %ResDir%\forsenE.ico
-Gui, Add, Text, wp center, ScriptFag
+Gui, Add, Picture, w64 gLaunchScriptFrog, %ResDir%\forsenE.ico
+Gui, Add, Text, wp center, ScriptFrog
 Gui, Add, Picture, w64 gLaunchBoxy, %ResDir%\forsenBoxE.ico
 Gui, Add, Text, wp center, Boxy
 Gui, Add, Picture, w64 gLaunchFantasyCounter, %ResDir%\forsenCard.ico
@@ -53,8 +53,8 @@ GuiClose:
 ExitApp
 Return
 
-LaunchScriptFag:
-Run,% """" DirAscend(A_ScriptDir) "\ScriptFag\ScriptFag.ahk""",% DirAscend(A_ScriptDir) "\ScriptFag\"
+LaunchScriptFrog:
+Run,% """" DirAscend(A_ScriptDir) "\ScriptFrog\ScriptFrog.ahk""",% DirAscend(A_ScriptDir) "\ScriptFrog\"
 ExitApp
 Return
 
