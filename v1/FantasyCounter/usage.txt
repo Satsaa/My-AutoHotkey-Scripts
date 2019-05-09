@@ -1,0 +1,21 @@
+-- Usage for filling CardData.txt and PlayerData.txt --
+
+-- CardData.txt -- List of cards you own
+
+Chrome tested
+1: Visit http://www.dota2.com/fantasy and login with Steam
+2: Open the inspector tab 
+  - press ctrl+shift+i
+  - or right click and select inspect
+3: Select the "Console" tab
+4: Write "copy(cardData)" and press enter
+5: Empty CardData.txt
+6: Paste the copied contents to CardData.txt
+
+-- PlayerData.txt -- Average stats for players
+
+1: Visit http://fantasy.prizetrac.kr/views/international2019/average.php
+2: Set the "show entries" value to 100 or more (if all players don't fit on a single page, you are out of luck)
+3: Copy everything on the site (ctrl+a and ctrl+c)
+4: Empty PlayerData.txt
+5: Paste the copied contents to PlayerData.txt

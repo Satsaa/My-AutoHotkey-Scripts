@@ -22,7 +22,11 @@ RowNames := []
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
 Menu, Tray, Icon, %ResDir%\forsenCard.ico
-ReadIniDefUndef(,,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","")
+ReadIni(,,"Loaded")
+if (!Loaded){
+  run "usage.txt"
+}
+ReadIniDefUndef(,,"Loaded", 1,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","")
 
 EditHeight:=18,
 EditGrow:=5,
@@ -33,7 +37,7 @@ PosArray:=[],PosArray[1]:="Core",PosArray[2]:="Support",PosArray[3]:="Offlane"
 
 Row:=0
 Row++
-RowName:="Name"
+RowName:="Player"
 RowNames[Row]:=RowName
 Gui, Add, Text,% TextFormula, %RowName%
 Gui, Add, Edit,% "xp-" EditGrow " yp+" VerticalSpacing " wp+" EditGrow*2 " h" EditHeight " vName gName"
@@ -45,43 +49,39 @@ Gui, Add, Text,% "vText1 wp yp+" VerticalSpacing+2, Points
 Gui, Add, Text,% "vText2 wp yp+" VerticalSpacing, Percent
 Gui, Add, Text,% "vText3 wp yp+" VerticalSpacing, Bonus
 
-NameList:="Kills,Deaths,CS,GPM,Tower,Roshan,Team,Wards,Camps,Runes,Blood,Stuns,Total,All"
+NameList:="Kills,Deaths,CS,GPM,Tower,Roshan,Team,Wards,Camps,Runes,Blood,Stuns,Total"
 Loop, Parse, NameList, "`,"
 {
 	RowName:=A_LoopField
-	If (A_LoopField!="All"){
-		RowNames[A_Index+1]:=A_LoopField
-		Row++
-	}
+	RowNames[A_Index+1]:=A_LoopField
+	Row++
 	Gui, Add, Text,% TextFormula, %RowName%
 }
-Loop, Parse, NameList, "`,"
+Loop, Parse, NameList, "`," ;Source points
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
 		Gui, Add, Edit,% "x" VerticalSpacing*3+30 " yp+" EditHeight+7 " w" ElementWidth+7 " h" EditHeight " v" RowName "Point gPoint",
 	} else {
-		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="All")?("Point gSetPoints"):((A_LoopField="Total")?("Point"):("Point gPoint"))),
+		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Point ReadOnly"):("Point gPoint"))
 	}
 }
-Loop, Parse, NameList, "`,"
+Loop, Parse, NameList, "`," ;Bonus percentages
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
 		Gui, Add, Edit,% "x" VerticalSpacing*3+30 " yp+" EditHeight+7 " w" ElementWidth+7 " h" EditHeight " v" RowName ((A_LoopField="Total")?("Percent"):("Percent gPercent")),
 	} else {
-		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="All")?("Percent gSetPercent"):((A_LoopField="Total")?("Percent"):("Percent gPercent"))),
+		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Percent ReadOnly"):("Percent gPercent")),
 	}
 }
-Loop, Parse, NameList, "`,"
+Loop, Parse, NameList, "`," ;Bonus points
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
-		Gui, Add, Edit,% "x" VerticalSpacing*3+30 " yp+" EditHeight+7 " w" ElementWidth+7 " h" EditHeight " v" RowName ((A_LoopField="Total")?("Bonus"):("Bonus gBonus")),
+		Gui, Add, Edit,% "x" VerticalSpacing*3+30 " yp+" EditHeight+7 " w" ElementWidth+7 " h" EditHeight " v" RowName ((A_LoopField="Total")?("Bonus"):("Bonus gBonus")) " ReadOnly",
 	} else {
-		If (A_LoopField!="All"){
-			Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Bonus"):("Bonus gBonus")),
-		}
+		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Bonus"):("Bonus gBonus")) " ReadOnly",
 	}
 }
 Gui, Add, Button,% "h" EditHeight+2 " ym+" -1 " gToClipboard", &Copy
@@ -90,7 +90,6 @@ Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gFromClipboard", &Paste
 Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth+5 " gImport", &Import
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gExport", &Export
 
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing*2-2 " gReload", &Reload
 
 OnExit SaveIni
 If (AlwaysOnTop=1){
@@ -98,13 +97,16 @@ If (AlwaysOnTop=1){
 } else {
 	Gui, -AlwaysOnTop
 }
-Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp-" VerticalSpacing-5 " vAlwaysOnTop gCheckBoxAlwaysOnTop", Always on top
-Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp-" ElementWidth*2-21 " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*4+5 " gParseCards", Parse CardData.txt
+Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp+" VerticalSpacing  " vAlwaysOnTop gCheckBoxAlwaysOnTop", Always on top
+Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp" " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Parse CardData.txt
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Parse PlayerData.txt
-Gui, Add, Text,% "vPercentage wp yp+" VerticalSpacing, 100`%
-Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing-2 " gHelp", ?
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*3 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
+Gui, Add, Text,% "vHint wp yp+" VerticalSpacing, 100`%
+
+Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing " gHelp", ?
+Gui, Add, Button,% "w" 76 " hp yp xp+" 25 " gReload", &Reload
+
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" 86 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card by Team
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
@@ -217,15 +219,7 @@ WriteIni(,,"AlwaysOnTop")
 Return
 
 Help:
-MsgBox,4, Pasting data, You can copy-paste data from http://fantasy.prizetrac.kr/international2018/average by copying one "player" row. Copying the full row is intended, but might work in other situations. `n`n Press yes if you want to visit the link
-IfMsgBox, Yes
-	Run, http://fantasy.prizetrac.kr/international2018/average
-MsgBox,4, Getting CardData, You need to visit http://www.dota2.com/fantasy and copy the cards array. How to do it on Chrome: Login if you aren't already. Right click and click inspect. Go to Console and store the Object -> cards: array as a global variable. Then type below in the console copy(temp1). Now the array is on your clipboard. Overwrite CardData.txt with that. `n`n Press yes if you want to visit the link
-IfMsgBox, Yes
-	Run, http://www.dota2.com/fantasy
-MsgBox,4, Getting PlayerData, You need to visit http://fantasy.prizetrac.kr/international2018/average and copy the page contents. Ctrl+a to select all. Then copy. Overwrite the contents to PlayerData.txt
-IfMsgBox, Yes
-	Run, http://fantasy.prizetrac.kr/international2018/average
+Run, usage.txt
 Return
 
 Export:
@@ -470,7 +464,7 @@ Loop, Parse, CardData, `n
 		}
 	}
 }
-GuiControl,,% "Percentage",% "Parsed cards!"
+GuiControl,,% "Hint",% "Parsed cards!"
 CardPlayerList:=SubStrEnd(CardPlayerList,1), CardTeamList:=SubStrEnd(CardTeamList,1), CardPlayerCount:=0
 Loop, Parse, CardPlayerList, `,
 	CardPlayerCount++
@@ -495,41 +489,46 @@ PlayerDataLines=0
 Loop, Parse, PlayerData, `n
 	PlayerDataLines++
 FileRead, PlayerData, PlayerData.txt
+PlayerDataStart := false
 Loop, Parse, PlayerData, `n
 {
 	Line++
-	If InStr(A_LoopField, "Showing 1 to ", 1){
-		Break
-	}
-	If (Line>=14){
-		PlayerLine++
-		If (PlayerLine=1){
-			Player++
-			PlayerName[Player]:=SubStrEnd(A_LoopField)  ;Alot of outputs from playerdata have newlines at the end so many of these vars are cut from the end
-			PlayerNameToID[PlayerName[Player]]:=Player
-			PointPlayerList.=PlayerName[Player] ","
-		} else If (PlayerLine=2){
-			PlayerTeam[Player]:=SubStrEnd(A_LoopField)
-			If (PlayerTeam[Player]=""){
-				MsgBox,% PlayerTeam[Player] "," PlayerName[Player] "," PlayerNameToID[PlayerName[Player]] ","
-			}
-		} else If (PlayerLine=3){
-			Loop, Parse, A_LoopField, "	"
-			{
-				If (A_Index=1){
-					PlayerPos[Player]:=A_LoopField
-				} else If (A_index<Row){
-					PointIndex:=A_Index-1
-					PlayerPoints%PointIndex%[Player]:=A_LoopField
-				}
-			}
-		} else If (PlayerLine=4){
-			PlayerTotal[Player]:=SubStrEnd(A_LoopField)
-			PlayerLine=0
-		} 
-	}
+  if (InStr(A_LoopField, "Total Score")) {
+    PlayerDataStart := True
+    Continue
+  }
+  if (A_LoopField = "`r") {
+    Continue
+  }
+	If (PlayerDataStart = true){
+	  PlayerLine++
+	  If (PlayerLine=1){
+	  	Player++
+	  	PlayerName[Player]:=SubStrEnd(A_LoopField)  ;Alot of outputs from playerdata have newlines at the end so many of these vars are cut from the end
+	  	PlayerNameToID[PlayerName[Player]]:=Player ;Conversion table
+	  	PointPlayerList.=PlayerName[Player] ","  ;Name list
+	  } else If (PlayerLine=2){
+	  	PlayerTeam[Player]:=SubStrEnd(A_LoopField)
+	  	If (PlayerTeam[Player]=""){
+	  		MsgBox,% PlayerTeam[Player] "," PlayerName[Player] "," PlayerNameToID[PlayerName[Player]] ","
+	  	}
+	  } else If (PlayerLine=3){
+	  	Loop, Parse, A_LoopField, "	"
+	  	{
+	  		If (A_Index=1){
+	  			PlayerPos[Player]:=A_LoopField
+	  		} else If (A_index<Row){
+	  			PointIndex:=A_Index-1
+	  			PlayerPoints%PointIndex%[Player]:=A_LoopField
+	  		}
+	  	}
+	  } else If (PlayerLine=4){
+	  	PlayerTotal[Player]:=SubStrEnd(A_LoopField)
+	  	PlayerLine=0
+	  }
+  }
 }
-GuiControl,,% "Percentage",% "Parsed players!"
+GuiControl,,% "Hint",% "Parsed players!"
 PointPlayerList:=SubStrEnd(PointPlayerList,1)
 Return
 
@@ -657,7 +656,7 @@ If !(PlayerName[1]){
 }
 Loop, Parse, CardPlayerList, `,  ;Loop thru names
 {
-	GuiControl,,% "Percentage",% Round((A_Index/CardPlayerCount)*100) "%"
+	GuiControl,,% "Hint",% Round((A_Index/CardPlayerCount)*100) "%"
 	If (A_ThisLabel="GetHighestByPlayer" and  A_LoopField!=Name){
 		Skipped+=Row
 		Continue
@@ -725,9 +724,9 @@ Loop, Parse, CardPlayerList, `,  ;Loop thru names
 		}
 	}
 }
-GuiControl,,% "Percentage",% "Search finished!"
-MsgBox, 1, A_ThisLabel,% "Checked " Parsed " cards." ((Skipped)?(" Skipped " Skipped " cards"):("")) "`n"
-	. "Card " HighestCard " with " HighestPoints " points. " HighestName " from " CardTeam[HighestCard] ". " PosArray[CardPos[HighestCard]] ".`n"
+GuiControl,,% "Hint",% "Search finished!"
+;MsgBox, 1, A_ThisLabel,% "Checked " Parsed " cards." ((Skipped)?(" Skipped " Skipped " cards"):("")) "`n"
+;	. "Card " HighestCard " with " HighestPoints " points. " HighestName " from " CardTeam[HighestCard] ". " PosArray[CardPos[HighestCard]] ".`n"
 IfMsgBox, Cancel
 	Return
 If (HighestCard=""){
