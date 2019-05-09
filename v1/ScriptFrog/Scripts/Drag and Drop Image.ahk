@@ -55,7 +55,7 @@ MouseMove, -5, -5, 100, R
 MouseMove, 5, 5, 100, R
 MouseMove, -5, -5, 100, R
 Click, Up
-sleep, 64
+sleep, 128
 SetTitleMatchMode, 3
 IfWinExist, Copy File
 {
