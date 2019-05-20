@@ -1,7 +1,7 @@
 ﻿SC++
 HotkeyName[SC] := "Reload"
 HotkeySub[SC] := "RL"
-HotkeyDescription[SC] := "Hotkey:`nReload this script"
+HotkeyDescription[SC] := "Hotkey:`nReload this script`n`nThis hotkey will be active in all profiles"
 HotkeyAllowModifiers[SC] := 1
 HotkeyGlobal[SC] := 1
 GoTo RL_End
