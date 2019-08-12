@@ -1,25 +1,26 @@
 ﻿SC++
-HotkeyName[SC] := "Spam_Click"
-HotkeySub[SC] := "SC"
-HotkeySettings[SC] := "SC_Sleep"
-HotkeySettingsDescription[SC] := "SC_Sleep:`nSleep duration between clicks (ms)"
+HotkeyName[SC] := "Spam_Right_Click"
+HotkeySub[SC] := "SRC"
+HotkeySettings[SC] := "SRC_Sleep"
+HotkeySettingsDescription[SC] := "SRC_Sleep:`nSleep duration between clicks (ms)"
 HotkeyDescription[SC] := "Hotkey:`nWhen held, click and sleep at your will`n`nShift:`nAdjust sleep. Set to ""skip"" If you really want to fuck around"
-GoTo SC_End
+HotkeyAllowModifiers[SC] := 1
+GoTo SRC_End
 
-SC_Load:
-ReadIniDefUndef(Profile,,"SC_Sleep","skip")
+SRC_Load:
+ReadIniDefUndef(Profile,,"SRC_Sleep","skip")
 Return
 
-SC:
+SRC:
 while GetKeyState(A_ThisHotkey, "P"){
-	click
-	If !(SC_Sleep="Skip"){
-		sleep, %SC_Sleep%
+	click, Right
+	If !(SRC_Sleep="Skip"){
+		sleep, %SRC_Sleep%
 	}
 }
 Return
 
-SC_Settings:
+SRC_Settings:
 If IsNumber(%A_GuiControl%){
 	%A_GuiControl% := Floor(%A_GuiControl%)
 	Goto SettingsSuccess
@@ -32,4 +33,4 @@ If IsNumber(%A_GuiControl%){
 }
 Return
 
-SC_End:
+SRC_End:

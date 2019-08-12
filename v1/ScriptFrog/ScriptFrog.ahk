@@ -32,7 +32,8 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Gimp Resize.ahk
 #Include %A_ScriptDir%\Scripts\Click Location.ahk
 #Include %A_ScriptDir%\Scripts\Click 2 Locations.ahk
-#Include %A_ScriptDir%\Scripts\Spam Click.ahk
+#Include %A_ScriptDir%\Scripts\Spam LClick.ahk
+#Include %A_ScriptDir%\Scripts\Spam RClick.ahk
 #Include %A_ScriptDir%\Scripts\Spam Ping Map.ahk
 #Include %A_ScriptDir%\Scripts\Reload.ahk
 #Include %A_ScriptDir%\Scripts\Annihilate.ahk
@@ -313,7 +314,7 @@ Return
 
 HotkeyCreate:
 CreateKey := %A_GuiControl%
-If (!HotkeyAllowModifiers[A_GuiControl]){  ;Invalidate hotkeys with modIfiers if not disallowed
+If (!HotkeyAllowModifiers[A_GuiControl]){  ;Invalidate hotkeys with modIfiers if disallowed
 	If (InStr(%A_GuiControl%, "+")){  ;Shift
 		GoTo InvalidHotkey
 	}
