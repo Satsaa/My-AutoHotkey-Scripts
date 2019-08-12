@@ -16,18 +16,32 @@ CoordMode, Mouse, Screen
 TM_SHOWGUI := [1,2]
 IDC_HAND := 32649
 
-ScreenshotFolder:="Screenshot\",
 ResDir := DirAscend(A_ScriptDir) "\Res"
 CursorHand:=DllCall("LoadCursor", "UInt", NULL,"Int", IDC_HAND, "UInt")
-FileCreateDir, %ScreenshotFolder%
 MaxImgDim:=750,  ;The maximum height or width for the screenshot review
 CornerX:=0, CornerY:=0,
 CtrlBoxX:=0, CtrlBoxY:=0, CtrlBoxH:=0, CtrlBoxW:=0, 
 GuiTitle := RegExReplace(A_ScriptName, ".ahk")
-ReadIniDefUndef("Settings",,"MatchTitle","A","RelativeCorner",0,"Looping",0
+ReadIniDefUndef("Settings",,"RelativeTitle","A","RelativeCorner",0,"Looping",0
 	,"InputX",100,"InputY",100,"InputX2",200,"InputY2",200
 	,"BoxX",100,"BoxY",100,"BoxW",100,"BoxH",100
 	,"Hotkeys",1,"GuiLoadX",250,"GuiLoadY",250,"Delay",0)
+
+ReadIni("Settings",,"ScreenshotFolder") ; Screenshot\
+if (!ScreenshotFolder) {
+  FileSelectFolder, ScreenshotFolder,, 3, Select screenshot folder
+  MsgBox, %ScreenshotFolder%
+  if (!ScreenshotFolder) {
+    MsgBox, Screenshot folder set to %A_ScriptDir%\Screenshots\
+    ScreenshotFolder = Screenshots
+  }
+  ScreenshotFolder := ScreenshotFolder . "\"
+  MsgBox, %ScreenshotFolder%
+  WriteIni("Settings",,"ScreenshotFolder")
+}
+
+FileCreateDir, %ScreenshotFolder%
+
 Gui, 1:Color, EEAA99
 Gui, 1:+LastFound +AlwaysOnTop -ToolWindow -Caption +Border +HwndBox +Owner 
 WinSet, TransColor, EEAA99
@@ -44,7 +58,7 @@ Menu, ScreenshotContextMenu, Add, Open Folder, OpenFolder
 Menu, ScreenshotContextMenu, Add, Copy Image, CopyImage
 Menu, ScreenshotContextMenu, Add, Copy Path, CopyPath
 Menu, ScreenshotContextMenu, Add, Hide Image, HideImage
-Gui, 2:Add, Edit, vRelativeTitle gInputUpdate w180,% MatchTitle
+Gui, 2:Add, Edit, vRelativeTitle gInputUpdate w180,% RelativeTitle
 Gui, 2:Add, Text,, Relative to this window (title matching)
 
 Gui, 2:Add, Radio,% "gRadio Checked" ((RelativeCorner=1) ? (1) : (0)), Up Left
@@ -99,10 +113,10 @@ if (Looping) {
 	GoSub LoopToggle
 }
 SetTimer, GetHover, 20
-GoSub InputUpdate
 GoSub UpdateHotkeys
 OnMessage(0x200,"WM_MOUSEMOVE")
-GoTo BoxUpdate
+GoSub BoxUpdate
+GoTo InputUpdate
 
 DelayUpdate:
 DelaySec := Round(Delay/1000,1)
@@ -211,7 +225,7 @@ If (Hotkeys and !Looping) {
 
 2GuiClose:
 GuiClose:
-WriteIni("Settings",,"MatchTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2",
+WriteIni("Settings",,"RelativeTitle","RelativeCorner","Looping","InputX","InputY","InputX2","InputY2",
 		,"BoxX","BoxY","BoxW","BoxH","Hotkeys","Delay")
 DllCall("DestroyCursor","Uint", CursorHand)
 Gui, 2: +LastFound
@@ -234,18 +248,22 @@ WM_MOUSEMOVE(wParam, lParam) {
 CopyImage:
 If ImageCopy
 	Clipboard:=ImageCopy
+else 
+  MsgBox, No image to be copied
 Return
 
 CopyPath:
 if ImageFile
-	Clipboard := A_ScriptDir "\" ImageFile
+	Clipboard := ImageFile
 Else
-	MsgBox, No image
+	Clipboard := ScreenshotFolder
 Return
 
 OpenImage:
 if ImageFile
 	Run, %ImageFile%
+else 
+	Run, explore %ScreenshotFolder%
 Return
 
 HideImage:
@@ -258,9 +276,9 @@ Return
 
 OpenFolder:
 if ImageFile
-	Run % "explorer.exe /select, """ A_ScriptDir "\" ImageFile """"
+	Run % "explorer.exe /select, """ ImageFile """"
 else
-	Run, explore %A_ScriptDir%\Screenshot
+	Run, explore %ScreenshotFolder%
 Return
 
 2GuiContextMenu:
@@ -309,6 +327,7 @@ if (!ErrorValues){
 	Reverted:=1, ErrorValues:=1
 }
 SetBox:
+Gosub, InputUpdate
 WinGetPos, WinX, WinY, WinW, WinH, %RelativeTitle%,
 GoSub GetRelativeWinCorner
 BoxX:=EvalX+CornerX
