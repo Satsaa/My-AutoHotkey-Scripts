@@ -4,18 +4,20 @@
 
 Chrome tested
 1: Visit http://www.dota2.com/fantasy and login with Steam
-2: Open the inspector tab 
+2: Press the CHANGE CARD button to load your card inventory
+3: Open the inspector tab 
   - press ctrl+shift+i
   - or right click and select inspect
-3: Select the "Console" tab
-4: Write "copy(cardData)" and press enter
-5: Empty CardData.txt
-6: Paste the copied contents to CardData.txt
+4: Select the "Console" tab
+5: Write "copy(cardData)" and press enter
+6: Empty CardData.txt (in script folder)
+7: Paste the copied contents to CardData.txt
 
 -- PlayerData.txt -- Average stats for players
 
 1: Visit http://fantasy.prizetrac.kr/views/international2019/average.php
+  - Edit year number if needed. Results appear after atleast one game. You can also replace it with another tournament, although it seems a bit buggy.
 2: Set the "show entries" value to 100 or more (if all players don't fit on a single page, you are out of luck)
 3: Copy everything on the site (ctrl+a and ctrl+c)
-4: Empty PlayerData.txt
+4: Empty PlayerData.txt (in script folder)
 5: Paste the copied contents to PlayerData.txt
