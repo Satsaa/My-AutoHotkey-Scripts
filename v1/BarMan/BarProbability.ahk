@@ -70,15 +70,8 @@ Loop, %MaxIter% {
 	If (Laziness!=""){
 		Sleep, %Laziness%
 	}
-	;Math:=round(random(-300,1125)*random(-300,1125)/10000-(random(0,1000)/100*9))+100
-	;Math:=sqrt( -2.0 * log( random(0.0,1.0) ) ) * cos( 2.0 * 3.14159265359 * random(0.0,1.0) )
-	;Math:=((sqrt(-2.0*log(random(0.0,1.0)))*cos(2.0*3.14159265359*random(0.0,1.0)))/10.0+0.5)**2.80)*(700-(-25))+(-25)
-	
-	Math:=RandomNormal(-50,1005,3)
-	
-	;poststring := "http://api.mathjs.org/v4/?expr=round(pow((sqrt(-2.0*log(random(0,1)))*cos(2.0*3.14159265359*random(0,1)))/10.0%2B0.5,3.6)*1005-5)"
-	;URLDownloadToFile,%poststring%, response.html
-	;fileread, Math, response.html
+
+	Math:=RandomNormal(-50,1000,3)
 
 	temp:=Ceil(Math/Segment-StartValue/Segment)	;80 / 8 - -10
 	;MsgBox,% temp ", " Math  ;Announce
