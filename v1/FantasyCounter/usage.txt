@@ -9,7 +9,7 @@ Chrome tested
   - press ctrl+shift+i
   - or right click and select inspect
 4: Select the "Console" tab
-5: Write "copy(cardData)" and press enter
+5: Write "copy(cardData.cards)" and press enter
 6: Empty CardData.txt (in script folder)
 7: Paste the copied contents to CardData.txt
 

@@ -1,4 +1,4 @@
-#NoEnv
+﻿#NoEnv
 #MaxHotkeysPerInterval 99000000
 #SingleInstance force
 #HotkeyInterval 99000000
@@ -26,14 +26,15 @@ ReadIni(,,"Loaded")
 if (!Loaded){
   run "usage.txt"
 }
-ReadIniDefUndef(,,"Loaded", 1,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","")
+ReadIniDefUndef(,,"Loaded", 1,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","","TeamIgnoresList", "", "PlayerIgnoresList", "", "PosIgnoresList", "")
 
 EditHeight:=18,
 EditGrow:=5,
 VerticalSpacing:=25,
 ElementWidth:=35,
 TextFormula:= " ym" " Center w" ElementWidth,
-PosArray:=[],PosArray[1]:="Core",PosArray[2]:="Support",PosArray[3]:="Offlane"
+PosArray:=[],PosArray[1]:="Core",PosArray[2]:="Support",PosObject[3]:="Offlane",PosArray[4]:="Mid"
+PosObject:={},PosObject["Core"]:=1,PosObject["Support"]:=2,PosObject["Offlane"]:=3,PosObject["Mid"]:=4
 
 Row:=0
 Row++
@@ -49,15 +50,15 @@ Gui, Add, Text,% "vText1 wp yp+" VerticalSpacing+2, Points
 Gui, Add, Text,% "vText2 wp yp+" VerticalSpacing, Percent
 Gui, Add, Text,% "vText3 wp yp+" VerticalSpacing, Bonus
 
-NameList:="Kills,Deaths,CS,GPM,Tower,Roshan,Team,Wards,Camps,Runes,Blood,Stuns,Total"
-Loop, Parse, NameList, "`,"
+NameList:="Kills`nDeaths`nCS`nGPM`nTower`nRoshan`nTeam`nWards`nCamps`nRunes`nBlood`nStuns`nTotal"
+Loop, Parse, NameList, `n
 {
 	RowName:=A_LoopField
 	RowNames[A_Index+1]:=A_LoopField
 	Row++
 	Gui, Add, Text,% TextFormula, %RowName%
 }
-Loop, Parse, NameList, "`," ;Source points
+Loop, Parse, NameList, `n ;Source points
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
@@ -66,7 +67,7 @@ Loop, Parse, NameList, "`," ;Source points
 		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Point ReadOnly"):("Point gPoint"))
 	}
 }
-Loop, Parse, NameList, "`," ;Bonus percentages
+Loop, Parse, NameList, `n ;Bonus percentages
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
@@ -75,7 +76,7 @@ Loop, Parse, NameList, "`," ;Bonus percentages
 		Gui, Add, Edit,% "xp+" ElementWidth+10 " yp wp h" EditHeight " v" RowName ((A_LoopField="Total")?("Percent ReadOnly"):("Percent gPercent")),
 	}
 }
-Loop, Parse, NameList, "`," ;Bonus points
+Loop, Parse, NameList, `n ;Bonus points
 {
 	RowName:=A_LoopField
 	If (A_Index=1){
@@ -91,6 +92,7 @@ Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth+5 " gImport", 
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gExport", &Export
 
 
+
 OnExit SaveIni
 If (AlwaysOnTop=1){
 	Gui, +AlwaysOnTop
@@ -99,17 +101,41 @@ If (AlwaysOnTop=1){
 }
 Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp+" VerticalSpacing  " vAlwaysOnTop gCheckBoxAlwaysOnTop", Always on top
 Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp" " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Parse CardData.txt
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Parse PlayerData.txt
-Gui, Add, Text,% "vHint wp yp+" VerticalSpacing, 100`%
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Reparse CardData
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Reparse PlayerData
+Gui, Add, Text,% "vHint wp yp+" VerticalSpacing, Welcome
 
 Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing " gHelp", ?
-Gui, Add, Button,% "w" 76 " hp yp xp+" 25 " gReload", &Reload
+Gui, Add, Button,% "w" 84 " hp yp xp+" 25 " gReload", &Reload
 
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" 86 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" 93 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card by Team
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
+
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*3+9 " w" ElementWidth*2 " gIgnorePlayerSingle", Ignore Player
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeamSingle", Ignore Team
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePosSingle", Ignore Pos
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gUnignoreAll", Unignore All
+
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+9 " w" ElementWidth*2+5 " gIgnorePlayer", Ignore Players
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeam", Ignore Teams
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePos", Ignore Pos'
+
+TeamIgnoreNameToId := []
+TeamIgnores := {}
+Loop, Parse, TeamIgnoresList, `t
+  TeamIgnores[A_LoopField] := true
+
+PlayerIgnoreNameToId := []
+PlayerIgnores := {}
+Loop, Parse, PlayerIgnoresList, `t
+  PlayerIgnores[A_LoopField] := true
+
+PosIgnoreNameToId := []
+PosIgnores := {}
+Loop, Parse, PosIgnoresList, `t
+  PosIgnores[A_LoopField] := true
 
 Gui, Show, x%GuiLoadX% y%GuiLoadY% , %GuiTitle%
 MoveGuiToBounds(1)
@@ -117,6 +143,9 @@ PrevClipboard:=ClipboardAll
 Clipboard:=StrReplace(Stats, "``n", "`n")
 GoSub FromClipboard
 Clipboard:=PrevClipboard
+GoSub ParsePlayers
+GoSub ParseCards
+GuiControl,,% "Hint",% "Ready!"
 Return
 
 
@@ -133,6 +162,21 @@ If !(GuiX<150-GuiW or GuiY<0){
 	IniWrite, %GuiX%, Prefs.ini, All, GuiLoadX
 	IniWrite, %GuiY%, Prefs.ini, All, GuiLoadY
 }
+TeamIgnoresList := ""
+For temp, temp0 in TeamIgnores
+  if (temp0) 
+    TeamIgnoresList .= temp "`t"
+PlayerIgnoresList := ""
+For temp, temp0 in PlayerIgnores
+  if (PlayerIgnores[temp])
+    PlayerIgnoresList .= temp "`t"
+PosIgnoresList := ""
+For temp, temp0 in PosIgnores
+  if (PosIgnores[temp])
+    PosIgnoresList .= temp "`t"
+IniWrite, %TeamIgnoresList%, Prefs.ini, All, TeamIgnoresList
+IniWrite, %PlayerIgnoresList%, Prefs.ini, All, PlayerIgnoresList
+IniWrite, %PosIgnoresList%, Prefs.ini, All, PosIgnoresList
 ExitApp
 Return
 
@@ -212,8 +256,14 @@ Gui, Submit, NoHide
 AlwaysOnTop:=%A_GuiControl%
 If (AlwaysOnTop=1){
 	Gui, +AlwaysOnTop
+  Gui, PlayerGui: +AlwaysOnTop
+  Gui, TeamGui: +AlwaysOnTop
+  Gui, PosGui: +AlwaysOnTop
 } else {
 	Gui, -AlwaysOnTop
+  Gui, PlayerGui: -AlwaysOnTop
+  Gui, TeamGui: -AlwaysOnTop
+  Gui, PosGui: -AlwaysOnTop
 }
 WriteIni(,,"AlwaysOnTop")
 Return
@@ -393,7 +443,7 @@ CardName:=,CardTeamID:=,CardTeam:=,TeamIdToName:=,CardPos:=,CardBonus1:=,CardBon
 CardBonusID1:=,CardBonusID2:=,CardBonusID3:=,CardBonusID4:=,CardBonusID5:=
 CardPlayerList:="", CardTeamList:="", Line:=0, CardEnd:=0, BonusIndex:=0, BonusLine:=0, Card:=0
 
-FileRead, CardData, CardData.txt
+FileRead, CardData, CardData.json
 Loop, Parse, CardData, `n
 {
 	Line++
@@ -404,7 +454,7 @@ Loop, Parse, CardData, `n
 			If (A_Index=2){
 				CardName[Card]:=SubStr(A_LoopField, 3, StrLen(A_LoopField)-5)
 				If !(InStr(CardPlayerList, CardName[Card] , 1)){  ;Put player name in to list if its not already in it
-					CardPlayerList.=CardName[Card] ","
+					CardPlayerList.=CardName[Card] "`n"
 				}
 			}
 		}
@@ -421,7 +471,7 @@ Loop, Parse, CardData, `n
 			If (A_Index=2){
 				CardTeam[Card]:=SubStr(A_LoopField, 3, StrLen(A_LoopField)-5)
 				If !(InStr(CardTeamList, CardTeam[Card] , 1)){  ;Put Team name in to list if its not already in it
-					CardTeamList.=CardTeam[Card] ","
+					CardTeamList.=CardTeam[Card] "`n"
 				}
 			}
 		}
@@ -466,8 +516,13 @@ Loop, Parse, CardData, `n
 }
 GuiControl,,% "Hint",% "Parsed cards!"
 CardPlayerList:=SubStrEnd(CardPlayerList,1), CardTeamList:=SubStrEnd(CardTeamList,1), CardPlayerCount:=0
-Loop, Parse, CardPlayerList, `,
+Loop, Parse, CardPlayerList, `n
 	CardPlayerCount++
+CardPlayerListAlpha := CardPlayerList
+Sort, CardPlayerListAlpha
+Gosub, IgnoreTeamCreate
+Gosub, IgnorePlayerCreate
+Gosub, IgnorePosCreate
 Return
 
 ParsePlayers:  ;Parse player specific stats
@@ -500,13 +555,13 @@ Loop, Parse, PlayerData, `n
   if (A_LoopField = "`r") {
     Continue
   }
-	If (PlayerDataStart = true){
+	If (PlayerDataStart = true and !InStr(A_LoopField, "Showing")){
 	  PlayerLine++
 	  If (PlayerLine=1){
 	  	Player++
 	  	PlayerName[Player]:=SubStrEnd(A_LoopField)  ;Alot of outputs from playerdata have newlines at the end so many of these vars are cut from the end
 	  	PlayerNameToID[PlayerName[Player]]:=Player ;Conversion table
-	  	PointPlayerList.=PlayerName[Player] ","  ;Name list
+	  	PointPlayerList.=PlayerName[Player] "`n"  ;Name list
 	  } else If (PlayerLine=2){
 	  	PlayerTeam[Player]:=SubStrEnd(A_LoopField)
 	  	If (PlayerTeam[Player]=""){
@@ -534,18 +589,12 @@ Return
 
 GetHighestByPlayer: ;Get best card by already entered name
 If (A_ThisLabel="GetHighestByPlayer"){
-	If !(CardPlayerList){
-		GoSub ParseCards
-	}
-	If !(PlayerName[1]){
-		GoSub ParsePlayers
-	}
 	If (Name=""){
-		MsgBox, Please fill in the name
+		MsgBox, Please enter a name (first box)
 		Return
 	}
 	MatchingName=0
-	Loop, Parse, CardPlayerList, `,
+	Loop, Parse, CardPlayerList, `n
 	{
 		If (Name=A_LoopField){
 			MatchingName=1
@@ -556,7 +605,7 @@ If (A_ThisLabel="GetHighestByPlayer"){
 		If (name="Noone"){
 			SimilarName:="No[o]ne-"
 		} else {
-			Loop, Parse, CardPlayerList, `,
+			Loop, Parse, CardPlayerList, `n
 			{
 				Similarity:=Compare(Name,A_LoopField)
 				If (Similarity>HighestSimilarity){
@@ -582,18 +631,12 @@ If (A_ThisLabel="GetHighestByPlayer"){
 }
 GetHighestByTeam:  ;Get best player and card by team
 If (A_ThisLabel="GetHighestByTeam"){
-	If !(CardTeamList){
-		GoSub ParseCards
-	}
-	If !(PlayerTeam[1]){
-		GoSub ParsePlayers
-	}
 	If (Team=""){
-		MsgBox, Please fill in the Team
+		MsgBox, Please enter a team (second box)
 		Return
 	}
 	MatchingTeam=0
-	Loop, Parse, CardTeamList, `,
+	Loop, Parse, CardTeamList, `n
 	{
 		If (Team=A_LoopField){
 			MatchingTeam=1
@@ -601,7 +644,7 @@ If (A_ThisLabel="GetHighestByTeam"){
 	}
 	SimilarTeam5:="",Similarity5:="",SimilarTeam4:="",Similarity4:="",SimilarTeam3:="",Similarity3:="",SimilarTeam2:="",Similarity2:="",SimilarTeam:="",HighestSimilarity:=""
 	If !(MatchingTeam){  ;Get closest Team
-		Loop, Parse, CardTeamList, `,
+		Loop, Parse, CardTeamList, `n
 		{
 			Similarity:=Compare(Team,A_LoopField)
 			If (Similarity>HighestSimilarity){
@@ -626,42 +669,26 @@ If (A_ThisLabel="GetHighestByTeam"){
 }
 GetHighestByPos:  ;Get best player and card by position
 If (A_ThisLabel="GetHighestByPos"){
-	If !(CardPosArray){
-		GoSub ParseCards
-	}
-	If !(PlayerPos[1]){
-		GoSub ParsePlayers
-	}
 	If (Pos=""){
-		MsgBox, Please fill in the Pos
+		MsgBox, Please enter a position (third box)
 		Return
 	}
 	Loop, 3 {
 		If (A_Index=4){
 			MsgBox, Invalid position.`n Valid positions are "Core", "Support" and "Offlane".
 		}
-		If (PosArray[A_Index]:=Pos){
+		If (PosArray[A_Index] = Pos){
 			Break
 		}
 	}
 }
 GetHighest:  ;Get the best card ever
 HighestPoints:="",HighestCard:="",HighestName:="",HighestPlayerIndex:=""
-HighestCard:="", HighestBonus:=0,Parsed:=0,Skipped:=0
-If !(CardPlayerList){
-	GoSub ParseCards
-}
-If !(PlayerName[1]){
-	GoSub ParsePlayers
-}
-Loop, Parse, CardPlayerList, `,  ;Loop thru names
+HighestCard:="", HighestBonus:=0,Parsed:=0,
+Loop, Parse, CardPlayerList, `n  ;Loop thru names
 {
 	GuiControl,,% "Hint",% Round((A_Index/CardPlayerCount)*100) "%"
-	If (A_ThisLabel="GetHighestByPlayer" and  A_LoopField!=Name){
-		Skipped+=Row
-		Continue
-	} else If (A_ThisLabel="GetHighestByPos" and  PlayerPos[A_Index]!=Pos){
-		Skipped+=Row
+  If (A_ThisLabel="GetHighestByPlayer" and A_LoopField!=Name){
 		Continue
 	}
 	Loop, %Card% {  ;Loop thru all cards
@@ -671,11 +698,25 @@ Loop, Parse, CardPlayerList, `,  ;Loop thru names
 			ThisPoints=0
 			CardIndex:=A_Index
 			PlayerIndex:=PlayerNameToID[A_LoopField]
+      If (A_ThisLabel="GetHighestByPos" and CardPos[CardIndex]!=PosObject[Pos]){
+	    	Continue
+	    }
+      If (PlayerIgnores[CardName[CardIndex]]) {
+        ;MsgBox,% "Ignored player: " CardName[CardIndex] ; Announce player skips
+				Continue
+      }
+      If (TeamIgnores[CardTeam[CardIndex]]) {
+        ;MsgBox,% "Ignored team: " CardTeam[CardIndex] ; Announce team skips
+				Continue
+      }
+      If (PosIgnores[PosArray[CardPos[CardIndex]]]) {
+        ;MsgBox,% "Ignored Position: " CardName[CardIndex] ; Announce Position skips
+				Continue
+      }
 			If (A_ThisLabel="GetHighestByTeam" and CardTeam[CardIndex]!=Team){
-				Skipped++
 				Continue
 			}
-			If !(PlayerIndex){
+			If (!PlayerIndex){
 				ParseName:=A_LoopField
 				If (A_LoopField="Ceb")  ;Manual aliases here. Sorry compare() is not perfect and valve cant do consistent naming
 					PlayerIndex:=PlayerNameToID["7Mad"]
@@ -687,9 +728,15 @@ Loop, Parse, CardPlayerList, `,  ;Loop thru names
 					PlayerIndex:=PlayerNameToID["Arteezy"]
 				else If (A_LoopField="冰冰冰")
 					PlayerIndex:=PlayerNameToID["iceiceice"]
+        else If (A_LoopField="一")
+					PlayerIndex:=PlayerNameToID["?"]
+        else If (A_LoopField="Peterpandam")
+					PlayerIndex:=PlayerNameToID["ppd"]
+        else If (A_LoopField="K1 Hector")
+					PlayerIndex:=PlayerNameToID["K1"]
 				else If (ParseName=A_LoopField){
 					SimilarName:="", HighestSimilarity:=""
-					Loop, Parse, PointPlayerList, `,
+					Loop, Parse, PointPlayerList, `n
 					{
 						Similarity:=Compare(ParseName,A_LoopField)
 						If (Similarity>HighestSimilarity and Similarity!=0){
@@ -725,8 +772,7 @@ Loop, Parse, CardPlayerList, `,  ;Loop thru names
 	}
 }
 GuiControl,,% "Hint",% "Search finished!"
-;MsgBox, 1, A_ThisLabel,% "Checked " Parsed " cards." ((Skipped)?(" Skipped " Skipped " cards"):("")) "`n"
-;	. "Card " HighestCard " with " HighestPoints " points. " HighestName " from " CardTeam[HighestCard] ". " PosArray[CardPos[HighestCard]] ".`n"
+;MsgBox, 1, A_ThisLabel,% "Checked " Parsed " cards.`nCard " HighestCard " with " HighestPoints " points. " HighestName " from " CardTeam[HighestCard] ". " PosArray[CardPos[HighestCard]] ".`n"
 IfMsgBox, Cancel
 	Return
 If (HighestCard=""){
@@ -740,16 +786,17 @@ Loop, %Row% {   ;Reset
 	GuiControl,,% "Team",% ""
 	GuiControl,,% "Pos",% ""
 }
-GuiControl,,% "Name",% PlayerName[HighestPlayerIndex]
-GuiControl,,% "Team",% PlayerTeam[HighestPlayerIndex]
-GuiControl,,% "Pos",% PlayerPos[HighestPlayerIndex]
+GuiControl,,% "Name",% CardName[HighestCard]
+GuiControl,,% "Team",% CardTeam[HighestCard]
+GuiControl,,% "Pos",% PosArray[CardPos[HighestCard]]
+
 Loop, 12 {  ;Set points
 	GuiControl,,% RowNames[A_Index+1] "Point",% PlayerPoints%A_Index%[HighestPlayerIndex]
 }
 Loop, 5 {  ;Set percentages
 	LoopIndex:=A_Index
 	If (CardBonusID%A_Index%[HighestCard]!=""){
-		Loop, Parse, NameList, `,
+		Loop, Parse, NameList, `n
 		{
 			If (CardBonusID%LoopIndex%[HighestCard]=A_Index){
 				GuiControl,,% RowNames[CardBonusID%LoopIndex%[HighestCard]+1] "Percent",% (CardBonus%LoopIndex%[HighestCard])
@@ -760,4 +807,157 @@ Loop, 5 {  ;Set percentages
 GuiControl,,% "Text1", Points
 GuiControl,,% "Text2", Percent
 GuiControl,,% "Text3", Bonus
+Return
+
+
+IgnorePlayer:
+gui, PlayerGui: show,, Ignore Players
+Return
+
+IgnorePlayerCreate:
+gui, PlayerGui: Destroy
+PlayerIgnoreNameToId := []
+Loop, Parse, CardPlayerListAlpha, `n
+{
+  PlayerIgnoreNameToId[A_LoopField] := A_Index
+  PlayerIgnores[A_LoopField] := PlayerIgnores[A_LoopField] ? true : false
+  If !(Mod(A_Index-1, 25)){  ;New row of settings
+    gui, PlayerGui: add, Checkbox,% "ym+25 gIgnorePlayerCheckbox Checked" (PlayerIgnores[A_LoopField]), %A_LoopField%
+  } else {  ;Continue line
+    gui, PlayerGui: add, Checkbox,% "gIgnorePlayerCheckbox Checked" (PlayerIgnores[A_LoopField]), %A_LoopField%
+  }
+}
+Gui, PlayerGui: Add, Button,% "gPlayerIgnoreAll x5 y5", Ignore All
+Gui, PlayerGui: Add, Button,% "gPlayerUnignoreAll xp+59", Unignore All
+if (AlwaysOnTop)
+  Gui, PlayerGui: +AlwaysOnTop
+Return
+
+PlayerUnignoreAll:
+For temp, temp0 in PlayerIgnores
+  PlayerIgnores[temp] := False
+Loop, %CardPlayerCount%
+  GuiControl, PlayerGui: , Button%A_Index%, 0
+Return
+
+PlayerIgnoreAll:
+For temp, temp0 in PlayerIgnores
+  PlayerIgnores[temp] := True
+Loop, %CardPlayerCount%
+  GuiControl, PlayerGui: , Button%A_Index%, 1
+Return
+
+IgnorePlayerCheckbox:
+PlayerIgnores[A_GuiControl] := PlayerIgnores[A_GuiControl] ? false : true
+Return
+
+
+IgnoreTeam:
+Gui, TeamGui: show,, Ignore Teams
+Return
+
+IgnoreTeamCreate:
+Gui, TeamGui: Destroy
+TeamIgnoreNameToId := []
+IgnoreTeamCount = 0
+Loop, Parse, CardTeamList, `n
+{
+  IgnoreTeamCount++
+  TeamIgnoreNameToId[A_LoopField] := A_Index
+  TeamIgnores[A_LoopField] := TeamIgnores[A_LoopField] ? true : false
+  If !(Mod(A_Index-1, 25)){  ;New row of settings
+    gui, TeamGui: add, Checkbox,% "ym+25 gIgnoreTeamCheckbox Checked" (TeamIgnores[A_LoopField]), %A_LoopField%
+  } else {  ;Continue line
+    gui, TeamGui: add, Checkbox,% "gIgnoreTeamCheckbox Checked" (TeamIgnores[A_LoopField]), %A_LoopField%
+  }
+}
+Gui, TeamGui: Add, Button,% "gTeamIgnoreAll x5 y5", Ignore All
+Gui, TeamGui: Add, Button,% "gTeamUnignoreAll xp+59", Unignore All
+if (AlwaysOnTop)
+  Gui, TeamGui: +AlwaysOnTop
+Return
+
+TeamUnignoreAll:
+For temp, temp0 in TeamIgnores
+  TeamIgnores[temp] := false
+Loop, %IgnoreTeamCount%
+  GuiControl, TeamGui: , Button%A_Index%, 0
+Return
+
+TeamIgnoreAll:
+For temp, temp0 in TeamIgnores
+  TeamIgnores[temp] := true
+Loop, %IgnoreTeamCount%
+  GuiControl, TeamGui: , Button%A_Index%, 1
+Return
+
+IgnoreTeamCheckbox:
+TeamIgnores[A_GuiControl] := TeamIgnores[A_GuiControl] ? false : true
+Return
+
+
+IgnorePos:
+Gui, PosGui: show,, Ignore Pos'
+Return
+
+IgnorePosCreate:
+Gui, PosGui: Destroy
+PosIgnoreNameToId := []
+For temp, temp0 in PosObject
+{
+  IgnorePosCount++
+  PosIgnoreNameToId[temp] := A_Index
+  PosIgnores[temp] := PosIgnores[temp] ? true : false
+  If !(Mod(A_Index-1, 25)){  ;New row of settings
+    gui, PosGui: add, Checkbox,% "ym+25 gIgnorePosCheckbox Checked" (PosIgnores[temp]), %temp%
+  } else {  ;Continue line
+    gui, PosGui: add, Checkbox,% "gIgnorePosCheckbox Checked" (PosIgnores[temp]), %temp%
+  }
+}
+Gui, PosGui: Add, Button,% "gPosIgnoreAll x5 y5", Ignore All
+Gui, PosGui: Add, Button,% "gPosUnignoreAll xp+59", Unignore All
+if (AlwaysOnTop)
+  Gui, PosGui: +AlwaysOnTop
+Return
+
+PosUnignoreAll:
+For temp, temp0 in PosIgnores
+  PosIgnores[temp] := false
+For temp, temp0 in PosIgnoreNameToId
+  GuiControl, PosGui: , Button%temp0%, 0
+Return
+
+PosIgnoreAll:
+For temp, temp0 in PosIgnores
+  PosIgnores[temp] := true
+For temp, temp0 in PosIgnoreNameToId
+  GuiControl, PosGui: , Button%temp0%, 1
+Return
+
+IgnorePosCheckbox:
+PosIgnores[A_GuiControl] := PosIgnores[A_GuiControl] ? false : true
+Return
+
+
+IgnorePlayerSingle:
+PlayerIgnores[Name] := PlayerIgnores[Name] ? false : true
+GuiControl, PlayerGui: ,% "Button" PlayerIgnoreNameToId[Name],% PlayerIgnores[Name] ? 1 : 0
+Return
+
+IgnoreTeamSingle:
+TeamIgnores[Team] := TeamIgnores[Team] ? false : true
+GuiControl, TeamGui: ,% "Button" TeamIgnoreNameToId[Team],% TeamIgnores[Team] ? 1 : 0
+Return
+
+IgnorePosSingle:
+PosIgnores[Pos] := PosIgnores[Pos] ? false : true
+GuiControl, PosGui: ,% "Button" PosIgnoreNameToId[Pos],% PosIgnores[Pos] ? 1 : 0
+Return
+
+
+
+UnignoreAll:
+Gosub, TeamUnignoreAll
+Gosub, PlayerUnignoreAll
+Gosub, PosUnignoreAll
 Return
