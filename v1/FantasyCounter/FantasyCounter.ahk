@@ -101,8 +101,8 @@ If (AlwaysOnTop=1){
 }
 Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth+5 " yp+" VerticalSpacing  " vAlwaysOnTop gCheckBoxAlwaysOnTop", Always on top
 Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp" " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Reparse CardData
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Reparse PlayerData
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Parse CardData.json
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Parse PlayerData.txt
 Gui, Add, Text,% "vHint wp yp+" VerticalSpacing, Welcome
 
 Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing " gHelp", ?
