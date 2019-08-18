@@ -5,6 +5,7 @@
 #InstallKeybdHook
 #UseHook
 #KeyHistory 1000
+FileEncoding, UTF-8
 ListLines, on
 Process, Priority, , A
 SetBatchLines, -1
@@ -17,6 +18,7 @@ SendMode Input
 CoordMode, Pixel, Screen
 CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Include.ahk
+#Include %A_ScriptDir%\unHTML.ahk
 
 RowNames := []
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
@@ -26,7 +28,11 @@ ReadIni(,,"Loaded")
 if (!Loaded){
   run "usage.txt"
 }
-ReadIniDefUndef(,,"Loaded", 1,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","","TeamIgnoresList", "", "PlayerIgnoresList", "", "PosIgnoresList", "")
+ReadIniDefUndef(,,"Loaded", 1,"GuiLoadY",100,"GuiloadX",100,"AlwaysOnTop","0","ClearOnPaste","1","Stats","","TeamIgnoresList", "", "PlayerIgnoresList", "", "PosIgnoresList", "", "PlayerDataOverrideURL", "")
+
+if (!FileExist("CardData.json")) {
+  FileAppend, `r`n, CardData.json
+}
 
 EditHeight:=18,
 EditGrow:=5,
@@ -538,53 +544,54 @@ PlayerName:=,PlayerNameToID:=,PlayerTeam:=,PlayerPos:=,PlayerTotal:=,
 PointPlayerList:="",
 Loop, 12
 	PlayerPoints%A_Index%:=,
-Line:=0, Player:=0, PlayerLine:=0,
+Player:=0, PlayerLine:=0,
 
 PlayerDataLines=0
 Loop, Parse, PlayerData, `n
 	PlayerDataLines++
-FileRead, PlayerData, PlayerData.txt
+if (!FileExist(PlayerDataOverrideURL = "" ? ("PlayerData" A_Year ".txt") : (A_ScriptDir "/PlayerDataCustom.txt")))
+  Gosub, DownloadPlayerData
+FileRead, PlayerData,% PlayerDataOverrideURL = "" ? ("PlayerData" A_Year ".txt") : (A_ScriptDir "/PlayerDataCustom.txt")
 PlayerDataStart := false
 Loop, Parse, PlayerData, `n
 {
-	Line++
-  if (InStr(A_LoopField, "Total Score")) {
-    PlayerDataStart := True
-    Continue
-  }
-  if (A_LoopField = "`r") {
-    Continue
-  }
-	If (PlayerDataStart = true and !InStr(A_LoopField, "Showing")){
-	  PlayerLine++
-	  If (PlayerLine=1){
-	  	Player++
-	  	PlayerName[Player]:=SubStrEnd(A_LoopField)  ;Alot of outputs from playerdata have newlines at the end so many of these vars are cut from the end
-	  	PlayerNameToID[PlayerName[Player]]:=Player ;Conversion table
-	  	PointPlayerList.=PlayerName[Player] "`n"  ;Name list
-	  } else If (PlayerLine=2){
-	  	PlayerTeam[Player]:=SubStrEnd(A_LoopField)
-	  	If (PlayerTeam[Player]=""){
-	  		MsgBox,% PlayerTeam[Player] "," PlayerName[Player] "," PlayerNameToID[PlayerName[Player]] ","
-	  	}
-	  } else If (PlayerLine=3){
-	  	Loop, Parse, A_LoopField, "	"
-	  	{
-	  		If (A_Index=1){
-	  			PlayerPos[Player]:=A_LoopField
-	  		} else If (A_index<Row){
-	  			PointIndex:=A_Index-1
-	  			PlayerPoints%PointIndex%[Player]:=A_LoopField
-	  		}
-	  	}
-	  } else If (PlayerLine=4){
-	  	PlayerTotal[Player]:=SubStrEnd(A_LoopField)
-	  	PlayerLine=0
-	  }
+	PlayerLine++
+	If (PlayerLine=1){  ;Name
+		Player++
+    PlayerName[Player] := SubStrEnd(A_LoopField)
+  	PlayerNameToID[PlayerName[Player]]:=Player  ;Conversion table
+  	PointPlayerList.=PlayerName[Player] "`n"  ;Name list
+  } else If (PlayerLine=2){  ;Team
+    PlayerTeam[Player] := SubStrEnd(A_LoopField)
+  } else If (PlayerLine=3){  ;Role
+    PlayerPos[Player] := SubStrEnd(A_LoopField)
+  } else If (PlayerLine > 3 and PlayerLine < 16){  ;Stats
+    PointIndex := PlayerLine - 3
+    PlayerPoints%PointIndex%[Player] := SubStrEnd(A_LoopField)
+  } else {  ;Total
+  	PlayerTotal[Player] := SubStrEnd(A_LoopField)
+  	PlayerLine=0
   }
 }
 GuiControl,,% "Hint",% "Parsed players!"
 PointPlayerList:=SubStrEnd(PointPlayerList,1)
+Return
+
+DownloadPlayerData:
+PlayerDataPath := PlayerDataOverrideURL = "" ? (A_ScriptDir "/PlayerData" A_Year ".txt") : (A_ScriptDir "/PlayerDataCustom.txt")
+TempPath = %A_ScriptDir%/PlayerDataTemp.txt
+UrlDownloadToFile,% PlayerDataOverrideURL = "" ? "http://fantasy.prizetrac.kr/views/international" A_Year "/average.php" : PlayerDataOverrideURL,% TempPath
+FileRead, fileStr,% TempPath
+
+FileDelete,% TempPath
+FileDelete,% PlayerDataPath
+
+fileStr := RegexReplace(unHTML(fileStr), "\n+", "`n")
+fileStr := SubStr(fileStr, InStr(fileStr, "Total Score")+12)
+fileStr := SubStr(fileStr, 1, InStr(fileStr, "$(document)")-10)
+
+FileAppend,% fileStr,% PlayerDataPath
+
 Return
 
 GetHighestByPlayer: ;Get best card by already entered name

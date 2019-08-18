@@ -1,4 +1,5 @@
--- Usage for filling CardData.txt and PlayerData.txt --
+-- Usage for filling CardData.txt --
+
 
 -- CardData.txt -- List of cards you own
 
@@ -13,11 +14,10 @@ Chrome tested
 6: Empty CardData.txt (in script folder)
 7: Paste the copied contents to CardData.txt
 
--- PlayerData.txt -- Average stats for players
 
-1: Visit http://fantasy.prizetrac.kr/views/international2019/average.php
-  - Edit year number if needed. Results appear after atleast one game. You can also replace it with another tournament, although it seems a bit buggy.
-2: Set the "show entries" value to 100 or more (if all players don't fit on a single page, you are out of luck)
-3: Copy everything on the site (ctrl+a and ctrl+c)
-4: Empty PlayerData.txt (in script folder)
-5: Paste the copied contents to PlayerData.txt
+-- PlayerData****.txt -- Average stats for players
+
+PlayerData is automatically downloaded from http://fantasy.prizetrac.kr/views/international<CURRENT_YEAR>/average.php
+If you want to use a different source for PlayerData,
+set "PlayerDataOverrideURL" in Prefs.ini to your desired url.
+Your custom URL must have contents in the same format.
