@@ -37,7 +37,7 @@ SaveIni(){
 }
 
 
-MaxIter=100000000  ;How many times to iterate
+MaxIter=1000000  ;How many times to iterate
 ;HighestCount:=MaxIter  ;Uncomment for real proportions
 StartValue:=-60, StartValue--  ;Value for first segment.
 Segments=200  ;Number of segments

@@ -23,9 +23,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\accent combo blocker.ahk
 
 #Include %A_ScriptDir%\Scripts\Pin Unpin Tab.ahk
-#Include %A_ScriptDir%\Scripts\Flickr Sizes.ahk
 #Include %A_ScriptDir%\Scripts\Increase Page.ahk
-#Include %A_ScriptDir%\Scripts\Drag and Drop Image.ahk
 #Include %A_ScriptDir%\Scripts\Yandex Image Search.ahk
 #Include %A_ScriptDir%\Scripts\VS Code Find Label.ahk
 #Include %A_ScriptDir%\Scripts\Debug Settings.ahk

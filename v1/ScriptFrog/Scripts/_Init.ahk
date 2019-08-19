@@ -1,13 +1,17 @@
-﻿HotkeyName := [],                   ;Displayed name of the hotkey. Must be a valid variable name. "_" is displayed as a space
+﻿; Required
+HotkeyName := [],                   ;Displayed name of the hotkey. Must be a valid variable name. "_" is displayed as a space
 HotkeySub := [],                    ;Subroute prefix 
 HotkeyDescription := [],            ;Description of what each hotkeys do / any text
 HotkeySettings := [],               ;Comma separated list of settings that will be shown in the Settings tab
 HotkeySettingsDescription := [],    ;Description of what all the settings do / any text
+
 HotkeyPrev := [],                   ;Internal
+
+; Optional
 HotkeyGlobal := [],                 ;Defines if the hotkey will be globally active
 HotkeyAllowModifiers := [],         ;Defines if the hotkey allows modifiers in its hotkey
-HotkeyDisableMain[]                 ;Defines if the hotkey's main       subroute is NOT active  Executed when hotkey is pressed without modifiers
-HotkeyAny := [],                    ;Defines if the hotkey's Any        subroute is active  Disables modifier subroutes. Executed when hotkey is pressed with any modifiers
+HotkeyDisableMain[]                 ;Defines if the hotkey's main       subroute is NOT active (Executed when hotkey is pressed without modifiers)
+HotkeyAny := [],                    ;Defines if the hotkey's Any        subroute is active (Disables modifier subroutes. Executed when hotkey is pressed with any or no modifiers)
 HotkeyCtrl := [],                   ;Defines if the hotkey's Ctrl       subroute is active
 HotkeyAlt := [],                    ;Defines if the hotkey's Alt        subroute is active
 HotkeyShift := [],                  ;Defines if the hotkey's Shift      subroute is active
