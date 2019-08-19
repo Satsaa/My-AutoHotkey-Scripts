@@ -6,6 +6,15 @@
  #### Run BuildIncludes.ahk before using
  
  ## ScriptFrog  
+ ![ScriptFrog](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/ScriptFrog.png "ScriptFrog") 
+<details><summary>Settings Tab</summary>
+<p>  
+ 
+ ![ScriptFrog2](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/ScriptFrogSettings.png "ScriptFrog") 
+
+</p>
+</details>
+
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
  Supports exporting/importing your current hotkeys/settings.  
@@ -68,7 +77,7 @@ AN_End:
 
  ## Boxy
  Boxy is a snipping tool Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.  
- 
+ ![Boxy](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/Boxy.png "Boxy")   
  Main GUI which has settings all the settings and shows your previous screenshot.  
  Also has controls for box X,Y,X2,Y2 values which can use basic math and variables available to the script.  
  These values are relative to the screen or a window you can choose using [WinTitle](https://www.autohotkey.com/docs/misc/WinTitle.htm) parameter format.  
@@ -82,18 +91,44 @@ AN_End:
  Ctrl: Restricts the box center to the original center.   
  
  ## FantasyCounter
+ ![FantasyCounter](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/FantasyCounter.png "FantasyCounter")  
+<details><summary>Ignore Windows</summary>
+<p>  
+ 
+ ![FantasyCounter2](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/FantasyCounterIgnores.png "FantasyCounter") 
+
+</p>
+</details>
+
  Allows you to find your best (highest score) Dota 2 Fantasy cards for the current TI.  
  Supports searching by player/team/position.  
  Each player/team/position can be ignored invidually.  
  
  ## YoutubeDL
+ ![YoutubeDL](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/YoutubeDl.png "YoutubeDL")   
  YoutubeDL/YTDL_HelperGui.ahk is a simple host for youtube-dl.exe. [Youtube-dl](https://rg3.github.io/youtube-dl)  
  Used to queue downloads of videos/audio by url.  
  Supports setting the command line arguments for youtube-dl.exe.  
  
  ## Misc
+<details><summary>Settings Tab</summary>
+<p>  
+ 
+ ![BarMan](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/BarMan.png "BarMan")   
+
+</p>
+</details> 
+
  BarMan/BarProbability.ahk  
  Customizeable script which is used to display chances of a specific number output from an algorithm.  
  
+<details><summary>Settings Tab</summary>
+<p>  
+ 
+ ![LaunchPad](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/LaunchPad.png "LaunchPad") 
+
+</p>
+</details>   
+
  LaunchPad  
  Gui for opening the above scripts (on my taskbar for quick access).  
