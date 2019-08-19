@@ -927,7 +927,7 @@ Loop, Parse, CardPlayerListAlpha, `n
 Gui, PlayerGui: Add, Button,% "gPlayerIgnoreAll x5 y5", Ignore All
 Gui, PlayerGui: Add, Button,% "gPlayerUnignoreAll xp+59", Unignore All
 if (AlwaysOnTop)
-  Gui, PlayerGui: +AlwaysOnTop
+  Gui, PlayerGui: +AlwaysOnTop -MinimizeBox 
 Return
 
 PlayerUnignoreAll:
@@ -974,7 +974,7 @@ Loop, Parse, CardTeamList, `n
 Gui, TeamGui: Add, Button,% "gTeamIgnoreAll x5 y5", Ignore All
 Gui, TeamGui: Add, Button,% "gTeamUnignoreAll xp+59", Unignore All
 if (AlwaysOnTop)
-  Gui, TeamGui: +AlwaysOnTop
+  Gui, TeamGui: +AlwaysOnTop -MinimizeBox 
 Return
 
 TeamUnignoreAll:
@@ -1020,7 +1020,7 @@ For temp, temp0 in PosObject
 Gui, PosGui: Add, Button,% "gPosIgnoreAll x5 y5", Ignore All
 Gui, PosGui: Add, Button,% "gPosUnignoreAll xp+59", Unignore All
 if (AlwaysOnTop)
-  Gui, PosGui: +AlwaysOnTop
+  Gui, PosGui: +AlwaysOnTop -MinimizeBox 
 Return
 
 PosUnignoreAll:
