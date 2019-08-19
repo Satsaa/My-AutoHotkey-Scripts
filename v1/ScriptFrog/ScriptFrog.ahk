@@ -58,24 +58,14 @@ SettingSize := 40,  ;Width for settings edit boxes
 ButtonSize := 50,  ;Width for sidebar buttons
 MinTabHeight := 220, ;Minimum height for tab control
 WinGet, WinID,, A
-StartLayout := DllCall("user32.dll\GetKeyboardLayout", "UInt", DllCall("user32.dll\GetWindowThreadProcessId", "Ptr", WinID, "UInt", 0, "UInt"), "UInt")
-DebugPrepend(StartLayout)
-Ru := 4029875225  ;Input layout code for mnemo ruski
-if (StartLayout != Ru) {  ;Save any non ruski layout
-  IniWrite, %StartLayout%, Prefs.ini, All, MainLayout
-}
-if (MainLayout = Ru) {
-  MainLayout = 4039115785
-}
 ProfileList := "Default,Dota,Minecraft,Witcher"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"),  ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
-Layout := GetLayout()
 Menu, Tray, Icon, %ResDir%\forsenE.ico
 SysGet, VirtualWidth, 78
 SysGet, VirtualHeight, 79
-ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"EnableLayoutHotkeys",0,"MainAOT",0,"CustomAliases",0)
+ReadIniDefUndef(,,"FirstLoad",1,"GuiLoadY",100,"GuiloadX",100,"DebugSetting",1,"MainAOT",0,"CustomAliases",0)
 SpecialHotkey := []  ;List of hotkeys with aliases
 SpecialHotkey["Pause"] := " | |"
 if (CustomAliases) {
@@ -119,7 +109,6 @@ If Mod(SC, MaxPerColumn){  ;Calculate nice hotkey button layout
 	MaxPerColumn := Ceil(SC/((SC - Mod(SC, MaxPerColumn))/MaxPerColumn + 1))
 }
 MaxGuiHeight := (48*MaxPerColumn)
-gosub LayoutHotkeysOn
 Gui, Add, Tab3,% (MaxGuiHeight <= 200 ? "h" MinTabHeight : "")" gTabControl vTab -wrap w" (HotkeySize+10)*Ceil(SC/(MaxPerColumn))+11, Hotkeys|Macros|Settings|%GuiTitle%
 Tab := "Hotkeys"  ;Tab isnt set automatically at start?
 if (MaxGuiHeight < 200) {
@@ -206,7 +195,6 @@ Gui, Add, Button, w%HotkeySize% gExportSettings, Export Settings
 Gui, Add, Button, w%HotkeySize% gImportSettings, Import Settings
 Gui, Add, Checkbox, w%HotkeySize% vMainAOT gCheckboxMainAOT Checked%MainAOT% -Wrap, Always on top
 Gui, Add, Checkbox, w%HotkeySize% vCustomAliases gCheckboxCustomAliases Checked%CustomAliases% -Wrap, Custom key aliases
-Gui, Add, Checkbox, w%HotkeySize% vEnableLayoutHotkeys gCheckboxLayout Checked%EnableLayoutHotkeys% -Wrap, Layout hotkeys
 if !(ACB_Enable="") {
   Gui, Add, Checkbox, w%HotkeySize% vACB_Enable gACB_Checkbox Checked%ACB_Enable% -Wrap, Block accenting
 }
@@ -219,7 +207,6 @@ RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 SB_SetParts(71, 63)
 Gosub SB_Profile
-Gosub SB_Layout
 Gosub SB_Title
 OnExit("SaveScript")
 OnMessage(0x200,"WM_MOUSEMOVE")
@@ -261,13 +248,8 @@ If (OldActiveTitle!=ActiveTitle and ActiveTitle and ActiveTitle!=GuiTitle  ;Acti
 	GoSub MinecraftHotkeys
 	GoSub WitcherHotkeys
 	Gosub SB_Title
-	FH_Enable=0
-	If InStr(ActiveTitle, "| Flickr -") {
-		FH_Enable=1
-	} else {
-		If (ActiveTitle="This is an unregistered copy") {
-			WinClose, This is an unregistered copy
-		}
+	If (ActiveTitle="This is an unregistered copy") {
+		WinClose, This is an unregistered copy
 	}
 	PrevActiveTitle := ActiveTitle
 }
@@ -283,9 +265,6 @@ If (TwoTick=2) {
 	TwoTick=0
 }
 If (TenTick=10) {
-	If (FH_Enable) {
-		GoSub, FlickerHide
-	}
 	TenTick=0
 }
 GuiControl, , TickCount,% Tick
@@ -885,9 +864,6 @@ Return
 SB_Profile:  ;Status Bar
 SB_SetText(Profile " profile")
 Return
-SB_Layout:
-SB_SetText((Layout=Ru) ? ("Rus layout") : (Layout=MainLayout) ? ("Main layout") : ("Unknown layout"),2)
-Return
 SB_Title:
 SB_SetText((ActiveTitle) ? (ActiveTitle) : ("No active window"),3)
 Return
@@ -988,7 +964,6 @@ If InStr(ActiveTitle, "Minecraft") {
 	If !(MinecraftEnabled) {
 		GoSub DisableHotkeyProfiles
 		SaveHotkeys("default")
-    Gosub, LayoutHotkeysOff
 		RestoreHotkeys("Minecraft")
 		RemoveDuplicateHotkeys()
 		MinecraftEnabled=1
@@ -1007,7 +982,6 @@ If InStr(ActiveTitle, "Minecraft") {
 }
 DisableMinecraft:
 SaveHotkeys("Minecraft")
-Gosub, LayoutHotkeysOn
 RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 MinecraftEnabled=0
@@ -1074,7 +1048,6 @@ WitcherHotkeys:
 If (ActiveTitle="The Witcher 3" and !WitcherEnabled) {
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys("default")
-	Gosub, LayoutHotkeysOff
 	RestoreHotkeys("Witcher")
 	RemoveDuplicateHotkeys()
 	WitcherEnabled=1
@@ -1088,7 +1061,6 @@ If (ActiveTitle="The Witcher 3" and !WitcherEnabled) {
 }
 DisableWitcher:
 SaveHotkeys("Witcher")
-Gosub, LayoutHotkeysOn
 RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 WitcherEnabled=0
@@ -1152,10 +1124,6 @@ DotaQuickBuy:
 Send {f5}
 Return
 
-FlickerHide:
-If GetKeyState("LButton", "P") {
-	Return
-}
 If GetKeyState("MButton", "P") {
 	Return
 }
@@ -1194,47 +1162,5 @@ MousePos("Restore")
 BlockInput, MouseMoveOff
 Return
 
-
-CheckboxLayout:
-EnableLayoutHotkeys := !EnableLayoutHotkeys
-if (EnableLayoutHotkeys) {
-  Gosub LayoutHotkeysOn
-}
-IniWrite, %EnableLayoutHotkeys%, Prefs.ini, All, EnableLayoutHotkeys
-Return
-
-LayoutHotkeysOn:
-if (EnableLayoutHotkeys) {
-  Hotkey, ~!Shift, LayoutMain
-  Hotkey, ~+Alt, LayoutRu
-  Hotkey, ~!Shift, On
-  Hotkey, ~+Alt, On
-}
-Return
-LayoutHotkeysOff:
-Hotkey, ~!Shift, LayoutMain, Off
-Hotkey, ~+Alt, LayoutRu, Off
-Return
-
-LayoutMain:
-LayoutMainSilent:
-If (Layout=MainLayout) {
-	Return
-}
-PostMessage 0x50, 0, %MainLayout%,, A
-Layout := MainLayout
-Gosub SB_Layout
-If (!MinecraftEnabled and A_ThisLabel != "LayoutMainSilent")
-	Soundplay, %A_WinDir%\Media\Speech Misrecognition.wav
-Return
-LayoutRu:
-If (Layout=Ru) {
-	Return
-}
-PostMessage 0x50, 0, %Ru%,, A
-Layout := RU
-Gosub SB_Layout
-Soundplay, %A_WinDir%\Media\Windows Default.wav
-Return
 
 :*:cosnt::const
