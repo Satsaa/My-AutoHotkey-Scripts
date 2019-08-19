@@ -15,6 +15,7 @@
 </p>
 </details>
 
+###### (There are no macros)  
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
  Supports exporting/importing your current hotkeys/settings.  
@@ -76,8 +77,8 @@ AN_End:
 </details>
 
  ## Boxy
- Boxy is a snipping tool Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.  
  ![Boxy](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/Boxy.png "Boxy")   
+ Boxy is a snipping tool Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.  
  Main GUI which has settings all the settings and shows your previous screenshot.  
  Also has controls for box X,Y,X2,Y2 values which can use basic math and variables available to the script.  
  These values are relative to the screen or a window you can choose using [WinTitle](https://www.autohotkey.com/docs/misc/WinTitle.htm) parameter format.  
