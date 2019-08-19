@@ -3,6 +3,8 @@
  
  Made for 2560x1440 monitors and my system :)  
  
+ #### Run BuildIncludes.ahk before using
+ 
  ## ScriptFrog  
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
@@ -89,4 +91,9 @@ AN_End:
  Used to queue downloads of videos/audio by url.  
  Supports setting the command line arguments for youtube-dl.exe.  
  
- #### Run BuildIncludes.ahk before using
+ ## Misc
+ BarMan/BarProbability.ahk  
+ Customizeable script which is used to display chances of a specific number output from an algorithm.  
+ 
+ LaunchPad  
+ Gui for opening the above scripts (on my taskbar for quick access).  
