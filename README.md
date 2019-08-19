@@ -112,7 +112,7 @@ AN_End:
  Supports setting the command line arguments for youtube-dl.exe.  
  
  ## Misc
-<details><summary>Settings Tab</summary>
+<details><summary>Preview</summary>
 <p>  
  
  ![BarMan](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/BarMan.png "BarMan")   
@@ -123,7 +123,7 @@ AN_End:
  BarMan/BarProbability.ahk  
  Customizeable script which is used to display chances of a specific number output from an algorithm.  
  
-<details><summary>Settings Tab</summary>
+<details><summary>Preview</summary>
 <p>  
  
  ![LaunchPad](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/LaunchPad.png "LaunchPad") 
