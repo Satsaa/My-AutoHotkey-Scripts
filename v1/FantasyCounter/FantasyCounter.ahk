@@ -50,6 +50,9 @@ Gui, Add, Text,% TextFormula, %RowName%
 Gui, Add, Edit,% "xp-" EditGrow " yp+" VerticalSpacing " wp+" EditGrow*2 " h" EditHeight " vName gName"
 Gui, Add, Edit,% "xp yp+" VerticalSpacing " wp h" EditHeight " vTeam gTeam"
 Gui, Add, Edit,% "xp yp+" VerticalSpacing " wp h" EditHeight " vPos gPos"
+IsIgnoredName := false
+IsIgnoredTeam := false
+IsIgnoredPos := false
 
 Gui, Add, Text,% "ym  w" ElementWidth,
 Gui, Add, Text,% "vText1 wp yp+" VerticalSpacing+2, Points
@@ -119,12 +122,12 @@ Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card b
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
 
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*3+9 " w" ElementWidth*2 " gIgnorePlayerSingle", Ignore Player
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeamSingle", Ignore Team
-Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePosSingle", Ignore Pos
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*3+9 " w" ElementWidth*2+15 " gIgnorePlayerSingle vIgnorePlayer", Ignore Player
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeamSingle vIgnoreTeam", Ignore Team
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePosSingle vIgnorePos", Ignore Pos
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gUnignoreAll", Unignore All
 
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+9 " w" ElementWidth*2+5 " gIgnorePlayer", Ignore Players
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+9+15 " w" ElementWidth*2+5 " gIgnorePlayer", Ignore Players
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeam", Ignore Teams
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePos", Ignore Pos'
 
@@ -151,6 +154,8 @@ GoSub FromClipboard
 Clipboard:=PrevClipboard
 GoSub ParsePlayers
 GoSub ParseCards
+Gosub, RefreshIsIgnores
+Gosub, RefreshIgnoreTexts
 GuiControl,,% "Hint",% "Ready!"
 Return
 
@@ -190,10 +195,95 @@ GuiClose:
 ExitApp
 Return
 
+IsIgnoredName := false
+IsIgnoredTeam := false
+IsIgnoredPos := false
+
 Name:
+Gui, Submit, NoHide
+if (IsIgnoredName) {
+  if (PlayerIgnores[Name]) {
+    IsIgnoredName := false
+    GuiControl, 1:Text, IgnorePlayer, Unignore Player
+  }
+} else {
+  if (!PlayerIgnores[Name]) {
+    IsIgnoredName := true
+    GuiControl, 1:Text, IgnorePlayer, Ignore Player
+  }
+}
+Return
+
 Team:
+Gui, Submit, NoHide
+if (IsIgnoredTeam) {
+  if (TeamIgnores[Team]) {
+    IsIgnoredTeam := false
+    GuiControl, 1:Text, IgnoreTeam, Unignore Team
+  }
+} else {
+  if (!TeamIgnores[Team]) {
+    IsIgnoredTeam := true
+    GuiControl, 1:Text, IgnoreTeam, Ignore Team
+  }
+}
+Return
+
 Pos:
 Gui, Submit, NoHide
+if (IsIgnoredPos) {
+  if (PosIgnores[Pos]) {
+    IsIgnoredPos := false
+    GuiControl, 1:Text, IgnorePos, Unignore Pos
+  }
+} else {
+  if (!PosIgnores[Pos]) {
+    IsIgnoredPos := true
+    GuiControl, 1:Text, IgnorePos, Ignore Pos
+  }
+}
+Return
+
+RefreshIsIgnores:
+if (PlayerIgnores[Name]) IsIgnoredName := true
+if (TeamIgnores[Team]) IsIgnoredTeam := true
+if (PosIgnores[Pos]) IsIgnoredPos := true
+Return
+
+RefreshIgnoreTexts:
+if (IsIgnoredName) {
+  if (PlayerIgnores[Name]) {
+    IsIgnoredName := false
+    GuiControl, 1:Text, IgnorePlayer, Unignore Player
+  }
+} else {
+  if (!PlayerIgnores[Name]) {
+    IsIgnoredName := true
+    GuiControl, 1:Text, IgnorePlayer, Ignore Player
+  }
+}
+if (IsIgnoredTeam) {
+  if (TeamIgnores[Team]) {
+    IsIgnoredTeam := false
+    GuiControl, 1:Text, IgnoreTeam, Unignore Team
+  }
+} else {
+  if (!TeamIgnores[Team]) {
+    IsIgnoredTeam := true
+    GuiControl, 1:Text, IgnoreTeam, Ignore Team
+  }
+}
+if (IsIgnoredPos) {
+  if (PosIgnores[Pos]) {
+    IsIgnoredPos := false
+    GuiControl, 1:Text, IgnorePos, Unignore Pos
+  }
+} else {
+  if (!PosIgnores[Pos]) {
+    IsIgnoredPos := true
+    GuiControl, 1:Text, IgnorePos, Ignore Pos
+  }
+}
 Return
 
 Point:
@@ -845,6 +935,7 @@ For temp, temp0 in PlayerIgnores
   PlayerIgnores[temp] := False
 Loop, %CardPlayerCount%
   GuiControl, PlayerGui: , Button%A_Index%, 0
+Gosub, RefreshIgnoreTexts
 Return
 
 PlayerIgnoreAll:
@@ -852,10 +943,12 @@ For temp, temp0 in PlayerIgnores
   PlayerIgnores[temp] := True
 Loop, %CardPlayerCount%
   GuiControl, PlayerGui: , Button%A_Index%, 1
+Gosub, RefreshIgnoreTexts
 Return
 
 IgnorePlayerCheckbox:
 PlayerIgnores[A_GuiControl] := PlayerIgnores[A_GuiControl] ? false : true
+Gosub, RefreshIgnoreTexts
 Return
 
 
@@ -889,6 +982,7 @@ For temp, temp0 in TeamIgnores
   TeamIgnores[temp] := false
 Loop, %IgnoreTeamCount%
   GuiControl, TeamGui: , Button%A_Index%, 0
+Gosub, RefreshIgnoreTexts
 Return
 
 TeamIgnoreAll:
@@ -896,10 +990,12 @@ For temp, temp0 in TeamIgnores
   TeamIgnores[temp] := true
 Loop, %IgnoreTeamCount%
   GuiControl, TeamGui: , Button%A_Index%, 1
+Gosub, RefreshIgnoreTexts
 Return
 
 IgnoreTeamCheckbox:
 TeamIgnores[A_GuiControl] := TeamIgnores[A_GuiControl] ? false : true
+Gosub, RefreshIgnoreTexts
 Return
 
 
@@ -932,6 +1028,7 @@ For temp, temp0 in PosIgnores
   PosIgnores[temp] := false
 For temp, temp0 in PosIgnoreNameToId
   GuiControl, PosGui: , Button%temp0%, 0
+Gosub, RefreshIgnoreTexts
 Return
 
 PosIgnoreAll:
@@ -939,26 +1036,31 @@ For temp, temp0 in PosIgnores
   PosIgnores[temp] := true
 For temp, temp0 in PosIgnoreNameToId
   GuiControl, PosGui: , Button%temp0%, 1
+Gosub, RefreshIgnoreTexts
 Return
 
 IgnorePosCheckbox:
 PosIgnores[A_GuiControl] := PosIgnores[A_GuiControl] ? false : true
+Gosub, RefreshIgnoreTexts
 Return
 
 
 IgnorePlayerSingle:
 PlayerIgnores[Name] := PlayerIgnores[Name] ? false : true
 GuiControl, PlayerGui: ,% "Button" PlayerIgnoreNameToId[Name],% PlayerIgnores[Name] ? 1 : 0
+Gosub, RefreshIgnoreTexts
 Return
 
 IgnoreTeamSingle:
 TeamIgnores[Team] := TeamIgnores[Team] ? false : true
 GuiControl, TeamGui: ,% "Button" TeamIgnoreNameToId[Team],% TeamIgnores[Team] ? 1 : 0
+Gosub, RefreshIgnoreTexts
 Return
 
 IgnorePosSingle:
 PosIgnores[Pos] := PosIgnores[Pos] ? false : true
 GuiControl, PosGui: ,% "Button" PosIgnoreNameToId[Pos],% PosIgnores[Pos] ? 1 : 0
+Gosub, RefreshIgnoreTexts
 Return
 
 
