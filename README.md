@@ -1,7 +1,7 @@
 # AutoHotkey-Scripts
  Folder of my AutoHotkey scripts.
  
-Only limited testing has been done on other systems to check stability (report problems in issues).  
+Only limited testing has been done on other systems (report problems in issues).  
  
  #### Run BuildIncludes.ahk before using
  
@@ -15,7 +15,7 @@ Only limited testing has been done on other systems to check stability (report p
 </p>
 </details>
 
-###### (There are no macros)  
+###### (Macros are WIP)  
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
  Supports exporting/importing your current hotkeys/settings.  
@@ -24,7 +24,7 @@ Only limited testing has been done on other systems to check stability (report p
 <details><summary>Adding you own scripts</summary>
 <p>
  
- Each script can have a bunch of settings. Each variable is defined for a script like `HotkeyAllowModifiers[SC] := <value>`.  
+ Each variable is defined for a script like `HotkeyAllowModifiers[SC] := <value>`.  
  Scripts are usually under v1/ScriptFrog/Scripts but this is not needed. #Include the script you made in the start of ScriptFrog.ahk (where all the other ones are included).  
  Subroutes are called as \<HotkeySub\>\_\<SubRoute\> (eg. MYSCRIPT_Load, MYSCRIPT_Ctrl, MYSCRIPT).  
  The \<HotkeySub\> label is called when an assigned hotkey is pressed without modifiers.  
@@ -79,9 +79,10 @@ AN_End:
 
  ## Boxy
  ![Boxy](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/Boxy.png "Boxy")   
- Boxy is a snipping tool Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.  
- Main GUI which has settings all the settings and shows your previous screenshot.  
- Also has controls for box X,Y,X2,Y2 values which can use basic math and variables available to the script.  
+ Boxy is a snipping tool with Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.
+ 
+ Main GUI which has settings for and shows your previous screenshot.  
+ Has controls for box X,Y,X2,Y2 values which can use basic math and variables available to the script.  
  These values are relative to the screen or a window you can choose using [WinTitle](https://www.autohotkey.com/docs/misc/WinTitle.htm) parameter format.  
  
 
@@ -102,14 +103,14 @@ AN_End:
 </p>
 </details>
 
- Allows you to find your best (highest score) Dota 2 Fantasy cards for the current TI.  
+ Allows you to find your best (highest score) Dota 2 Fantasy cards for the current International.  
  Supports searching by player/team/position.  
  Each player/team/position can be ignored invidually.  
  
  ## YoutubeDL
  ![YoutubeDL](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/YoutubeDl.png "YoutubeDL")   
  YoutubeDL/YTDL_HelperGui.ahk is a simple host for youtube-dl.exe. [Youtube-dl](https://rg3.github.io/youtube-dl)  
- Used to queue downloads of videos/audio by url.  
+ Used to queue downloads of videos/audio.  
  Supports setting the command line arguments for youtube-dl.exe.  
  
  ## Misc
@@ -123,6 +124,7 @@ AN_End:
 
  BarMan/BarProbability.ahk  
  Customizeable script which is used to display chances of a specific number output from an algorithm.  
+ All customization inside the script (good luck).
  
 <details><summary>Preview</summary>
 <p>  
@@ -133,4 +135,4 @@ AN_End:
 </details>   
 
  LaunchPad  
- Gui for opening the above scripts (on my taskbar for quick access).  
+ Gui for opening the above scripts. (On my taskbar for quick access)  
