@@ -1,7 +1,7 @@
 # AutoHotkey-Scripts
  Folder of my AutoHotkey scripts.
  
-Only limited testing has been done on other systems to check stability.  
+Only limited testing has been done on other systems to check stability (report problems in issues).  
  
  #### Run BuildIncludes.ahk before using
  
