@@ -112,12 +112,11 @@ Gui, Add, Checkbox,% ((AlwaysOnTop=1) ? ("Checked ") : ("")) " xp-" ElementWidth
 Gui, Add, Checkbox,% ((ClearOnPaste=1) ? ("Checked ") : ("")) " xp" " yp+" VerticalSpacing " vClearOnPaste gCheckBoxClearOnPaste", Clear on paste
 Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+20 " gParseCards", Parse CardData.json
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " -wrap gParsePlayers", Parse PlayerData.txt
-Gui, Add, Text,% "vHint wp yp+" VerticalSpacing, Welcome
+Gui, Add, Text,% "vHint -wrap wp yp+" VerticalSpacing, Welcome
 
-Gui, Add, Button,% "w" 20 " hp+" 7 " yp+" VerticalSpacing " gHelp", ?
-Gui, Add, Button,% "w" 84 " hp yp xp+" 25 " gReload", &Reload
+Gui, Add, Button,% "h" EditHeight+2 " wp yp+" VerticalSpacing " gDownloadPlayerData", Download Averages
 
-Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" 93 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card By Player
+Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" 118 " w" ElementWidth*3 " gGetHighestByPlayer", Best Card by Player
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByTeam", Best Card by Team
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighestByPos", Best Card by Pos
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gGetHighest", Best Card
@@ -130,6 +129,7 @@ Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gUnignoreAll", Unignore All
 Gui, Add, Button,% "h" EditHeight+2 " ym-" -1 " xp+" ElementWidth*2+9+15 " w" ElementWidth*2+5 " gIgnorePlayer", Ignore Players
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnoreTeam", Ignore Teams
 Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gIgnorePos", Ignore Pos'
+Gui, Add, Button,% "wp hp yp+" VerticalSpacing " gReload", &Reload
 
 TeamIgnoreNameToId := []
 TeamIgnores := {}
@@ -668,6 +668,7 @@ PointPlayerList:=SubStrEnd(PointPlayerList,1)
 Return
 
 DownloadPlayerData:
+GuiControl,,% "Hint",% "Downloading"
 PlayerDataPath := PlayerDataOverrideURL = "" ? (A_ScriptDir "/PlayerData" A_Year ".txt") : (A_ScriptDir "/PlayerDataCustom.txt")
 TempPath = %A_ScriptDir%/PlayerDataTemp.txt
 UrlDownloadToFile,% PlayerDataOverrideURL = "" ? "http://fantasy.prizetrac.kr/views/international" A_Year "/average.php" : PlayerDataOverrideURL,% TempPath
@@ -682,6 +683,8 @@ fileStr := SubStr(fileStr, 1, InStr(fileStr, "$(document)")-10)
 
 FileAppend,% fileStr,% PlayerDataPath
 
+Gosub, ParsePlayers
+GuiControl,,% "Hint",% "Downloaded!"
 Return
 
 GetHighestByPlayer: ;Get best card by already entered name
