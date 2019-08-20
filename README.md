@@ -26,8 +26,9 @@ Only limited testing has been done on other systems to check stability.
  
  Each script can have a bunch of settings. Each variable is defined for a script like `HotkeyAllowModifiers[SC] := <value>`.  
  Scripts are usually under v1/ScriptFrog/Scripts but this is not needed. #Include the script you made in the start of ScriptFrog.ahk (where all the other ones are included).  
- Subroutes are called as \<HotkeySub\>_\<SubRoute\> (eg. MYSCRIPT_Load, MYSCRIPT_Ctrl, MYSCRIPT).  
+ Subroutes are called as \<HotkeySub\>\_\<SubRoute\> (eg. MYSCRIPT_Load, MYSCRIPT_Ctrl, MYSCRIPT).  
  The \<HotkeySub\> label is called when an assigned hotkey is pressed without modifiers.  
+ If you enable `HotkeyShift` (`HotkeyShift[SC] := 1)`, the `\<HotkeySub\>\_Shift` label is called when the user triggers the script while pressing shift.  
 
 ```autohotkey
 ; Required
