@@ -1,7 +1,7 @@
 # AutoHotkey-Scripts
  Folder of my AutoHotkey scripts.
  
- Made for 2560x1440 monitors and my system :)  
+Only limited testing has been done on other systems to check stability.  
  
  #### Run BuildIncludes.ahk before using
  
