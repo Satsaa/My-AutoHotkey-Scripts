@@ -69,16 +69,16 @@ Gui, 2:Add, Radio,% "gRadio xm Checked" ((RelativeCorner=0) ? (1) : (0)), Screen
 
 Gui, 2:Add, Text, xm y+8, X
 Gui, 2:Add, Edit, gInputUpdate vInputX xm+15 yp-3 w125,% InputX
-Gui, 2:Add, Text, vInputXHint xm+145 yp+5 w30,% InputX
+Gui, 2:Add, Text, -wrap w35 h15 vInputXHint xm+145 yp+5,% InputX
 Gui, 2:Add, Text, xm y+8, Y
 Gui, 2:Add, Edit, gInputUpdate vInputY xm+15 yp-3 w125,% InputY
-Gui, 2:Add, Text, vInputYHint xm+145 yp+5 w30,% InputY
+Gui, 2:Add, Text, -wrap w35 h15 vInputYHint xm+145 yp+5,% InputY
 Gui, 2:Add, Text, xm-3 y+8, X2
 Gui, 2:Add, Edit, gInputUpdate vInputX2 xm+15 yp-3 w125,% InputX2
-Gui, 2:Add, Text, vInputX2Hint xm+145 yp+5 w30,% InputX2
+Gui, 2:Add, Text, -wrap w35 h15 vInputX2Hint xm+145 yp+5,% InputX2
 Gui, 2:Add, Text, xm-3 y+8, Y2
 Gui, 2:Add, Edit, gInputUpdate vInputY2 xm+15 yp-3 w125,% InputY2
-Gui, 2:Add, Text, vInputY2Hint xm+145 yp+5 w30,% InputY2
+Gui, 2:Add, Text, -wrap w35 h15 vInputY2Hint xm+145 yp+5,% InputY2
 
 Gui, 2:Add, Checkbox, gUpdateHotkeys vHotkeys Checked%Hotkeys% xm, Adjust with shift and arrow keys
 Gui, 2:Add, Slider, gDelayUpdate vDelay Range0-5000 NoTicks AltSubmit wp-17 x2,% Delay
