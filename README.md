@@ -15,7 +15,7 @@ Only limited testing has been done on other systems (report problems in issues).
 </p>
 </details>
 
-###### (Macros are WIP)  
+###### Macros are WIP and unusable!  
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
  Supports exporting/importing your current hotkeys/settings.  
