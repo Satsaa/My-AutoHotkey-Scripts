@@ -19,7 +19,7 @@ Only limited testing has been done on other systems (report problems in issues).
  ScriptFrog includes a bunch of smaller scripts that you can hotkey.  
  Each of those scripts can have settings that you can edit in the Settings tab.  
  Supports exporting/importing your current hotkeys/settings.  
- Has profiles for a few select programs which are hardcoded (Default, Dota, Minecraft, Witcher). You have to live with them or edit them yourself (usually waits for a specific window title or program).
+ Has profiles for a few select programs which are hardcoded (Default, Dota, Minecraft, Witcher). You have to live with them or edit the code yourself!
 
 <details><summary>Adding you own scripts</summary>
 <p>
