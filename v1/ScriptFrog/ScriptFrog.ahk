@@ -41,6 +41,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Dota Trash.ahk
 #Include %A_ScriptDir%\Scripts\Scroll.ahk
 #Include %A_ScriptDir%\Scripts\Surround.ahk
+#Include %A_ScriptDir%\Scripts\TrimUrl.ahk
 
 DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
@@ -118,6 +119,9 @@ if (MaxGuiHeight < 200) {
 Gui, Tab, Hotkeys
 GuiAddX(,,-HotkeySize+9)
 Loop, %SC% {  ;HOTKEYS
+  if (InStr(HotkeyName[A_Index], " ")) {
+    Throw "Spaces are not allowed in script names: `n""" HotkeyName[A_Index] """"
+  }
 	If (HotkeyGlobal[A_Index]) {
 		Gui, font, c7a0004
 	}
@@ -484,7 +488,7 @@ RestoreHotkeys(Save) {
 	DebugPrepend(A_ThisFunc ". Pass " LoadIndex)
 	Loop, %SC% {
 		IniRead, %A_Index%, Hotkeys.ini, %Save%,% HotkeyName[A_Index], %A_Space%
-		If (%A_Index%) {
+		If (%A_Index% != "") {
 			If (!HotkeySub[A_Index]){  ;If no subroute is defined for hotkey, skip it and complain
         DebugPrepend("No hotkey subroute defined for " HotkeyName[A_Index] "!")
       } else {
@@ -542,7 +546,7 @@ RemoveDuplicateHotkeys() {
 	Local GlobalID, DupeFound=0
 	Loop, %SC% {
 		If (HotkeyGlobal[A_Index]){  ;Only check duplicates per global
-			If (%A_Index%) {
+			If (%A_Index% != "") {
 			GlobalID := A_Index
 				Loop, %SC% {
 					If (RemoveModifiers(%A_Index%)=RemoveModifiers(%GlobalID%) and A_Index!=GlobalID) {
@@ -995,18 +999,6 @@ DotaHotkeys:
 If (!DotaEnabled and ActiveTitle="Dota 2") {
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys("default")
-	Hotkey,% "*" DotaItem[1], DotaZ
-	Hotkey,% "*" DotaItem[1], On
-	Hotkey,% "*" DotaItem[2], DotaX
-	Hotkey,% "*" DotaItem[2], On
-	Hotkey,% "*" DotaItem[3], DotaC
-	Hotkey,% "*" DotaItem[3], On
-	Hotkey,% "*" DotaItem[4], DotaV
-	Hotkey,% "*" DotaItem[4], On
-	Hotkey,% "*" DotaItem[5], DotaB
-	Hotkey,% "*" DotaItem[5], On
-	Hotkey,% "*" DotaItem[6], DotaN
-	Hotkey,% "*" DotaItem[6], On
 
 	Hotkey,% "*" DotaQuickBuy, DotaQuickBuy
 	Hotkey,% "*" DotaQuickBuy, On
@@ -1026,12 +1018,6 @@ If (!DotaEnabled and ActiveTitle="Dota 2") {
 }
 DisableDota:
 SaveHotkeys("Dota")
-Hotkey,% "*" DotaItem[1], Off	
-Hotkey,% "*" DotaItem[2], Off
-Hotkey,% "*" DotaItem[3], Off
-Hotkey,% "*" DotaItem[4], Off
-Hotkey,% "*" DotaItem[5], Off
-Hotkey,% "*" DotaItem[6], Off
 
 Hotkey,% "*" DotaQuickBuy, Off
 Hotkey,% "*" DotaCourier, Off
@@ -1086,36 +1072,6 @@ Return
 ;;Automatic scripts. Non-hotkeyable
 ;#####################################################################################
 
-DotaZ:
-Send {Blind}{z down}
-KeyWait,% DotaItem[1]
-Send {Blind}{z up}
-Return
-DotaX:
-Send {Blind}{x down}
-KeyWait,% DotaItem[2]
-Send {Blind}{x up}
-Return
-DotaC:
-Send {Blind}{c down}
-KeyWait,% DotaItem[3]
-Send {Blind}{c up}
-Return
-DotaV:
-Send {Blind}{v down}
-KeyWait,% DotaItem[4]
-Send {Blind}{v up}
-Return
-DotaB:
-Send {Blind}{b down}
-KeyWait,% DotaItem[5]
-Send {Blind}{b up}
-Return
-DotaN:
-Send {Blind}{n down}
-KeyWait,% DotaItem[6]
-Send {Blind}{n up}
-Return
 
 DotaCourier:
 Send {f2}
@@ -1164,3 +1120,5 @@ Return
 
 
 :*:cosnt::const
+:*:nwe::new
+:*:vra::var

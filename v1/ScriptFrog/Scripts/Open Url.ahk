@@ -1,5 +1,5 @@
 ﻿SC++
-HotkeyName[SC] := "Open Url"
+HotkeyName[SC] := "Open_URL"
 HotkeySub[SC] := "OU"
 HotkeySettings[SC] := "OU_UrlSuffix,OU_InsertClipboard,OU_UrlPrefix,OU_Copy"
 HotkeySettingsDescription[SC] := "OU_UrlSuffix:`nBeginning of url`n`nOU_InsertClipboard:`nInsert clipboard contents?`n`nOU_UrlPrefix:`nEnd of url`n`nOU_Copy:`nCopy selected text before opening url?"
