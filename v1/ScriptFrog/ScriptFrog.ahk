@@ -49,7 +49,6 @@ DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 
 
 ;These keys are assigned to Dota2 hotkeys (items, courier etc)
-DotaItem := ["F13", "F14", "F15", "F16", "F17", "F18"],
 DotaCourier := "F20", DotaQuickBuy := "F19",
 LaunchHidden := %1%,  ;If first launch param equals true the gui is hidden on launch
 TPS := 64,  ;Not precise. Refreshes per second max at 64
