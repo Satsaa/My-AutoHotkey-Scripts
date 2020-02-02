@@ -48,8 +48,6 @@ DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 
 
 
-;These keys are assigned to Dota2 hotkeys (items, courier etc)
-DotaCourier := "F20", DotaQuickBuy := "F19",
 LaunchHidden := %1%,  ;If first launch param equals true the gui is hidden on launch
 TPS := 64,  ;Not precise. Refreshes per second max at 64
 MaxPerColumn := 8,  ;Initial maximum amount of hotkeys per column
@@ -999,10 +997,6 @@ If (!DotaEnabled and ActiveTitle="Dota 2") {
 	GoSub DisableHotkeyProfiles
 	SaveHotkeys("default")
 
-	Hotkey,% "*" DotaQuickBuy, DotaQuickBuy
-	Hotkey,% "*" DotaQuickBuy, On
-	Hotkey,% "*" DotaCourier, DotaCourier
-	Hotkey,% "*" DotaCourier, On
 
 	RestoreHotkeys("Dota")
 	RemoveDuplicateHotkeys()
@@ -1018,8 +1012,6 @@ If (!DotaEnabled and ActiveTitle="Dota 2") {
 DisableDota:
 SaveHotkeys("Dota")
 
-Hotkey,% "*" DotaQuickBuy, Off
-Hotkey,% "*" DotaCourier, Off
 RestoreHotkeys("default")
 RemoveDuplicateHotkeys()
 DotaEnabled=0
@@ -1072,13 +1064,6 @@ Return
 ;#####################################################################################
 
 
-DotaCourier:
-Send {f2}
-Return
-DotaQuickBuy:
-Send {f5}
-Return
-
 If GetKeyState("MButton", "P") {
 	Return
 }
@@ -1121,3 +1106,4 @@ Return
 :*:cosnt::const
 :*:nwe::new
 :*:vra::var
+:*:flaot::float
