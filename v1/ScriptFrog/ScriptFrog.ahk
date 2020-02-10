@@ -41,6 +41,7 @@ CoordMode, Mouse, Screen
 #Include %A_ScriptDir%\Scripts\Dota Trash.ahk
 #Include %A_ScriptDir%\Scripts\Scroll.ahk
 #Include %A_ScriptDir%\Scripts\Surround.ahk
+#Include %A_ScriptDir%\Scripts\Remap to End.ahk
 
 DummyCount:=0  ;Create vegetable scripts for UI testing etc.
 #Include %A_ScriptDir%\Scripts\Dummy.ahk
