@@ -26,6 +26,11 @@ PI:
 PI_Invert=0
 GoTo PI_Start
 PI_Start:
+MouseGetPos,,, PIN_WinId,
+WinGet Process, ProcessName, ahk_id %PIN_WinId%
+If (Process!="chrome.exe"){
+	Return
+}
 If !(PI_Velocity){
 	GoTo PI_Shift
 }
