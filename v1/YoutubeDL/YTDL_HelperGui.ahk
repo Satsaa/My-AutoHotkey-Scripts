@@ -4,7 +4,7 @@
 
 
 IniFile:="YTDL_Prefs.ini"
-ReadIniDefUndef(,IniFile,"InputOptions","-x --audio-format mp3 -o "/dl2/%(title)s.%(ext)s" --add-metadata --embed-thumbnail --xattrs","InputUrl","https://www.youtube.com/watch?list=PL-Fj1mEvN9BhlqNeNQOi2ciUh5F5sHIxY")
+ReadIniDefUndef(,IniFile,"InputOptions","-x --audio-format mp3 -o ""/dl/%(title)s.%(ext)s"" --add-metadata --embed-thumbnail --xattrs","InputUrl","https://www.youtube.com/watch?list=PL-Fj1mEvN9BhlqNeNQOi2ciUh5F5sHIxY")
 ResDir := DirAscend(A_ScriptDir) "\Res"
 Menu, Tray, Icon, %ResDir%\forsenDL.ico
 Gui, Add, Text,, Options
