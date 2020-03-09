@@ -10,7 +10,7 @@ RTE_Load:
 Return
 
 RTE_Any:
-send {End}
+send {Blind} {End}
 Return
 
 RTE_End:
