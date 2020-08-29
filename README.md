@@ -81,6 +81,8 @@ AN_End:
  ![Boxy](https://raw.githubusercontent.com/Satsaa/My-AutoHotkey-Scripts/master/v1/Res/Readme/Boxy.png "Boxy")   
  Boxy is a snipping tool with Gimp box select style control (ctrl-,alt-,shift drag) + math controlling.
  
+ Boxy consists of 2 windows or GUIS:
+ 
  Main GUI which has settings for and shows your previous screenshot.  
  Has controls for box X,Y,X2,Y2 values which can use basic math and variables available to the script.  
  These values are relative to the screen or a window you can choose using [WinTitle](https://www.autohotkey.com/docs/misc/WinTitle.htm) parameter format.  
