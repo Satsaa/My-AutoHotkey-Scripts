@@ -1102,9 +1102,3 @@ Click, WinX+350, WinY+15
 MousePos("Restore")
 BlockInput, MouseMoveOff
 Return
-
-
-:*:cosnt::const
-:*:nwe::new
-:*:vra::var
-:*:flaot::float

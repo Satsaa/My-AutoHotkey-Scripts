@@ -46,7 +46,7 @@ If (ErrorLevel = 0) {	;If it IS NOT running
 	Run,% Command%Current%
 	Finished=0
 }
-GuiControl, , QueueText,% ((DLS-Current)!=0) ? ("Downloading " DLS-Current+1 " files.") : ("Downloading 1 file.")
+GuiControl, , QueueText,% "Downloading (" DLS-Current+1 ")"
 Return
 
 
