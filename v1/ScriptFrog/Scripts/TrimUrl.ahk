@@ -58,7 +58,7 @@ If (ChangingSetting="TU_StartCount" or ChangingSetting="TU_EndCount"){
   	DebugSet(ChangingSetting " must be a nonnegative number")
   }
 } else If (ChangingSetting="TU_Go"){
-  %A_GuiControl% := %A_GuiControl%
+	%A_GuiControl% := %A_GuiControl%
 	GoTo SettingsSuccess
 }
 Return
