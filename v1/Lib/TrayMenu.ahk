@@ -63,7 +63,8 @@ for index, element in TM_SHOWGUI
 Return
 
 Edit:
-Run,% """C:\Program Files\Microsoft VS Code\Code.exe"" " """"DirAscend(A_ScriptDir)""""
+EnvGet, LocalAppData, LOCALAPPDATA
+Run,% """" . LocalAppData . "\Programs\Microsoft VS Code\Code.exe"" " """"DirAscend(A_ScriptDir)""""
 Return
 
 OpenScriptFolder:
