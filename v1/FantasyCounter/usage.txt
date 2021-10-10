@@ -9,15 +9,18 @@ Chrome tested
 3: Open the inspector tab 
   - press ctrl+shift+i
   - or right click and select inspect
-4: Select the "Console" tab
-5: Write "copy(cardData.cards)" and press enter
-6: Empty CardData.txt (in script folder)
-7: Paste the copied contents to CardData.txt
+4: Write "copy(cardData.cards)" in the Console tab
+5: Overwrite the contents of CardData.json (in script folder)
+  - ctrl+a -> ctrl+v
+  - json data must be "properly" formatted!
+  	- New lines must be present
+	- Indentation with any amount of whitespace
+	- Empty arrays can be terminated on the same line
 
 
 -- PlayerData****.txt -- Average stats for players
 
 PlayerData is automatically downloaded from http://fantasy.prizetrac.kr/views/international<CURRENT_YEAR>/average.php
 If you want to use a different source for PlayerData,
-set "PlayerDataOverrideURL" in Prefs.ini to your desired url.
-Your custom URL must have contents in the same format.
+set "PlayerDataOverrideURL" in Prefs.ini to your desired URL.
+Your custom URL must have contents in the same format as the default URL.
