@@ -46,7 +46,7 @@ SettingSize := 40, ;Width for settings edit boxes
 ButtonSize := 50, ;Width for sidebar buttons
 MinTabHeight := 220, ;Minimum height for tab control
 WinGet, WinID,, A
-ProfileList := "Default,Dota,Valorant,Witcher"
+ProfileList := "Default,Dota,Valorant,Tekken"
 Profile := "Default",
 GuiTitle := RegExReplace(A_ScriptName, ".ahk"), ;Title for gui
 ResDir := DirAscend(A_ScriptDir) "\Res",
@@ -177,7 +177,7 @@ If (FirstLoad) {
     Gui, Add, Button,% (MaxGuiHeight <253)?("gDefaultOverride w" ButtonSize " ym"):("gDefaultOverride wp xp y"MaxGuiHeight-85), Default
     Gui, Add, Button, w%ButtonSize% gDotaOverride, Dota
     Gui, Add, Button, w%ButtonSize% gValorantOverride, Valorant
-    Gui, Add, Button, w%ButtonSize% gWitcherOverride, Witcher
+    Gui, Add, Button, w%ButtonSize% gTekkenOverride, Tekken
 
     Gui, Tab, %GuiTitle%
     Gui, Add, Button, w%HotkeySize% gExportHotkeys, Export Hotkeys
@@ -237,7 +237,7 @@ If (FirstLoad) {
         and ActiveTitle!=PrevActiveTitle and ActiveTitle!=A_ScriptName) {
             GoSub DotaHotkeys
             GoSub ValorantHotkeys
-            GoSub WitcherHotkeys
+            GoSub TekkenHotkeys
             Gosub SB_Title
             If (ActiveTitle="This is an unregistered copy") {
                 WinClose, This is an unregistered copy
@@ -1007,30 +1007,39 @@ DisableDota:
     DebugPrepend("Disabled dota")
 Return
 
-WitcherOverride:
-    ActiveTitle := "The Witcher 3"
-WitcherHotkeys:
-    If (ActiveTitle="The Witcher 3" and !WitcherEnabled) {
-        GoSub DisableHotkeyProfiles
-        SaveHotkeys("default")
-        RestoreHotkeys("Witcher")
-        RemoveDuplicateHotkeys()
-        WitcherEnabled=1
-        Gosub SB_Profile
-        DebugPrepend("Enabled Witcher")
-        Return
-    } else {
-        If (!WitcherEnabled or ActiveTitle="Search" or ActiveTitle="The Witcher 3" or !ActiveTitle or ActiveTitle=GuiTitle) {
+TekkenOverride:
+    ActiveTitle := "TEKKEN 7"
+TekkenHotkeys:
+    If InStr(ActiveTitle, "TEKKEN 7") {
+        If InStr(ActiveTitle, "Google") {
             Return
         }
+        If !(TekkenEnabled) {
+            GoSub DisableHotkeyProfiles
+            SaveHotkeys("default")
+            RestoreHotkeys("Tekken")
+            RemoveDuplicateHotkeys()
+            TekkenEnabled=1
+            Gosub SB_Profile
+            DebugPrepend("Enabled Tekken")
+        }
+        Return
+    } else {
+        If (!TekkenEnabled or ActiveTitle="Search" or !ActiveTitle or ActiveTitle=GuiTitle) {
+            Return
+        } else {
+            If InStr(ActiveTitle, "TEKKEN 7") {
+                Return
+            }
+        }
     }
-DisableWitcher:
-    SaveHotkeys("Witcher")
+DisableTekken:
+    SaveHotkeys("Tekken")
     RestoreHotkeys("default")
     RemoveDuplicateHotkeys()
-    WitcherEnabled=0
+    TekkenEnabled=0
     Gosub SB_Profile
-    DebugPrepend("Disabled Witcher")
+    DebugPrepend("Disabled Tekken")
 Return
 
 DefaultOverride:
@@ -1042,8 +1051,8 @@ DisableHotkeyProfiles:
     If (ValorantEnabled) {
         GoSub DisableValorant
     }
-    If (WitcherEnabled) {
-        GoSub DisableWitcher
+    If (TekkenEnabled) {
+        GoSub DisableTekken
     }
 Return
 
