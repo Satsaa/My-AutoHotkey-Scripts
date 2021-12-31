@@ -36,7 +36,7 @@ PI_Start:
     }
     Send ^l
     Clipboard(1)
-    Send ^x
+    Send ^c
     ClipWait 0.05
     If (ErrorLevel){
         Clipboard(0)
@@ -51,17 +51,20 @@ PI_Start:
     }
     ClipFailCount=0
     PI_Url := Clipboard
-    if (PI_Url != ""){
+    If (PI_Url != ""){
         PI_Url := RegExReplace(PI_Url, PI_Replace)
     }
-    RegExMatch(PI_Url, "(-?\d+)(\D*$)", PI_Extract)
+    PI_MatchPos := RegExMatch(PI_Url, "(-?\d+)(\D*$)", PI_Extract)
+    If (!PI_MatchPos or ErrorLevel)
+        Return
+    PI_DubiousFormat := RegExMatch(SubStr(PI_Url, PI_MatchPos - 1, 1), "\w") == 1 ; Dubious formats like: "page-5" / "p5"
     If (PI_Invert){
-        PI_Extract := PI_Extract1+PI_Velocity*-1 . PI_Extract2
+        PI_Extract := PI_Extract1 - ((PI_DubiousFormat and PI_Extract1 < 0) ? -PI_Velocity : PI_Velocity) . PI_Extract2
     } else {
-        PI_Extract := PI_Extract1+PI_Velocity . PI_Extract2
+        PI_Extract := PI_Extract1 + ((PI_DubiousFormat and PI_Extract1 < 0) ? -PI_Velocity : PI_Velocity) . PI_Extract2
     }
     Send ^l
-    Paste(RegExReplace(PI_Url, "\d+\D*$", PI_Extract))
+    Paste(RegExReplace(PI_Url, "-?\d+\D*$", PI_Extract))
     Send {Enter}
     sleep 1
     Clipboard(0)
