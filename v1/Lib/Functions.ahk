@@ -470,6 +470,8 @@ MoveGuiToBounds(Gui,Aggressive=0){
 	Gui, %Gui%: +LastFound
 	WinGetPos, GX, GY, GW, GH,
 	WinGetPos,,,, TBH, ahk_class Shell_TrayWnd
+	if (TBH = "")
+		TBH = 40 ; Get pos fails e.g. when the start menu is open
 	If (Aggressive=1)
 		Gui, %Gui%:Show,% ((GX<0)?(" x-2 "):(((GX+GW>VW)?(" x" VW-GW+2):("")))) ((GY<0)?(" y0 "):(((GY+GH>VH-TBH-2)?(" y" VH-GH-TBH+2):(""))))
 	else Gui, %Gui%:Show,% ((GX+GW<0)?(" x-2 "):(((GX>VW)?(" x" VW-GW+2):("")))) ((GY+GH<0)?(" y0 "):(((GY>VH-TBH-2)?(" y" VH-GH-TBH+2):(""))))
@@ -478,10 +480,9 @@ MoveGuiToBounds(Gui,Aggressive=0){
 ;#####################################################################################
 ;Returns accurately how many seconds have passed between QPC(1) and QPC(0)
 
-QPC(R := 0)
-{
-    static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
-    return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
+QPC(R := 0){
+  static P := 0, F := 0, Q := DllCall("QueryPerformanceFrequency", "Int64P", F)
+  return ! DllCall("QueryPerformanceCounter", "Int64P", Q) + (R ? (P := Q) / F : (Q - P) / F) 
 }
 
 ;#####################################################################################
@@ -490,7 +491,8 @@ QPC(R := 0)
 DirAscend(Folder,Up=1){
 	Loop, %Up% {
 		SplitPath, Folder,,Folder,,,Drv
-	} Return Folder
+	}
+	Return Folder
 }
 
 ;#####################################################################################
@@ -503,8 +505,7 @@ GetLayout(){
 ;#####################################################################################
 ;Hide or show cursor
 
-SystemCursor(OnOff=1)   ; INIT = "I","Init"; OFF = 0,"Off"; TOGGLE = -1,"T","Toggle"; ON = others
-{
+SystemCursor(OnOff=1){  ; INIT = "I","Init"; OFF = 0,"Off"; TOGGLE = -1,"T","Toggle"; ON = others
    static AndMask, XorMask, $, h_cursor
       ,c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13  ; system cursors
         , b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13  ; blank cursors
