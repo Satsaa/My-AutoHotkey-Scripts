@@ -35,10 +35,10 @@ Only limited testing has been done on other systems (report problems in issues).
 HotkeyName := [],                   ;Displayed name of the hotkey. Must be a valid variable name. "_" is displayed as a space
 HotkeySub := [],                    ;Subroute prefix (_ is added to the end)
 HotkeyDescription := [],            ;Description of what each hotkeys do / any text
-HotkeySettings := [],               ;Comma separated list of settings that will be shown in the Settings tab
-HotkeySettingsDescription := [],    ;Description of what all the settings do / any text
 
 ; Optional
+HotkeySettings := [],               ;Comma separated list of settings that will be shown in the Settings tab
+HotkeySettingsDescription := [],    ;Description of what all the settings do / any text
 HotkeyGlobal := [],                 ;Defines if the hotkey will be globally active
 HotkeyAllowModifiers := [],         ;Defines if the hotkey allows modifiers in its hotkey
 HotkeyDisableMain[]                 ;Defines if the hotkey's main       subroute is NOT active (Executed when hotkey is pressed without modifiers)
