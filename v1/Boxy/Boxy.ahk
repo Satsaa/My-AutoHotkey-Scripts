@@ -30,13 +30,10 @@ ReadIniDefUndef("Settings",,"RelativeTitle","A","RelativeCorner",0,"Looping",0
 ReadIni("Settings",,"ScreenshotFolder") ; Screenshot\
 if (!ScreenshotFolder) {
   FileSelectFolder, ScreenshotFolder,, 3, Select screenshot folder
-  MsgBox, %ScreenshotFolder%
   if (!ScreenshotFolder) {
-    MsgBox, Screenshot folder set to %A_ScriptDir%\Screenshots\
     ScreenshotFolder = Screenshots
   }
   ScreenshotFolder := ScreenshotFolder . "\"
-  MsgBox, %ScreenshotFolder%
   WriteIni("Settings",,"ScreenshotFolder")
 }
 
