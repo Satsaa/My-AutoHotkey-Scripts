@@ -28,7 +28,7 @@ PI:
 PI_Start:
     MouseGetPos,,, PI_WinId,
     WinGet Process, ProcessName, ahk_id %PI_WinId%
-    If (Process!="chrome.exe"){
+    If (Process!="chrome.exe" and Process!="brave.exe"){
         Return
     }
     If !(PI_Velocity){
